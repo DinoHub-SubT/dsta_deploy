@@ -1,19 +1,50 @@
-# Ignore files/folders in same directory as the .gitignore file
+###################################################################################################
+### ignore files/folders in same directory as the .gitignore file
 /*
 
-# Allow deploy specific files
+###################################################################################################
+### allow deploy specific
 !.gitignore
 !.gitmodules
-
-# Allow deploy specific directories
-!.catkin_tools/
-!planning/deps/rosinstall
-!planning/deps/.catkin_tools/
 !ci/
-!deploy/
+!documentation/
+!docker/
 
-# Allow repo ws directory
-# ADD HERE.
+###################################################################################################
+### allow planning workspace
+# howto: https://stackoverflow.com/questions/5533050/gitignore-exclude-folder-but-include-specific-subfolder
+# TODO: double asterics shortcut?
 
-# ignore anything that was previously allowed
-.catkin_tools/profiles/default/packages/
+# unignore planning-ws 
+!planning/
+planning/*
+
+# allow specific repos
+!planning/planning_workspace/
+!planning/.catkin_tools/
+
+###################################################################################################
+### allow planning deps
+
+# unignore planning deps-ws
+!planning/deps/
+planning/deps/*
+# unignore deps-ws catkin
+!planning/deps/catkin
+planning/deps/catkin/*
+
+# allow specific repos
+!planning/deps/catkin/.catkin_tools/
+
+###################################################################################################
+### ignore anything that was previously allowed
+
+# ignore catkin tools non config packages
+planning/.catkin_tools/profiles/default/packages/
+planning/.catkin_tools/profiles/default/devel_collisions.txt
+planning/.catkin_tools/profiles/default/build.yaml
+
+# ignore catkin tools non config packages
+planning/deps/catkin/.catkin_tools/profiles/default/packages/
+planning/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+planning/deps/catkin/.catkin_tools/profiles/default/build.yaml
