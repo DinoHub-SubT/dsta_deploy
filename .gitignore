@@ -1,0 +1,16 @@
+# Ignore files/folders in same directory as the .gitignore file
+/*
+
+# Allow deploy specific files
+!.gitignore
+!.gitmodules
+
+# Allow deploy specific directories
+!.catkin_tools/
+!ci/
+
+# Allow repo ws directory
+# ADD HERE.
+
+# ignore anything that was previously allowed
+.catkin_tools/profiles/default/packages/
