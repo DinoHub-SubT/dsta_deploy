@@ -7,7 +7,10 @@
 
 # Allow deploy specific directories
 !.catkin_tools/
+!planning/deps/rosinstall
+!planning/deps/.catkin_tools/
 !ci/
+!deploy/
 
 # Allow repo ws directory
 # ADD HERE.
