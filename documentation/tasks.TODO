@@ -9,3 +9,5 @@
 ☐ organize docker scripts for specific robots
 ☐ go over submodule init
 ☐ make more of an README
+☐ add git webhook for deploy on bitbucket
+

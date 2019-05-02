@@ -5,7 +5,7 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../devel/subt
-extend_path: /home/developer/deploy_ws/install/deps
+extend_path: ../../install/deps
 install: false
 install_space: ../../install/subt
 isolate_install: false

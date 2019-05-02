@@ -1,0 +1,23 @@
+# phase file for build to run
+phase: ci/phase/planning.yaml
+
+# jenkins stages configuration
+stages: [source, build]
+
+# source stage
+source:
+  timeout: 100000
+  messages: "clone subt deps & ws repo"
+  sections: [clone]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"
+
+# source stage
+build:
+  timeout: 100000
+  messages: "build subt deps & ws repo"
+  sections: [build]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"

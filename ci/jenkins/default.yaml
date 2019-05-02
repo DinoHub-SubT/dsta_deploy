@@ -5,9 +5,9 @@ email: true
 
 # slack notifications
 slack:
-  started: true
-  success: true
-  failure: true
+  started: false
+  success: false
+  failure: false
   # available: theairlab, minerobots
   subdomain: "minerobots"
 
@@ -18,7 +18,7 @@ slurm:
 # docker configuration
 docker:
   # docker image to use
-  image: "subt/base:latest"
+  image: "subt:0.1-devel"
 
   # slurm options
   slurm:
@@ -48,36 +48,3 @@ docker:
     - "-e DISPLAY"
     - "--ulimit nofile=1048576:1048576" 
 
-# phase file for build to run
-phase: ci/phase/default.yaml
-
-# jenkins stages configuration
-stages: [source, build]
-
-# source stage
-source:
-  timeout: 100000
-  messages: "clone the darpa, subt ws and their dependencies"
-  sections: [darpa.source, subt.source]
-  slurm:
-    - "-t 0-01:00"
-    - "-c 4"
-
-# build stage
-build:
-  timeout: 100000
-  messages: "build the darpa, subt ws"
-  sections: [darpa.build, subt.build]
-  slurm:
-    - "-t 0-02:00"
-    - "-c 4"
-
-# build stage
-# test:
-#   timeout: 100000
-#   messages: "integration tests"
-#   sections: [test.integration]
-#   slurm:
-#     - "-t 0-02:00"
-#     - "-c 8"
-#     # - "-p gpu --gres=gpu:1"
