@@ -1,0 +1,48 @@
+deploy_ws
+  ci
+  .catkin_tools
+    profiles
+    ...
+  launch_scripts [submodule]
+  planning_workspace [submodule]
+  .rosinstall
+  ...
+  deps
+    CATKIN_IGNORE  
+    catkin
+      .catkin_tools
+      subt_osrf
+      ... any other deps ...
+      
+
+deploy_ws
+  ci
+  deploy
+    documentation
+  planning
+    rosinstall/planning.rosinstall
+    deps
+      .catkin_tools
+      rosinstall/deps.rosinstall
+  hardware
+    .catkin_tools
+    rosinstall/hardware.rosinstall
+  launch
+    repo [submodule]
+
+--------------------------------------------------------------------------------
+☐ ExternalProject_add for tar
+  - for now: `tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1`
+- change jenkins submodule to https  
+
+
+--------------------------------------------------------------------------------
+
+tag specific submodules
+  - each tag contains a rosinstall (if necessary) with specific commit SHA
+
+ci_phaser builds specific set of configs
+
+only 1 rosinstall per subdirectory
+
+rename ci_phaser to ci_builder?

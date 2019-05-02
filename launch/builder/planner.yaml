@@ -1,0 +1,40 @@
+- pwd
+- 'export SRC_DIR=$PWD/../'
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////
+# build the subt-deps repo
+# /////////////////////////////////////////////////////////////////////////////////////////////////
+- deps:
+  - 'echo "deps dir: " && pwd'  
+  - source:
+    # clone repos
+    - cd $SRC_DIR/planning/deps/catkin/
+    - ln -s $SRC_DIR/planning/rosinstall/deploy-deps.rosinstall .rosinstall
+    - wstool update
+    
+  - build:
+    # build repos
+    - cd $SRC_DIR/planning/deps/catkin/
+    - catkin build
+
+  - post-install:
+    - cd $SRC_DIR/install
+    - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+    - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+
+# /////////////////////////////////////////////////////////////////////////////////////////////////
+# build the subt repo
+# /////////////////////////////////////////////////////////////////////////////////////////////////
+- subt:
+  - 'echo "subt dir: " && pwd'  
+  - source:
+    # clone source
+    - cd $SRC_DIR/planning/
+    - ln -s planning_workspace/rosinstall/deploy.rosinstall .rosinstall
+    - wstool update
+  - build:
+    # build repos
+    - cd $SRC_DIR/planning/
+    - catkin build
+
+

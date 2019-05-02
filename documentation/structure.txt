@@ -1,36 +1,61 @@
-deploy_ws
-  ci
-  .catkin_tools
-    profiles
-    ...
-  launch_scripts [submodule]
-  planning_workspace [submodule]
-  .rosinstall
-  ...
-  deps
-    CATKIN_IGNORE  
-    catkin
-      .catkin_tools
-      subt_osrf
-      ... any other deps ...
-      
+deploy
 
-deploy_ws
   ci
-  deploy
-    documentation
-  planning
-    rosinstall/planning.rosinstall
-    deps
-      .catkin_tools
-      rosinstall/deps.rosinstall
-  hardware
-    .catkin_tools
-    rosinstall/hardware.rosinstall
+    - jenkins scripts & config files
+    - possibly ci_versioner
+
+  docker
+    - dockerfiles & config file for craeting images, running containers
+
+  documentation
+    - how to use deploy repo
+
   launch
-    repo [submodule]
+    builder
+      - yaml files for automated build of the deploy repo (can configure to build specific workspaces)
 
---------------------------------------------------------------------------------
-☐ ExternalProject_add for tar
-  - for now: `tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1`
-- change jenkins submodule to https  
+    ugv_setup/ [submodule]
+      - launch scripts
+
+  field_support
+    - misc. scripts (possibly non-catkin), notes, procedures, etc.
+      - example: copy scripts
+    
+  planning
+    - perform here:
+      - ln -s planning_workspace/deploy.rosinstall
+      - wstool update
+      - catkin build
+      * catkin_tools config files already extend the deps install
+      
+    .catkin_tools/
+      - catkin tools profile configuration (repo setup) for planning
+
+    planning_workspace [submodule]
+      - deploy rosinstall
+      - deploy-deps rosinstall
+    
+    deps/catkin/
+      - perform here:
+        - ln -s ../../planning_workspace/deploy-deps.rosinstall
+        - wstool update
+        - catkin build
+
+      .catkin_tools/
+        - catkin tools profile configuration (repo setup) for deps
+      thirdparty1/
+        - any thirdparty repo not in rosinstall
+
+  perception
+    .catkin_tools/
+      - catkin tools profile configuration (repo setup) for perception
+ 
+    object_detection [submodule]
+ 
+    deps/ [optional]
+      - ...
+
+---------------------------------------------------------------------------------------------------
+
+Issues/Questions:
+  - How to deal with hardware repos?
