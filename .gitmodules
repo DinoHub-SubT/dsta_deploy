@@ -7,3 +7,6 @@
 [submodule "planning/planning_workspace"]
 	path = planning/planning_workspace
 	url = git@bitbucket.org:cmusubt/planning_workspace.git
+[submodule "docker/tools"]
+	path = docker/tools
+	url = git@bitbucket.org:castacks/ci_tools.git
