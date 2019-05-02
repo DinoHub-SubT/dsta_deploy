@@ -12,6 +12,7 @@
 !field_support/
 !launch/
 !hardware/
+!perception/
 
 ###################################################################################################
 ### allow planning workspace
