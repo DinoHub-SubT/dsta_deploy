@@ -10,3 +10,6 @@
 [submodule "docker/tools"]
 	path = docker/tools
 	url = git@bitbucket.org:castacks/ci_tools.git
+[submodule "field_support/ugv_setup"]
+	path = field_support/ugv_setup
+	url = git@bitbucket.org:cmusubt/ugv_setup.git
