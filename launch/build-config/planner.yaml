@@ -1,9 +1,10 @@
 - pwd
 - 'export SRC_DIR=$PWD'
 
+###################################################################################################
 - clone:
-  - 'echo "src dir is:  $SRC_DIR" '
   - 'echo "Cloning planning_ws"'
+  - 'echo "src dir is:  $SRC_DIR" '
   - git submodule update planning/planning_workspace/
   - cd planning/
 
@@ -13,18 +14,43 @@
     - ln -s ../../planning_workspace/rosinstall/deploy-deps.rosinstall .rosinstall
 
   - wstool:
+    - cd $SRC_DIR/planning/
     - repo:
       # update the workspace repo
       - wstool info
       - wstool update
     - deps:
       # update the workspace deps
+      # phase tool, BUG FOUND!! : the full match does not pop off the rosinstall commands...
+      # need to build each section as a seperate command!... need to get the order of the tree parsing correct
       - cd deps/catkin
       - wstool info
       - wstool update
 
-  - clean:
-    - rm .rosinstall
-    - rm deps/catkin/.rosinstall
+###################################################################################################
+- build:
+  # build the planning workspace (including any dependencies)
+  - 'echo "Building planning_ws"'
+  - 'echo "src dir is:  $SRC_DIR" '
+  - cd planning/
 
-    
+  - deps:
+    # build workspace deps
+    - cd deps/catkin
+    - catkin init
+    - catkin build
+    - cd $SRC_DIR/../install/
+    - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+    - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+
+  - ws:
+    - cd $SRC_DIR/planning/
+    # build workspace
+    - catkin init
+    - catkin build
+
+###################################################################################################
+- clean:
+  - cd planning/
+  - rm .rosinstall
+  - rm deps/catkin/.rosinstall

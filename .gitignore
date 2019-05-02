@@ -6,6 +6,7 @@
 ### allow deploy specific
 !.gitignore
 !.gitmodules
+!README.md
 !ci/
 !documentation/
 !docker/

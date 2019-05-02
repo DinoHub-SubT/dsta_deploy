@@ -54,8 +54,28 @@ Setup the build scripts:
   git submodule update ci/ci_phase
   cd ci/ci_phase
   python setup.py install
-  # return to src dir
+  or if you get permission denined:
+    python setup.py install --user
+  git clean -f -d
   cd ../..
+  # verify builder is working:
+  ./builder --help
 
-Clone your robot/algo specific workspace
+Clone your specific workspace
 
+  - planning workspace:
+    ./builder -y launch/build-config/planner.yaml -s clone
+  - perception workspace:  
+    ./builder -y launch/build-config/perception.yaml -s clone
+
+Build your specific workspace
+
+  - planning workspace:
+    ./builder -y launch/build-config/planner.yaml -s build
+  - perception workspace:  
+    ./builder -y launch/build-config/perception.yaml -s build
+
+--------------------------------------------------------------------------------
+# TODO: bug found, fix it!
+# phase tool, BUG FOUND!! : the full match does not pop off the rosinstall commands...
+  # need to build each section as a seperate command!... need to get the order of the tree parsing correct
