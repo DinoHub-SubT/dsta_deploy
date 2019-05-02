@@ -8,7 +8,7 @@ About...
 
 > On a new `git clone`, always perform the below setup steps.
 
-- **Clone the repo as such:**
+- **Clone the deploy repo as such:**
         
         mkdir /home/[user]/deploy_ws
         git clone git@bitbucket.org:cmusubt/deploy.git src
@@ -90,6 +90,8 @@ About...
             - yaml files for automated build of the deploy repo
             - configure to build specific workspaces
           ugv_setup/ [submodule]
+            - launch scripts
+          robot_launch_scripting
             - launch scripts
         field_support
           - misc. scripts (possibly non-catkin), notes, procedures, etc.

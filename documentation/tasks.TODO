@@ -1,0 +1,11 @@
+☐ move ci_tools with docker into subt
+  - call it ci_docker
+☐ for copy scripts, remove docker
+☐ fix ci_phaser bug
+☐ get image for perception
+☐ ci for planner
+☐ ci for perception
+☐ launch files
+☐ organize docker scripts for specific robots
+☐ go over submodule init
+☐ make more of an README
