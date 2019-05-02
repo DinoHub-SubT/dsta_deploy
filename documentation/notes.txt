@@ -46,3 +46,16 @@ ci_phaser builds specific set of configs
 only 1 rosinstall per subdirectory
 
 rename ci_phaser to ci_builder?
+
+--------------------------------------------------------------------------------
+
+Setup the build scripts:
+  git submodule init
+  git submodule update ci/ci_phase
+  cd ci/ci_phase
+  python setup.py install
+  # return to src dir
+  cd ../..
+
+Clone your robot/algo specific workspace
+
