@@ -40,21 +40,21 @@ About...
 
 - planning workspace:
   
-        ./builder -y launch/build-config/planner.yaml -s clone
+        ./builder -y launch/builder/planner.yaml -s clone
 
 - perception workspace:
   
-        ./builder -y launch/build-config/perception.yaml -s clone
+        ./builder -y launch/builder/perception.yaml -s clone
 
 **Build your specific workspace**
 
 - planning workspace:
 
-        ./builder -y launch/build-config/planner.yaml -s build
+        ./builder -y launch/builder/planner.yaml -s build
 
 - perception workspace:
 
-        ./builder -y launch/build-config/perception.yaml -s build
+        ./builder -y launch/builder/perception.yaml -s build
 
 * * *
 
@@ -86,7 +86,7 @@ About...
         documentation
           - how to use deploy repo
         launch
-          build-config
+          builder
             - yaml files for automated build of the deploy repo
             - configure to build specific workspaces
           ugv_setup/ [submodule]
