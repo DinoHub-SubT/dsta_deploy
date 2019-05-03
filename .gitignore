@@ -13,7 +13,6 @@
 !field_support/
 !launch/
 !hardware/
-!perception/
 !builder
 
 ###################################################################################################
@@ -29,12 +28,13 @@ planning/*
 !planning/planning_workspace/
 !planning/.catkin_tools/
 
-###################################################################################################
-### allow planning deps
+#######################################
+### allow planning-deps
 
 # unignore planning deps-ws
 !planning/deps/
 planning/deps/*
+
 # unignore deps-ws catkin
 !planning/deps/catkin
 planning/deps/catkin/*
@@ -43,7 +43,23 @@ planning/deps/catkin/*
 !planning/deps/catkin/.catkin_tools/
 
 ###################################################################################################
+### allow perception workspace
+
+# unignore perception-ws 
+!perception/
+perception/*
+
+# allow specific repos
+!perception/object_detection/
+!perception/.catkin_tools/
+
+#######################################
+### allow perception-deps
+
+###################################################################################################
 ### ignore anything that was previously allowed
+
+### ignore planning
 
 # ignore catkin tools non config packages
 planning/.catkin_tools/profiles/default/packages/
@@ -54,3 +70,10 @@ planning/.catkin_tools/profiles/default/build.yaml
 planning/deps/catkin/.catkin_tools/profiles/default/packages/
 planning/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 planning/deps/catkin/.catkin_tools/profiles/default/build.yaml
+
+### ignore perception
+
+# ignore catkin tools non config packages
+perception/.catkin_tools/profiles/default/packages/
+perception/.catkin_tools/profiles/default/devel_collisions.txt
+perception/.catkin_tools/profiles/default/build.yaml

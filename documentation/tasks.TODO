@@ -1,10 +1,15 @@
-☐ fix ci_phaser bug
-✔ ci for planner @done(19-05-02 21:53)
-☐ ci for perception
-☐ go over submodule init & updating submodules
-☐ make more of an README
-☐ launch files
-☐ perception tests do not pass
+general:
+  ☐ fix ci_phaser bug
+  ✔ ci for planner @done(19-05-02 21:53)
+  ☐ go over submodule init & updating submodules
+  ☐ make more of an README
+  ☐ launch files
+
+perception:
+  ☐ ci for perception
+  ☐ tests do not pass
+  ☐ deps
+  ☐ in repo object_detection, add jenkins to it
 
 docker:
   ☐ cleanup docker image naming conventions
