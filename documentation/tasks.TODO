@@ -1,13 +1,15 @@
-☐ move ci_tools with docker into subt
-  - call it ci_docker
-☐ for copy scripts, remove docker
 ☐ fix ci_phaser bug
-☐ get image for perception
-☐ ci for planner
+✔ ci for planner @done(19-05-02 21:53)
 ☐ ci for perception
-☐ launch files
-☐ organize docker scripts for specific robots
-☐ go over submodule init
+☐ go over submodule init & updating submodules
 ☐ make more of an README
-☐ add git webhook for deploy on bitbucket
+☐ launch files
+☐ perception tests do not pass
+
+docker:
+  ☐ cleanup docker image naming conventions
+  ☐ make ros tensorflow dockerfile
+  ☐ add perception catkin_tools profile
+  ☐ organize docker scripts for specific robots/laptops
+  ☐ organize env files for specific robots/laptops
 

@@ -1,0 +1,17 @@
+- pwd
+- 'export SRC_DIR=$PWD'
+
+- clone:
+  - 'echo "Cloning planning_ws"'
+  - 'echo "src dir is:  $SRC_DIR" '
+  - git submodule update perception/object_detection/
+  - cd $SRC_DIR/perception/
+
+- test:
+  # some minor prep.
+  - 'echo "current dir: " && pwd'
+  - cd $SRC_DIR/perception/
+  - inference:
+    - cd object_detection/inference/scripts
+    - python test_multi_object_detector.py
+

@@ -1,0 +1,30 @@
+# docker configuration
+docker:
+  # docker image to use
+  image: "subt/tensorflow:0.1-devel"
+
+# phase file for build to run
+phase: ci/phase/perception.yaml
+
+# jenkins stages configuration
+stages: [source, test]
+
+# source stage
+source:
+  timeout: 100000
+  messages: "clone perception ws"
+  sections: [clone]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"
+    - "-p gpu --gres=gpu:1"
+
+# source stage
+test:
+  timeout: 100000
+  messages: "test perception ws"
+  sections: [test]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"
+    - "-p gpu --gres=gpu:1"
