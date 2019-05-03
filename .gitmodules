@@ -19,3 +19,6 @@
 [submodule "field_support/ci_tools"]
 	path = field_support/ci_tools
 	url = git@bitbucket.org:cmusubt/ci_tools.git
+[submodule "docker"]
+	path = docker
+	url = git@bitbucket.org:cmusubt/ci_docker.git
