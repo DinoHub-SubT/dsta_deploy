@@ -19,3 +19,6 @@
 [submodule "launch/robot_launch_scripting"]
 	path = launch/robot_launch_scripting
 	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
+[submodule "field_support/ci_tools"]
+	path = field_support/ci_tools
+	url = git@bitbucket.org:cmusubt/ci_tools.git
