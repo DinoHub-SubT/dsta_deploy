@@ -9,8 +9,14 @@
 - build:
   - 'echo "Building planning_ws"'
   - 'echo "src dir is:  $SRC_DIR" '
-  - cd perception/
+  
+  # build the workspace deps
+  - deps:
+    - cd $SRC_DIR/perception/deps/catkin/
+    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - catkin build
 
+  # build the workspace
   - ws:
-    # build workspace
+    - cd $SRC_DIR/perception/
     - catkin build

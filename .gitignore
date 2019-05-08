@@ -8,8 +8,8 @@
 !.gitmodules
 !README.md
 !ci/
-!documentation/
 !docker/
+!build/
 !field_support/
 !launch/
 !hardware/
