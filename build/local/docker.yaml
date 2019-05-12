@@ -3,12 +3,38 @@
 
 - perception:
   - cd $SRC_DIR/docker/scripts/
+
+  ##################################################################################################
+  # cuda9 docker images
   - cuda9:
-    - cuda:
-      - ./build.bash --env tensorflow/cuda --force
-    - objdet:
-      - ./build.bash --env tensorflow/objdet --force
-    - ros:
-      - ./build.bash --env tensorflow/ros --force
+    # build all docker images
+    - build:
+      - cuda:
+        - ./build.bash --env tensorflow/cuda9/cuda --force
+      - tensorflow:
+        - ./build.bash --env tensorflow/cuda9/tensorflow --force
+      - ros:
+        - ./build.bash --env tensorflow/cuda9/ros --force    
+    # remove all docker images
+    - clean:
+        - docker rmi subt/tensorflow-cuda:9.0-ubuntu18.04-devel
+        - docker rmi -f $(docker images -f "dangling=true" -q)
+  
+  ##################################################################################################
+  # cuda10 docker images
+  - cuda10:
+    # build all docker images
+    - build:
+      - cuda:
+        - ./build.bash --env tensorflow/cuda10/cuda --force
+      - tensorflow:
+        - ./build.bash --env tensorflow/cuda10/tensorflow --force
+      - ros:
+        - ./build.bash --env tensorflow/cuda10/ros --force
+    # remove all docker images
+    - clean:
+        - docker rmi subt/tensorflow-cuda:10.0-ubuntu18.04-devel
+        - docker rmi -f $(docker images -f "dangling=true" -q)
+
 
 # add alias to go to docker scripts

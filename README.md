@@ -15,22 +15,18 @@ About...
         cd src
 
 - **Setup the build script:**
-
-        git submodule init
-        git submodule update ci/ci_phase
-        cd ci/ci_phase
-        python setup.py install
-        git clean -f -d
-        cd ../..
-
-    - if you get permission denined, during `setup.py`, then do:
-
-            python setup.py install --user
-
+        
+        cd /home/[user]/deploy_ws/src
+        ./install-builder.bash --install
 
 - **Verify the builder is working:**
 
         ./builder --help
+
+- ** Uninstall ci_phaser: **
+
+        cd /home/[user]/deploy_ws/src
+        ./install-builder.bash --uninstall
 
 * * *
 
@@ -40,21 +36,21 @@ About...
 
 - planning workspace:
   
-        ./builder -y launch/builder/planner.yaml -s clone
+        ./builder -y build/local/planning.yaml -s clone
 
 - perception workspace:
   
-        ./builder -y launch/builder/perception.yaml -s clone
+        ./builder -y build/local/perception.yaml -s clone
 
 **Build your specific workspace**
 
 - planning workspace:
 
-        ./builder -y launch/builder/planner.yaml -s build
+        ./builder -y build/local/planning.yaml -s build
 
 - perception workspace:
 
-        ./builder -y launch/builder/perception.yaml -s build
+        ./builder -y build/local/perception.yaml -s build
 
 * * *
 
