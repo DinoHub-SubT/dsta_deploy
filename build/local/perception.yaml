@@ -18,7 +18,9 @@
 
   # build the workspace
   - ws:
+    - source ~/deploy_ws/devel/perception/deps/setup.bash
     - cd $SRC_DIR/perception/
+    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
     - catkin build
 
 ###################################################################################################
