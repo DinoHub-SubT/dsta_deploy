@@ -54,6 +54,11 @@ perception/*
 !perception/object_detection/
 !perception/.catkin_tools/
 
+# unignore deps-ws catkin
+!perception/deps/catkin
+perception/deps/catkin/*
+
+
 #######################################
 ### allow perception-deps
 

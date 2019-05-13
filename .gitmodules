@@ -22,3 +22,9 @@
 [submodule "docker"]
 	path = docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
+[submodule "perception/deps/catkin/basestation_gui_python"]
+	path = perception/deps/catkin/basestation_gui_python
+	url = git@bitbucket.org:cmusubt/basestation_gui_python.git
+[submodule "perception/deps/catkin/darpa_command_post"]
+	path = perception/deps/catkin/darpa_command_post
+	url = git@bitbucket.org:cmusubt/darpa_command_post.git
