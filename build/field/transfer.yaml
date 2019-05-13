@@ -1,0 +1,22 @@
+###################################################################################################
+# test
+- robot1:
+  - transfer:
+    - scp -r /home/katarina/airlab/subt/deploy_ws/src root@robot1:/root/deploy_ws/src
+
+###################################################################################################
+- r1:
+  - transfer:
+    - nuc:
+      - scp -r /home/$USER/deploy_ws/ r1.nuc:/home/$USER/deploy_ws/
+    - xavier:
+      - scp -r /home/$USER/deploy_ws/ r1.xavier:/home/$USER/deploy_ws/
+    - planning-pc:
+      - scp -r /home/$USER/deploy_ws/ r1.planning-pc:/home/$USER/deploy_ws/
+  - remove:
+    - nuc:
+      - ssh nuc 'rm -rf /home/$USER/deploy_ws/'
+    - xavier:
+      - ssh xavier 'rm -rf /home/$USER/deploy_ws/'
+    - planning-pc:
+      - ssh planning-pc 'rm -rf /home/$USER/deploy_ws/'

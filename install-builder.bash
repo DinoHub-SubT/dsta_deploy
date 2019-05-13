@@ -26,7 +26,6 @@ validate() { if [ $? -ne 0 ]; then print_error "$1"; exit_failure; fi; }
 
 # //////////////////////////////////////////////////////////////////////////////
 SRC_DIR=$(pwd)
-echo "source dir is $SRC_DIR"
 
 # install 
 install() {
@@ -37,6 +36,11 @@ install() {
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
+  echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.bashrc
+  echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.zshrc
+  # add deploy
+  echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.bashrc
+  echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.zshrc
 }
 
 # uninstall
@@ -46,14 +50,15 @@ uninstall() {
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
   git clean -f -d
+  # TODO: remove alias, via pattern matching
 }
 
 # perform the install/uninstall
-if [ $1 = "--install" ]; then
+if [ "$1" == "--install" ]; then
   install
-elif [ $1 = "--uninstall" ]; then 
+elif [ "$1" == "--uninstall" ]; then 
   uninstall
-elif [ $1 = "--help" ]; then 
+elif [ "$1" == "--help" ]; then 
   echo -e "$YELLOW$usage_msg$DEFCOL\n";
 else
   echo -e "$YELLOW$usage_msg$DEFCOL\n";

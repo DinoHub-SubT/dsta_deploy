@@ -1,3 +1,9 @@
+###################################################################################################
+# ssh into the remote robot
+- @ssh:planning-pc
+- hostname
+
+# minor setup
 - pwd
 - 'export SRC_DIR=$PWD'
 
@@ -28,42 +34,24 @@
 - build:
   # build the planning workspace (including any dependencies)
   - 'echo "Building planning_ws"'
-  - source /opt/ros/melodic/setup.bash
+  - 'echo "src dir is:  $SRC_DIR" '
   - cd planning/
-
-  # install deps manually -- not via rosdep
-  - install-deps:
-    - cd planning_workspace/
-    - ./install_dependencies.sh
-
   # build workspace deps
   - deps:
     - cd deps/catkin
-    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
     - catkin init
     - catkin build
     - cd $SRC_DIR/../install/
     - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
     - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
-  
   # build planning workspace
   - ws:
-    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    # build workspace
     - catkin init
     - catkin build
 
 ###################################################################################################
 - clean:
-  # clean workspace
-  - ws:
-    - cd $SRC_DIR/planning/
-    - catkin clean -y
-  # clean workspace deps
-  - deps:
-    - cd $SRC_DIR/planning/deps/catkin/
-    - catkin clean -y
-
-- clear:
   - cd planning/
   - rm .rosinstall
   - rm deps/catkin/.rosinstall

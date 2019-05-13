@@ -20,23 +20,34 @@
       - ./build.bash --env subt/subt $BUILD_ARGS
   # clean all docker images
   - clean:
+    - 'export CLEAN_ARGS="--containers" '
+    - osrf:
+      - ./clean.bash --env osrf/ros $CLEAN_ARGS
+      - ./clean.bash --env osrf/osrf $CLEAN_ARGS
+    - subt:
+      - ./clean.bash --env subt/ros $CLEAN_ARGS
+      - ./clean.bash --env subt/subt $CLEAN_ARGS
     # remove any non-named images
     - dangling:
       - docker rmi -f $(docker images -f "dangling=true" -q)
-    - osrf:
-      - ./clean.bash --env osrf/ros --force
-      - ./clean.bash --env osrf/osrf --force
-    - subt:
-      - ./clean.bash --env subt/ros --force
-      - ./clean.bash --env subt/subt --force
 
 ##################################################################################################
 # perception worksapace docker images
 ##################################################################################################
 - perception:
+  ##################################################################################################
+  ### cuda8 docker images
+  - cuda8:
+    - 'export CLEAN_ARGS="--containers" '
+    # remove all docker images
+    - clean:
+      - tensorflow:
+        - ./clean.bash --env tensorflow/cuda8/tensorflow $CLEAN_ARGS
+
+  ##################################################################################################
   ### cuda9 docker images
   - cuda9:
-    - 'export BUILD_ARGS=" " '
+    - 'export BUILD_ARGS="--force" '
     # build all docker images
     - build:
       - cuda:
@@ -47,16 +58,20 @@
         - ./build.bash --env tensorflow/cuda9/ros $BUILD_ARGS
     # remove all docker images
     - clean:
-        - cuda:
-          - ./clean.bash --env tensorflow/cuda9/cuda --force
-        - tensorflow:
-          - ./clean.bash --env tensorflow/cuda9/tensorflow --force
-        - ros:
-          - ./clean.bash --env tensorflow/cuda9/ros --force
-        # remove any non-named images
-        - docker rmi -f $(docker images -f "dangling=true" -q)
+      - 'export CLEAN_ARGS="--containers" '
+      - cuda:
+        - ./clean.bash --env tensorflow/cuda9/cuda $CLEAN_ARGS
+      - tensorflow:
+        - ./clean.bash --env tensorflow/cuda9/tensorflow $CLEAN_ARGS
+      - ros:
+        - ./clean.bash --env tensorflow/cuda9/ros $CLEAN_ARGS
+      - dangling:
+          # remove any non-named images        
+          - docker rmi -f $(docker images -f "dangling=true" -q)
+  ##################################################################################################
   ### cuda10 docker images
   - cuda10:
+    - 'export BUILD_ARGS="--force" '
     # build all docker images
     - build:
       - cuda:
@@ -67,11 +82,14 @@
         - ./build.bash --env tensorflow/cuda10/ros --force
     # remove all docker images
     - clean:
+        - 'export CLEAN_ARGS="--containers --preview" '
         - cuda:
-          - ./clean.bash --env tensorflow/cuda10/cuda --force
+          - ./clean.bash --env tensorflow/cuda10/cuda $CLEAN_ARGS
         - tensorflow:
-          - ./clean.bash --env tensorflow/cuda10/tensorflow --force
+          - ./clean.bash --env tensorflow/cuda10/tensorflow $CLEAN_ARGS
         - ros:
-          - ./clean.bash --env tensorflow/cuda10/ros --force
+          - ./clean.bash --env tensorflow/cuda10/ros $CLEAN_ARGS
         # remove any non-named images
-        - docker rmi -f $(docker images -f "dangling=true" -q)
+        - dangling:
+          - docker rmi -f $(docker images -f "dangling=true" -q)
+
