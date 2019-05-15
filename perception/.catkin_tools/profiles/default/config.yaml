@@ -6,7 +6,7 @@ cmake_args:
 - -DOpenCV_DIR=/usr/local/lib/
 devel_layout: linked
 devel_space: ../../devel/perception/repo
-extend_path: /home/developer/deploy_ws/devel/perception/deps
+extend_path: ../../devel/perception/deps
 install: false
 install_space: ../../install/perception/repo
 isolate_install: false

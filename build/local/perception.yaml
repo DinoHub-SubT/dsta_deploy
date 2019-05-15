@@ -1,7 +1,6 @@
 - pwd
 - 'export SRC_DIR=$PWD'
 
-###################################################################################################
 - clone:
   - 'echo "Cloning planning_ws"'
   - git submodule update perception/object_detection

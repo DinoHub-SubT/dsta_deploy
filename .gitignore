@@ -44,6 +44,7 @@ planning/deps/catkin/*
 
 # allow specific repos
 !planning/deps/catkin/.catkin_tools/
+planning/deps/catkin/.catkin_tools/*
 
 ###################################################################################################
 ### allow perception workspace
@@ -60,6 +61,9 @@ perception/*
 !perception/deps/catkin
 perception/deps/catkin/*
 
+# allow specific repos
+!perception/deps/catkin/.catkin_tools/
+perception/deps/catkin/.catkin_tools/*
 
 #######################################
 ### allow perception-deps
@@ -85,3 +89,8 @@ planning/deps/catkin/.catkin_tools/profiles/default/build.yaml
 perception/.catkin_tools/profiles/default/packages/
 perception/.catkin_tools/profiles/default/devel_collisions.txt
 perception/.catkin_tools/profiles/default/build.yaml
+
+# ignore catkin tools non config packages
+perception/deps/catkin/.catkin_tools/profiles/default/packages/
+perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+perception/deps/catkin/.catkin_tools/profiles/default/build.yaml

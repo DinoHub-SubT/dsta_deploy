@@ -1,19 +1,33 @@
 # docker configuration
 docker:
   # docker image to use
-  image: "subt/tensorflow:0.1-devel"
+  image: "subt/tensorflow-ros:0.1-source"
+
+  volumes:
+    - "/home/katcujic/ci/subt-volume/:/home/developer/subt-volume/"
+    
 
 # phase file for build to run
 phase: ci/phase/perception.yaml
 
 # jenkins stages configuration
-stages: [source, test]
+stages: [source, build, test]
 
 # source stage
 source:
   timeout: 100000
   messages: "clone perception ws"
-  sections: [clone]
+  sections: [prepare, clone]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"
+    - "-p gpu --gres=gpu:1"
+
+# source stage
+build:
+  timeout: 100000
+  messages: "build perception ws"
+  sections: [build]
   slurm:
     - "-t 0-01:00"
     - "-c 4"
