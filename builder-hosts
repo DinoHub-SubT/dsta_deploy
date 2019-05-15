@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+# ssh hosts
+arr=( "root@robot1" )
+path='/$USER/deploy_ws/src'

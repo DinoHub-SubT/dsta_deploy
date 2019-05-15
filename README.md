@@ -42,6 +42,7 @@ About...
   
         ./builder -y build/local/perception.yaml -s clone
 
+
 **Build your specific workspace**
 
 - planning workspace:
@@ -53,6 +54,13 @@ About...
         ./builder -y build/local/perception.yaml -s build
 
 * * *
+
+## Docker
+
+- ** Install docker image dependencies: **
+
+        scp [user]@perceptron.ri.cmu.edu:/project/subt/data/docker-deploy/libcudnn7-dev_7.5.1.10-1+cuda9.0_amd64.deb /home/[user]/deploy_ws/docker
+
 
 ## General Structure
 
