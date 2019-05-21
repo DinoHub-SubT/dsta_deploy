@@ -1,11 +1,11 @@
 ###################################################################################################
 # ssh into the remote robot
-- @ssh:planning-pc
+- +ssh:172.17.0.2:root:/home/katarina/.ssh/builder/id_rsa
 - hostname
-
-# minor setup
 - pwd
-- 'export SRC_DIR=$PWD'
+- 'export LOCAL_DEPLOY_PATH=$PWD/'
+- 'export YELLOW="\033[1;33m"'
+- 'export BLUE="\033[1;36m"'
 
 ###################################################################################################
 - clone:
