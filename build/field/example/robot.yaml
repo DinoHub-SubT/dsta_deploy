@@ -64,8 +64,8 @@
     - ./clean.bash --env subt/subt $STOP_ARGS
   
   - remove:
-    - 'export STOP_ARGS="--remove --containers " '
-    - ./clean.bash --env subt/subt $STOP_ARGS
+    - 'export REMOVE_ARGS="--remove --containers " '
+    - ./clean.bash --env subt/subt $REMOVE_ARGS
   
   ####################################################
   # delete docker images & corresponding containers
@@ -82,36 +82,29 @@
   ####################################################
   - dangling:
     - docker rmi -f $(docker images -f "dangling=true" -q)
+  - view:
+    - docker ps
+    - docker images
 
 ####################################################################################################
 # dockerized deploy phases
 ####################################################################################################
 - deploy:
   # dockerized 'phases' ** please add more here **
-  - install:
-    # installs build dependencies pre clone & build
-    - +ssh:root:192.168.188.49
-    - +dexec:subt:{ls -all, echo ""}:[-y build/field/r1/nuc.yaml, -s nuc.clone.install, -v]
   - clone:
     - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
-    - +dexec:subt:{ls -all, echo ""}:[-y build/field/r1/nuc.yaml, -s nuc.clone, -v]
+    - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.clone, -v]
   - build:
     - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
-    - +dexec:subt:{ls -all, echo ""}:[-y build/field/r1/nuc.yaml, -s nuc.build, -v]
+    - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.build, -v]
     
 ####################################################################################################
 # clone workspaces
 ####################################################################################################
-- nuc.clone:
+- vm.clone:
   - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
   - cd $DEPLOY_SRC/
   
-  - install:
-    # assumes root ssh connection
-    - apt install python-pip
-    - pip install -r requirements.txt --user
-    - ./install-builder.bash --install
-
   - submodule:
     # update the git submodule
     - git submodule init planning/planning_workspace/
@@ -133,11 +126,21 @@
       - cd deps/catkin
       - wstool info
       - wstool update
+      - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+  - rosdep:
+    - deps:
+      - cd deps/catkin
+      # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - repo:
+      - cd planning_workspace/
+      - ./install_dependencies.sh
+      # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    
 
 ####################################################################################################
 # build workspaces
 ####################################################################################################
-- nuc.build:
+- vm.build:
   - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
   - cd $DEPLOY_SRC/planning/
   
@@ -147,7 +150,7 @@
     - cd deps/catkin
     - catkin init
     - catkin build
-    - cd $SRC_DIR/../install/
+    - cd $DEPLOY_SRC/../install/
     - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
     - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
   - ws:
@@ -166,3 +169,10 @@
   - submodule:
     - git submodule deinit planning/planning_workspace/
 
+####################################################################################################
+# testing
+####################################################################################################
+- vm.clone.test:
+  - echo "hello world1!"
+  - echo "hello world2!"
+  - ls -all
