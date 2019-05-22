@@ -1,10 +1,6 @@
-
-- hello:
-  - pwd
-
 ####################################################################################################
 - docker:
-  ####################################################################################################
+####################################################################################################
   # ssh into the remote robot
   - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
   - hostname
@@ -68,8 +64,8 @@
     - ./clean.bash --env subt/subt $STOP_ARGS
   
   - remove:
-    - 'export STOP_ARGS="--remove --containers " '
-    - ./clean.bash --env subt/subt $STOP_ARGS
+    - 'export REMOVE_ARGS="--remove --containers " '
+    - ./clean.bash --env subt/subt $REMOVE_ARGS
   
   ####################################################
   # delete docker images & corresponding containers
@@ -86,53 +82,43 @@
   ####################################################
   - dangling:
     - docker rmi -f $(docker images -f "dangling=true" -q)
+  - view:
+    - docker ps
+    - docker images
 
-####################################################
-# execute
-####################################################
+####################################################################################################
+# dockerized deploy phases
+####################################################################################################
 - deploy:
-  ##################################################################################################
-  # dockerized phases ** please add more phases here **
+  # dockerized 'phases' ** please add more here **
   - clone:
-    - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
-    - +dexec:subt:{ls -all, echo ""}:[-y build/field/r1/vm.yaml, -s vm.clone.test, -v]
-    # - +diexec:subt
+    - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
+    - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.clone, -v]
   - build:
-    - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
-    - +dexec:subt:{ls -all, echo ""}:[-y build/field/r1/vm.yaml, -s vm.build, -v]
-    # - +diexec:subt
+    - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
+    - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.build, -v]
     
-##################################################################################################
-- vm.clone.test:
-  - echo "hello world1!"
-  - echo "hello world2!"
-  - ls -all
-  
-- repo.clone:
+####################################################################################################
+# clone workspaces
+####################################################################################################
+- vm.clone:
   - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
   - cd $DEPLOY_SRC/
-  - 'echo "src dir is:  $SRC_DIR" '
-  - cd planning/
-  - catkin build
-  - whoami
- # setup the clone
-  - cd $DEPLOY_SRC/
-  - 'echo "Cloning planning_ws"'
-  - whoami
-  - 'export DEPLOY_SRC=/home/$USER/deploy_ws/src'
-  - cd $DEPLOY_SRC
-  # update the git submodule
+  
   - submodule:
+    # update the git submodule
     - git submodule init planning/planning_workspace/
     - git submodule update planning/planning_workspace/
+  
+  # clone & update the planning workspace
   - cd planning/
-  # setup the rosinstalls
   - rosintsall:
+      # setup the rosinstalls
     - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
     - cd deps/catkin
     - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
-  # wstool update deps & ws
   - wstool:
+    # wstool update the workspaces
     - repo:
       - wstool info
       - wstool update
@@ -140,41 +126,53 @@
       - cd deps/catkin
       - wstool info
       - wstool update
+      - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+  - rosdep:
+    - deps:
+      - cd deps/catkin
+      # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - repo:
+      - cd planning_workspace/
+      - ./install_dependencies.sh
+      # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    
 
-##################################################################################################
+####################################################################################################
+# build workspaces
+####################################################################################################
 - vm.build:
-  # build the planning workspace (including any dependencies)
-  - 'echo "Building planning_ws"'
-  - 'echo "src dir is:  $SRC_DIR" '
-  - cd planning/
-  # build workspace deps
+  - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
+  - cd $DEPLOY_SRC/planning/
+  
+  # build the deps & planning workspaces
   - deps:
+    # build deps workspace
     - cd deps/catkin
     - catkin init
     - catkin build
-    - cd $SRC_DIR/../install/
+    - cd $DEPLOY_SRC/../install/
     - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
     - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
-  # build planning workspace
   - ws:
-    # build workspace
+    # build planning workspace
     - catkin init
     - catkin build
 
-##################################################################################################
+####################################################################################################
+# clean workspaces
+####################################################################################################
 - clean:
-  - cd planning/
+  - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
+  - cd $DEPLOY_SRC/planning/
   - rm .rosinstall
   - rm deps/catkin/.rosinstall
   - submodule:
     - git submodule deinit planning/planning_workspace/
 
-# needs to be root
-# - builder:
-#   - apt install python-pip
-#   - pip install setuptools
-#   - pip install --upgrade pip
-#   - pip install pyyaml --user
-#   - ./install-builder.bash --install
-#   - ./builder --help
-#   - $docker_exec bash -c 'cd $WS && ./install-builder.bash --install'
+####################################################################################################
+# testing
+####################################################################################################
+- vm.clone.test:
+  - echo "hello world1!"
+  - echo "hello world2!"
+  - ls -all

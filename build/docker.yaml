@@ -4,23 +4,22 @@
   - 'export username=developer'
   - copy:
     # copy over ssh keys from local host to remote host  
-    - ssh $username@$host 'mkdir -p ~/.ssh/castacks/'
-    - scp -r /home/$USER/.ssh/castacks/* $username@$host:/home/$username/.ssh/castacks/
+    - ssh $username@$host 'mkdir -p ~/.ssh/deploy/'
+    - scp -r /home/$USER/.ssh/deploy/* $username@$host:/home/$username/.ssh/deploy/
   - delete:
-    - ssh $username@$host 'rm -rf ~/.ssh/castacks/'
+    - ssh $username@$host 'rm -rf ~/.ssh/deploy/'
   
 ####################################################################################################    
 - x86.docker:
   ##################################################################################################
   # ssh into the remote robot
-  #- +ssh:192.168.188.49:root
-  - +ssh:192.168.188.49:developer:/home/katarina/.ssh/subt-vm/id_rsa
+  # - +ssh:root:192.168.188.49
+  - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
   - hostname
   - whoami
   - pwd
   - 'export DEPLOY_PATH=/home/$USER/deploy_ws/src/'
   ##################################################################################################
-
   - install:
     - apt install -y curl apt-transport-https ca-certificates curl software-properties-common
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
@@ -38,8 +37,8 @@
 - x86.nvidia-docker:
   ##################################################################################################
   # ssh into the remote robot
-  #- +ssh:192.168.188.49:root
-  - +ssh:192.168.188.49:developer:/home/katarina/.ssh/subt-vm/id_rsa
+  # - +ssh:root:192.168.188.49
+  - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
   - hostname
   - whoami
   - pwd
