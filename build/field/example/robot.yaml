@@ -92,7 +92,8 @@
 - deploy:
   # dockerized 'phases' ** please add more here **
   - clone:
-    - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
+    - +ssh:developer:robot1:/home/$USER/.ssh/deploy/id_rsa
+    - +ssh:developer:robot2:/home/$USER/.ssh/deploy/id_rsa
     - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.clone, -v]
   - build:
     - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy/id_rsa
@@ -173,6 +174,16 @@
 # testing
 ####################################################################################################
 - vm.clone.test:
+  # uses key file on that host
+  - +ssh:developer:robotvm:/home/katarina/.ssh/subt-vm/id_rsa
+  - +ssh:root:192.168.188.171:/home/developer/.ssh/nuc/id_rsa
+  # - +ssh:root:192.168.188.171
+  # - +ssh:developer:192.168.188.49
+  # - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.clone, -v]
+  
+  # commands to execute
   - echo "hello world1!"
   - echo "hello world2!"
   - ls -all
+
+
