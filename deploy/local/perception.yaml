@@ -1,0 +1,39 @@
+- pwd
+- 'export SRC_DIR=$PWD'
+
+- clone:
+  - 'echo "Cloning planning_ws"'
+  - git submodule update perception/object_detection
+  
+- build:
+  - 'echo "Building planning_ws"'
+  - source ~/ros_osrf/install/setup.bash
+
+  # build the workspace deps
+  - deps:
+    - cd $SRC_DIR/perception/deps/catkin/
+    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - catkin build
+
+  # build the workspace
+  - ws:
+    - source ~/deploy_ws/devel/perception/deps/setup.bash
+    - cd $SRC_DIR/perception/
+    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - catkin build
+
+###################################################################################################
+- test:
+  - cd $SRC_DIR/perception/object_detection/inference/scripts
+  - python test_multi_object_detector.py 
+
+###################################################################################################
+- clean:
+  # clean workspace
+  - ws:
+    - cd $SRC_DIR/perception/
+    - catkin clean -y
+  # clean workspace deps
+  - deps:
+    - cd $SRC_DIR/perception/deps/catkin/
+    - catkin clean -y

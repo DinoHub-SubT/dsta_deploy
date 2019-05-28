@@ -1,0 +1,72 @@
+- pwd
+- 'export SRC_DIR=$PWD'
+
+###################################################################################################
+- clone:
+  - 'echo "Cloning planning_ws"'
+  # update the git submodule
+  - submodule:
+    - git submodule init planning/planning_workspace/
+    - git submodule update planning/planning_workspace/
+  - cd planning/
+  # setup the rosinstalls
+  - rosintsall:
+    - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
+    - cd deps/catkin
+    - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
+  # wstool update deps & ws
+  - wstool:
+    - repo:
+      - wstool info
+      - wstool update
+    - deps:
+      - cd deps/catkin
+      - wstool info
+      - wstool update
+
+###################################################################################################
+- build:
+  # build the planning workspace (including any dependencies)
+  - 'echo "Building planning_ws"'
+  - source /opt/ros/melodic/setup.bash
+  - cd planning/
+
+  # install deps manually -- not via rosdep
+  - install-deps:
+    - cd planning_workspace/
+    - ./install_dependencies.sh
+
+  # build workspace deps
+  - deps:
+    - cd deps/catkin
+    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - catkin init
+    - catkin build
+    - cd $SRC_DIR/../install/
+    - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+    - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+  
+  # build planning workspace
+  - ws:
+    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    - catkin init
+    - catkin build
+
+###################################################################################################
+- clean:
+  # clean workspace
+  - ws:
+    - cd $SRC_DIR/planning/
+    - catkin clean -y
+  # clean workspace deps
+  - deps:
+    - cd $SRC_DIR/planning/deps/catkin/
+    - catkin clean -y
+
+- clear:
+  - cd planning/
+  - rm .rosinstall
+  - rm deps/catkin/.rosinstall
+  - submodule:
+    - git submodule deinit planning/planning_workspace/
+  
