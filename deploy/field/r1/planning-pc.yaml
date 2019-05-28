@@ -262,6 +262,7 @@
 
       ####################################################
       # remove workspaces
+      # TODO: not done well enough, not tested
       ####################################################
       - remove:
         - cd planning/
@@ -269,4 +270,21 @@
         - rm deps/catkin/.rosinstall
         - git:
           - git submodule deinit planning/planning_workspace/
+
+      ####################################################
+      # stop all launches
+      ####################################################
+      - stop:
+        - rosnode kill -a
+        - pkill -f ros
+        - rosnode list
+
+      ####################################################
+      # launch workspaces
+      ####################################################
+      - launch:
+        - cd planning/
+        - echo "TODO"
+      
+     
 
