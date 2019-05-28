@@ -9,14 +9,12 @@
 !README.md
 !ci/
 !docker/
-!build/
+!deploy/
 !field_support/
 !launch/
 !hardware/
-!builder
-!install-builder.bash
-!builder.bash
-!builder-hosts
+!deployer
+!deployer.bash
 
 ###################################################################################################
 ### allow planning workspace

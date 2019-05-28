@@ -98,6 +98,7 @@
   - build:
     - +ssh:developer:192.168.188.49:/home/$USER/.ssh/deploy
     - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.build, -v]
+    # - +dexec:subt:{ls -all, echo ""}:{} # possibly '[]' not needed! use same one as me
     
 ####################################################################################################
 # clone workspaces
@@ -176,14 +177,40 @@
 - vm.clone.test:
   # uses key file on that host
   - +ssh:developer:robotvm:/home/katarina/.ssh/subt-vm/id_rsa
-  - +ssh:root:192.168.188.171:/home/developer/.ssh/nuc/id_rsa
+  # - +ssh:root:192.168.188.171:/home/developer/.ssh/nuc/id_rsa
   # - +ssh:root:192.168.188.171
   # - +ssh:developer:192.168.188.49
   # - +dexec:subt:{ls -all, echo ""}:[-y build/field/example/robot.yaml, -s vm.clone, -v]
   
   # commands to execute
-  - echo "hello world1!"
-  - echo "hello world2!"
+  - +sudo # <--- asks for password
+  - +sudo:apt-get update
+  - +sudo:apt install -y curl apt-transport-https ca-certificates curl software-properties-common
+  - +sudo:curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - +sudo:add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - +sudo:apt-get update
+  - +sudo:apt-get install docker-ce -y
+  - +sudo:usermod -a -G docker developer
+  - whoami
+  # - echo "hello world1!"
+  # - echo "hello world2!"
+  # - ls -all
+
+- vm.me:
+  # - +ssh:bash
+  - +ssh:{ developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa }
+  - +ssh:{ developer:192.168.188.49:/home/developer/.ssh/me/id_rsa }
+  - +docker:subt
+
+  - ls -all ~
+  - whoami
   - ls -all
+  - ifconfig
+  # run ros
+  # - source /opt/ros/melodic/setup.bash
+  # # wierd...not good.
+  # - nohup roscore >/dev/null 2>&1 &
+  # # can do ctrl+c but will have python exception thrown
+  # - roscore
 
-
+  
