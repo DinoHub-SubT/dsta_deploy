@@ -1,204 +1,275 @@
 ####################################################################################################
-- docker:
+# robot 1 configuration file
+- r1:
 ####################################################################################################
-  # ** WARNING! PLEASE APPLY! **
-  # /usr/bin/zsh
-  # manually change to /bin/bash or ssh directly wont work!
-  #     chsh -s /bin/bash
-  # when done, change back:
-  #     chsh -s /usr/bin/zsh
-  # nuc zsh config:
-  #   PS1: ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)
-  #   PS2: %_>
-  # ** WARNING! PLEASE APPLY DONE. **
 
-  ####################################################
-  # ssh into the remote robot
-  ####################################################
-  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
-  - +ssh:nuc:nuc:/home/robot/.ssh/nuc
+  ##################################################################################################
+  - nuc:
+  ##################################################################################################
+    - 'export YELLOW="\033[1;33m"'
+    - 'export BLUE="\033[1;36m"'
 
-  ####################################################
-  # setup
-  ####################################################
-  - hostname
-  - whoami
-  - pwd
-  - 'export BLUE="\033[1;36m"'    # print nicely
-  - 'export YELLOW="\033[1;33m"'  # print nicely
+    ################################################################################################
+    # copy deploy repo from basestation to r1.nuc
+    - transfer:
+    ################################################################################################
+      
+      ### == user can modify ==
+      # testing setp
+      - 'export host=192.168.188.49' # nuc
+      - 'export user=developer'
+      - 'export HOP_HOST=developer@192.168.188.50'  # planning-pc
+      - 'export LOCAL_DEPLOY_PATH=/home/katarina/airlab/subt/deploy_ws/src'
+      - 'export REMOTE_DEPLOY_PATH=/home/developer/deploy_ws/'
 
-  ####################################################
-  # path setup
-  - 'export DEPLOY_WS=/home/$(whoami)/subt/deploy_ws/'
-  - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
-  - 'export DOCKER_CONFIG=subt/subt'
-  - 'export DOCKER_CONFIG_PATH=docker/env'
-  
-  ####################################################
-  # print docker configuration information
-  ####################################################
-  - config.build:
-    - echo -e "\n${BLUE} == Docker images to create == \n" ;
-    - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
-    - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
-    - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-    - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
-    - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
-  - config.run:
-    - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
-    - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
-    - echo -e "\n${YELLOW}\t subt remote env filepath -> \t $DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config \n"
-    - while IFS= read line;
-      do 
-        echo -e ${BLUE} "\t$line";
-      done < "$DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config"
+      # connections
+      # - 'export host=nuc'
+      # - 'export user=nuc'
+      # - 'export HOP_HOST=robot@planning-pc'
+      
+      # paths
+      # - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      # - 'export REMOTE_DEPLOY_PATH=/home/nuc/deploy_ws/'
+      
+      # rsync options
+      - 'export copy_opts="-avzh" '
+      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh -i /home/katarina/.ssh/r1/planning_rsa $HOP_HOST ssh -i /home/developer/.ssh/nuc/id_rsa ' $user@$host:$REMOTE_DEPLOY_PATH"
+      - export copy_from="rsync $copy_opts -e 'ssh $HOP_HOST ssh' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH"
 
-  ####################################################
-  # build docker images
-  ####################################################
-  - cd $DEPLOY_SRC/docker/scripts
-  - build:
-    - 'export BUILD_ARGS="--force" '
-    - osrf:
-      - echo $LANG
-      - ./build.bash --env osrf/ros $BUILD_ARGS
-      - ./build.bash --env osrf/osrf $BUILD_ARGS
-    - subt:
-      - ./build.bash --env subt/ros $BUILD_ARGS
-      - ./build.bash --env subt/subt $BUILD_ARGS
+      ### == user can modify done. ==
 
-  ####################################################
-  # start docker images
-  ####################################################
-  - start:
-    - 'export START_ARGS=" --no-nvidia " '
-    - ./run.bash --env subt/subt $START_ARGS
+      ####################################################
+      # perform actual transfer. do not change.
+      ####################################################
+      - print:
+        # print
+        - echo -e "\n${YELLOW}\t local deploy path -> \t $LOCAL_DEPLOY_PATH \n" ;
+        - echo -e "\n${YELLOW}\t remote deploy path -> \t $REMOTE_DEPLOY_PATH \n" ;
+        - echo -e "\n${YELLOW}\t host -> \t $host \n" ;
+        - echo -e "\n${YELLOW}\t username -> \t $user \n" ;
+        - echo -e "\n${YELLOW}\t transfer to -> \t $copy_to \n" ;
 
-  ####################################################
-  # stop docker images
-  ####################################################
-  - stop:
-    - 'export STOP_ARGS="--stop --containers " '
-    - ./clean.bash --env subt/subt $STOP_ARGS
-  
-  - remove:
-    - 'export STOP_ARGS="--remove --containers " '
-    - ./clean.bash --env subt/subt $STOP_ARGS
-  
-  ####################################################
-  # delete docker images & corresponding containers
-  ####################################################
-  - delete:
-    - 'export DELETE_ARGS="--containers" '
-    - ./clean.bash --env subt/subt $DELETE_ARGS
-    - ./clean.bash --env subt/ros $DELETE_ARGS
-    - ./clean.bash --env osrf/osrf $DELETE_ARGS
-    - ./clean.bash --env osrf/ros $DELETE_ARGS
-  
-  ####################################################
-  # misc.
-  ####################################################
-  - dangling:
-    - docker rmi -f $(docker images -f "dangling=true" -q)
+      - transfer:
+        - echo -e "\n${YELLOW}\t local deploy path -> \t $LOCAL_DEPLOY_PATH \n" ;
+        - echo -e "\n${YELLOW}\t remote deploy path -> \t $REMOTE_DEPLOY_PATH \n" ;
+        - echo -e "\n${YELLOW}\t host -> \t $host \n" ;
+        - echo -e "\n${YELLOW}\t username -> \t $user \n" ;
 
-####################################################################################################
-- deploy:
-####################################################################################################
-  # dockerized deploy phases ** please add more here **
-  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
-  - +ssh:nuc:nuc:/home/robot/.ssh/nuc
-  
-  # clone any repos in nuc docker container
-  - clone:
-    - +dexec:subt:{ls -all, pwd, whoami}[-y deploy/field/r1/nuc.yaml, -s nuc.clone, -v]
-  
-  # build any repos in nuc docker container
-  - build:
-    - +dexec:subt:[-y deploy/field/r1/nuc.yaml, -s nuc.build, -v]
-    
-####################################################################################################
-- nuc:
-####################################################################################################
-  - hostname
-  - whoami
-  - pwd
-  - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
-  - cd $DEPLOY_SRC
+        # transfer TO remote host
+        - to:
+          # create the remote directory
+          # - ssh $HOP_HOST ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh -i /home/katarina/.ssh/r1/planning_rsa $HOP_HOST ssh -i /home/developer/.ssh/nuc/id_rsa $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
 
-  ####################################################
-  # clone workspaces
-  ####################################################
-  - clone:
+          # copy command
+          - 'export copy_cmd=$copy_to'
 
-    # update the git submodule
-    - submodule:
-      - git submodule init planning/planning_workspace/
-      - git submodule update planning/planning_workspace/
-    
-    # TODO: update submodules
+        # transfer FROM remote host
+        - from:
+          - 'export copy_cmd=$copy_from'
 
-    # clone & update the planning workspace
-    - cd planning/
-    
-    # apt install any thirdparty deps
-    - install_deps:
-      - ./planning_workspace/install_dependencies.sh
+        # evaluate copy
+        - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
+        - eval $copy_cmd
+      
+      # delete remote deploy workspace
+      - delete:
+        - ssh -i /home/katarina/.ssh/r1/planning_rsa $HOP_HOST ssh -i /home/developer/.ssh/nuc/id_rsa $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
-    # setup the rosinstalls
-    - rosintsall:
-      - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
-      - cd deps/catkin
-      - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
-    
-    # wstool update the workspaces
-    - wstool:
-      - repo:
-        - wstool info
-        - wstool update
-      - deps:
-        - cd deps/catkin
-        - wstool info
-        - wstool update
+    ################################################################################################
+    - docker:
+    ################################################################################################
+      # ** WARNING! PLEASE APPLY! **
+      # /usr/bin/zsh
+      # manually change to /bin/bash or ssh directly wont work!
+      #     chsh -s /bin/bash
+      # when done, change back:
+      #     chsh -s /usr/bin/zsh
+      # nuc zsh config:
+      #   PS1: ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)
+      #   PS2: %_>
+      # ** WARNING! PLEASE APPLY DONE. **
 
-  ####################################################
-  # build workspaces
-  ####################################################
-  - build:
-    - cd planning/
-    
-    # build the deps workspaces
-    - deps:
-      - cd deps/catkin
-      - catkin build
-    
-    # install the robot_examples
-    - robot_examples:
-      - cd $DEPLOY_SRC/../install/
-      - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
-      - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
-    
-    # build planning workspace
-    - ws:
-      - catkin build
+      ####################################################
+      # ssh into the remote robot
+      ####################################################
+      # - +ssh:{robot:planning-pc:/home/mtatum/.ssh/planning_pc }
+      # - +ssh:{nuc:nuc:/home/robot/.ssh/nuc }
+      - +ssh:{ developer:192.168.188.50:/home/katarina/.ssh/r1/planning_rsa }
+      - +ssh:{ developer:192.168.188.49:/home/developer/.ssh/nuc/id_rsa }
 
-  ####################################################
-  # clean workspaces
-  ####################################################
-  - clean:
-    - cd planning/
-    - repo:
-      - catkin clean -y
-    - deps:
-      - cd deps/catkin
-      - catkin clean -y
+      ####################################################
+      # setup
+      ####################################################
+      - hostname
+      - whoami
+      - pwd
+      
+      ####################################################
+      # path setup
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
 
-  ####################################################
-  # remove workspaces
-  ####################################################
-  - remove:
-    - cd planning/
-    - rm .rosinstall
-    - rm deps/catkin/.rosinstall
-    - git:
-      - git submodule deinit planning/planning_workspace/
+      # - 'export DEPLOY_WS=/home/$(whoami)/subt/deploy_ws/'
+      # - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+      - 'export DOCKER_CONFIG=subt/subt'
+      - 'export DOCKER_CONFIG_PATH=docker/env'
+      
+      ####################################################
+      # print docker configuration information
+      ####################################################
+      - config.build:
+        - echo -e "\n${BLUE} == Docker images to create == \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
+      - config.run:
+        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
+        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\t subt remote env filepath -> \t $DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config \n"
+        - while IFS= read line;
+          do 
+            echo -e ${BLUE} "\t$line";
+          done < "$DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config"
+
+      ####################################################
+      # build docker images
+      ####################################################
+      - cd $DEPLOY_SRC/docker/scripts
+      - build:
+        - 'export BUILD_ARGS="--force" '
+        - osrf:
+          - echo $LANG
+          - ./build.bash --env osrf/ros $BUILD_ARGS
+          - ./build.bash --env osrf/osrf $BUILD_ARGS
+        - subt:
+          - ./build.bash --env subt/ros $BUILD_ARGS
+          - ./build.bash --env subt/subt $BUILD_ARGS
+
+      ####################################################
+      # start docker images
+      ####################################################
+      - start:
+        - 'export START_ARGS=" --no-nvidia " '
+        - ./run.bash --env subt/subt $START_ARGS
+
+      ####################################################
+      # stop docker images
+      ####################################################
+      - stop:
+        - 'export STOP_ARGS="--stop --containers " '
+        - ./clean.bash --env subt/subt $STOP_ARGS
+      
+      - remove:
+        - 'export STOP_ARGS="--remove --containers " '
+        - ./clean.bash --env subt/subt $STOP_ARGS
+      
+      ####################################################
+      # delete docker images & corresponding containers
+      ####################################################
+      - clean:
+        - 'export DELETE_ARGS="--containers" '
+        - ./clean.bash --env subt/subt $DELETE_ARGS
+        - ./clean.bash --env subt/ros $DELETE_ARGS
+        - ./clean.bash --env osrf/osrf $DELETE_ARGS
+        - ./clean.bash --env osrf/ros $DELETE_ARGS
+      
+      ####################################################
+      # misc.
+      ####################################################
+      - dangling:
+        - docker rmi -f $(docker images -f "dangling=true" -q)
+      
+    ################################################################################################
+    - deploy:
+    ################################################################################################
+      # - +ssh:{ robot:planning-pc:/home/mtatum/.ssh/planning_pc }
+      # - +ssh:{ nuc:nuc:/home/robot/.ssh/nuc }
+      - +ssh:{ developer:192.168.188.50:/home/katarina/.ssh/r1/planning_rsa }
+      - +ssh:{ developer:192.168.188.49:/home/developer/.ssh/nuc/id_rsa }
+      - +docker:subt
+      
+      - hostname
+      - whoami
+      - pwd
+      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
+      - cd $DEPLOY_SRC
+
+      ####################################################
+      # clone workspaces
+      ####################################################
+      - clone:
+
+        # update the git submodule
+        - submodule:
+          # TODO: update submodules
+          - git submodule init planning/planning_workspace/
+          - git submodule update planning/planning_workspace/
+
+        # clone & update the planning workspace
+        - cd planning/
+        
+        # apt install any thirdparty deps
+        - install_deps:
+          - ./planning_workspace/install_dependencies.sh
+
+        # setup the rosinstalls
+        - rosinstall:
+          - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
+          - cd deps/catkin
+          - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
+        
+        # wstool update the workspaces
+        - wstool:
+          - repo:
+            - wstool info
+            - wstool update
+          - deps:
+            - cd deps/catkin
+            - wstool info
+            - wstool update
+
+      ####################################################
+      # build workspaces
+      ####################################################
+      - build:
+        - cd planning/
+        
+        # build the deps workspaces
+        - deps:
+          - cd deps/catkin
+          - catkin build
+        
+        # install the robot_examples
+        - robot_examples:
+          - cd $DEPLOY_SRC/../install/
+          - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+          - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+        
+        # build planning workspace
+        - ws:
+          - catkin build
+
+      ####################################################
+      # clean workspaces
+      ####################################################
+      - clean:
+        - cd planning/
+        - repo:
+          - catkin clean -y
+        - deps:
+          - cd deps/catkin
+          - catkin clean -y
+
+      ####################################################
+      # remove workspaces
+      ####################################################
+      - remove:
+        - cd planning/
+        - rm .rosinstall
+        - rm deps/catkin/.rosinstall
+        - git:
+          - git submodule deinit planning/planning_workspace/
 

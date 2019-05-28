@@ -114,7 +114,7 @@
   
   # clone & update the planning workspace
   - cd planning/
-  - rosintsall:
+  - rosinstall:
       # setup the rosinstalls
     - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
     - cd deps/catkin
