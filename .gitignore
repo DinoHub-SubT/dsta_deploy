@@ -14,7 +14,7 @@
 !launch/
 !hardware/
 !deployer
-!deployer.bash
+!install-deployer.bash
 
 ###################################################################################################
 ### allow planning workspace
