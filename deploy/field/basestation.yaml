@@ -98,14 +98,14 @@
     - deploy:
     ################################################################################################
       # only docker container on basestation, no ssh
-      - +docker:subt
+      - +docker:subt-deploy
       
       - hostname
       - whoami
       - pwd
-      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
+      - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
       - cd $DEPLOY_SRC
-
+  
       ####################################################
       # clone workspaces
       ####################################################
@@ -181,3 +181,5 @@
         - git:
           - git submodule deinit planning/planning_workspace/
 
+
+          

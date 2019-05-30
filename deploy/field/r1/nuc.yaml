@@ -241,16 +241,19 @@
         - deps:
           - cd deps/catkin
           - catkin build
+          - echo "in deps build"
         
         # install the robot_examples
         - robot_examples:
           - cd $DEPLOY_SRC/../install/
           - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+          - echo "in robot_examples build"
         
         # build planning workspace
         - ws:
           - catkin build
+          - echo "in ws build"
 
       ####################################################
       # clean workspaces
@@ -284,6 +287,8 @@
       ####################################################
       # launch workspaces
       ####################################################
+      # does not work, don't use.
       - launch:
         - cd launch/
-        - echo "TODO"
+        - rosrun robot_launch_scripting ugv_config.launch autonomy_nuc:=false
+
