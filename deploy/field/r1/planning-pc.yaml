@@ -1,5 +1,5 @@
 ####################################################################################################
-# robot 1 configuration file
+# robot 1 configuration file. for planning pc
 - r1:
 ####################################################################################################
 
@@ -72,17 +72,6 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      # ** WARNING! PLEASE APPLY! **
-      # /usr/bin/zsh
-      # manually change to /bin/bash or ssh directly wont work!
-      #     chsh -s /bin/bash
-      # when done, change back:
-      #     chsh -s /usr/bin/zsh
-      # nuc zsh config:
-      #   PS1: ${ret_status} %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)
-      #   PS2: %_>
-      # ** WARNING! PLEASE APPLY DONE. **
-
       ####################################################
       # ssh into the remote robot
       ####################################################
@@ -176,9 +165,7 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      # - +ssh:{ robot:planning-pc:/home/mtatum/.ssh/planning_pc }
-      # - +ssh:{ nuc:nuc:/home/robot/.ssh/nuc }
-      - +ssh:{ developer:192.168.188.50:/home/katarina/.ssh/r1/planning_rsa }
+      - +ssh:{ robot:planning-pc:/home/mtatum/.ssh/planning_pc }
       - +docker:subt
       
       - hostname
@@ -240,6 +227,7 @@
         
         # build planning workspace
         - ws:
+          - catkin build base
           - catkin build
 
       ####################################################
