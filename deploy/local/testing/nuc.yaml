@@ -193,7 +193,6 @@
 
         # setup the rosinstalls
         - rosinstall:
-          - pwd
           - if [ -f .rosinstall ]; then
               rm .rosinstall;
             fi
@@ -263,7 +262,6 @@
         - git:
           - git submodule deinit planning/planning_workspace/
 
-      
       ####################################################
       # launch workspaces
       ####################################################
@@ -273,6 +271,7 @@
         # launch configuration variables
         - 'export host=nuc'
         - 'export config=ugv1'
+        - 'export UGV_NUC=True'
 
         ### == user can modify done. ==
 

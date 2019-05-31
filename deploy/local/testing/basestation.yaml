@@ -128,8 +128,14 @@
 
         # setup the rosinstalls
         - rosinstall:
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
           - cd deps/catkin
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
         
         # wstool update the workspaces
@@ -155,7 +161,7 @@
         
         # install the robot_examples
         - robot_examples:
-          - cd $DEPLOY_SRC/../install/
+          - cd $DEPLOY_SRC/../install/planning
           - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
@@ -179,17 +185,33 @@
       ####################################################
       - remove:
         - cd planning/
-        - rm .rosinstall
-        - rm deps/catkin/.rosinstall
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - if [ -f deps/catkin/.rosinstall ]; then
+            rm deps/catkin/.rosinstall
+          fi
         - git:
           - git submodule deinit planning/planning_workspace/
 
-####################################################################################################
-    # basestation.failure
-    - failure:
-      - +ssh:{ developer:192.168.188.50:/home/katarina/.ssh/r1/planning_rsa }
-      - fail1:
-        - echo "please fail1"
-        # - echo -e "raise ValueError('A very specific bad thing happened')" | python
-      - fail2:
-        - echo "please fail2"
+      ####################################################
+      # launch workspaces
+      ####################################################
+      - launch:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=nuc'
+        - 'export config=ugv1'
+        - 'export BASESTATION=True'
+
+        ### == user can modify done. ==
+
+        - init:
+          # start the tmux sessions
+          - tmux new -s ${host}_launch_basestation -d
+          - tmux send -t ${host}_launch_basestation 'rosrun rviz rviz ' ENTER
+        
+        - start:
+          # start the gui?
+          - pwd

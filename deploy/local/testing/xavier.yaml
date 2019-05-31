@@ -233,11 +233,59 @@
           - git submodule deinit perception/
 
       ####################################################
-      # stop all launches
+      # launch workspaces
       ####################################################
-      - stop:
-        - rosnode kill -a
-        - pkill -f ros
-        - rosnode list
+      - launch:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=nuc'
+        - 'export config=ugv1'
+        - 'export UGV_XAVIER=True'
+
+        ### == user can modify done. ==
+
+        # read the launch configuration params
+        - export config_data=""
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/$config.config"
+        - while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$config_data $line";
+            fi
+          done < "$CONFIG_FILE";
+        - echo $config_data
+
+        - init:
+          # start the tmux sessions
+          - tmux new  -s ${host}_launch_$config -d
+          - tmux new -s ${host}_check_roscore -d
+
+        - start:
+          # source the planning ws
+          - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
+          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
+
+          # launch commands to run planning ws
+          - tmux send -t ${host}_launch_$config 'mon launch robot_launch_scripting ugv_config.launch $config_data' ENTER
+          - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+          - echo "Launch deployed in tmux session ${host}_launch_$config"
+
+        - stop:
+          # stop ros
+          - rosnode kill -a
+          - pkill -f ros
+          - rosnode list
+
+        - clean:
+          # remove all the tmux sessions
+          - tmux kill-session -t ${host}_launch_$config
+          - tmux kill-session -t ${host}_check_roscore
+        
+        - test.start:
+          - tmux new  -s ${host}_launch_$config -d
+          - tmux send -t ${host}_launch_$config 'export TEST_VAL=True ' ENTER
+        
+        - test.stop:
+          - tmux kill-session -t ${host}_launch_$config
 
       

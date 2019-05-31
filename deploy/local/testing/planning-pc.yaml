@@ -192,7 +192,6 @@
 
         # setup the rosinstalls
         - rosinstall:
-          - pwd
           - if [ -f .rosinstall ]; then
               rm .rosinstall;
             fi
@@ -285,7 +284,7 @@
 
         - init:
           # start the tmux sessions
-          - tmux new  -s ${host}_launch_$config -d
+          - tmux new -s ${host}_launch_$config -d
           - tmux new -s ${host}_check_roscore -d
 
         - start:

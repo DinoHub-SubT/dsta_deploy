@@ -54,39 +54,39 @@
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
-          - ./build.bash --env osrf/ros $BUILD_ARGS
-          - ./build.bash --env osrf/osrf $BUILD_ARGS
+          - ./build.bash --env local/osrf/ros $BUILD_ARGS
+          - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
-          - ./build.bash --env subt/ros $BUILD_ARGS
-          - ./build.bash --env subt/subt $BUILD_ARGS
+          - ./build.bash --env local/subt/ros $BUILD_ARGS
+          - ./build.bash --env field/r1/planning-pc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env subt/subt $START_ARGS
+        - ./run.bash --env field/r1/planning-pc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - clean:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env subt/subt $DELETE_ARGS
-        - ./clean.bash --env subt/ros $DELETE_ARGS
-        - ./clean.bash --env osrf/osrf $DELETE_ARGS
-        - ./clean.bash --env osrf/ros $DELETE_ARGS
+        - ./clean.bash --env field/r1/planning-pc $DELETE_ARGS
+        - ./clean.bash --env local/subt/ros $DELETE_ARGS
+        - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
+        - ./clean.bash --env local/osrf/ros $DELETE_ARGS
       
       ####################################################
       # misc.
@@ -125,8 +125,14 @@
 
         # setup the rosinstalls
         - rosinstall:
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
           - cd deps/catkin
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
         
         # wstool update the workspaces
@@ -176,10 +182,23 @@
       ####################################################
       - remove:
         - cd planning/
-        - rm .rosinstall
-        - rm deps/catkin/.rosinstall
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - if [ -f deps/catkin/.rosinstall ]; then
+            rm deps/catkin/.rosinstall
+          fi
         - git:
           - git submodule deinit planning/planning_workspace/
-
-
-          
+      
+      ####################################################
+      # launch workspaces
+      ####################################################
+      - launch:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=basestation'
+        - 'export config=basestation'
+        
+        ### == user can modify done. ==
