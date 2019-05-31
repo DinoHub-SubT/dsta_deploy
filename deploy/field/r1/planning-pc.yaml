@@ -26,7 +26,7 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh" '
+      - 'export copy_opts="-avzh --exclude=src/perception" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
@@ -89,7 +89,7 @@
       - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
 
-      - 'export DOCKER_CONFIG=subt/subt'
+      - 'export DOCKER_CONFIG=field/r1/planning-pc'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       - submodule:
@@ -103,11 +103,11 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/planning-pc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
       - print.run:
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
-        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/field/r1/planning-pc.config \n" ;
         - echo -e "\n${YELLOW}\t subt remote env filepath -> \t $DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config \n"
         - while IFS= read line;
           do 
@@ -122,39 +122,39 @@
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
-          - ./build.bash --env osrf/ros $BUILD_ARGS
-          - ./build.bash --env osrf/osrf $BUILD_ARGS
+          - ./build.bash --env local/osrf/ros $BUILD_ARGS
+          - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
-          - ./build.bash --env subt/ros $BUILD_ARGS
-          - ./build.bash --env subt/subt $BUILD_ARGS
+          - ./build.bash --env local/subt/ros $BUILD_ARGS
+          - ./build.bash --env field/r1/planning-pc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env subt/subt $START_ARGS
+        - ./run.bash --env field/r1/planning-pc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - clean:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env subt/subt $DELETE_ARGS
-        - ./clean.bash --env subt/ros $DELETE_ARGS
-        - ./clean.bash --env osrf/osrf $DELETE_ARGS
-        - ./clean.bash --env osrf/ros $DELETE_ARGS
+        - ./clean.bash --env field/r1/planning-pc $DELETE_ARGS
+        - ./clean.bash --env local/subt/ros $DELETE_ARGS
+        - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
+        - ./clean.bash --env local/osrf/ros $DELETE_ARGS
       
       ####################################################
       # misc.
@@ -175,6 +175,13 @@
       - cd $DEPLOY_SRC
 
       ####################################################
+      # remove workspaces
+      ####################################################
+      - remove:
+        - cd /home/$(whoami)/deploy_ws
+        - rm -rf deploy_ws
+
+      ####################################################
       # clone workspaces
       ####################################################
       - clone:
@@ -183,7 +190,8 @@
         - submodule:
           - git submodule init planning/planning_workspace/
           - git submodule update planning/planning_workspace/
-
+          - git submodule update --recursive
+        
         # clone & update the planning workspace
         - cd planning/
         
@@ -193,8 +201,14 @@
 
         # setup the rosinstalls
         - rosinstall:
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
           - cd deps/catkin
+          - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
           - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
         
         # wstool update the workspaces
@@ -221,7 +235,7 @@
         
         # install the robot_examples
         - robot_examples:
-          - cd $DEPLOY_SRC/../install/
+          - cd $DEPLOY_SRC/../install/planning/
           - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
@@ -247,17 +261,68 @@
       ####################################################
       - remove:
         - cd planning/
-        - rm .rosinstall
-        - rm deps/catkin/.rosinstall
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - if [ -f deps/catkin/.rosinstall ]; then
+            rm deps/catkin/.rosinstall
+          fi
         - git:
           - git submodule deinit planning/planning_workspace/
 
       ####################################################
-      # stop all launches
+      # launch workspaces
       ####################################################
-      - stop:
-        - rosnode kill -a
-        - pkill -f ros
-        - rosnode list
+      - launch:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=nuc'
+        - 'export config=ugv1'
+
+        ### == user can modify done. ==
+
+        # read the launch configuration params
+        - export config_data=""
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/$config.config"
+        - while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$config_data $line";
+            fi
+          done < "$CONFIG_FILE";
+        - echo $config_data
+
+        - init:
+          # start the tmux sessions
+          - tmux new -s ${host}_launch_$config -d
+          - tmux new -s ${host}_check_roscore -d
+
+        - start:
+          # source the planning ws
+          - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
+          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
+
+          # launch commands to run planning ws
+          - tmux send -t ${host}_launch_$config 'mon launch robot_launch_scripting ugv_config.launch $config_data' ENTER
+          - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+          - echo "Launch deployed in tmux session ${host}_launch_$config"
+
+        - stop:
+          # stop ros
+          - rosnode kill -a
+          - pkill -f ros
+          - rosnode list
+
+        - clean:
+          # remove all the tmux sessions
+          - tmux kill-session -t ${host}_launch_$config
+          - tmux kill-session -t ${host}_check_roscore
+        
+        - test.start:
+          - tmux new  -s ${host}_launch_$config -d
+          - tmux send -t ${host}_launch_$config 'export TEST_VAL=True ' ENTER
+        
+        - test.stop:
+          - tmux kill-session -t ${host}_launch_$config
 
 

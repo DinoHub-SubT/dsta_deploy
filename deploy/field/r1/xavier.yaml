@@ -26,7 +26,7 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh" '
+      - 'export copy_opts="-avzh --exclude=src/planning" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts --exclude 'src/planning' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
@@ -101,7 +101,7 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/xavier.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
       - print.run:
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
@@ -120,39 +120,39 @@
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
-          - ./build.bash --env osrf/ros $BUILD_ARGS
-          - ./build.bash --env osrf/osrf $BUILD_ARGS
+          - ./build.bash --env local/osrf/ros $BUILD_ARGS
+          - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
-          - ./build.bash --env subt/ros $BUILD_ARGS
-          - ./build.bash --env subt/subt $BUILD_ARGS
+          - ./build.bash --env local/subt/ros $BUILD_ARGS
+          - ./build.bash --env field/r1/xavier $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env subt/subt $START_ARGS
+        - ./run.bash --env field/r1/xavier $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/xavier $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env subt/subt $STOP_ARGS
+        - ./clean.bash --env field/r1/xavier $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - clean:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env subt/subt $DELETE_ARGS
-        - ./clean.bash --env subt/ros $DELETE_ARGS
-        - ./clean.bash --env osrf/osrf $DELETE_ARGS
-        - ./clean.bash --env osrf/ros $DELETE_ARGS
+        - ./clean.bash --env field/r1/xavier $DELETE_ARGS
+        - ./clean.bash --env local/subt/ros $DELETE_ARGS
+        - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
+        - ./clean.bash --env local/osrf/ros $DELETE_ARGS
       
       ####################################################
       # misc.
@@ -172,22 +172,21 @@
       - pwd
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
       - cd $DEPLOY_SRC
+      - pwd
 
       ####################################################
       # clone workspaces
       ####################################################
       - clone:
+    
+        # clone & update the planning workspace
+        - cd perception/
 
         # update the git submodule
         - submodule:
-          - git submodule update perception/object_detection
-          - git submodule update perception/object_detection/base_main_class
-          - git submodule update perception/object_detection/basestation_gui_python
-          - git submodule update perception/deps/catkin/basestation_gui_python
-          - git submodule update perception/deps/catkin/darpa_command_post
-
-        # clone & update the planning workspace
-        - cd perception/
+          - cd object_detection
+          - git submodule init
+          - git submodule update --recursive
         
         - rosdep:
           - deps:

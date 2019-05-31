@@ -101,11 +101,11 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/planning-pc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
       - print.run:
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
-        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/planning-pc.config \n" ;
         - echo -e "\n${YELLOW}\t subt remote env filepath -> \t $DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config \n"
         - while IFS= read line;
           do 

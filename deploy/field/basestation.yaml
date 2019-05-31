@@ -24,7 +24,7 @@
       # path setup
       - 'export DEPLOY_WS=/home/$(whoami)/subt/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/subt/deploy_ws/src/'
-      - 'export DOCKER_CONFIG=subt/subt'
+      - 'export DOCKER_CONFIG=field/r1/basestation'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       ####################################################
@@ -35,7 +35,7 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/basestation.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
       - print.run:
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
@@ -58,32 +58,32 @@
           - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
           - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/r1/planning-pc $BUILD_ARGS
+          - ./build.bash --env field/basestation $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/r1/planning-pc $START_ARGS
+        - ./run.bash --env field/basestation $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
+        - ./clean.bash --env field/basestation $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
+        - ./clean.bash --env field/basestation $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - clean:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/r1/planning-pc $DELETE_ARGS
+        - ./clean.bash --env field/basestation $DELETE_ARGS
         - ./clean.bash --env local/subt/ros $DELETE_ARGS
         - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
         - ./clean.bash --env local/osrf/ros $DELETE_ARGS
@@ -98,7 +98,7 @@
     - deploy:
     ################################################################################################
       # only docker container on basestation, no ssh
-      - +docker:subt-deploy
+      - +docker:subt
       
       - hostname
       - whoami
@@ -115,6 +115,7 @@
         - submodule:
           - git submodule init planning/planning_workspace/
           - git submodule update planning/planning_workspace/
+
         
         # clone & update the planning workspace
         - cd planning/
@@ -158,7 +159,7 @@
         
         # install the robot_examples
         - robot_examples:
-          - cd $DEPLOY_SRC/../install/
+          - cd $DEPLOY_SRC/../install/planning
           - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
