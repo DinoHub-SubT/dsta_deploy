@@ -1,38 +1,8 @@
-# - pwd
-# - 'export SRC_DIR=$PWD'
-- 'export BUILD_PREFIX=1'
-- 'echo "build prefix is $BUILD_PREFIX" '
+- pwd
+- 'export SRC_DIR=$PWD'
 
 ###################################################################################################
-###################################################################################################
-- prepare:
-  - cd /home/developer/
-  - sudo rm -rf ros_osrf/
-  - sudo rm -rf thirdparty/
-  - sudo rm -rf /tensorflow/models/tutorials/
-  - sudo rm -rf /tensorflow/models/samples/
-  - sudo mkdir -p /home/developer/subt-volume/jenkins/$BUILD_PREFIX/repo-ws/
-  - sudo cp -rf ~/repo-ws /home/developer/subt-volume/jenkins/$BUILD_PREFIX/
-  - sudo rm -rf ~/repo-ws/src/perception
-  - sudo rm -rf ~/repo-ws/src/planning
-  - sudo rm -rf ~/repo-ws/src/launch
-  - sudo rm -rf ~/repo-ws/src/build
-  - sudo rm -rf ~/repo-ws/src/field_support
-  - sudo rm -rf ~/repo-ws/src/docker
-  - sudo rm -rf ~/repo-ws/src/.git
-  - cd /home/developer/subt-volume/opencv_dep/build
-  - sudo make install
-  - sudo /bin/sh -c 'echo "deb http://packages.osrfoundation.org/gazebo/ubuntu-stable `lsb_release -cs` main" > /etc/apt/sources.list.d/gazebo-stable.list'
-  - sudo /bin/sh -c 'wget http://packages.osrfoundation.org/gazebo.key -O - | sudo apt-key add -'
-  - sudo /bin/sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
-  - sudo /bin/sh -c 'apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116'
-  - sudo apt-get update
-  - rosdep update
-
-- 'export SRC_DIR=/home/developer/subt-volume/jenkins/$BUILD_PREFIX/repo-ws/src/'
-- cd $SRC_DIR
-- sudo chown -R jenkins:jenkins /home/developer/subt-volume/ros_osrf/
-- sudo chown -R jenkins:jenkins /home/developer/subt-volume/jenkins/
+- sudo chown -R jenkins:jenkins /home/developer/ros_osrf/
 
 - clone:
   - 'echo "Cloning planning_ws"'
@@ -44,14 +14,12 @@
   # build the workspace deps
   - deps:
     - cd $SRC_DIR/perception/deps/catkin/
-    - source /home/developer/subt-volume/ros_osrf/install/setup.bash
     - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
-    - catkin config --extend /home/developer/subt-volume/ros_osrf/install/
+    - catkin config --extend /home/developer/ros_osrf/devel
     - catkin build --no-status
 
   # build the workspace
   - ws:
-    - source /home/developer/subt-volume/ros_osrf/install/setup.bash
     - cd $SRC_DIR/perception/
     - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
     - catkin build --no-status
@@ -60,7 +28,6 @@
 - test:
   - cd $SRC_DIR/perception/object_detection/inference/scripts
   - python test_multi_object_detector.py 
-  - sudo rm -rf /home/developer/subt-volume/jenkins/$BUILD_PREFIX/
 
 ###################################################################################################
 - clean:
