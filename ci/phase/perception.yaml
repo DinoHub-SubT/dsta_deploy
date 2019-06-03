@@ -39,3 +39,4 @@
   - deps:
     - cd $SRC_DIR/perception/deps/catkin/
     - catkin clean -y
+
