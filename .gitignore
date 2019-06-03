@@ -92,3 +92,10 @@ perception/.catkin_tools/profiles/default/build.yaml
 perception/deps/catkin/.catkin_tools/profiles/default/packages/
 perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 perception/deps/catkin/.catkin_tools/profiles/default/build.yaml
+
+### ignore launch
+
+# ignore catkin tools non config packages
+launch/catkin/.catkin_tools/profiles/default/packages/
+launch/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+launch/catkin/.catkin_tools/profiles/default/build.yaml
