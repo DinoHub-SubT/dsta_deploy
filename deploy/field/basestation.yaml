@@ -50,7 +50,7 @@
       # build docker images
       ####################################################
       - cd $DEPLOY_SRC/docker/scripts
-      - build:
+      - image:
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
@@ -138,7 +138,7 @@
         
         # wstool update the workspaces
         - wstool:
-          - repo:
+          - planning:
             - wstool info
             - wstool update
           - deps:
@@ -164,7 +164,7 @@
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
         # build planning workspace
-        - ws:
+        - planning:
           - catkin build
 
       ####################################################
@@ -172,7 +172,7 @@
       ####################################################
       - clean:
         - cd planning/
-        - repo:
+        - planning:
           - catkin clean -y
         - deps:
           - cd deps/catkin
@@ -214,35 +214,30 @@
           done < "$CONFIG_FILE";
         - echo $config_data
 
-        - init:
+        - start:
           # start the tmux sessions
-          - tmux new -s ${host}_launch_$config -d
+          - tmux new  -s ${host}_launch_${config} -d
           - tmux new -s ${host}_check_roscore -d
 
-        - start:
           # source the planning ws
-          - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
-          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
+          - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash' ENTER
+          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash' ENTER
 
           # launch commands to run planning ws
-          - tmux send -t ${host}_launch_$config 'mon launch robot_launch_scripting ugv_config.launch $config_data' ENTER
-          - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
-          - echo "Launch deployed in tmux session ${host}_launch_$config"
+          - tmux send -t ${host}_launch_${config} 'roslaunch basestation_gui_python gui.launch ' ENTER
+          - echo "Launch deployed in tmux session ${host}_launch_${config}"
 
         - stop:
-          # stop ros
-          - rosnode kill -a
+          # remove all the tmux sessions
+          - tmux kill-session -t ${host}_launch_${config}
+          - tmux kill-session -t ${host}_check_roscore
+          - tmux send -t ${host}_launch_${config} 'rosnode kill -a' ENTER
+          - tmux send -t ${host}_launch_${config} 'pkill -f ros' ENTER
+          - tmux send -t ${host}_launch_${config} 'rosnode list' ENTER
+
+        - rosclean:
+          - source $DEPLOY_WS/devel/planning/repo/setup.bash
+          - ps aux | grep ros
+          - rosnode kill
           - pkill -f ros
           - rosnode list
-
-        - clean:
-          # remove all the tmux sessions
-          - tmux kill-session -t ${host}_launch_$config
-          - tmux kill-session -t ${host}_check_roscore
-        
-        - test.start:
-          - tmux new  -s ${host}_launch_$config -d
-          - tmux send -t ${host}_launch_$config 'export TEST_VAL=True ' ENTER
-        
-        - test.stop:
-          - tmux kill-session -t ${host}_launch_$config

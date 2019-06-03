@@ -285,12 +285,11 @@
           done < "$CONFIG_FILE";
         - echo $config_data
 
-        - init:
+        - start:
           # start the tmux sessions
           - tmux new  -s ${host}_launch_$config -d
           - tmux new -s ${host}_check_roscore -d
-
-        - start:
+          
           # source the planning ws
           - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash'
           - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash'

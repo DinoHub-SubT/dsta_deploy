@@ -116,7 +116,7 @@
       # build docker images
       ####################################################
       - cd $DEPLOY_SRC/docker/scripts
-      - build:
+      - image:
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
@@ -204,7 +204,7 @@
         
         # wstool update the workspaces
         - wstool:
-          - repo:
+          - planning:
             - pwd
             - wstool info
             - wstool update
@@ -231,7 +231,7 @@
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
         # build planning workspace
-        - ws:
+        - planning:
           - catkin build base
           - catkin build
 
@@ -240,7 +240,7 @@
       ####################################################
       - clean:
         - cd planning/
-        - repo:
+        - planning:
           - catkin clean -y
         - deps:
           - cd deps/catkin

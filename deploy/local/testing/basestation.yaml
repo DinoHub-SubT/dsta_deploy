@@ -53,43 +53,37 @@
       # build docker images
       ####################################################
       - cd $DEPLOY_SRC/docker/scripts
-      - build:
+      - image:
         - 'export BUILD_ARGS="--force" '
-        - osrf:
-          - echo $LANG
-          - ./build.bash --env local/osrf/ros $BUILD_ARGS
-          - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
-          - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/basestation $BUILD_ARGS
+          - ./build.bash --env field/basestation.ros $BUILD_ARGS
+          - ./build.bash --env field/basestation.planning $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
-        - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/basestation $START_ARGS
+        - 'export START_ARGS=" " '
+        - ./run.bash --env field/basestation.planning $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/basestation $STOP_ARGS
+        - ./clean.bash --env field/basestation.planning $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/basestation $STOP_ARGS
+        - ./clean.bash --env field/basestation.planning $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
-      - clean:
+      - delete:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/basestation $DELETE_ARGS
-        - ./clean.bash --env local/subt/ros $DELETE_ARGS
-        - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
-        - ./clean.bash --env local/osrf/ros $DELETE_ARGS
+        - ./clean.bash --env field/basestation.ros $DELETE_ARGS
+        - ./clean.bash --env field/basestation.planning $DELETE_ARGS
       
       ####################################################
       # misc.
@@ -107,6 +101,7 @@
       - whoami
       - pwd
       - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - cd $DEPLOY_SRC
   
       ####################################################
@@ -140,7 +135,7 @@
         
         # wstool update the workspaces
         - wstool:
-          - repo:
+          - planning:
             - wstool info
             - wstool update
           - deps:
@@ -166,15 +161,23 @@
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
         # build planning workspace
-        - ws:
+        - planning:
+          - catkin build
+
+        # build the launch workspace
+        - launch:
+          - cd $DEPLOY_SRC/launch
           - catkin build
 
       ####################################################
       # clean workspaces
       ####################################################
       - clean:
+        - launch:
+          - cd launch
+          - catkin clean
         - cd planning/
-        - repo:
+        - planning:
           - catkin clean -y
         - deps:
           - cd deps/catkin
@@ -201,17 +204,47 @@
         ### == user can modify ==
         
         # launch configuration variables
-        - 'export host=nuc'
+        - 'export host=basestation'
         - 'export config=ugv1'
-        - 'export BASESTATION=True'
-
+        
         ### == user can modify done. ==
 
-        - init:
-          # start the tmux sessions
-          - tmux new -s ${host}_launch_basestation -d
-          - tmux send -t ${host}_launch_basestation 'rosrun rviz rviz ' ENTER
+        # read the launch configuration params
+        - export config_data=""
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/$config.config"
+        - while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$config_data $line";
+            fi
+          done < "$CONFIG_FILE";
+        - echo $config_data
         
         - start:
-          # start the gui?
-          - pwd
+          # start the tmux sessions
+          - tmux new  -s ${host}_launch_${config} -d
+          - tmux new -s ${host}_check_roscore -d
+
+          # source the planning ws
+          - tmux send -t ${host}_launch_${config} 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+
+          # launch commands to run planning ws
+          - tmux send -t ${host}_launch_${config} 'roslaunch basestation_gui_python gui.launch ' ENTER
+          - echo "Launch deployed in tmux session ${host}_launch_${config}"
+          
+        - stop:
+          # remove all the tmux sessions
+          - tmux kill-session -t ${host}_launch_${config}
+          - tmux kill-session -t ${host}_check_roscore
+          - tmux send -t ${host}_launch_${config} 'rosnode kill -a' ENTER
+          - tmux send -t ${host}_launch_${config} 'pkill -f ros' ENTER
+          - tmux send -t ${host}_launch_${config} 'rosnode list' ENTER
+
+        - rosclean:
+          - source $DEPLOY_WS/devel/planning/repo/setup.bash
+          - ps aux | grep ros
+          - rosnode kill
+          - pkill -f ros
+          - rosnode list
+          
+          
