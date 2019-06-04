@@ -1,16 +1,16 @@
 blacklist: []
-build_space: ../../build/planning/repo
+build_space: ../../build/state_estimation
 catkin_make_args: []
 cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
-devel_space: ../../devel/planning/repo
-extend_path: ../../install/planning/deps
+devel_space: ../../devel/state_estimation
+extend_path: /home/developer/deploy_ws/devel/planning/repo
 install: false
-install_space: ../../install/planning/repo
+install_space: ../../install/state_estimation
 isolate_install: false
 jobs_args: []
-log_space: ../../logs
+log_space: ../../logs/state_estimation
 make_args: []
 source_space: .
 use_env_cache: false

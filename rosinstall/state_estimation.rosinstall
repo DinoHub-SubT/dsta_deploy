@@ -1,7 +1,7 @@
 - git:
     local-name: loam_velodyne_16
     uri: git@bitbucket.org:cmusubt/loam_velodyne_16.git
-    version: 6228088
+    version: dc69060
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
@@ -22,7 +22,7 @@
     local-name: velodyne_driver_16_32
     uri: git@bitbucket.org:cmusubt/velodyne_driver_16_32.git
     version: bd5fdd1
-- git:
-    local-name: Xsens_Cpp_Driver
-    uri: git@bitbucket.org:cmusubt/Xsens_Cpp_Driver.git
-    version: eeb1699
+# - git:
+#     local-name: Xsens_Cpp_Driver
+#     uri: git@bitbucket.org:cmusubt/Xsens_Cpp_Driver.git
+#     version: eeb1699

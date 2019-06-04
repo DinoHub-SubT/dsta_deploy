@@ -86,7 +86,7 @@ perception/deps/catkin/.catkin_tools/*
 
 # unignore perception-ws 
 !state_estimation/
-!state_estimation/*
+state_estimation/*
 
 # allow specific repos
 !state_estimation/.catkin_tools/

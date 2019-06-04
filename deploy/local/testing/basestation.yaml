@@ -140,6 +140,12 @@
                 rm .rosinstall;
               fi
             - ln -s ../../../rosinstall/planning/hardware.rosinstall .rosinstall
+          - state_estimation:
+            - cd $DEPLOY_SRC/state_estimation
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../rosinstall/state_estimation.rosinstall .rosinstall
         
         # wstool update the workspaces
         - wstool:
@@ -152,6 +158,10 @@
             - wstool update
           - hardware:
             - cd hardware/catkin
+            - wstool info
+            - wstool update
+          - state_est:
+            - cd $DEPLOY_SRC/state_estimation
             - wstool info
             - wstool update
 
