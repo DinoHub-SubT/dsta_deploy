@@ -9,6 +9,9 @@
     - 'export YELLOW="\033[1;33m"'
     - 'export BLUE="\033[1;36m"'
 
+    - helloworld:
+      - echo -e "\n${YELLOW}\t ** nuc deployer ** \n"
+
     ################################################################################################
     # copy deploy repo from basestation to r1.nuc
     - transfer:

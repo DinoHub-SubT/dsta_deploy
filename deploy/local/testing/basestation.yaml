@@ -9,6 +9,9 @@
     - 'export YELLOW="\033[1;33m"'
     - 'export BLUE="\033[1;36m"'
 
+    - helloworld:
+      - echo -e "\n${YELLOW}\t ** basestation deployer ** \n"
+
     ################################################################################################
     - docker:
     ################################################################################################
@@ -243,7 +246,7 @@
         
         - start:
           # start the tmux sessions
-          - tmux new  -s ${host}_launch_${config} -d
+          - tmux new -s ${host}_launch_${config} -d
           - tmux new -s ${host}_check_roscore -d
 
           # source the planning ws

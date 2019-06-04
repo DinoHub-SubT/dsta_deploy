@@ -1,4 +1,8 @@
 - git:
+    local-name: planning_workspace
+    uri: git@bitbucket.org:cmusubt/Planning_workspace.git
+    version: 6f9911c
+- git:
     local-name: at_path_planner
     uri: git@bitbucket.org:cmusubt/at_path_planner.git
     version: 773163cea055

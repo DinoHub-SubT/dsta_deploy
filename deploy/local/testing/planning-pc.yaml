@@ -9,6 +9,9 @@
     - 'export YELLOW="\033[1;33m"'
     - 'export BLUE="\033[1;36m"'
 
+    - helloworld:
+      - echo -e "\n${YELLOW}\t ** planning-pc deployer ** \n"
+
     ################################################################################################
     # copy deploy repo from basestation to r1.planning-pc
     - transfer:

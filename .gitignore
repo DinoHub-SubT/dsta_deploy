@@ -15,6 +15,7 @@
 !rosinstall/
 !deployer
 !install-deployer.bash
+!tmuxp
 
 ###################################################################################################
 ### allow planning workspace
@@ -26,7 +27,6 @@
 planning/*
 
 # allow specific repos
-!planning/planning_workspace/
 !planning/.catkin_tools/
 
 #######################################
