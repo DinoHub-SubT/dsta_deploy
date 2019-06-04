@@ -82,6 +82,27 @@ perception/deps/catkin/.catkin_tools/*
 ### allow perception-deps
 
 ###################################################################################################
+### allow perception workspace
+
+# unignore perception-ws 
+!state_estimation/
+!state_estimation/*
+
+# allow specific repos
+!state_estimation/.catkin_tools/
+
+# unignore deps-ws catkin
+!state_estimation/deps/catkin
+state_estimation/deps/catkin/*
+
+# allow specific repos
+!state_estimation/deps/catkin/.catkin_tools/
+state_estimation/deps/catkin/.catkin_tools/*
+
+#######################################
+### allow perception-deps
+
+###################################################################################################
 ### ignore anything that was previously allowed
 
 ### ignore planning
@@ -112,6 +133,14 @@ perception/.catkin_tools/profiles/default/build.yaml
 perception/deps/catkin/.catkin_tools/profiles/default/packages/
 perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 perception/deps/catkin/.catkin_tools/profiles/default/build.yaml
+
+### ignore state_estimation
+
+# ignore catkin tools non config packages
+state_estimation/.catkin_tools/profiles/default/packages/
+state_estimation/.catkin_tools/profiles/default/devel_collisions.txt
+state_estimation/.catkin_tools/profiles/default/build.yaml
+
 
 ### ignore launch
 
