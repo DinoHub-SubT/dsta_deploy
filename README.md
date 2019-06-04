@@ -27,7 +27,7 @@
 
 - **Verify the builder is working:**
 
-        ./builder --help
+        ./deployer --help
 
 * * *
 
@@ -58,7 +58,7 @@ The user only needs to use the `builder` to select which commands to run, via se
 
 > builder arguments at minimum requires a yaml file & tag section.
 
-    ./builder --help
+    ./deployer --help
     usage: builder [-h] [--yaml file] [--all] [--sections S [S ...]] [--timeout N]
                   [--preview] [--verbose]
 
@@ -76,10 +76,10 @@ The user only needs to use the `builder` to select which commands to run, via se
 
 - Example usage:
 
-      ./builder -y build/field/example/robot.yaml -s docker.build
-      ./builder -y build/field/example/robot.yaml -s docker.stop docker.remove
-      ./builder -y build/field/example/robot.yaml -s deploy.build
-      ./builder -y build/field/example/transfer.yaml -s robot.to
+      ./deployer -s docker.build
+      ./deployer -s docker.stop docker.remove
+      ./deployer -s deploy.build
+      ./deployer -s robot.to
 
 
 ## Field Build Example
@@ -89,23 +89,23 @@ The user only needs to use the `builder` to select which commands to run, via se
 
 1. Install the docker images
 
-        ./builder -y build/field/example/robot.yaml -s docker.build
+        ./deployer -s docker.build
 
 2. Transfer the deploy repo from *main workstation* to remote workstation
 
-        ./builder -y build/field/example/transfer.yaml -s robot.to
+        ./deployer -s robot.to
 
 3. Create the docker container
 
-        ./builder -y build/field/example/robot.yaml -s docker.start
+        ./deployer -s docker.start
 
 4. Clone & update the repo workspaces on the remote (in docker)
 
-        ./builder -y build/field/example/robot.yaml -s deploy.clone
+        ./deployer -s deploy.clone
 
 5. Build the remote (in docker)
 
-        ./builder -y build/field/example/robot.yaml -s deploy.build
+        ./deployer -s deploy.build
 
 
 ## Local Build Example
@@ -114,22 +114,22 @@ The user only needs to use the `builder` to select which commands to run, via se
 
 - planning workspace:
   
-        ./builder -y build/local/planning.yaml -s clone
+        ./deployer -s [robot].[computer].clone.planning
 
 - perception workspace:
   
-        ./builder -y build/local/perception.yaml -s clone
+        ./deployer -s [robot].[computer].clone.perception
 
 
 **Build your specific workspace**
 
 - planning workspace:
 
-        ./builder -y build/local/planning.yaml -s build
+        ./deployer -s [robot].[computer].clone.planning
 
 - perception workspace:
 
-        ./builder -y build/local/perception.yaml -s build
+        ./deployer -s [robot].[computer].clone.perception
 
 * * *
 
@@ -144,24 +144,27 @@ The user only needs to use the `builder` to select which commands to run, via se
       # catkin build, devel, install
       #############################################################################################
       build/
-        subt
+        launch/
+        planning/
           deps
           repo
-        perception
+        perception/
           deps
           repo
       devel/
-        subt
+        launch/
+        planning/
           deps
           repo
-        perception
+        perception/
           deps
           repo
       install/
-        subt
+        launch/
+        planning/
           deps
           repo
-        perception
+        perception/
           deps
           repo
 
@@ -230,3 +233,5 @@ The user only needs to use the `builder` to select which commands to run, via se
 - Two types of jobs currently exist: planning & perception workspace builds.
 - See the status (checkmarks or exclamation mark) on the repo commits pages.
 - More job types will be added.
+
+------------------

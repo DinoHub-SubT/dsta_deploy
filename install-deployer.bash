@@ -36,11 +36,11 @@ install() {
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
-  echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.bashrc
-  echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.zshrc
+  # echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.bashrc
+  # echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.zshrc
   # add deploy
-  echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.bashrc
-  echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.zshrc
+  # echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.bashrc
+  # echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.zshrc
 }
 
 # uninstall

@@ -10,7 +10,7 @@
     - git submodule update planning/planning_workspace/
   - cd planning/
   # setup the rosinstalls
-  - rosintsall:
+  - rosinstall:
     - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
     - cd deps/catkin
     - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall

@@ -13,7 +13,7 @@
   - 'export host=192.168.188.49'
   - 'export user=developer'
   - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/src'
-  - 'export copy_opts="-avzh" '
+  - 'export copy_opts="-avzh -e \"ssh -i $HOME/.ssh/subt-vm/id_rsa\" "'
 
   ####################################################
   # perform actual transfer. do not change.
@@ -34,7 +34,7 @@
       - echo -e "\n${YELLOW}\t username -> \t $user \n" ;
       # create the remote directory
       # only works if ssh keys are setup
-      - ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
+      - ssh $user@$host -i $HOME/.ssh/subt-vm/id_rsa "mkdir -p $REMOTE_DEPLOY_PATH"
       # copy command
       - export copy_cmd="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH"
       - echo -e "\n${YELLOW}\t == TRANSFER == \n"

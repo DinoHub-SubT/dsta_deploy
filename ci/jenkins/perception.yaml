@@ -17,7 +17,7 @@ stages: [source, build, test]
 source:
   timeout: 100000
   messages: "clone perception ws"
-  sections: [prepare, clone]
+  sections: [clone]
   slurm:
     - "-t 0-01:00"
     - "-c 4"

@@ -6,7 +6,7 @@ cmake_args:
 - -DCATKIN_ENABLE_TESTING=False
 devel_layout: linked
 devel_space: ../../../../devel/perception/deps
-extend_path: /home/developer/ros_osrf/install
+extend_path: /opt/ros/melodic
 install: false
 install_space: ../../../../install/perception/deps
 isolate_install: false

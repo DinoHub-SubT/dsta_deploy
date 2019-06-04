@@ -1,26 +1,35 @@
 ####################################################################################################
 - ssh-keys:
-  - 'export host=192.168.188.49'
-  - 'export username=developer'
+  # access any intermediate server
+  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
+
+  # setup scp
+  - 'export username=nvidia'
+  - 'export host=xavier'
+  
   - copy:
     # copy over ssh keys from local host to remote host  
-    - ssh $username@$host 'mkdir -p ~/.ssh/deploy/'
-    - scp -r /home/$USER/.ssh/deploy/* $username@$host:/home/$username/.ssh/deploy/
+    - ssh $username@$host 'mkdir -p ~/.ssh/'
+    - scp -r /home/$USER/.ssh/deploy $username@$host:/home/$username/.ssh/
+    - scp -r /home/$USER/.ssh/deploy.pub $username@$host:/home/$username/.ssh/
   - delete:
-    - ssh $username@$host 'rm -rf ~/.ssh/deploy/'
+    - ssh $username@$host 'rm -rf ~/.ssh/deploy'
+    - ssh $username@$host 'rm -rf ~/.ssh/deploy.pub'
   
 ####################################################################################################    
 - x86.docker:
   ##################################################################################################
-  # ssh into the remote robot
-  # - +ssh:root:192.168.188.49
-  - +ssh:developer:192.168.188.49:/home/katarina/.ssh/subt-vm/id_rsa
-  - hostname
-  - whoami
-  - pwd
-  - 'export DEPLOY_PATH=/home/$USER/deploy_ws/src/'
+  # access any intermediate server
+  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
+
+  # setup scp
+  - 'export username=nvidia'
+  - 'export host=xavier'
+
   ##################################################################################################
   - install:
+    # TODO: needs to have 'login as root' option
+    - apt-get update
     - apt install -y curl apt-transport-https ca-certificates curl software-properties-common
     - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
     - add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
