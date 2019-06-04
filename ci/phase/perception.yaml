@@ -14,15 +14,17 @@
 
   # build the workspace deps
   - deps:
+    # - source /home/developer/ros_osrf/install/setup.bash
+    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
     - cd $SRC_DIR/perception/deps/catkin/
-    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
-    - catkin config --extend /home/developer/ros_osrf/devel
+    - catkin config --extend /home/developer/ros_osrf/install
     - catkin build --no-status
 
   # build the workspace
   - ws:
+    # - ls ../../../
     - cd $SRC_DIR/perception/
-    - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+    # - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
     - catkin build --no-status
 
 ###################################################################################################
@@ -40,4 +42,3 @@
   - deps:
     - cd $SRC_DIR/perception/deps/catkin/
     - catkin clean -y
-
