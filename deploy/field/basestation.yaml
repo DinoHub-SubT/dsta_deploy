@@ -104,6 +104,7 @@
       - whoami
       - pwd
       - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
+      - 'export DEPLOY_WS=/home/developer/deploy_ws/'
       - cd $DEPLOY_SRC
   
       ####################################################
@@ -164,7 +165,13 @@
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
         # build planning workspace
-        - planning:
+        - planning:   
+          - catkin build
+
+        # build launch workspace
+        - launch:
+          - cd $DEPLOY_SRC/launch/
+          - catkin profile set planning
           - catkin build
 
       ####################################################
@@ -172,6 +179,9 @@
       ####################################################
       - clean:
         - cd planning/
+        - launch:
+          - cd $DEPLOY_SRC/launch/
+          - catkin clean -y
         - planning:
           - catkin clean -y
         - deps:
@@ -199,45 +209,56 @@
         ### == user can modify ==
         
         # launch configuration variables
-        - 'export host=basestation'
+        - 'export host=$(hostname)'
         - 'export config=ugv1'
+        - 'export MCAST_GROUP=224.0.0.251'
+        - 'export BASESTATION=true'
 
         ### == user can modify done. ==
 
         # read the launch configuration params
         - export config_data=""
-        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/$config.config"
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/${config}.config"
         - while IFS='' read -r line || [[ -n "$line" ]]; do
             if [ ! "${line:0:1}" == "#" ]; then
-              config_data="$config_data $line";
+              config_data="$line ";
             fi
           done < "$CONFIG_FILE";
-        - echo $config_data
+        - echo ${config_data}
 
         - start:
-          # start the tmux sessions
-          - tmux new  -s ${host}_launch_${config} -d
-          - tmux new -s ${host}_check_roscore -d
-
-          # source the planning ws
-          - tmux send -t ${host}_launch_$config 'source $DEPLOY_WS/devel/planning/repo/setup.bash' ENTER
-          - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/repo/setup.bash' ENTER
-
-          # launch commands to run planning ws
-          - tmux send -t ${host}_launch_${config} 'roslaunch basestation_gui_python gui.launch ' ENTER
-          - echo "Launch deployed in tmux session ${host}_launch_${config}"
+          - roscore:
+            # enable roscore
+            - 'export ROS_MASTER=true'
+            # start the tmux sessions
+            - tmux new -s ${host}_check_roscore -d
+            # source
+            - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # run roscore
+            - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+            
+          - planning:
+            # start the tmux session
+            - tmux new -s ${host}_launch_${config} -d
+            # source
+            - tmux send -t ${host}_launch_${config} 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # run planning-pc launch
+            - tmux send -t ${host}_launch_${config} 'mon launch robot_launch_scripting ugv_config.launch ${config_data}' ENTER
+            # message user
+            - echo "Launch deployed in tmux session ${host}_launch_${config}"
 
         - stop:
           # remove all the tmux sessions
-          - tmux kill-session -t ${host}_launch_${config}
-          - tmux kill-session -t ${host}_check_roscore
-          - tmux send -t ${host}_launch_${config} 'rosnode kill -a' ENTER
-          - tmux send -t ${host}_launch_${config} 'pkill -f ros' ENTER
-          - tmux send -t ${host}_launch_${config} 'rosnode list' ENTER
-
+          - planning:
+            - tmux kill-session -t ${host}_launch_${config}
+          - roscore:  
+            - tmux kill-session -t ${host}_check_roscore
+          
         - rosclean:
+          # stop all ros nodes
           - source $DEPLOY_WS/devel/planning/repo/setup.bash
           - ps aux | grep ros
-          - rosnode kill
+          - rosnode kill -a
           - pkill -f ros
           - rosnode list
+          - ps aux | grep ros

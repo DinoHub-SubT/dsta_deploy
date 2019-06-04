@@ -116,7 +116,7 @@
       # build docker images
       ####################################################
       - cd $DEPLOY_SRC/docker/scripts
-      - build:
+      - image:
         - 'export BUILD_ARGS="--force" '
         - osrf:
           - echo $LANG
@@ -171,6 +171,7 @@
       - whoami
       - pwd
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - cd $DEPLOY_SRC
       - pwd
 
@@ -179,7 +180,7 @@
       ####################################################
       - clone:
     
-        # clone & update the planning workspace
+        # clone & update the perception workspace
         - cd perception/
 
         # update the git submodule
@@ -193,7 +194,7 @@
             - source /opt/ros/melodic/setup.bash
             - cd deps/catkin
             - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
-          - ws:
+          - perception:
             - source ../../devel/perception/deps/setup.bash
             - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
 
@@ -208,8 +209,14 @@
           - cd deps/catkin
           - catkin build
         
-        # build planning workspace
-        - ws:
+        # build perception workspace
+        - perception:
+          - catkin build
+
+        # build launch workspace
+        - launch:
+          - cd $DEPLOY_SRC/launch/
+          - catkin config --extend ../../devel/perception/repo
           - catkin build
 
       ####################################################
@@ -217,6 +224,10 @@
       ####################################################
       - clean:
         - cd perception/
+        - launch:
+          - cd $DEPLOY_SRC/launch/
+          - catkin profile set perception
+          - catkin clean -y
         - repo:
           - catkin clean -y
         - deps:
@@ -224,19 +235,63 @@
           - catkin clean -y
 
       ####################################################
-      # remove workspaces
+      # launch workspaces
       ####################################################
-      - remove:
-        - cd perception/
-        - git:
-          - git submodule deinit perception/
+      - launch:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=$(hostname)'
+        - 'export config=ugv1'
+        - 'export MCAST_GROUP=224.0.0.251'
+        - 'export UGV_XAVIER=true'
 
-      ####################################################
-      # stop all launches
-      ####################################################
-      - stop:
-        - rosnode kill -a
-        - pkill -f ros
-        - rosnode list
+        ### == user can modify done. ==
 
+        # read the launch configuration params
+        - export config_data=""
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/${config}.config"
+        - while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$line ";
+            fi
+          done < "$CONFIG_FILE";
+        - echo ${config_data}
+
+        - start:
+          - roscore:
+            # enable roscore
+            - 'export ROS_MASTER=true'
+            # start the tmux sessions
+            - tmux new -s ${host}_check_roscore -d
+            # source
+            - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/perception/launch/setup.bash' ENTER
+            # run roscore
+            - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+            
+          - perception:
+            # start the tmux session
+            - tmux new -s ${host}_launch_${config} -d
+            # source
+            - tmux send -t ${host}_launch_${config} 'source $DEPLOY_WS/devel/perception/launch/setup.bash' ENTER
+            # run perception-pc launch
+            - tmux send -t ${host}_launch_${config} 'mon launch robot_launch_scripting ugv_config.launch ${config_data}' ENTER
+            # message user
+            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+
+        - stop:
+          # remove all the tmux sessions
+          - perception:
+            - tmux kill-session -t ${host}_launch_${config}
+          - roscore:  
+            - tmux kill-session -t ${host}_check_roscore
+          
+        - rosclean:
+          # stop all ros nodes
+          - source $DEPLOY_WS/devel/perception/repo/setup.bash
+          - ps aux | grep ros
+          - rosnode kill -a
+          - pkill -f ros
+          - rosnode list
+          - ps aux | grep ros
       
