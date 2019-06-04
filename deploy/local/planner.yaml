@@ -11,9 +11,9 @@
   - cd planning/
   # setup the rosinstalls
   - rosinstall:
-    - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
+    - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
     - cd deps/catkin
-    - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
+    - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
   # wstool update deps & ws
   - wstool:
     - repo:
