@@ -1,0 +1,28 @@
+- git:
+    local-name: loam_velodyne_16
+    uri: git@bitbucket.org:cmusubt/loam_velodyne_16.git
+    version: 6228088
+- git:
+    local-name: map_compress
+    uri: git@bitbucket.org:cmusubt/map_compress.git
+    version: 6407f97
+- git:
+    local-name: mcmn_status_monitor
+    uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
+    version: 35c32b8
+- git:
+    local-name: online_pose_graph
+    uri: git@bitbucket.org:cmusubt/online_pose_graph.git
+    version: 9398d58
+- git:
+    local-name: speed_selector
+    uri: git@bitbucket.org:cmusubt/speed_selector.git
+    version: 9c3eb9c
+- git:
+    local-name: velodyne_driver_16_32
+    uri: git@bitbucket.org:cmusubt/velodyne_driver_16_32.git
+    version: bd5fdd1
+- git:
+    local-name: Xsens_Cpp_Driver
+    uri: git@bitbucket.org:cmusubt/Xsens_Cpp_Driver.git
+    version: eeb1699

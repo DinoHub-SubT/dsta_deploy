@@ -1,0 +1,40 @@
+- git:
+    local-name: bag_recorder
+    uri: git@bitbucket.org:cmusubt/bag_recorder.git
+    version: 854b3fe
+- git:
+    local-name: comms_dropper_driver
+    uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
+    version: 471e6f5
+- git:
+    local-name: copley_ros_driver
+    uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
+    version: 8e9d672
+- git:
+    local-name: darpa_command_post
+    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
+    version: f48b0f4
+- git:
+    local-name: health_monitor
+    uri: git@bitbucket.org:cmusubt/health_monitor.git
+    version: 46939e5
+- git:
+    local-name: mcmn_status_monitor
+    uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
+    version: 35c32b8
+- git:
+    local-name: solenoid_toggle
+    uri: git@bitbucket.org:cmusubt/solenoid_toggle.git
+    version: caf6235
+- git:
+    local-name: twist_mux
+    uri: git@bitbucket.org:cmusubt/twist_mux.git
+    version: cdb93f4
+- git:
+    local-name: ugv_hardware
+    uri: git@bitbucket.org:cmusubt/ugv_hardware.git
+    version: 5f2c328
+- git:
+    local-name: xsense_driver
+    uri: git@bitbucket.org:cmusubt/xsense_driver.git
+    version: 24c7e7f

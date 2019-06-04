@@ -12,7 +12,7 @@
 !deploy/
 !field_support/
 !launch/
-!hardware/
+!rosinstall/
 !deployer
 !install-deployer.bash
 
@@ -43,6 +43,21 @@ planning/deps/catkin/*
 # allow specific repos
 !planning/deps/catkin/.catkin_tools/
 planning/deps/catkin/.catkin_tools/*
+
+#######################################
+### allow planning-hardware
+
+# unignore planning hardware-ws
+!planning/hardware/
+planning/hardware/*
+
+# unignore hardware-ws catkin
+!planning/hardware/catkin
+planning/hardware/catkin/*
+
+# allow specific repos
+!planning/hardware/catkin/.catkin_tools/
+planning/hardware/catkin/.catkin_tools/*
 
 ###################################################################################################
 ### allow perception workspace
@@ -80,6 +95,11 @@ planning/.catkin_tools/profiles/default/build.yaml
 planning/deps/catkin/.catkin_tools/profiles/default/packages/
 planning/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 planning/deps/catkin/.catkin_tools/profiles/default/build.yaml
+
+# ignore catkin tools non config packages
+planning/hardware/catkin/.catkin_tools/profiles/default/packages/
+planning/hardware/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+planning/hardware/catkin/.catkin_tools/profiles/default/build.yaml
 
 ### ignore perception
 
