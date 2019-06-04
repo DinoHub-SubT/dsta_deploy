@@ -1,13 +1,13 @@
 blacklist: []
-build_space: ../../../../build/planning/deps
+build_space: ../../../../build/planning/hardware/
 catkin_make_args: []
 cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
-devel_space: ../../../../devel/planning/deps
-extend_path: /opt/ros/melodic
-install: true
-install_space: ../../../../install/planning/deps/
+devel_space: ../../../../devel/planning/hardware/
+extend_path: /home/developer/deploy_ws/devel/planning/repo
+install: false
+install_space: ../../../../install/planning/hardware/
 isolate_install: false
 jobs_args: []
 log_space: ../../../../logs

@@ -57,25 +57,25 @@
         - 'export BUILD_ARGS="--force" '
         - subt:
           - ./build.bash --env field/basestation.ros $BUILD_ARGS
-          - ./build.bash --env field/basestation.planning $BUILD_ARGS
+          - ./build.bash --env field/basestation $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" " '
-        - ./run.bash --env field/basestation.planning $START_ARGS
+        - ./run.bash --env field/basestation $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/basestation.planning $STOP_ARGS
+        - ./clean.bash --env field/basestation $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/basestation.planning $STOP_ARGS
+        - ./clean.bash --env field/basestation $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
@@ -83,7 +83,7 @@
       - delete:
         - 'export DELETE_ARGS="--containers" '
         - ./clean.bash --env field/basestation.ros $DELETE_ARGS
-        - ./clean.bash --env field/basestation.planning $DELETE_ARGS
+        - ./clean.bash --env field/basestation $DELETE_ARGS
       
       ####################################################
       # misc.
@@ -123,15 +123,23 @@
 
         # setup the rosinstalls
         - rosinstall:
-          - if [ -f .rosinstall ]; then
-              rm .rosinstall;
-            fi
-          - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
-          - cd deps/catkin
-          - if [ -f .rosinstall ]; then
-              rm .rosinstall;
-            fi
-          - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+          - planning:
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
+          - deps:
+            - cd deps/catkin
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+          - hardware:
+            - cd hardware/catkin
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../../../rosinstall/planning/hardware.rosinstall .rosinstall
         
         # wstool update the workspaces
         - wstool:
@@ -140,6 +148,10 @@
             - wstool update
           - deps:
             - cd deps/catkin
+            - wstool info
+            - wstool update
+          - hardware:
+            - cd hardware/catkin
             - wstool info
             - wstool update
 

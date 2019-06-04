@@ -8,9 +8,9 @@
   - cd $SRC_DIR/planning/
 
   - rosinstall:
-    - ln -s planning_workspace/rosinstall/deploy/deploy.rosinstall .rosinstall
+    - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
     - cd deps/catkin
-    - ln -s ../../planning_workspace/rosinstall/deploy/deploy-deps.rosinstall .rosinstall
+    - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
 
   - wstool:
     - cd $SRC_DIR/planning/
