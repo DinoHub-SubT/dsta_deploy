@@ -29,6 +29,7 @@
 
 ###################################################################################################
 - test:
+  - export LD_LIBRARY_PATH="/usr/local/cuda/extras/CUPTI/lib64:/usr/local/nvidia/lib:/usr/local/nvidia/lib64:/usr/local/cuda-10.0/compat:/usr/local/cuda-10.0/lib64"
   - cd $SRC_DIR/perception/object_detection/inference/scripts
   - python test_multi_object_detector.py 
 
