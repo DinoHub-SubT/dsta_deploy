@@ -5,7 +5,6 @@
 - clone:
   - 'echo "Cloning planning_ws"'
   - 'echo "src dir is:  $SRC_DIR" '
-  - git submodule update planning/planning_workspace/
   - cd $SRC_DIR/planning/
 
   - rosinstall:
@@ -16,18 +15,13 @@
   - wstool:
     - cd $SRC_DIR/planning/
     - deps:
-      # update the workspace deps
-      # phase tool, BUG FOUND!! : the full match does not pop off the rosinstall commands...
-      # need to build each section as a seperate command!... need to get the order of the tree parsing correct
       - cd deps/catkin
       - wstool info
       - wstool update
-      - install-deps:
-        - cd $SRC_DIR/planning/
-        - ./planning_workspace/install_dependencies.sh
     - repo:
-      # update the workspace repo
       - cd $SRC_DIR/planning/
+      - install-deps:
+        - ./planning_workspace/install_dependencies.sh
       - wstool info
       - wstool update
 
