@@ -202,24 +202,35 @@
 
         # setup the rosinstalls
         - rosinstall:
-          - if [ -f .rosinstall ]; then
-              rm .rosinstall;
-            fi
-          - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
-          - cd deps/catkin
-          - if [ -f .rosinstall ]; then
-              rm .rosinstall;
-            fi
-          - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+          - planning:
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
+          - deps:
+            - cd deps/catkin
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+          - hardware:
+            - cd hardware/catkin
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s ../../../rosinstall/planning/hardware.rosinstall .rosinstall
         
         # wstool update the workspaces
         - wstool:
           - planning:
-            - pwd
             - wstool info
             - wstool update
           - deps:
             - cd deps/catkin
+            - wstool info
+            - wstool update
+          - hardware:
+            - cd hardware/catkin
             - wstool info
             - wstool update
 
@@ -237,17 +248,23 @@
         # install the robot_examples
         - robot_examples:
           - cd $DEPLOY_SRC/../install/planning/
-          - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+          - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
           - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
         
         # build planning workspace
         - planning:
           - catkin build
 
+        # build the hardware workspace
+        - hardware:
+          - cd hardware/catkin
+          - catkin build
+
         # build launch workspace
         - launch:
           - cd $DEPLOY_SRC/launch/
           - catkin profile set planning
+          - catkin clean -b --yes
           - catkin build
 
       ####################################################
@@ -290,6 +307,8 @@
         - 'export config=ugv1'
         - 'export MCAST_GROUP=224.0.0.251'
         - 'export UGV_PLANNING_PC=true'
+        - 'export ROBOT_NAME=ugv1'
+        - 'export USER=robot'
 
         ### == user can modify done. ==
 
@@ -341,4 +360,63 @@
           - ps aux | grep ros
 
     
-    
+      ####################################################
+      # launch misc workspaces
+      ####################################################
+      - misc:
+        ### == user can modify ==
+        
+        # launch configuration variables
+        - 'export host=$(hostname)'
+        - 'export config=ugv1'
+        - 'export MCAST_GROUP=224.0.0.251'
+        - 'export UGV_PLANNING_PC=true'
+
+        ### == user can modify done. ==
+
+        # read the launch configuration params
+        - export config_data=""
+        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/${config}.config"
+        - while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$line ";
+            fi
+          done < "$CONFIG_FILE";
+        - echo ${config_data}
+
+        - start:
+          - roscore:
+            # enable roscore
+            - 'export ROS_MASTER=true'
+            # start the tmux sessions
+            - tmux new -s ${host}_check_roscore -d
+            # source
+            - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # run roscore
+            - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+            
+          - teleop:
+            # start the tmux session
+            - tmux new -s ${host}_teleop -d
+            # source
+            - tmux send -t ${host}_teleop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # run planning-pc launch
+            - tmux send -t ${host}_teleop 'mon launch robot_launch_scripting teleop.launch ${config_data}' ENTER
+            # message user
+            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+
+        - stop:
+          # remove all the tmux sessions
+          - teleop:
+            - tmux kill-session -t ${host}_teleop
+          - roscore:  
+            - tmux kill-session -t ${host}_check_roscore
+          
+        - rosclean:
+          # stop all ros nodes
+          - source $DEPLOY_WS/devel/planning/repo/setup.bash
+          - ps aux | grep ros
+          - rosnode kill -a
+          - pkill -f ros
+          - rosnode list
+          - ps aux | grep ros

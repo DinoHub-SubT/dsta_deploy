@@ -1,13 +1,13 @@
 blacklist: []
-build_space: ../../build/planning/launch
+build_space: ../../build/launch
 catkin_make_args: []
 cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
-devel_space: ../../devel/planning/launch
-extend_path: ../../devel/state_estimation
+devel_space: ../../devel/launch
+extend_path: ../../devel/state_estimation/repo
 install: false
-install_space: ../../install/planning/launch
+install_space: ../../install/launch
 isolate_install: false
 jobs_args: []
 log_space: ../../logs

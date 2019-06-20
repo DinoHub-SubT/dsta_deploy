@@ -1,0 +1,75 @@
+sudo apt-get install chrony
+pip install wheel hurry-fileserver(something) --user
+led_matrix_bridge
+and another rosdep install.
+
+-- why doesn't nuc wstool install?
+add to bashrc sourced
+
+https://github.com/ros-drivers/audio_common.git
+
+ground_based_autonomy
+    scripts/
+        ... bash scripts
+    src/
+    - local_planner
+    - online_pose_graph
+    - point_cloud_stacker
+    - terrain_analysis
+    - vehicle_simulator
+
+loam_ws
+    - loam_velodyne_16
+    - velodyne_driver_16_32
+
+objdet
+    - audio_common
+    - object_detection
+
+planning_ws
+    - actuall planning workspace
+
+recording_ws
+    - bag_recorder
+    - basestation_gui_python
+    - darpa_command_post
+    - mcmn_status_monitor
+
+temp
+    - basestation_gui_python
+    - behavior_executive
+    - behavior_executive2
+
+timesync_ws
+    - base_main_class_py
+    - rostime_sync
+
+xsense_ws
+    - 91_xsense_VRU200.rules
+    - serial
+        - https://github.com/wjwwood/serial
+    - xsens_cpp_driver
+        git@bitbucket.org:cmusubt/xsens_cpp_driver.git
+
+subT
+    - dfs_planner/
+    - map_compress/
+    - speed_selector/
+    - tictoc_profiler/
+
+---------------------------
+
+== terminal network settings ==
+
+    sudo ip addr add 192.168.1.200 dev enx803f5d1023e8
+    sudo route add -net 192.168.1.0 netmask 255.255.255.0 dev enx803f5d1023e8
+
+== gui network settings ==
+    IP addr: 192.168.1.200
+    Hardware addr: 80:3F:5D:10:23:E8
+
+    name:   enx803f5d1023e8
+    MAC:    80:3F:5D:10:23:E8 (enx803f5d1023e8)
+    ipv4:
+        IP:     192.168.1.200
+        MASK:   255.255.255.255 

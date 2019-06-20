@@ -13,9 +13,6 @@
 [submodule "launch/robot_launch_scripting"]
 	path = launch/robot_launch_scripting
 	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
-[submodule "field_support/ci_tools"]
-	path = field_support/ci_tools
-	url = git@bitbucket.org:cmusubt/ci_tools.git
 [submodule "docker"]
 	path = docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
@@ -25,3 +22,6 @@
 [submodule "perception/deps/catkin/darpa_command_post"]
 	path = perception/deps/catkin/darpa_command_post
 	url = git@bitbucket.org:cmusubt/darpa_command_post.git
+[submodule "field_support/deploy_tools"]
+	path = field_support/deploy_tools
+	url = git@bitbucket.org:cmusubt/ci_tools.git

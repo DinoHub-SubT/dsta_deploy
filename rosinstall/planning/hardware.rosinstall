@@ -11,10 +11,6 @@
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
     version: 8e9d672
 - git:
-    local-name: darpa_command_post
-    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
-    version: f48b0f4
-- git:
     local-name: health_monitor
     uri: git@bitbucket.org:cmusubt/health_monitor.git
     version: 46939e5
@@ -38,3 +34,7 @@
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
     version: 24c7e7f
+- git:
+    local-name: led_matrix_bridge
+    uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
+    version: 3f43c7d

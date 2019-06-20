@@ -10,7 +10,7 @@ install: false
 install_space: ../../../../install/planning/hardware/
 isolate_install: false
 jobs_args: []
-log_space: ../../../../logs
+log_space: ../../../../logs/planning/thirdparty/
 make_args: []
 source_space: .
 use_env_cache: false

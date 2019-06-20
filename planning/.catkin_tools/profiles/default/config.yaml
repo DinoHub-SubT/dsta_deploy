@@ -5,12 +5,12 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../devel/planning/repo
-extend_path: ../../install/planning/deps
+extend_path: ../../devel/planning/thirdparty
 install: false
 install_space: ../../install/planning/repo
 isolate_install: false
 jobs_args: []
-log_space: ../../logs
+log_space: ../../logs/planning/repo/
 make_args: []
 source_space: .
 use_env_cache: false

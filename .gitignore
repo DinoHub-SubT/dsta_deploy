@@ -11,11 +11,11 @@
 !docker/
 !deploy/
 !field_support/
-!launch/
 !rosinstall/
 !deployer
 !install-deployer.bash
 !tmuxp
+!documentation
 
 ###################################################################################################
 ### allow planning workspace
@@ -100,7 +100,16 @@ state_estimation/deps/catkin/*
 state_estimation/deps/catkin/.catkin_tools/*
 
 #######################################
-### allow perception-deps
+### allow state_estimation-deps
+
+###################################################################################################
+
+# unignore planning-ws 
+!launch/
+launch/*
+
+# allow specific repos
+!launch/.catkin_tools/
 
 ###################################################################################################
 ### ignore anything that was previously allowed
@@ -148,3 +157,15 @@ state_estimation/.catkin_tools/profiles/default/build.yaml
 launch/.catkin_tools/profiles/default/packages/
 launch/.catkin_tools/profiles/default/devel_collisions.txt
 launch/.catkin_tools/profiles/default/build.yaml
+
+launch/.catkin_tools/profiles/planning/packages/
+launch/.catkin_tools/profiles/planning/devel_collisions.txt
+launch/.catkin_tools/profiles/planning/build.yaml
+
+launch/.catkin_tools/profiles/planning-hardware/packages/
+launch/.catkin_tools/profiles/planning-hardware/devel_collisions.txt
+launch/.catkin_tools/profiles/planning-hardware/build.yaml
+
+launch/.catkin_tools/profiles/state_est/packages/
+launch/.catkin_tools/profiles/state_est/devel_collisions.txt
+launch/.catkin_tools/profiles/state_est/build.yaml

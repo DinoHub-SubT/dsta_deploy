@@ -1,0 +1,8 @@
+- git:
+    local-name: audio_common
+    uri: https://github.com/ros-drivers/audio_common
+    version: master
+- git:
+    local-name: serial
+    uri: https://github.com/wjwwood/serial
+    version: master

@@ -5,7 +5,7 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../devel/planning/launch
-extend_path: /home/developer/deploy_ws/devel/planning/repo
+extend_path: ../../devel/planning/repo
 install: false
 install_space: ../../install/planning/launch
 isolate_install: false

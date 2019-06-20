@@ -1,5 +1,5 @@
 - git:
-    local-name: planning_workspace
+    local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
     version: 6f9911c
 - git:
@@ -55,10 +55,6 @@
     uri: git@bitbucket.org:cmusubt/voxmap.git
     version: b2e2b23663cb
 - git:
-    local-name: catkin_simple
-    uri: https://git@github.com/catkin/catkin_simple.git
-    version: 0e62848b12da
-- git:
     local-name: openvdb_catkin
     uri: git@bitbucket.org:cmusubt/openvdb_catkin.git
     version: 98737e1f530f
@@ -90,14 +86,6 @@
     local-name: robot_motions_server_ros
     uri: git@bitbucket.org:cmusubt/robot_motions_server_ros.git
     version: 613b4ab87881
-- git:
-    local-name: iarc7_msgs
-    uri: https://github.com/Pitt-RAS/iarc7_msgs.git
-    version: f71d0e91ecdd
-- git:
-    local-name: iarc7_safety
-    uri: https://github.com/Pitt-RAS/iarc7_safety.git
-    version: f8db2ef692ba
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
@@ -163,17 +151,13 @@
     uri: git@bitbucket.org:cmusubt/pose_controller.git
     version: 1ac7ea1af9e0
 - git:
-    local-name: copley_ros_driver
-    uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: 006465e62393
-- git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
     version: 355e8bd7ce50
 - git:
     local-name: comms_planner
     uri: git@bitbucket.org:cmusubt/comms_planner.git
-    version: kpluckter-testWithRobot
+    version: master
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
@@ -182,3 +166,63 @@
     local-name: subt_auton_common
     uri: git@bitbucket.org:cmusubt/subt_auton_common.git
     version: 3f2bc82373e6
+- git:
+    local-name: behavior_tree
+    uri: git@bitbucket.org:cmusubt/behavior_tree.git
+    version: 1bed948
+- git:
+    local-name: behavior_tree_msgs
+    uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
+    version: 716223d
+- git:
+    local-name: central
+    uri: git@bitbucket.org:cmusubt/central.git
+    version: 3635d41
+- git:
+    local-name: communication_manager
+    uri: git@bitbucket.org:cmusubt/communication_manager.git
+    version: a430dc2
+- git:
+    local-name: darpa_command_post
+    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
+    version: 9af4091
+- git:
+    local-name: dfs_control_panel
+    uri: git@bitbucket.org:cmusubt/dfs_control_panel.git
+    version: 7dd96d1
+- git:
+    local-name: entrance_calib
+    uri: git@bitbucket.org:cmusubt/entrance_calib.git
+    version: f1aae4f
+- git:
+    local-name: healthmonitoringsystem
+    uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
+    version: afe8ff0
+- git:
+    local-name: image_streamer
+    uri: git@bitbucket.org:cmusubt/image_streamer.git
+    version: 8a9fd78
+- git:
+    local-name: rocker_motion_analysis_assembly
+    uri: git@bitbucket.org:cmusubt/rocker_motion_analysis_assembly.git
+    version: 0691cc5
+- git:
+    local-name: rqt_multiplot_plugin
+    uri: git@bitbucket.org:cmusubt/rqt_multiplot_plugin.git
+    version: 8ad4b28
+- git:
+    local-name: total_station_node
+    uri: git@bitbucket.org:cmusubt/total_station_node.git
+    version: 97702cf
+- git:
+    local-name: total_station_node
+    uri: git@bitbucket.org:cmusubt/total_station_node.git
+    version: 97702cf
+- git:
+    local-name: general_health_monitor
+    uri: git@bitbucket.org:cmusubt/general_health_monitor.git
+    version: master
+- git:
+    local-name: online_pose_graph
+    uri: git@bitbucket.org:cmusubt/online_pose_graph.git
+    version: 9398d58

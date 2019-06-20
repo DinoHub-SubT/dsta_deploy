@@ -1,0 +1,16 @@
+- git:
+    local-name: variant
+    uri: https://github.com/ANYbotics/variant.git
+    version: 0aeed30
+- git:
+    local-name: catkin_simple
+    uri: https://git@github.com/catkin/catkin_simple.git
+    version: 0e62848b12da
+- git:
+    local-name: iarc7_msgs
+    uri: https://github.com/Pitt-RAS/iarc7_msgs.git
+    version: f71d0e91ecdd
+- git:
+    local-name: iarc7_safety
+    uri: https://github.com/Pitt-RAS/iarc7_safety.git
+    version: f8db2ef692ba    

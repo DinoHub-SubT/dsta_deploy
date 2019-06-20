@@ -1,0 +1,37 @@
+- git:
+    local-name: speed_selector
+    uri: git@bitbucket.org:cmusubt/speed_selector.git
+    version: 9c3eb9c
+- git:
+    local-name: tictoc_profiler
+    uri: git@bitbucket.org:cmusubt/tictoc_profiler.git
+    version: 3e9997d
+# timesync
+- git:
+    local-name: rostime_sync
+    uri: git@bitbucket.org:cmusubt/rostime_sync.git
+    version: master
+# recording
+- git:
+    local-name: bag_recorder
+    uri: git@bitbucket.org:cmusubt/bag_recorder.git
+    version: 854b3fe
+- git:
+    local-name: mcmn_status_monitor
+    uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
+    version: 35c32b8
+# bluetooth
+- git:
+    local-name: object_detection
+    uri: git@bitbucket.org:cmusubt/object_detection.git
+    version: feature/jenkins-enable
+# other
+- git:
+    local-name: online_pose_graph
+    uri: git@bitbucket.org:cmusubt/online_pose_graph.git
+    version: master
+# xsens driver
+- git:
+    local-name: xsens_cpp_driver
+    uri: git@bitbucket.org:cmusubt/xsens_cpp_driver.git
+    version: master
