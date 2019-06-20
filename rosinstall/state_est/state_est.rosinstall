@@ -24,7 +24,7 @@
 - git:
     local-name: object_detection
     uri: git@bitbucket.org:cmusubt/object_detection.git
-    version: feature/jenkins-enable
+    version: master
 # other
 - git:
     local-name: online_pose_graph
@@ -34,4 +34,4 @@
 - git:
     local-name: xsens_cpp_driver
     uri: git@bitbucket.org:cmusubt/xsens_cpp_driver.git
-    version: master
+    version: deploy

@@ -1,11 +1,11 @@
 ####################################################################################################
-- ssh-keys:
+- ssh:
   # access any intermediate server
-  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
+  # - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
 
   # setup scp
-  - 'export username=nvidia'
-  - 'export host=xavier'
+  - 'export username=ugv2'
+  - 'export host=ugv2'
   
   - copy:
     # copy over ssh keys from local host to remote host  
@@ -20,7 +20,7 @@
 - x86.docker:
   ##################################################################################################
   # access any intermediate server
-  - +ssh:robot:planning-pc:/home/mtatum/.ssh/planning_pc
+  # - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
 
   # setup scp
   - 'export username=nvidia'

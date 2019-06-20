@@ -1,53 +1,189 @@
 - pwd
-- 'export SRC_DIR=$PWD'
+- 'export DEPLOY_SRC=$PWD'
+- 'export DEPLOY_WS=$PWD/../'
 
-###################################################################################################
+####################################################
+# clone workspaces
+####################################################
 - clone:
-  - 'echo "Cloning planning_ws"'
-  - 'echo "src dir is:  $SRC_DIR" '
-  - cd $SRC_DIR/planning/
 
+  # download the subt_robot_examples_latest
+  # NOTE: only do this on ONCE. requires internet access.
+  - download:
+    - if [ -f subt_robot_examples_latest.tgz ]; then
+        rm subt_robot_examples_latest.tgz;
+      fi
+    - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+
+  # update any submodule
+  - submodule:
+    - launch:
+      - git submodule update $DEPLOY_SRC/launch
+    - docker:
+      - git submodule update $DEPLOY_SRC/docker
+    # - field_support:
+    #   - git submodule update $DEPLOY_SRC/field_support
+    - ci:
+      - git submodule update $DEPLOY_SRC/ci
+
+  # clone & update the planning workspace
+  - cd planning/
+  
+  # setup the rosinstalls
   - rosinstall:
-    - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
-    - cd deps/catkin
-    - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+    - planning:
+      - darpa:
+        - cd darpa/catkin
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - ln -s $DEPLOY_SRC/rosinstall/planning/darpa.rosinstall .rosinstall
+      - thirdparty:
+        - cd thirdparty/catkin
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - ln -s $DEPLOY_SRC/rosinstall/planning/thirdparty.rosinstall .rosinstall
+      - repo:
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - ln -s $DEPLOY_SRC/rosinstall/planning/planning.rosinstall .rosinstall
+      - hardware:
+        - cd hardware/catkin
+        - if [ -f .rosinstall ]; then
+            rm .rosinstall;
+          fi
+        - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
+    - state_est:
+      - cd $DEPLOY_SRC/state_estimation
+      - repo:
+        - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
+        - ln -s $DEPLOY_SRC/rosinstall/state_est/state_est.rosinstall .rosinstall
+      - thirdparty:
+        - cd thirdparty/catkin
+        - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
+        - ln -s $DEPLOY_SRC/rosinstall/state_est/thirdparty.rosinstall .rosinstall
+      - loam:
+        - cd loam/catkin
+        - if [ -f .rosinstall ]; then
+              rm .rosinstall;
+            fi
+        - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
 
-  - wstool:
-    - cd $SRC_DIR/planning/
-    - deps:
-      - cd deps/catkin
-      - wstool info
-      - wstool update
-    - repo:
-      - cd $SRC_DIR/planning/
-      - install-deps:
-        - ./planning_workspace/install_dependencies.sh
-      - wstool info
-      - wstool update
+  # wstool update the workspaces
+  - up:
+    - planning:
+      - darpa:
+        - cd darpa/catkin
+        - wstool info
+        - wstool update
+      - thirdparty:
+        - cd thirdparty/catkin
+        - wstool info
+        - wstool update
+      - repo:
+        - wstool info
+        - wstool update
+      - hardware:
+        - cd hardware/catkin
+        - wstool info
+        - wstool update
 
-###################################################################################################
+    - state_est:
+      - cd $DEPLOY_SRC/state_estimation
+      - repo:
+        - wstool info
+        - wstool update
+      - thirdparty:
+        - cd thirdparty/catkin
+        - wstool info
+        - wstool update
+      - loam:
+        - cd loam/catkin
+        - wstool info
+        - wstool update
+
+####################################################
+# build workspaces
+####################################################
 - build:
-  # build the planning workspace (including any dependencies)
-  - 'echo "Building planning_ws"'
-  - 'echo "src dir is:  $SRC_DIR" '
-  - cd planning/
+  - planning:
+    - cd planning/
 
-  - deps:
-    # build workspace deps
-    - cd deps/catkin
-    - catkin build --no-status
-    - cd $SRC_DIR/../install/
-    - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
-    - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
+    # build the darpa workspaces
+    - darpa:
+      - cd darpa/catkin
+      - catkin build --no-status
+    
+    # install the robot_examples
+    - robot_examples:
+      - cd $DEPLOY_WS/install/planning/
+      - cp $DEPLOY_SRC/subt_robot_examples_latest.tgz .
+      - tar xfv subt_robot_examples_latest.tgz -C darpa --strip-components 1
 
-  - ws:
-    - cd $SRC_DIR/planning/
-    # build workspace
-    - catkin init
-    - catkin build --no-status
+    # build the hardware workspace
+    - thirdparty:
+      - cd thirdparty/catkin
+      - catkin build --no-status
 
-###################################################################################################
+    # build planning workspace
+    - repo:
+      - catkin build --no-status
+
+    # build launch workspace
+    - launch:
+      - cd $DEPLOY_SRC/launch/
+      - catkin clean -b --yes
+      - catkin profile set planning-no-hardware
+      - catkin build --no-status
+
+####################################################
+# clean workspaces
+####################################################
 - clean:
-  - cd planning/
-  - rm .rosinstall
-  - rm deps/catkin/.rosinstall
+  - launch:
+    - cd $DEPLOY_SRC/launch/
+    - catkin clean -y
+  - planning:
+    - cd $DEPLOY_SRC/planning
+    - repo:
+      - catkin clean -y
+    - thirdparty:
+      - cd thirdparty/catkin
+      - catkin clean -y
+    - darpa:
+      - cd darpa/catkin
+      - catkin clean -y
+
+####################################################
+# remove workspaces
+####################################################
+- rm:
+  - planning:
+    - cd planning/
+    - repo:
+      - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
+    - hardware:
+      - cd hardware/catkin
+      - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+    - darpa:
+      - cd darpa/catkin
+      - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+    - thirdparty:
+      - cd thirdparty/catkin
+      - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+  - state_est:
+    - cd $DEPLOY_SRC/state_estimation/
+    - repo:
+      - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
+    - thirdparty:
+      - cd thirdparty/catkin
+      - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+    - loam:
+      - cd loam/catkin
+      - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;

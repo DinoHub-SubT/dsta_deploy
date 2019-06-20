@@ -2,22 +2,32 @@
 phase: ci/phase/planning.yaml
 
 # jenkins stages configuration
-stages: [source, build]
+stages: [clone, build, clean]
 
-# source stage
-source:
+# clone stage
+clone:
   timeout: 100000
-  messages: "clone subt ws repo"
+  messages: "clone planning ws"
   sections: [clone]
   slurm:
     - "-t 0-01:00"
     - "-c 4"
 
-# source stage
+# build stage
 build:
   timeout: 100000
-  messages: "build subt ws repo"
+  messages: "build planning ws"
   sections: [build]
+  slurm:
+    - "-t 0-01:00"
+    - "-c 4"
+    - "-p gpu --gres=gpu:1"
+
+# clean stage
+clean:
+  timeout: 100000
+  messages: "clean planning ws"
+  sections: [clean, rm]
   slurm:
     - "-t 0-01:00"
     - "-c 4"

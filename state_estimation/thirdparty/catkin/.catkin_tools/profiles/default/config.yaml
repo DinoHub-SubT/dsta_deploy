@@ -1,0 +1,18 @@
+blacklist: []
+build_space: ../../../../build/state_estimation/thirdparty
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../../../devel/state_estimation/thirdparty
+extend_path: ../../../../devel/planning/repo
+install: false
+install_space: ../../../../install/state_estimation/thirdparty
+isolate_install: false
+jobs_args: []
+log_space: ../../../../logs/state_estimation/thirdparty
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

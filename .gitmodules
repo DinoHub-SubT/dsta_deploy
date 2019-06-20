@@ -22,6 +22,3 @@
 [submodule "perception/deps/catkin/darpa_command_post"]
 	path = perception/deps/catkin/darpa_command_post
 	url = git@bitbucket.org:cmusubt/darpa_command_post.git
-[submodule "field_support/deploy_tools"]
-	path = field_support/deploy_tools
-	url = git@bitbucket.org:cmusubt/ci_tools.git

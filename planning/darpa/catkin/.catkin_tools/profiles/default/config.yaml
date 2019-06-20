@@ -1,16 +1,16 @@
 blacklist: []
-build_space: ../../build/planning/launch
+build_space: ../../../../build/planning/darpa
 catkin_make_args: []
 cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
-devel_space: ../../devel/planning/launch
-extend_path: ../../devel/planning/hardware
-install: false
-install_space: ../../install/planning/launch
+devel_space: ../../../../devel/planning/darpa
+extend_path: /opt/ros/melodic
+install: true
+install_space: ../../../../install/planning/darpa/
 isolate_install: false
 jobs_args: []
-log_space: ../../logs
+log_space: ../../../../logs
 make_args: []
 source_space: .
 use_env_cache: false

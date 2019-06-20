@@ -162,10 +162,13 @@ launch/.catkin_tools/profiles/planning/packages/
 launch/.catkin_tools/profiles/planning/devel_collisions.txt
 launch/.catkin_tools/profiles/planning/build.yaml
 
-launch/.catkin_tools/profiles/planning-hardware/packages/
-launch/.catkin_tools/profiles/planning-hardware/devel_collisions.txt
-launch/.catkin_tools/profiles/planning-hardware/build.yaml
+launch/.catkin_tools/profiles/planning-no-hardware/packages/
+launch/.catkin_tools/profiles/planning-no-hardware/devel_collisions.txt
+launch/.catkin_tools/profiles/planning-no-hardware/build.yaml
 
 launch/.catkin_tools/profiles/state_est/packages/
 launch/.catkin_tools/profiles/state_est/devel_collisions.txt
 launch/.catkin_tools/profiles/state_est/build.yaml
+
+# ignore which default settings is set
+launch/.catkin_tools/profiles/profiles.yaml
