@@ -437,13 +437,13 @@
         - start:
           - planning:
             # start the tmux session
-            - tmux new -s ${host}_launch_${config} -d
+            - tmux new -s ${host}_launch_planning -d
             # source
-            - tmux send -t ${host}_launch_${config} 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t ${host}_launch_${config} 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
+            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+            - echo "Launch deployed in tmux session ${host}_launch_planning"
           
           - state_est:
             # start the tmux session
@@ -453,7 +453,7 @@
             # run planning-pc launch
             - tmux send -t ${host}_launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+            - echo "Launch deployed in tmux session ${host}_launch_state_est"
           
           # TODO: remove & add as command line suffix to tmux name...
           - ros:
@@ -461,20 +461,13 @@
             - tmux new -s ros -d
             - tmux send -t ros 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
-          # TODO: others...remove
-          - healthmon:
-            - pwd
-            - tmux new -s healthmon -d
-            - tmux send -t healthmon 'source $DEPLOY_WS/devel/launch/setup.bash' ENTER
-            - tmux send -t healthmon 'rosrun health_monitoring_system hms' ENTER
-          
         # change sizes depending on host screen size.
         - view:
           - export TERM="xterm-256color"
           - stty size
           # - stty rows 60 cols 150
           - stty rows 30 cols 150
-          - tmux a -t ${host}_launch_${config}
+          - tmux a -t ${host}_launch_planning
         
         # stop tmux sessions    
         - stop:
@@ -482,7 +475,7 @@
           - state_est:
             - tmux kill-session -t ${host}_launch_state_est
           - planning:
-            - tmux kill-session -t ${host}_launch_${config}
+            - tmux kill-session -t ${host}_launch_planning
           - ros:  
             - tmux kill-session -t ros
 
