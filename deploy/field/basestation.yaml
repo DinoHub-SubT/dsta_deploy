@@ -325,6 +325,7 @@
       - 'export USER=mtatum'
       - 'export ROS_MASTER_URI=http://ugv2:11311'
       - 'export ROS_HOSTNAME=basestation-pc'
+      - 'export DISPLAY=:0.0'
       
       ### == user can modify done. ==
 
@@ -341,7 +342,7 @@
         - shell:
           - pwd
           - tmux new -s ${host}_shell -d
-          - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/launch/setup.bash' ENTER
+          - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
       # stop tmux sessions    
       - stop:

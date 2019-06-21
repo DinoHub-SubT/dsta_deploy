@@ -254,6 +254,14 @@
     local-name: artifact_detection_simulator
     uri: git@bitbucket.org:cmusubt/artifact_detection_simulator.git
     version: master
+- git:
+    local-name: basestation_msgs
+    uri: git@bitbucket.org:cmusubt/basestation_msgs.git
+    version: master
+- git:
+    local-name: blink1_node
+    uri: git@bitbucket.org:castacks/blink1_node.git
+    version: master
 
 ################################################################
 # moved from hardware_ws to planning_ws
