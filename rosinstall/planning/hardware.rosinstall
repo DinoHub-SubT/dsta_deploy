@@ -13,7 +13,7 @@
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
-    version: 35c32b8
+    version: dc2a5b192541c783a15d4127eebdc78628027ee5
 - git:
     local-name: solenoid_toggle
     uri: git@bitbucket.org:cmusubt/solenoid_toggle.git
@@ -30,14 +30,3 @@
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
     version: 24c7e7f
-################################################################
-# moved to planning_ws
-################################################################
-# - git:
-#     local-name: led_matrix_bridge
-#     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
-#     version: 3f43c7d
-# - git:
-#     local-name: copley_ros_driver
-#     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-#     version: 8e9d672

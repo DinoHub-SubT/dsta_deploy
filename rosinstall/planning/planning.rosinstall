@@ -9,7 +9,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 5e956309e23b151f7ab58e34d28da1a4349bf624
+    version: 446d22f85bbb86a9529c41c64679ffa5feff1845
 - git:
     local-name: circular_curve_lib
     uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
@@ -93,7 +93,7 @@
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 3c2e2406a3db47fb2b749a021c6d5a12a4b51358
+    version: 02103bc9c77a98688d15282d88f1dca40e5f125e
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
@@ -217,7 +217,7 @@
 - git:
     local-name: general_health_monitor
     uri: git@bitbucket.org:cmusubt/general_health_monitor.git
-    version: 3886649e217579e46d6575aaf132163d9ea827bc
+    version: 17dad530f8fbe9453944b15734583ab7e9f7ed38
 - git:
     local-name: online_pose_graph
     uri: git@bitbucket.org:cmusubt/online_pose_graph.git
@@ -238,6 +238,22 @@
     local-name: misc_utils
     uri: git@bitbucket.org:cmusubt/misc_utils.git
     version: 66cf30a1b4d16f9a31922b5c8003e4a915dc4ed6
+- git:
+    local-name: battery_monitor_drone
+    uri: git@bitbucket.org:cmusubt/battery_monitor_drone.git
+    version: master
+- git:
+    local-name: blink_monitor
+    uri: git@bitbucket.org:cmusubt/blink_monitor.git
+    version: master
+- git:
+    local-name: teensyrosserialradio
+    uri: git@bitbucket.org:cmusubt/teensyrosserialradio.git
+    version: master
+- git:
+    local-name: artifact_detection_simulator
+    uri: git@bitbucket.org:cmusubt/artifact_detection_simulator.git
+    version: master
 
 ################################################################
 # moved from hardware_ws to planning_ws

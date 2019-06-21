@@ -19,7 +19,7 @@
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
-    version: 35c32b8
+    version: dc2a5b192541c783a15d4127eebdc78628027ee5
 # bluetooth
 - git:
     local-name: object_detection
