@@ -31,16 +31,19 @@ SRC_DIR=$(pwd)
 install() {
   git submodule init
   git submodule update $SRC_DIR/ci/ci_phase
+  git submodule update $SRC_DIR/docker
+  git submodule update $SRC_DIR/launch
   # validate "ci_phase submodule update failed."
   cd ci/ci_phase
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
-  # echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.bashrc
-  # echo "alias deploy-docker-cd=\"cd $SRC_DIR/docker/scripts\"" >> ~/.zshrc
-  # add deploy
-  # echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.bashrc
-  # echo "alias deploy-cd=\"cd $SRC_DIR/ \"" >> ~/.zshrc
+  # remove any previous alias
+  sed -i '/docker-join/d' /home/$USER/.bashrc
+  # sed -i '/docker-join/d' /home/$USER/.zshrc
+  # add new alias
+  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt-deploy \"" >> /home/$USER/.bashrc
+  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt-deploy \"" >> /home/$USER/.zshrc
 }
 
 # uninstall
@@ -50,7 +53,9 @@ uninstall() {
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
   git clean -f -d
-  # TODO: remove alias, via pattern matching
+  # remove any previous alias
+  sed -i '/docker-join/d' /home/$USER/.bashrc
+  sed -i '/docker-join/d' /home/$USER/.zshrc
 }
 
 # perform the install/uninstall
