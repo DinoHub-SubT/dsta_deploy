@@ -9,7 +9,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 446d22f85bbb86a9529c41c64679ffa5feff1845
+    version: d5e598490e4410ecf9b41add8b1f2292ba5d075a
 - git:
     local-name: circular_curve_lib
     uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
@@ -181,7 +181,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: c4f77e375ed2b337acdd0a4f5bd598aab448b649
+    version: af210f909813acb42e3bb71936bdbfa58f2ac8e2
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
@@ -269,7 +269,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: 8e9d672
+    version: ef913d5c31c4e5df89e315df8943edca6bea836a
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git

@@ -34,4 +34,4 @@
 - git:
     local-name: xsens_cpp_driver
     uri: git@bitbucket.org:cmusubt/xsens_cpp_driver.git
-    version: deploy
+    version: jkeller-fix_buffer_overflow
