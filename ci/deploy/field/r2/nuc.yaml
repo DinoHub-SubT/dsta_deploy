@@ -437,29 +437,28 @@
         - start:
           - planning:
             # start the tmux session
-            - tmux new -s ${host}_launch_planning -d
+            - tmux new -s launch_planning -d
             # source
-            - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_planning"
+            - echo "Launch deployed in tmux session launch_planning"
           
           - state_est:
             # start the tmux session
-            - tmux new -s ${host}_launch_state_est -d
+            - tmux new -s launch_state_est -d
             # source
-            - tmux send -t ${host}_launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+            - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t ${host}_launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true' ENTER
+            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_state_est"
+            - echo "Launch deployed in tmux session launch_state_est"
           
-          # TODO: remove & add as command line suffix to tmux name...
-          - ros:
+          - shell:
             - pwd
-            - tmux new -s ros -d
-            - tmux send -t ros 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+            - tmux new -s ros_shell -d
+            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
         # change sizes depending on host screen size.
         - view:
@@ -467,17 +466,17 @@
           - stty size
           # - stty rows 60 cols 150
           - stty rows 30 cols 150
-          - tmux a -t ${host}_launch_planning
+          - tmux a -t launch_planning
         
         # stop tmux sessions    
         - stop:
           # remove all the tmux sessions
           - state_est:
-            - tmux kill-session -t ${host}_launch_state_est
+            - tmux kill-session -t launch_state_est
           - planning:
-            - tmux kill-session -t ${host}_launch_planning
-          - ros:  
-            - tmux kill-session -t ros
+            - tmux kill-session -t launch_planning
+          - shell:  
+            - tmux kill-session -t ros_shell
 
         - rosclean:
           # stop all ros nodes

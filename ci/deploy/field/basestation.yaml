@@ -330,27 +330,27 @@
       ### == user can modify done. ==
 
       - start:
-        - planning:
+        - gui:
           # start the tmux session
-          - tmux new -s ${host}_launch_planning -d
+          - tmux new -s launch_gui -d
           # source
-          - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux send -t launch_gui 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
           # run autonomy launch
-          - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot' ENTER
+          - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot' ENTER
           # message user
-          - echo "Launch deployed in tmux session ${host}_launch_planning"
+          - echo "Launch deployed in tmux session launch_gui"
         - shell:
           - pwd
-          - tmux new -s ${host}_shell -d
-          - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux new -s ros_shell -d
+          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
       # stop tmux sessions    
       - stop:
         # remove all the tmux sessions
-        - planning:
-          - tmux kill-session -t ${host}_launch_${config}
+        - gui:
+          - tmux kill-session -t launch_gui
         - shell:
-            - tmux kill-session -t ${host}_shell
+            - tmux kill-session -t ros_shell
 
       - rosclean:
         # stop all ros nodes
