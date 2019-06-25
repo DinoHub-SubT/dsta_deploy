@@ -18,9 +18,9 @@
     
     ####################################################
     # path setup
-    - 'export DEPLOY_WS=/home/$(whoami)/subt/deploy_ws/'
-    - 'export DEPLOY_SRC=/home/$(whoami)/subt/deploy_ws/src/'
-    - 'export DOCKER_CONFIG=field/r1/basestation'
+    - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+    - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+    - 'export DOCKER_CONFIG=field/robot/basestation'
     - 'export DOCKER_CONFIG_PATH=docker/env'
     
     ####################################################
@@ -31,7 +31,7 @@
       - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
       - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
       - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-      - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/basestation.config \n" ;
+      - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/robot/basestation.config \n" ;
       - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
       - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
       - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;

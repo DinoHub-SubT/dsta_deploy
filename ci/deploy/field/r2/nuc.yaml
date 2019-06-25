@@ -23,7 +23,7 @@
       - 'export HOP_HOST=ugv2@ugv2'
       
       # paths
-      - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
@@ -73,7 +73,7 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
 
       ####################################################
@@ -160,7 +160,7 @@
     - deploy:
     ################################################################################################
       # only docker container on basestation, no ssh
-      - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
       - +docker:subt
       

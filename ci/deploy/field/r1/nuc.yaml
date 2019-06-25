@@ -1,6 +1,6 @@
 ####################################################################################################
-# robot 1 configuration file
-- r1:
+# robot 2 configuration file
+- r2:
 ####################################################################################################
 
   ##################################################################################################
@@ -8,9 +8,10 @@
   ##################################################################################################
     - 'export YELLOW="\033[1;33m"'
     - 'export BLUE="\033[1;36m"'
+    - 'export RESET="\033[0m"'
 
     ################################################################################################
-    # copy deploy repo from basestation to r1.nuc
+    # copy deploy repo from basestation to r2.nuc
     - transfer:
     ################################################################################################
       
@@ -22,12 +23,12 @@
       - 'export HOP_HOST=robot@planning-pc'
       
       # paths
-      - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --exclude=src/perception" '
-      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
+      - 'export copy_opts="-avzh --delete --exclude=src/perception" '
+      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts --exclude 'src/planning' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
       ### == user can modify done. ==
@@ -52,7 +53,7 @@
         # transfer TO remote host
         - to:
           # create the remote directory
-          - ssh $HOP_HOST ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
           # copy command
           - 'export copy_cmd=$copy_to'
@@ -67,17 +68,14 @@
       
       # delete remote deploy workspace
       - delete:
-        - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+        - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
     - docker:
     ################################################################################################
-      ####################################################
-      # ssh into the remote robot
-      ####################################################
-      - +ssh:{robot:planning-pc:/home/mtatum/.ssh/planning_pc }
-      - +ssh:{nuc:nuc:/home/robot/.ssh/nuc }
-      
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
+
       ####################################################
       # setup
       ####################################################
@@ -89,23 +87,21 @@
       # path setup
       - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
-
-      - 'export DOCKER_CONFIG=field/r1/nuc'
+      - 'export DOCKER_CONFIG=field/robot/nuc'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       ####################################################
       # print docker configuration information
       ####################################################
-      - print.build:
+      - print:
         - echo -e "\n${BLUE} == Docker images to create == \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/nuc.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/robot/nuc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
-      - print.run:
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
-        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/nuc.config \n" ;
+        - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
         - echo -e "\n${YELLOW}\t subt remote env filepath -> \t $DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config \n"
         - while IFS= read line;
           do 
@@ -124,32 +120,32 @@
           - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
           - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/r1/nuc $BUILD_ARGS
+          - ./build.bash --env field/robot/nuc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/r1/nuc $START_ARGS
+        - ./run.bash --env field/robot/nuc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
-      - clean:
+      - delete:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/r1/nuc $DELETE_ARGS
+        - ./clean.bash --env field/robot/nuc $DELETE_ARGS
         - ./clean.bash --env local/subt/ros $DELETE_ARGS
         - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
         - ./clean.bash --env local/osrf/ros $DELETE_ARGS
@@ -163,130 +159,252 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{ robot:planning-pc:/home/mtatum/.ssh/planning_pc }
-      - +ssh:{ nuc:nuc:/home/robot/.ssh/nuc }
+      # only docker container on basestation, no ssh
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
+      - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
       - +docker:subt
       
       - hostname
       - whoami
       - pwd
-      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
+      - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
       - 'export DEPLOY_WS=/home/developer/deploy_ws/'
       - cd $DEPLOY_SRC
-
+  
       ####################################################
       # clone workspaces
       ####################################################
       - clone:
 
-        # update the git submodule
-        - submodule:
-          - git submodule init planning/planning_workspace/
-          - git submodule update planning/planning_workspace/
+        # download the subt_robot_examples_latest
+        # NOTE: only do this on ONCE. requires internet access.
+        - download:
+          - if [ -f subt_robot_examples_latest.tgz ]; then
+              rm subt_robot_examples_latest.tgz;
+            fi
+          - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
 
         # clone & update the planning workspace
         - cd planning/
         
-        # apt install any thirdparty deps
-        - install_deps:
-          - ./planning_workspace/install_dependencies.sh
-
         # setup the rosinstalls
         - rosinstall:
           - planning:
+            - darpa:
+              - cd darpa/catkin
+              - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+              - ln -s $DEPLOY_SRC/rosinstall/planning/darpa.rosinstall .rosinstall
+            - thirdparty:
+              - cd thirdparty/catkin
+              - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+              - ln -s $DEPLOY_SRC/rosinstall/planning/thirdparty.rosinstall .rosinstall
             - repo:
               - if [ -f .rosinstall ]; then
                   rm .rosinstall;
                 fi
-              - ln -s ../rosinstall/planning/planning.rosinstall .rosinstall
-          - deps:
-            - cd deps/catkin
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s ../../../rosinstall/planning/dependencies.rosinstall .rosinstall
+              - ln -s $DEPLOY_SRC/rosinstall/planning/planning.rosinstall .rosinstall
+            - hardware:
+              - cd hardware/catkin
+              - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+              - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s ../rosinstall/state_estimation.rosinstall .rosinstall
+            - repo:
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/state_est.rosinstall .rosinstall
+            - thirdparty:
+              - cd thirdparty/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/thirdparty.rosinstall .rosinstall
+            - loam:
+              - cd loam/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
 
         # wstool update the workspaces
-        - wstool:
+        - up:
           - planning:
-            - repo:
-              - pwd
+            - darpa:
+              - cd darpa/catkin
               - wstool info
               - wstool update
-            - deps:
-              - cd deps/catkin
+            - thirdparty:
+              - cd thirdparty/catkin
+              - wstool info
+              - wstool update
+            - repo:
+              - wstool info
+              - wstool update
+            - hardware:
+              - cd hardware/catkin
               - wstool info
               - wstool update
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
-            - wstool info
-            - wstool update
+            - repo:
+              - wstool info
+              - wstool update
+            - thirdparty:
+              - cd thirdparty/catkin
+              - wstool info
+              - wstool update
+            - loam:
+              - cd loam/catkin
+              - wstool info
+              - wstool update
 
+      ####################################################
+      # rosdep
+      # -- assumes the extended ws are already built
+      # -- add only those repos that need rosdep
+      ####################################################
+      - rosdep:
+        # install any thirdparty deps
+        - cd planning
+        - planning:
+          - ./Planning_workspace/install_dependencies.sh
+        - hardware:
+          - source $DEPLOY_WS/devel/planning/hardware/setup.bash
+          - cd $DEPLOY_SRC/state_estimation/thirdparty/catkin
+          - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
+        - xsens:
+          - cd $DEPLOY_SRC/state_estimation/xsens_cpp_driver/receive_xsens/config/mt_sdk
+          - sudo ./mt_sdk_4.8.sh
+        
       ####################################################
       # build workspaces
       ####################################################
       - build:
-        - cd planning/
-        
-        # build the deps workspaces
-        - deps:
-          - cd deps/catkin
-          - catkin build
-        
-        # install the robot_examples
-        - robot_examples:
-          - cd $DEPLOY_SRC/../install/planning/
-          - wget https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
-          - tar xf subt_robot_examples_latest.tgz -C deps --strip-components 1
-        
-        # build planning workspace
         - planning:
-          - catkin build
+          - cd planning/
 
-        # build the hardware workspace
+          # build the darpa workspaces
+          - darpa:
+            - cd darpa/catkin
+            - catkin build
+          
+          # install the robot_examples
+          - robot_examples:
+            - cd $DEPLOY_WS/install/planning/
+            - cp $DEPLOY_SRC/subt_robot_examples_latest.tgz .
+            - tar xfv subt_robot_examples_latest.tgz -C darpa --strip-components 1
+
+          # build the hardware workspace
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin build
+
+          # build planning workspace
+          - repo:
+            - catkin build --force-cmake
+
+          # build the hardware workspace
+          - hardware:
+            - cd hardware/catkin
+            - catkin build --force-cmake
+
+          # build launch workspace
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set planning
+            - catkin clean -b --yes
+            - catkin build --force-cmake
+
+        # build the state_est
         - state_est:
-          - cd $DEPLOY_SRC/state_estimation
-          - catkin build
-
-        # build launch workspace
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin profile set state_est
-          - catkin build
+          - cd $DEPLOY_SRC/state_estimation/
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin build --force-cmake
+          - loam:
+            - cd loam/catkin
+            - catkin build --force-cmake
+          - repo:
+            # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
+            - touch object_detection/modules/CATKIN_IGNORE
+            - catkin build --force-cmake
+  
+          # build launch workspace
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set state_est
+            - catkin clean -b --yes
+            - catkin build --force-cmake
 
       ####################################################
       # clean workspaces
       ####################################################
       - clean:
-        - cd planning/
         - launch:
           - cd $DEPLOY_SRC/launch/
+          - catkin profile set state_est
+          - catkin clean -y
+        - state_est:
+          - cd $DEPLOY_SRC/state_estimation/
+          - loam:
+            - cd loam/catkin
+            - catkin clean -y
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin clean -y
           - catkin clean -y
         - planning:
-          - catkin clean -y
-        - deps:
-          - cd deps/catkin
-          - catkin clean -y
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set planning
+            - catkin clean -y
+          - cd $DEPLOY_SRC/planning/
+          - hardware:
+            - cd hardware/catkin
+            - catkin clean -y
+          - repo:
+            - catkin clean -y
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin clean -y
+          - darpa:
+            - cd darpa/catkin
+            - catkin clean -y
 
       ####################################################
       # remove workspaces
       ####################################################
-      - remove:
-        - cd planning/
-        - if [ -f .rosinstall ]; then
-            rm .rosinstall;
-          fi
-        - if [ -f deps/catkin/.rosinstall ]; then
-            rm deps/catkin/.rosinstall
-          fi
-        - git:
-          - git submodule deinit planning/planning_workspace/
+      - rm:
+        - planning:
+          - cd planning/
+          - repo:
+            - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
+          - hardware:
+            - cd hardware/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - darpa:
+            - cd darpa/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - thirdparty:
+            - cd thirdparty/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+        - state_est:
+          - cd $DEPLOY_SRC/state_estimation/
+          - repo:
+            - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
+          - thirdparty:
+            - cd thirdparty/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - loam:
+            - cd loam/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
       # launch workspaces
@@ -296,50 +414,70 @@
         
         # launch configuration variables
         - 'export host=$(hostname)'
-        - 'export config=ugv1'
+        - 'export config=robots/r2/nuc'
         - 'export MCAST_GROUP=224.0.0.251'
         - 'export UGV_NUC=true'
-
+        - 'export USER=nuc'
+        - 'export ROS_MASTER_URI=http://ugv2:11311'
+        - 'export ROS_HOSTNAME=nuc'
+        
         ### == user can modify done. ==
 
         # read the launch configuration params
         - export config_data=""
         - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/${config}.config"
+        - echo "CONFIG_FILE is ${CONFIG_FILE}"
         - while IFS='' read -r line || [[ -n "$line" ]]; do
             if [ ! "${line:0:1}" == "#" ]; then
-              config_data="$line ";
+              config_data="$config_data $line ";
             fi
           done < "$CONFIG_FILE";
         - echo ${config_data}
-
+        
         - start:
-          - roscore:
-            # enable roscore
-            - 'export ROS_MASTER=true'
-            # start the tmux sessions
-            - tmux new -s ${host}_check_roscore -d
-            # source
-            - tmux send -t ${host}_check_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-            # run roscore
-            - tmux send -t ${host}_check_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
-            
           - planning:
             # start the tmux session
-            - tmux new -s ${host}_launch_${config} -d
+            - tmux new -s launch_planning -d
             # source
-            - tmux send -t ${host}_launch_${config} 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t ${host}_launch_${config} 'mon launch robot_launch_scripting ugv_config.launch ${config_data}' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+            - echo "Launch deployed in tmux session launch_planning"
+          
+          - state_est:
+            # start the tmux session
+            - tmux new -s launch_state_est -d
+            # source
+            - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+            # run planning-pc launch
+            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_state_est"
+          
+          - shell:
+            - pwd
+            - tmux new -s ros_shell -d
+            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
+        # change sizes depending on host screen size.
+        - view:
+          - export TERM="xterm-256color"
+          - stty size
+          # - stty rows 60 cols 150
+          - stty rows 30 cols 150
+          - tmux a -t launch_planning
+        
+        # stop tmux sessions    
         - stop:
           # remove all the tmux sessions
+          - state_est:
+            - tmux kill-session -t launch_state_est
           - planning:
-            - tmux kill-session -t ${host}_launch_${config}
-          - roscore:  
-            - tmux kill-session -t ${host}_check_roscore
-          
+            - tmux kill-session -t launch_planning
+          - shell:  
+            - tmux kill-session -t ros_shell
+
         - rosclean:
           # stop all ros nodes
           - source $DEPLOY_WS/devel/planning/repo/setup.bash
@@ -350,6 +488,97 @@
           - ps aux | grep ros
 
 
+      ####################################################
+      # git updater
+      ####################################################
+      - git:
+        - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+        - 'export DEPLOY_SRC=$DEPLOY_WS/src'
+        
+        # git status check          
+        - git_status() {
+            for repo in $1; do
+              echo "repo is $repo";
+              pushd $repo  > /dev/null 2>&1;
+              if [ -d .git ]; then
+                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
+                echo "hello world";
+                echo -e "\n\n";
+              fi;
+              popd  > /dev/null 2>&1;
+            done;
+          }
+        - export -f git_status
+        - printenv
 
+        # wstool update to git hash
+        # - git_updater() {
+        #     for repo in $1; do
+        #       echo "repo is $repo";
+        #       pushd $repo  > /dev/null 2>&1;
+        #       if [ -d .git ]; then
+        #         echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
+        #         export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
+        #         export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
+        #         wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
+        #         echo -e "\n\n";
+        #       fi;
+        #       popd  > /dev/null 2>&1;
+        #     done;
+        #   }
+        # - export -f git_updater
 
+        ####################################################
+        # git commands for planning workspace
+        ####################################################
+        - planning:
+          - cd $DEPLOY_SRC/planning
 
+          # git update to darpa ws
+          - darpa:
+            - status:
+              - 'export -f git_fn=$git_status'
+            - update:
+              - 'export -f git_fn=$git_updater'
+
+            - cd darpa/catkin
+            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
+            - git_fn "$REPOS"
+
+          # git update to thirdparty ws
+          - thirdparty:
+            - status:
+              - 'export -f git_fn=$git_status'
+            - update:
+              - 'export -f git_fn=$git_updater'
+              
+            - cd thirdparty/catkin
+            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
+            - git_fn "$REPOS"
+
+          # git update to repo ws
+          - repo:
+            - status:
+              - 'export -f git_fn=$git_status'
+            - update:
+              - 'export -f git_fn=$git_updater'
+
+            - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
+            - git_fn "$REPOS"
+          
+        # update the planning repso
+        - state_est:
+          - cd $DEPLOY_SRC/state_estimation
+          - darpa:
+            - cd loam/catkin
+            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
+            - git_updater "$REPOS"
+          - thirdparty:
+            - cd thirdparty/catkin
+            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
+            - git_updater "$REPOS"
+          - repo:
+            - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
+            - git_updater "$REPOS"
+
+          

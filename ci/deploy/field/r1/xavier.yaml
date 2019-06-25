@@ -22,7 +22,7 @@
       - 'export HOP_HOST=robot@planning-pc'
       
       # paths
-      - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
@@ -75,7 +75,7 @@
       ####################################################
       # ssh into the remote robot
       ####################################################
-      - +ssh:{robot:planning-pc:/home/mtatum/.ssh/planning_pc }
+      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
       - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
       
       ####################################################
@@ -163,7 +163,7 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{robot:planning-pc:/home/mtatum/.ssh/planning_pc }
+      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
       - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
       # - +docker:subt  # no docker in xavier
       

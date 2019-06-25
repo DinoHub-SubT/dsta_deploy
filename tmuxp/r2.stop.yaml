@@ -4,8 +4,8 @@ session_name: basestation_stop
 suppress_history: true
 
 # start directory
-# start_directory: /home/$USER/subt/deploy_ws/src
-start_directory: /home/katarina/airlab/subt/deploy_ws/src/
+# start_directory: /home/$USER/deploy_ws/src
+start_directory: /home/katarina/airlab/deploy_ws/src/
 
 # This is where we list all the stuff we want to run
 windows:
