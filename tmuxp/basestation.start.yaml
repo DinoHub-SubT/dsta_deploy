@@ -1,0 +1,30 @@
+# The tmux session name, has to be unique
+session_name: basestation_start
+
+# Add commands to bash history
+suppress_history: true
+
+# start directory
+# start_directory: /home/$USER/subt/deploy_ws/src
+start_directory: /home/katarina/airlab/subt/deploy_ws/src/
+
+# commands to run before panes startup
+before_script: " ./deployer -s
+  basestation.docker.remove
+  basestation.docker.start
+  basestation.launch.start"
+
+# This is where we list all the stuff we want to run
+windows:
+  - window_name: sim
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - docker-join
+        - tmux a -t launch_gui
+      - shell_command:
+        - docker-join
+        - tmux a -t ros_shell
+
+
+        

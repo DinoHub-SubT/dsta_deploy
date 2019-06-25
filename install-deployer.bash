@@ -42,8 +42,8 @@ install() {
   sed -i '/docker-join/d' /home/$USER/.bashrc
   # sed -i '/docker-join/d' /home/$USER/.zshrc
   # add new alias
-  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt-deploy \"" >> /home/$USER/.bashrc
-  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt-deploy \"" >> /home/$USER/.zshrc
+  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt \"" >> /home/$USER/.bashrc
+  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt \"" >> /home/$USER/.zshrc
 }
 
 # uninstall
