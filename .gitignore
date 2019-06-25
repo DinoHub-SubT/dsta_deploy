@@ -174,4 +174,4 @@ launch/.catkin_tools/profiles/state_est/build.yaml
 launch/.catkin_tools/profiles/profiles.yaml
 
 ### ignore other misc.
-deploy/field/laptop.yaml
+ci/deploy/field/laptop.yaml
