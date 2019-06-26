@@ -3,13 +3,12 @@ session_name: basestation_stop
 # Add commands to bash history
 suppress_history: true
 
-# start directory
-# start_directory: /home/$USER/deploy_ws/src
-start_directory: /home/katarina/airlab/deploy_ws/src/
+start_directory: /home/$USER/deploy_ws/src/
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: sim
+  - window_name: r2 stop
+    focus: false
     layout: main-horizontal
     panes:
       - shell_command:

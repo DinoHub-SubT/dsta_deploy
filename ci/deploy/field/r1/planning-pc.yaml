@@ -359,38 +359,38 @@
             - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
           - planning:
             # start the tmux session
-            - tmux new -s ${host}_launch_planning -d
+            - tmux new -s launch_planning -d
             # source
-            - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv1' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv1' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_planning"
+            - echo "Launch deployed in tmux session launch_planning"
           - hardware:
             # start the tmux session
-            - tmux new -s ${host}_launch_hardware -d
+            - tmux new -s launch_hardware -d
             # source
-            - tmux send -t ${host}_launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run hardware launch
-            - tmux send -t ${host}_launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true' ENTER
+            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
           # TODO: remove & add as command line suffix to tmux name...
           - shell:
             - pwd
-            - tmux new -s ${host}_shell -d
-            - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/launch/planning/setup.bash' ENTER
+            - tmux new -s ros_shell -d
+            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
         - stop:
           # remove all the tmux sessions
           - roscore:
             - tmux kill-session -t ${host}_roscore
           - planning:
-            - tmux kill-session -t ${host}_launch_planning
+            - tmux kill-session -t launch_planning
           - hardware:
-            - tmux kill-session -t ${host}_launch_hardware
+            - tmux kill-session -t launch_hardware
           - shell:
-            - tmux kill-session -t ${host}_shell
+            - tmux kill-session -t ros_shell
           
         - rosclean:
           # stop all ros nodes
