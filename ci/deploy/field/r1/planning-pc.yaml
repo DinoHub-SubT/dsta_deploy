@@ -1,6 +1,6 @@
 ####################################################################################################
 # robot 2 configuration file
-- r2:
+- r1:
 ####################################################################################################
 
   ##################################################################################################
@@ -19,15 +19,15 @@
       # testing setp
 
       # connections
-      - 'export host=robot'
-      - 'export user=planning-pc'
+      - 'export host=planning-pc'
+      - 'export user=robot'
   
       # paths
       - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation -e \"ssh -i $HOME/.ssh/deploy\" " ' 
+      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation -e \"ssh -i $HOME/.ssh/ugv1\" " ' 
       # rsync commands
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
@@ -54,7 +54,7 @@
         # transfer TO remote host
         - to:
           # create the remote directory
-          - ssh $user@$host -i ~/.ssh/deploy "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh $user@$host -i ~/.ssh/ugv1 "mkdir -p $REMOTE_DEPLOY_PATH"
 
           # copy command
           - 'export copy_cmd=$copy_to'
@@ -74,7 +74,7 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/ugv1 }
 
       ####################################################
       # setup
@@ -159,7 +159,7 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/ugv1 }
       - +docker:subt
       
       - hostname
@@ -331,9 +331,9 @@
         - 'export config=robots/r2/planning-pc'
         - 'export MCAST_GROUP=224.0.0.251'
         - 'export robot=robots/planning-pc'
-        - 'export USER=ugv2'
-        - 'export ROS_MASTER_URI=http://ugv2:11311'
-        - 'export ROS_HOSTNAME=ugv2'
+        - 'export USER=developer'
+        - 'export ROS_MASTER_URI=http://planning-pc:11311'
+        - 'export ROS_HOSTNAME=$(hostname)'
 
         ### == user can modify done. ==
 
@@ -379,7 +379,7 @@
           - shell:
             - pwd
             - tmux new -s ${host}_shell -d
-            - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/launch/setup.bash' ENTER
+            - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/launch/planning/setup.bash' ENTER
 
         - stop:
           # remove all the tmux sessions

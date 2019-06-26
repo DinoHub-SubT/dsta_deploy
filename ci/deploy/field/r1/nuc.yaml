@@ -1,6 +1,6 @@
 ####################################################################################################
 # robot 2 configuration file
-- r2:
+- r1:
 ####################################################################################################
 
   ##################################################################################################
@@ -28,7 +28,7 @@
       
       # rsync options
       - 'export copy_opts="-avzh --delete --exclude=src/perception" '
-      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
+      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/ugv1 ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts --exclude 'src/planning' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
       ### == user can modify done. ==
@@ -53,7 +53,7 @@
         # transfer TO remote host
         - to:
           # create the remote directory
-          - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh $HOP_HOST -i ~/.ssh/ugv1 ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
           # copy command
           - 'export copy_cmd=$copy_to'
@@ -68,12 +68,12 @@
       
       # delete remote deploy workspace
       - delete:
-        - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+        - ssh $HOP_HOST -i ~/.ssh/ugv1 ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
 
       ####################################################
@@ -418,7 +418,7 @@
         - 'export MCAST_GROUP=224.0.0.251'
         - 'export UGV_NUC=true'
         - 'export USER=nuc'
-        - 'export ROS_MASTER_URI=http://ugv2:11311'
+        - 'export ROS_MASTER_URI=http://planning-pc:11311'
         - 'export ROS_HOSTNAME=nuc'
         
         ### == user can modify done. ==
