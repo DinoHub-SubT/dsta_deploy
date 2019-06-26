@@ -27,7 +27,7 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation -e \"ssh -i $HOME/.ssh/ugv1\" " ' 
+      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation -e \"ssh -i $HOME/.ssh/deploy\" " ' 
       # rsync commands
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
@@ -54,7 +54,7 @@
         # transfer TO remote host
         - to:
           # create the remote directory
-          - ssh $user@$host -i ~/.ssh/ugv1 "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh $user@$host -i ~/.ssh/deploy "mkdir -p $REMOTE_DEPLOY_PATH"
 
           # copy command
           - 'export copy_cmd=$copy_to'
@@ -74,7 +74,7 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/ugv1 }
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
 
       ####################################################
       # setup
@@ -159,7 +159,7 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/ugv1 }
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
       - +docker:subt
       
       - hostname
@@ -363,7 +363,7 @@
             # source
             - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true' ENTER
+            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv1' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_planning"
           - hardware:

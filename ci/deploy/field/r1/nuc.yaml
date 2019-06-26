@@ -28,8 +28,8 @@
       
       # rsync options
       - 'export copy_opts="-avzh --delete --exclude=src/perception" '
-      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/ugv1 ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
-      - export copy_from="rsync $copy_opts --exclude 'src/planning' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
+      - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
+      - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
       ### == user can modify done. ==
 
@@ -53,7 +53,7 @@
         # transfer TO remote host
         - to:
           # create the remote directory
-          - ssh $HOP_HOST -i ~/.ssh/ugv1 ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
+          - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
           # copy command
           - 'export copy_cmd=$copy_to'
@@ -68,7 +68,7 @@
       
       # delete remote deploy workspace
       - delete:
-        - ssh $HOP_HOST -i ~/.ssh/ugv1 ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+        - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
     - docker:
@@ -460,14 +460,6 @@
             - tmux new -s ros_shell -d
             - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
-        # change sizes depending on host screen size.
-        - view:
-          - export TERM="xterm-256color"
-          - stty size
-          # - stty rows 60 cols 150
-          - stty rows 30 cols 150
-          - tmux a -t launch_planning
-        
         # stop tmux sessions    
         - stop:
           # remove all the tmux sessions
@@ -498,35 +490,51 @@
         # git status check          
         - git_status() {
             for repo in $1; do
-              echo "repo is $repo";
               pushd $repo  > /dev/null 2>&1;
               if [ -d .git ]; then
                 echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                echo "hello world";
+                git config --get remote.origin.url;
+                git status;
                 echo -e "\n\n";
               fi;
               popd  > /dev/null 2>&1;
             done;
           }
         - export -f git_status
-        - printenv
+
+        # git status check          
+        - git_dirty() {
+            for repo in $1; do
+              pushd $repo  > /dev/null 2>&1;
+              if [ -d .git ]; then
+                if [[ $(git status -s) ]]; then
+                  echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
+                  git config --get remote.origin.url;
+                  git status;
+                  echo -e "\n\n";
+                fi;
+              fi;
+              popd  > /dev/null 2>&1;
+            done;
+          }
+        - export -f git_dirty
 
         # wstool update to git hash
-        # - git_updater() {
-        #     for repo in $1; do
-        #       echo "repo is $repo";
-        #       pushd $repo  > /dev/null 2>&1;
-        #       if [ -d .git ]; then
-        #         echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-        #         export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
-        #         export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
-        #         wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
-        #         echo -e "\n\n";
-        #       fi;
-        #       popd  > /dev/null 2>&1;
-        #     done;
-        #   }
-        # - export -f git_updater
+        - git_updater() {
+            for repo in $1; do
+              echo "repo is $repo";
+              pushd $repo  > /dev/null 2>&1;
+              if [ -d .git ]; then
+                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
+                export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
+                export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
+                wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
+                echo -e "\n\n";
+              fi;
+              popd  > /dev/null 2>&1;
+            done;
+          }
+        - export -f git_updater
 
         ####################################################
         # git commands for planning workspace

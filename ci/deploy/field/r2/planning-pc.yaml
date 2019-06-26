@@ -363,7 +363,7 @@
             # source
             - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true' ENTER
+            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv2' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_planning"
           - hardware:
