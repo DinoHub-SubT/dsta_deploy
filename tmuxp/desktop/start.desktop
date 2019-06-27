@@ -1,5 +1,0 @@
-[Desktop Entry]
-Name=basestation.start
-Exec=gnome-terminal -e 'tmuxp load /home/$USER/subt/deploy_ws/src/tmuxp/start.basestation.yaml'
-Type=Application
-Terminal=true

@@ -1,0 +1,37 @@
+session_name: r2_nuc_start
+
+# Add commands to bash history
+suppress_history: true
+
+start_directory: /home/$USER/deploy_ws/src/
+
+# commands to run before panes startup
+before_script: "
+  ./deployer -s
+    r2.nuc.docker.remove
+    r2.nuc.docker.start 
+    r2.nuc.xsens
+    r2.nuc.launch.start"
+
+# This is where we list all the stuff we want to run
+windows:
+  - window_name: r2 nuc start
+    focus: false
+    layout: main-horizontal
+    panes:
+      # enter the docker container on nuc
+      - shell_command:  
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t launch_planning
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t launch_state_est
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t ros_shell

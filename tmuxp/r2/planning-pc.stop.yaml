@@ -1,4 +1,4 @@
-session_name: basestation_stop
+session_name: r2_stop_planning_pc
 
 # Add commands to bash history
 suppress_history: true
@@ -12,4 +12,4 @@ windows:
     layout: main-horizontal
     panes:
       - shell_command:
-        - ./deployer -s r2.nuc.launch.stop r2.planning-pc.launch.stop
+        - ./deployer -s r2.planning-pc.launch.stop

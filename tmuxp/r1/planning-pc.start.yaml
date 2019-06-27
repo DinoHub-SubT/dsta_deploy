@@ -1,4 +1,4 @@
-session_name: r2_nuc_start
+session_name: r1_planning_pc_start
 
 # Add commands to bash history
 suppress_history: true
@@ -8,30 +8,26 @@ start_directory: /home/$USER/deploy_ws/src/
 # commands to run before panes startup
 before_script: "
   ./deployer -s
-    r1.nuc.docker.remove
-    r1.nuc.docker.start 
-    r1.nuc.xsens
-    r1.nuc.launch.start"
+    r1.planning-pc.docker.remove
+    r1.planning-pc.docker.start 
+    r1.planning-pc.launch.start"
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: r2 nuc start
+  - window_name: r1 planning-pc start
     focus: false
     layout: main-horizontal
     panes:
-      # enter the docker container on nuc
+      # enter the docker container on planning-pc
       - shell_command:  
         - ssh robot@planning-pc
-        - ssh nuc@nuc
         - docker-join
         - tmux a -t launch_planning
       - shell_command:
         - ssh robot@planning-pc
-        - ssh nuc@nuc
         - docker-join
-        - tmux a -t launch_state_est
+        - tmux a -t launch_hardware
       - shell_command:
         - ssh robot@planning-pc
-        - ssh nuc@nuc
         - docker-join
         - tmux a -t ros_shell
