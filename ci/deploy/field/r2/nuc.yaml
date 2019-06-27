@@ -87,7 +87,7 @@
       # path setup
       - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
-      - 'export DOCKER_CONFIG=field/r1/nuc'
+      - 'export DOCKER_CONFIG=field/robot/nuc'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       ####################################################
@@ -98,7 +98,7 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/nuc.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/robot/nuc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
@@ -120,32 +120,32 @@
           - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
           - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/r1/nuc $BUILD_ARGS
+          - ./build.bash --env field/robot/nuc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/r1/nuc $START_ARGS
+        - ./run.bash --env field/robot/nuc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - delete:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/r1/nuc $DELETE_ARGS
+        - ./clean.bash --env field/robot/nuc $DELETE_ARGS
         - ./clean.bash --env local/subt/ros $DELETE_ARGS
         - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
         - ./clean.bash --env local/osrf/ros $DELETE_ARGS
