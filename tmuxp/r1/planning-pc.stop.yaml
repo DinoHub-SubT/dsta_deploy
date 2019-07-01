@@ -13,3 +13,4 @@ windows:
     panes:
       - shell_command:
         - ./deployer -s r1.planning-pc.launch.stop
+        - tmux kill-session -t r1_planning_pc_start

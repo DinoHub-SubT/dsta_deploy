@@ -13,3 +13,4 @@ windows:
     panes:
       - shell_command:
         - ./deployer -s r1.nuc.launch.stop
+        - tmux kill-session -t r1_nuc_start
