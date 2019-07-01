@@ -363,7 +363,7 @@
             # source
             - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv2' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv2 front_left:=1 front_right:=3 rear_left:=2 rear_right:=4' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
           - hardware:
@@ -372,7 +372,7 @@
             # source
             - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run hardware launch
-            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true' ENTER
+            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true front_left:=1 front_right:=3 rear_left:=2 rear_right:=4' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
           # TODO: remove & add as command line suffix to tmux name...
