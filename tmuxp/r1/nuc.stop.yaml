@@ -15,3 +15,8 @@ windows:
         - ./deployer -s r1.nuc.launch.stop
         - tmux kill-session -t r1_nuc_start
         - tmux kill-session -t r1_stop_nuc
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        # - tmux kill-session -t xsens
+

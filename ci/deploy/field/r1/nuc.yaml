@@ -470,7 +470,7 @@
             # source
             - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true robot_id:=1 node_dropper:=false xsens:=false' ENTER
+            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true robot_id:=1 node_dropper:=false xsens:=true' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_state_est"
           
