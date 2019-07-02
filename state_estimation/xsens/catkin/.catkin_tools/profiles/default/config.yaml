@@ -1,0 +1,18 @@
+blacklist: []
+build_space: ../../../../build/state_estimation/xsens
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../../../devel/state_estimation/xsens
+extend_path: ../../../../devel/state_estimation/repo
+install: false
+install_space: ../../../../install/state_estimation/xsens
+isolate_install: false
+jobs_args: []
+log_space: ../../../../logs/state_estimation/xsens
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

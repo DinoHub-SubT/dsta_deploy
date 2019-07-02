@@ -23,7 +23,7 @@
       - 'export HOP_HOST=ugv2@ugv2'
       
       # paths
-      - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
@@ -73,7 +73,7 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
 
       ####################################################
@@ -87,7 +87,7 @@
       # path setup
       - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
-      - 'export DOCKER_CONFIG=field/r1/nuc'
+      - 'export DOCKER_CONFIG=field/robot/nuc'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       ####################################################
@@ -98,7 +98,7 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/nuc.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/robot/nuc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
@@ -120,32 +120,32 @@
           - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
           - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/r1/nuc $BUILD_ARGS
+          - ./build.bash --env field/robot/nuc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/r1/nuc $START_ARGS
+        - ./run.bash --env field/robot/nuc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/r1/nuc $STOP_ARGS
+        - ./clean.bash --env field/robot/nuc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - delete:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/r1/nuc $DELETE_ARGS
+        - ./clean.bash --env field/robot/nuc $DELETE_ARGS
         - ./clean.bash --env local/subt/ros $DELETE_ARGS
         - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
         - ./clean.bash --env local/osrf/ros $DELETE_ARGS
@@ -160,7 +160,7 @@
     - deploy:
     ################################################################################################
       # only docker container on basestation, no ssh
-      - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
       - +docker:subt
       
@@ -215,6 +215,12 @@
               - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
+            - xsens:
+              - cd xsens/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
             - repo:
               - if [ -f .rosinstall ]; then
                     rm .rosinstall;
@@ -253,6 +259,10 @@
               - wstool update
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
+            - xsens:
+              - cd xsens/catkin
+              - wstool info
+              - wstool update
             - repo:
               - wstool info
               - wstool update
@@ -280,7 +290,7 @@
           - cd $DEPLOY_SRC/state_estimation/thirdparty/catkin
           - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
         - xsens:
-          - cd $DEPLOY_SRC/state_estimation/xsens_cpp_driver/receive_xsens/config/mt_sdk
+          - cd $DEPLOY_SRC/state_estimation/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
           - sudo ./mt_sdk_4.8.sh
         
       ####################################################
@@ -335,7 +345,9 @@
             # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
             - touch object_detection/modules/CATKIN_IGNORE
             - catkin build --force-cmake
-  
+          - xsens:
+            - cd xsens/catkin
+            - catkin build --force-cmake
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -347,19 +359,23 @@
       # clean workspaces
       ####################################################
       - clean:
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin profile set state_est
-          - catkin clean -y
         - state_est:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set state_est
+            - catkin clean -y
           - cd $DEPLOY_SRC/state_estimation/
+          - xsens:
+            - cd xsens/catkin
+            - catkin clean -y
+          - repo:
+            - catkin clean -y
           - loam:
             - cd loam/catkin
             - catkin clean -y
           - thirdparty:
             - cd thirdparty/catkin
             - catkin clean -y
-          - catkin clean -y
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -405,6 +421,9 @@
           - loam:
             - cd loam/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - xsens:
+            - cd xsens/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
       # launch workspaces
@@ -441,7 +460,7 @@
             # source
             - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=true state_est:=false robot_id:=2 node_dropper:=false' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
           
@@ -451,7 +470,7 @@
             # source
             - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
             # run planning-pc launch
-            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true' ENTER
+            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc autonomy:=false state_est:=true robot_id:=2 node_dropper:=false' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_state_est"
           

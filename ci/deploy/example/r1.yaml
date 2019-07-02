@@ -3,7 +3,7 @@
 - pwd
 - 'export YELLOW="\033[1;33m"'
 - 'export BLUE="\033[1;36m"'
-- 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+- 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
 - 'export copy_opts="-avzh" '
 
 ###################################################################################################

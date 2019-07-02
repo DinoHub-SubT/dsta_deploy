@@ -5,9 +5,9 @@ email: true
 
 # slack notifications
 slack:
-  started: false
-  success: false
-  failure: false
+  started: true
+  success: true
+  failure: true
   # available: theairlab, minerobots
   subdomain: "minerobots"
 

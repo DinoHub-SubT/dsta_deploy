@@ -23,7 +23,7 @@
       - 'export user=ugv2'
   
       # paths
-      - 'export LOCAL_DEPLOY_PATH=/home/$USER/subt/deploy_ws/src'
+      - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
@@ -74,7 +74,7 @@
     ################################################################################################
     - docker:
     ################################################################################################
-      - +ssh:{ ugv2:ugv2:/home/mtatum/.ssh/deploy }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
 
       ####################################################
       # setup
@@ -87,7 +87,7 @@
       # path setup
       - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
-      - 'export DOCKER_CONFIG=field/r1/planning-pc'
+      - 'export DOCKER_CONFIG=field/robot/planning-pc'
       - 'export DOCKER_CONFIG_PATH=docker/env'
       
       ####################################################
@@ -98,7 +98,7 @@
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/ros.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/osrf/osrf.config \n" ;
         - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/subt/ros.config \n" ;
-        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/r1/planning-pc.config \n" ;
+        - echo -e "\n${YELLOW}\tenv -> \t $DOCKER_CONFIG_PATH/field/robot/planning-pc.config \n" ;
         - echo -e "\n${YELLOW} ** Remember to always transfer any changed configuration files! ** \n";
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG \n" ;
         - echo -e "\n${YELLOW}\t env -> \t $DOCKER_CONFIG_PATH/subt/subt.config \n" ;
@@ -120,32 +120,32 @@
           - ./build.bash --env local/osrf/osrf $BUILD_ARGS
         - subt:
           - ./build.bash --env local/subt/ros $BUILD_ARGS
-          - ./build.bash --env field/r1/planning-pc $BUILD_ARGS
+          - ./build.bash --env field/robot/planning-pc $BUILD_ARGS
 
       ####################################################
       # start docker images
       ####################################################
       - start:
         - 'export START_ARGS=" --no-nvidia " '
-        - ./run.bash --env field/r1/planning-pc $START_ARGS
+        - ./run.bash --env field/robot/planning-pc $START_ARGS
 
       ####################################################
       # stop docker images
       ####################################################
       - stop:
         - 'export STOP_ARGS="--stop --containers " '
-        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
+        - ./clean.bash --env field/robot/planning-pc $STOP_ARGS
       
       - remove:
         - 'export STOP_ARGS="--remove --containers " '
-        - ./clean.bash --env field/r1/planning-pc $STOP_ARGS
+        - ./clean.bash --env field/robot/planning-pc $STOP_ARGS
       
       ####################################################
       # delete docker images & corresponding containers
       ####################################################
       - delete:
         - 'export DELETE_ARGS="--containers" '
-        - ./clean.bash --env field/r1/planning-pc $DELETE_ARGS
+        - ./clean.bash --env field/robot/planning-pc $DELETE_ARGS
         - ./clean.bash --env local/subt/ros $DELETE_ARGS
         - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
         - ./clean.bash --env local/osrf/ros $DELETE_ARGS
@@ -359,38 +359,38 @@
             - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
           - planning:
             # start the tmux session
-            - tmux new -s ${host}_launch_planning -d
+            - tmux new -s launch_planning -d
             # source
-            - tmux send -t ${host}_launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t ${host}_launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv2 front_left:=1 front_right:=3 rear_left:=2 rear_right:=4' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_planning"
+            - echo "Launch deployed in tmux session launch_planning"
           - hardware:
             # start the tmux session
-            - tmux new -s ${host}_launch_hardware -d
+            - tmux new -s launch_hardware -d
             # source
-            - tmux send -t ${host}_launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run hardware launch
-            - tmux send -t ${host}_launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true' ENTER
+            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true front_left:=1 front_right:=3 rear_left:=2 rear_right:=4' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
           # TODO: remove & add as command line suffix to tmux name...
           - shell:
             - pwd
-            - tmux new -s ${host}_shell -d
-            - tmux send -t ${host}_shell 'source $DEPLOY_WS/devel/launch/setup.bash' ENTER
+            - tmux new -s ros_shell -d
+            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
         - stop:
           # remove all the tmux sessions
           - roscore:
             - tmux kill-session -t ${host}_roscore
           - planning:
-            - tmux kill-session -t ${host}_launch_planning
+            - tmux kill-session -t launch_planning
           - hardware:
-            - tmux kill-session -t ${host}_launch_hardware
+            - tmux kill-session -t launch_hardware
           - shell:
-            - tmux kill-session -t ${host}_shell
+            - tmux kill-session -t ros_shell
           
         - rosclean:
           # stop all ros nodes

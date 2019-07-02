@@ -1,7 +1,7 @@
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
-    version: 8e2f937ce7c293e2d12505a366ef08b18811dc62
+    version: deploy-stable-branch#1
 - git:
     local-name: at_path_planner
     uri: git@bitbucket.org:cmusubt/at_path_planner.git
@@ -9,7 +9,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: d5e598490e4410ecf9b41add8b1f2292ba5d075a
+    version: 1016eb2922064086bdc1cd69ddda4ae661e2d4ae
 - git:
     local-name: circular_curve_lib
     uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
@@ -153,7 +153,7 @@
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
-    version: 98e6ad387261ad9179e951c42228b136c02d139e
+    version: 355e8bd7ce500818ede9378eb55cfcb67fcb2313
 - git:
     local-name: comms_planner
     uri: git@bitbucket.org:cmusubt/comms_planner.git
@@ -181,7 +181,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: af210f909813acb42e3bb71936bdbfa58f2ac8e2
+    version: master
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
@@ -257,7 +257,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: master
+    version: 45e97d991e848a31292b4fc3c5fa5a90c4a10b11
 - git:
     local-name: blink1_node
     uri: git@bitbucket.org:castacks/blink1_node.git
@@ -269,7 +269,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: ef913d5c31c4e5df89e315df8943edca6bea836a
+    version: f0520e77908eb647f423bd7d460786f6aa26ce40
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
