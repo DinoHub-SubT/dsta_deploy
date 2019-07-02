@@ -10,7 +10,7 @@ before_script: "
   ./deployer -s
     r1.nuc.docker.remove
     r1.nuc.docker.start 
-    r1.nuc.xsens
+    r1.nuc.rosdep.xsens
     r1.nuc.launch.start"
 
 # This is where we list all the stuff we want to run

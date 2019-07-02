@@ -379,7 +379,7 @@
           - shell:
             - pwd
             - tmux new -s ros_shell -d
-            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/launch/setup.bash' ENTER
+            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
         - stop:
           # remove all the tmux sessions

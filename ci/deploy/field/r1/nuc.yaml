@@ -215,6 +215,12 @@
               - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
+            - xsens:
+              - cd xsens/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
             - repo:
               - if [ -f .rosinstall ]; then
                     rm .rosinstall;
@@ -253,6 +259,10 @@
               - wstool update
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
+            - xsens:
+              - cd xsens/catkin
+              - wstool info
+              - wstool update
             - repo:
               - wstool info
               - wstool update
@@ -280,7 +290,7 @@
           - cd $DEPLOY_SRC/state_estimation/thirdparty/catkin
           - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
         - xsens:
-          - cd $DEPLOY_SRC/state_estimation/xsens_cpp_driver/receive_xsens/config/mt_sdk
+          - cd $DEPLOY_SRC/state_estimation/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
           - sudo ./mt_sdk_4.8.sh
         
       ####################################################
@@ -335,7 +345,9 @@
             # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
             - touch object_detection/modules/CATKIN_IGNORE
             - catkin build --force-cmake
-  
+          - xsens:
+            - cd xsens/catkin
+            - catkin build --force-cmake
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -347,19 +359,23 @@
       # clean workspaces
       ####################################################
       - clean:
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin profile set state_est
-          - catkin clean -y
         - state_est:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set state_est
+            - catkin clean -y
           - cd $DEPLOY_SRC/state_estimation/
+          - xsens:
+            - cd xsens/catkin
+            - catkin clean -y
+          - repo:
+            - catkin clean -y
           - loam:
             - cd loam/catkin
             - catkin clean -y
           - thirdparty:
             - cd thirdparty/catkin
             - catkin clean -y
-          - catkin clean -y
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -404,6 +420,9 @@
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
           - loam:
             - cd loam/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - xsens:
+            - cd xsens/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
