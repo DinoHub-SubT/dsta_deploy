@@ -9,7 +9,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: kpluckter-dfs-update
+    version: 1016eb2922064086bdc1cd69ddda4ae661e2d4ae
 - git:
     local-name: circular_curve_lib
     uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
@@ -257,7 +257,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: master
+    version: 45e97d991e848a31292b4fc3c5fa5a90c4a10b11
 - git:
     local-name: blink1_node
     uri: git@bitbucket.org:castacks/blink1_node.git
@@ -269,7 +269,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: kpluckter-no-dropper
+    version: f0520e77908eb647f423bd7d460786f6aa26ce40
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
