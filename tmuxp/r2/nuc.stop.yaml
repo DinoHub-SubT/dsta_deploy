@@ -14,3 +14,4 @@ windows:
       - shell_command:
         - ./deployer -s r2.nuc.launch.stop
         - tmux kill-session -t r2_nuc_start
+        - tmux kill-session -t r2_stop_nuc

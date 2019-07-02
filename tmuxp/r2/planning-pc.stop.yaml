@@ -14,3 +14,4 @@ windows:
       - shell_command:
         - ./deployer -s r2.planning-pc.launch.stop
         - tmux kill-session -t r2_planning_pc_start
+        - tmux kill-session -t r2_stop_planning_pc
