@@ -11,7 +11,8 @@ before_script: "
     r1.nuc.docker.remove
     r1.nuc.docker.start 
     r1.nuc.rosdep.xsens
-    r1.nuc.launch.start"
+    r1.nuc.launch.start
+    r1.nuc.local.start.xsens"
 
 # This is where we list all the stuff we want to run
 windows:
@@ -35,3 +36,7 @@ windows:
         - ssh nuc@nuc
         - docker-join
         - tmux a -t ros_shell
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t xsens
