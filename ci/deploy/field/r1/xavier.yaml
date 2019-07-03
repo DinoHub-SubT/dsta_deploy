@@ -26,7 +26,7 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/planning --exclude=src/state_estimation --exclude=src/subt_robot_examples_latest.tgz" '
+      - 'export copy_opts="-avzh --exclude=src/planning --exclude=src/state_estimation --exclude=src/subt_robot_examples_latest.tgz" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
