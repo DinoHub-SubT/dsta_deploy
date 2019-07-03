@@ -70,13 +70,21 @@ perception/*
 !perception/object_detection/
 !perception/.catkin_tools/
 
-# unignore deps-ws catkin
-!perception/deps/catkin
-perception/deps/catkin/*
+# unignore thirdparty-ws catkin
+!perception/thirdparty/catkin
+perception/thirdparty/catkin/*
 
 # allow specific repos
-!perception/deps/catkin/.catkin_tools/
-perception/deps/catkin/.catkin_tools/*
+!perception/thirdparty/catkin/.catkin_tools/
+perception/thirdparty/catkin/.catkin_tools/*
+
+# unignore recording-ws catkin
+!perception/recording/catkin
+perception/recording/catkin/*
+
+# allow specific repos
+!perception/recording/catkin/.catkin_tools/
+perception/recording/catkin/.catkin_tools/*
 
 #######################################
 ### allow perception-deps
