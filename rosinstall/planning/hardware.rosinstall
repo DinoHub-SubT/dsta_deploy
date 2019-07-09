@@ -5,7 +5,7 @@
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
-    version: 471e6f5
+    version: 26a1952ecff44655d5e606eb8799a200981b032d
 - git:
     local-name: health_monitor
     uri: git@bitbucket.org:cmusubt/health_monitor.git
