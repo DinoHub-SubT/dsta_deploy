@@ -328,24 +328,26 @@
         
         # launch configuration variables
         - 'export host=$(hostname)'
-        - 'export config=robots/r2/planning-pc'
         - 'export MCAST_GROUP=224.0.0.251'
-        - 'export robot=robots/planning-pc'
         - 'export USER=developer'
         - 'export ROS_MASTER_URI=http://planning-pc:11311'
         - 'export ROS_HOSTNAME=$(hostname)'
 
         ### == user can modify done. ==
 
-        # read the launch configuration params
-        - export config_data=""
-        - export CONFIG_FILE="$DEPLOY_SRC/launch/robot_launch_scripting/config/${config}.config"
-        - while IFS='' read -r line || [[ -n "$line" ]]; do
-            if [ ! "${line:0:1}" == "#" ]; then
-              config_data="$line ";
-            fi
-          done < "$CONFIG_FILE";
-        - echo ${config_data}
+        # get launch configuration data
+        - export CONFIG_PATH="$DEPLOY_SRC/launch/robot_launch_scripting/config/"
+        # parse config file for roslaunch params
+        - get_config_data() {
+            CONFIG_FILE=$CONFIG_PATH/${1}.config;
+            while IFS='' read -r line || [[ -n "$line" ]]; do
+              if [ ! "${line:0:1}" == "#" ]; then
+                config_data="$config_data $line ";
+              fi
+            done < "$CONFIG_FILE";
+            echo ${config_data};
+          }
+        - export -f get_config_data
 
         - start:
           - roscore:
@@ -358,25 +360,33 @@
             # run roscore
             - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
           - planning:
+            # parse the launch configuration params
+            - export config=robots/r1/planning-pc/planning
+            - export config_data=$(get_config_data "$config")
+
             # start the tmux session
             - tmux new -s launch_planning -d
             # source
             - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run autonomy launch
-            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=$robot autonomy:=true fkie:=true computer:=ugv1 front_left:=1 front_right:=2 rear_left:=3 rear_right:=4' ENTER
+            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
           - hardware:
+            # parse the launch configuration params
+            - export config=robots/r1/planning-pc/hardware
+            - export config_data=$(get_config_data "$config")
+
             # start the tmux session
             - tmux new -s launch_hardware -d
             # source
             - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run hardware launch
-            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch robot:=$robot teleop:=true front_left:=1 front_right:=2 rear_left:=3 rear_right:=4' ENTER
+            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
-          # TODO: remove & add as command line suffix to tmux name...
           - shell:
+            # empty shell prompt
             - pwd
             - tmux new -s ros_shell -d
             - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
@@ -401,14 +411,6 @@
           - rosnode list
           - ps aux | grep ros
         
-        # change sizes depending on host screen size.
-        - view:
-          - export TERM="xterm-256color"
-          - stty size
-          # - stty rows 60 cols 150
-          - stty rows 30 cols 150
-          - tmux a -t ${host}_launch_${config}
-
       ####################################################
       # git updater
       ####################################################
