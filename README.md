@@ -55,7 +55,7 @@ All these workflow steps should already have pre-configured deploy yamls setup.
 
    - The user only needs to run the deployer script tasks.
 
-   - If no yamls are present, notify the [maintainer](#who-do-i-talk-to).
+   - If no yamls are present, notify the [maintainer](#markdown-header-who-do-i-talk-to).
 
 
 ## Deploy Yamls
@@ -299,162 +299,26 @@ Each deployment has its own catkin workspace and launch configuration preconfigu
 
 [[top]](#markdown-header-deployer)
 
-* * *
-
 ## Local Development
 
-### Clone the deploy workspace
-
-- Clone the deploy repo:
-        
-        # make sure to create the deploy_ws in this location
-        mkdir /home/$USER/deploy_ws
-
-        # clone the deploy repo as src
-        git clone git@bitbucket.org:cmusubt/deploy.git src
-        cd src
-
-- Install deployer dependencies:
-
-        sudo apt-get update && sudo apt-get install python-pip -y --no-install-recommends
-        pip install setuptools PyYAML pexpect --user
-
-- Setup the deploy script:
-        
-        # deployer script must always be called from the deploy_ws/src path
-        cd /home/$USER/deploy_ws/src
-
-        # install the deployer
-        ./install-deployer.bash --install
-
-- Verify the deploy is working:
-
-        ./deployer --help
-
-### Install Docker
+### Install Docker on local development
 
 Follow the install docker [instructions](#markdown-header-install-docker)
 
-   - **Do not** follow the *Install Nvidia Docker*. Only follow the basic docker install instructions.
+   - Follow the *Install Nvidia Docker* if you have a Nvidia GPU.
 
 Once installed once, you do not need to install again.
 
-### Local Development Build
+### Deploy on the local development
 
-- Install the subt docker images:
-
-        # build the planning docker images locally
-        ./deployer -s basestation.docker.image
-
-        # build the perception docker images locally
-        ./deployer -s xavier.docker.image -i
-
-    - internet access required.
-
-- Start the planning docker container:
-
-        ./deployer -s basestation.docker.start
-
-- Start the perception docker container:
-
-        ./deployer -s xavier.docker.start -i
-
-- Clone all the workspaces:
-    
-        # initialize all the planning repos to install
-        ./deployer -s basestation.init
-
-        # clone all the repos using wstool and submodule update
-        ./deployer -s basestation.up
-
-### Build
-
-- Start the docker container:
-
-        ./deployer -s basestation.docker.start
-
-- Build the *planning* workspace:
-    
-        ./deployer -s basestation.build
-
-- Build the *state estimation* workspace:
-
-        ./deployer -s nuc.build -i
-
-- Build the *perception* workspace:
-
-        ./deployer -s xavier.build -i
-
-### Launch
-
-- Launch any of the corresponding workspaces:
-
-        # launch the planning workspace
-        ./deployer -s basestation.launch.start
-
-        # launch the state estimation workspace
-        ./deployer -s nuc.launch.state_est.start -i
-
-        # launch the perception workspace
-        ./deployer -s xavier.launch -i
-
-- Verify launch started correctly:
-
-        # enter the docker container on the robot-computer
-        docker-join
-
-        # list the available tmux sessions
-        tmux list-sessions
-
-        # enter the specified tmux session
-        tmux a -t [name-of-session]
-
-### Cleanup
-
-- Stop the docker container when turning off the local workstation:
-
-        # stop the planning, state estimation docker container
-        ./deployer -s basestation.docker.stop
-
-        # stop the perception docker container
-        ./deployer -s xavier.docker.stop -i
+Follow the [local development workstation](documentation/new_system_deployment_development_direct.md) instructions.
 
 [[top]](#markdown-header-deployer)
 
-* * *
 
 ## Basestation
 
-### Clone the deploy workspace
-
-- Clone the deploy repo:
-
-        # make sure to create the deploy_ws in this location        
-        mkdir /home/$USER/deploy_ws
-
-        # clone the deploy repo as src
-        git clone git@bitbucket.org:cmusubt/deploy.git src
-        cd src
-
-- Install deployer dependencies:
-
-        sudo apt-get update && sudo apt-get install python-pip -y --no-install-recommends
-        pip install setuptools PyYAML pexpect --user
-
-- Setup the deploy script:
-        
-        # deployer script must always be called from the deploy_ws/src path
-        cd /home/$USER/deploy_ws/src
-
-        # install the deployer
-        ./install-deployer.bash --install
-
-- Verify the deploy is working:
-
-        ./deployer --help
-
-
-### Install Docker on the Basestation
+### Install Docker on the basestation
 
 Follow the install docker [instructions](#markdown-header-install-docker)
 
@@ -462,173 +326,27 @@ Follow the install docker [instructions](#markdown-header-install-docker)
 
 Once installed once, you do not need to install again.
 
-### Setup the Workspace
+### Deploy on the basestation
 
-- Install the subt docker images:
-
-        # build the docker images on the basestation
-        ./deployer -s basestation.docker.image
-
-    - internet access required.
-
-- Start the docker container:
-
-        ./deployer -s basestation.docker.start
-
-- Clone all the submodules & rosinstall repos:
-    
-        # initialize all the repos to install
-        ./deployer -s basestation.init
-
-        # clone all the repos using wstool and submodule update
-        ./deployer -s basestation.up
-
-### Basestation Build
-
-- Start the docker container:
-
-        ./deployer -s basestation.docker.start
-
-- Build the *basestation* workspace:
-    
-        ./deployer -s basestation.build
-
-### Launch
-
-
-- Launch the *basestation* workspace:
-
-        ./deployer -s basestation.launch
-
-- Verify launch started correctly:
-
-        # enter the docker container on the robot-computer
-        docker-join
-
-        # list the available tmux sessions
-        tmux list-sessions
-
-        # enter the specified tmux session
-        tmux a -t [name-of-session]
-
-### Cleanup
-
-- Stop the docker container when turning off the basestation:
-
-        ./deployer -s basestation.docker.stop
+Follow the [basestation deployment](documentation/new_system_deployment_basestation_direct.md) instructions.
 
 [[top]](#markdown-header-deployer)
 
-* * *
-
 ## Robot
-
-
-### Overview
-
-During any remote deployment, **always remember to transfer** the basestation deploy workspace to the remote host.
-
-- There are different robot & robot-computer configuration available.
-
-    Deploy       | Available
-    ------------- | -------------
-    robots | r1, r2
-    computers | planning-pc, nuc, xavier
-
 
 ### Install Docker on the robot
 
-Follow the install docker [instructions](#markdown-header-install-docker)
+Follow the [docker install](#markdown-header-install-docker) instructions:
 
   - **Do not** follow the *Install Nvidia Docker*. Only follow the basic docker install instructions.
 
   - internet access required.
 
-All commands below are to be done on the basestation. **DO NOT GO ON THE ROBOT to run the deployer.**
+Once installed once, you do not need to install again.
 
-### Setup the robot workspace
+### Deploy on the robot
 
-- Navigate to the deploy repo **on the basestation**:
-
-        cd /home/$USER/deploy_ws/src
-
-- Start the docker container:
-
-        ./deployer -s basestation.docker.start
-
-- View available robot configurations:
-
-        ./deployer -s [robot].[computer] -p
-
-    - Example:
-    
-            # preview any robot1 computer configurations for [computer]
-            ./deployer -s r1.[computer] -p
-
-            # preview any robot2 computer configurations for [computer]
-            ./deployer -s r2.[computer] -p
-
-- Transfer the deploy repo from the basestation to the remote host:
-
-        ./deployer -s [robot].[computer].transfer.to
-
-    - if no remote configuration yaml is setup, notify the [maintainer](#who-do-i-talk-to)
-
-- Robot-computer specpfic pre-build steps:
-
-    - **nuc:**
-    
-            # install thirdparty xsens libraries in the container before building
-            ./deployer -s [robot].nuc.rosdep.xsens
-
-- Build the robot workspace:
-    
-        # this will build the workspace on the remote robot
-        ./deployer -s [robot].[computer].build
-
-### Launch the robot workspace
-
-- Desktop launch icons available **on the basestation**:
-    
-        # start the tmux session, for corresponding robot-computer
-        [robot]_[computer]_start.desktop
-    
-        # stop the tmux session, for corresponding robot-computer
-        [robot]_[computer]_stop.desktop
-
-    - If not available notify the [maintainer](#who-do-i-talk-to).
-
-- *Optional:* manual launch if desktop icons are missing:
-
-        # start the tmux session, for corresponding robot-computer
-        ./deployer -s [robot].[computer].launch.start
-
-    - Verify launch started correctly:
-
-            # ssh into the remote robot-computer
-            ssh [remote-name]@[remote-host]
-
-            # enter the docker container on the robot-computer
-            docker-join
-
-            # list the available tmux sessions
-            tmux list-sessions
-
-            # enter the specified tmux session
-            tmux a -t [name-of-session]
-
-### Cleanup
-
-- Stop the docker container when turning off the robot:
-
-    - desktop icon:
-
-            # stop the tmux session, for corresponding robot-computer
-            [robot]_[computer]_stop.desktop
-
-    - manually:
-    
-            ./deployer -s [robot].[computer].docker.stop
+Follow the [robot deployment](documentation/new_system_deployment_robot_direct.md) instructions.
 
 [[top]](#markdown-header-deployer)
 
@@ -636,47 +354,35 @@ All commands below are to be done on the basestation. **DO NOT GO ON THE ROBOT t
 
 # Updating Existing Deployment
 
-Updating an existing deployment *should always* be done from the basestation, not directly on the robot.
+Updating an existing deployment *should always* be done from the basestation, **not directly on the robot**.
 
-Use the deployer from the basestation, to update the repos and transfer the changes to the robot.
+## Choosing the Deployment
 
-Use the deployer from the basestation, to build the changes on the robot.
+- **Update the workspace repositories**
+    1. Maintain the deploy_ws git branch:
 
-## Workflow
+          - a new update should start from the *develop branch*.
+          - remember to always pull from develop for any new changes.
 
-**An example workflow may look like:**
+    3. Update the rosinstalls and the submodules:
+     
+        - [rosinstalls](#markdown-header-update-the-deploy-rosinstalls)
+        - [submodules](#markdown-header-update-the-deploy-submodules)
 
-- Update the rosinstall:
-    - repository does not exist, add it to an existing rosinstall.
-    - repository does exist, update the rosinstall with the new *commit hash*.
-- Using deployer, `wstool update` on the basestation, in the docker container.
-- Using deployer, transfer the updated repos to the robot.
-- Using deployer, build the changes on the robot.
-- Test robot changes.
-- Once updated & tested, push to origin feature branch and wait for jenkins to pass the build.
-- After jenkins has passed the build, deploy onto the robots.
-- After testing on the robots, create a pull request and wait for jenkins to pass the PR build.
-- After jenkins has passed the PR build, merge into develop & master branches.
-- Add *git tags* on the develop & master branches.
+    4. Build one of the following the workspace:
 
-If a new workspace is required to be added, notify the [maintainer](#who-do-i-talk-to).
+        - [local development](documentation/new_system_deployment_development_direct.md)
+        - [basestation](documentation/new_system_deployment_basestation_direct.md)
+        - [robot](documentation/new_system_deployment_robot_direct.md)
 
-## Types of Updates
+    - If a new workspace is required to be added, notify the [maintainer](#markdown-header-who-do-i-talk-to).
 
-1. **Update the workspace repositories**
-
-    - [Local Development](#markdown-header-local-development-update)
-    - [Basestation](#markdown-header-basestation-update)
-    - [Robot](#markdown-header-robot-update)
-      
-      
-2. **Update the docker image**
-
-     - [Planning Workspace](#markdown-header-update-planning-dockerfiles)
-     - [Perception Workspace](#markdown-header-update-perception-dockerfiles)
-      - only update the docker image if a new system dependency is needed to be added.
-
+- **Update the docker image**
     
+    - only update the docker image if a new system dependency is needed.
+    - [planning dockerfiles](#markdown-header-planning-dockerfiles)
+    - [perception dockerfiles](#markdown-header-perception-dockerfiles)
+
 [[top]](#markdown-header-deployer)
 
 * * *
@@ -685,18 +391,12 @@ If a new workspace is required to be added, notify the [maintainer](#who-do-i-ta
 
 - Updating the any repository is done by updating their respective rosinstalls or submodules version.
 
-### Basestation Update
-
-- Some of the robot updates are done with rosinstalls while others are done with submodules:
-
     Update Type       | Workspace
     ------------- | -------------
     rosinstall | planning, state estimation
     submodules | perception
 
-#### Update the deploy rosinstalls
-
-Proceed with the following instructions if your update requires changing the rosinstalls.
+### Update the deploy rosinstalls
 
 - Navigate to the deploy repo **on the basestation**:
 
@@ -734,9 +434,7 @@ Proceed with the following instructions if your update requires changing the ros
             # update the repo
             wstool up
 
-#### Update the deploy submodules
-
-Proceed with the following instructions if your update requires changing the perception submodules.
+### Update the deploy submodules
 
 - Navigate to the deploy repo **on the basestation**:
 
@@ -746,58 +444,12 @@ Proceed with the following instructions if your update requires changing the per
 
         # navigate to the perception submodule
         cd perception/object_detection
-
+        
         # checkout a feature branch to test
+        git pull origin
         git checkout [branch]
 
-
-#### Build the workspace
-
-Follow the instructions *from* [basestation](#markdown-header-basestation-build) build.
-
 [[top]](#markdown-header-deployer)
-
-* * *
-
-### Local Development Update
-
-#### Update the repositories
-
-Follow the instructions from basestation update:
-
-- [Update the rosinstalls](#markdown-header-update-the-deploy-rosinstalls)
-
-- [Update the submodules](#markdown-header-update-the-deploy-submodules)
-
-#### Build the workspace
-
-Follow the instructions *from* [local development](#markdown-header-local-development-build) build.
-
-[[top]](#markdown-header-deployer)
-
-* * *
-
-### Robot Update
-
-All commands below are to be done on the basestation. **DO NOT UPDATE ON THE ROBOT.**
-
-
-#### Update the repositories
-
-Follow the instructions from basestation update:
-
-- [Update the rosinstalls](#markdown-header-update-the-deploy-rosinstalls)
-
-- [Update the submodules](#markdown-header-update-the-deploy-submodules)
-
-
-#### Build the workspace
-
-Follow the instructions *from* [robot](#markdown-header-setup-the-robot-workspace) setup robot workspace.
-
-[[top]](#markdown-header-deployer)
-
-* * *
 
 ### Issues
 
@@ -844,7 +496,7 @@ Docker container options are maintained in `docker/env/field/robot/`
 
 [[top]](#markdown-header-deployer)
 
-### Update Planning Dockerfiles
+### Planning Dockerfiles
 
 #### Update the dockerfiles
 
@@ -889,9 +541,7 @@ Once the docker image is updated, rebuild your workspace and launch.
 
 [[top]](#markdown-header-deployer)
 
-* * *
-
-### Update Perception Dockerfiles
+### Perception Dockerfiles
 
 The xavier is not currently running docker image for deploy repo. However, there is a docker image available for cluster builds.
 
@@ -929,7 +579,7 @@ Desktop launch icons are available **on the basestation**:
     # stop the tmux session, for corresponding robot-computer
     [robot]_[computer]_stop.desktop
 
-- If a robot-computer icon is not available, notify the [maintainer](#who-do-i-talk-to).
+- If a robot-computer icon is not available, notify the [maintainer](#markdown-header-who-do-i-talk-to).
 
 ## Start
 
@@ -937,7 +587,7 @@ Start any of the `robot-computer` configuration icons you wish to use.
     
 - Start the icons in any order, in parallel.
 
-- If a *start* does not open a tmux session, then it failed. Notify the [maintainer](#who-do-i-talk-to).
+- If a *start* does not open a tmux session, then it failed. Notify the [maintainer](#markdown-header-who-do-i-talk-to).
 
 ## Stop
 
@@ -945,7 +595,7 @@ Stop the `robot-computer`, using the stop icons.
 
 - The stop must remove the start tmux session.
 
-- If the corresponding start session was not removed, notify the [maintainer](#who-do-i-talk-to).
+- If the corresponding start session was not removed, notify the [maintainer](#markdown-header-who-do-i-talk-to).
 
 ## Cleanup
 
@@ -956,6 +606,60 @@ Final stop: a *kill-all* icon
   - Do not press the *kill-all* icon if you have not pressed the *stop* icons for each `robot-computer` configuration previously started.
     
 - This will stop the basestation launch as well.
+
+* * *
+
+# Deploy Repo Branch Structure
+
+When you have updated the deploy repo and are ready to tag a stable commit.
+
+The deploy repo **should pass continuous integration builds** before creating a stable tag. For an introduction to *Jenkins*, please read the [jenkins wiki](https://bitbucket.org/cmusubt/ci_jenkins/wiki/Home).
+
+- **Deploy Branch Conventions:**
+
+    Branch       | Description
+    ------------- | -------------
+    feature/hotfix branches | Feature branches for deployment development.
+    develop | Feature/hotfix branches merged. Not yet always ready for a stable tag. Can break jenkins.
+    master | Develop branch merged. Always add a stable tag for the PR merge. Should not break jenkins.
+
+## Workflow
+
+**An example workflow may look like:**
+
+- Update the rosinstall:
+    - repository does not exist, add it to an existing rosinstall.
+    - repository does exist, update the rosinstall with the new *commit hash*.
+- Using deployer, `wstool update` on the basestation, in the docker container.
+- Using deployer, transfer the updated repos to the robot.
+- Using deployer, build the changes on the robot.
+- Test robot changes.
+- Once updated & tested, push to origin feature branch and wait for jenkins to pass the build.
+- After jenkins has passed the build, deploy onto the robots.
+- After testing on the robots, create a pull request and wait for jenkins to pass the PR build.
+- After jenkins has passed the PR build, merge into develop & master branches.
+- Add a *git tag*.
+
+## Prepare a *Stable* Git Tag
+
+Once you have tested the feature branch on the robots & jenkins has passed the tests, it is ready to *set as stable*.
+
+**Tag a stable commit:**
+
+- test the feature branch on the robots
+- push feature branch to origin
+- feature branch passes jenkins
+- create a PR into *develop*
+- PR passes jenkins
+- merge into *develop*
+- *develop* passes jenkins
+- create a PR into *master*
+- PR passes jenkins
+- merge into *master*
+- *master* passes jenkins
+- tag the new *master branch* commit: `git tag stable-[version]`
+
+[[top]](#markdown-header-deployer)
 
 * * *
 
