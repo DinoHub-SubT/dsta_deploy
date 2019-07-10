@@ -359,6 +359,7 @@
             - tmux send -t ${host}_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run roscore
             - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+          
           - planning:
             # parse the launch configuration params
             - export config=robots/r1/planning-pc/planning
@@ -372,6 +373,7 @@
             - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
+          
           - hardware:
             # parse the launch configuration params
             - export config=robots/r1/planning-pc/hardware
@@ -384,7 +386,32 @@
             # run hardware launch
             - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
-            - echo "Launch deployed in tmux session ${host}_launch_${config}"
+            - echo "Launch deployed in tmux session launch_hardware"
+          
+          - rosbag:
+            # default logging path
+            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
+            - mkdir -p $logging_path/nuc/planning-pc/
+
+            - recorder:  
+              # start the recorder tmux session
+              - tmux new -s launch_rosbag_recorder -d
+              # source
+              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              # launch recorder
+              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
+                  node_name:=r1_planning-pc_rosbag config:=standard_run bag:="planning-pc"' ENTER
+            - bag:
+              # start record hardware
+              - tmux new -s launch_rosbag -d
+              # source
+              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              # launch rosbag
+              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy.launch node_name:=r1_planning_pc_rosbag config:=standard_run' ENTER
+
+            # message user
+            - echo "Launch deployed in tmux session launch_rosbag"
+
           - shell:
             # empty shell prompt
             - pwd

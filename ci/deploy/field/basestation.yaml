@@ -376,6 +376,27 @@
           - pwd
           - tmux new -s ros_shell -d
           - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+        
+        - rosbag:
+            # default logging path
+            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
+            - recorder:  
+              # start the recorder tmux session
+              - tmux new -s launch_rosbag_recorder -d
+              # source
+              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/hardware/setup.bash' ENTER
+              # launch recorder
+              - tmux send -t launch_rosbag_recorder 'roslaunch bag_recorder deploy.launch logging_path:=$logging_path computer:=base_station' ENTER
+            - bag:
+              # start record hardware
+              - tmux new -s launch_rosbag -d
+              # source
+              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/hardware/setup.bash' ENTER
+              # launch rosbag
+              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
+                  node_name:=base_station config:=all bag:="test"' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_rosbag"
 
       # stop tmux sessions    
       - stop:

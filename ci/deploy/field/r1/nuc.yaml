@@ -483,6 +483,31 @@
             - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_state_est"
+          
+          - rosbag:
+            # default logging path
+            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
+            - mkdir -p $logging_path/nuc/bags/
+
+            - recorder:  
+              # start the recorder tmux session
+              - tmux new -s launch_rosbag_recorder -d
+              # source
+              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              # launch recorder
+              - tmux send -t launch_rosbag_recorder 'roslaunch bag_recorder deploy.launch logging_path:=$logging_path computer:=nuc' ENTER
+            - bag:
+              # start record hardware
+              - tmux new -s launch_rosbag -d
+              # source
+              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              # launch rosbag
+              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
+                  node_name:=r1_nuc_rosbag config:=standard_run bag:="nuc"' ENTER
+
+            # message user
+            - echo "Launch deployed in tmux session launch_rosbag"
+          
           - shell:
             # empty shell prompt
             - pwd

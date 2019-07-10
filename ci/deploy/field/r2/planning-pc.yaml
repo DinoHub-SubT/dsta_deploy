@@ -359,6 +359,7 @@
             - tmux send -t ${host}_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
             # run roscore
             - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+          
           - planning:
             # parse the launch configuration params
             - export config=robots/r2/planning-pc/planning
@@ -372,6 +373,7 @@
             - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
+          
           - hardware:
             # parse the launch configuration params
             - export config=robots/r2/planning-pc/hardware
@@ -385,6 +387,30 @@
             - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
+          
+          - rosbag:
+            # default logging path
+            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
+            - mkdir -p $logging_path/nuc/planning-pc/
+            
+            - recorder:  
+              # start the recorder tmux session
+              - tmux new -s launch_rosbag_recorder -d
+              # source
+              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/hardware/setup.bash' ENTER
+              # launch recorder
+              - tmux send -t launch_rosbag_recorder 'roslaunch bag_recorder deploy.launch logging_path:=$logging_path computer:=planning-pc' ENTER
+            - bag:
+              # start record hardware
+              - tmux new -s launch_rosbag -d
+              # source
+              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              # launch rosbag
+              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
+                  node_name:=r2_planning-pc_rosbag config:=standard_run bag:="planning-pc"' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_rosbag"
+          
           - shell:
             # empty shell prompt
             - pwd
@@ -411,14 +437,6 @@
           - rosnode list
           - ps aux | grep ros
         
-        # change sizes depending on host screen size.
-        - view:
-          - export TERM="xterm-256color"
-          - stty size
-          # - stty rows 60 cols 150
-          - stty rows 30 cols 150
-          - tmux a -t ${host}_launch_${config}
-
       ####################################################
       # git updater
       ####################################################
