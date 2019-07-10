@@ -15,7 +15,7 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: 854b3fe
+    version: f06e8c1f21797a6bb219e0d08de26afba288261a
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
@@ -30,9 +30,3 @@
     local-name: online_pose_graph
     uri: git@bitbucket.org:cmusubt/online_pose_graph.git
     version: master
-# moved to its own workspace
-# xsens driver
-# - git:
-#     local-name: xsens_cpp_driver
-#     uri: git@bitbucket.org:cmusubt/xsens_cpp_driver.git
-#     version: jkeller-fix_buffer_overflow
