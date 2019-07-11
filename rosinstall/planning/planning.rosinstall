@@ -159,6 +159,10 @@
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
     version: 5f6e391cd729506aac05e83c209927ae701f3fda
 - git:
+    local-name: comms_monitor
+    uri: git@bitbucket.org:cmusubt/comms_monitor.git
+    version: cf14d42096342468fd8657b79ddd446f20380b0a
+- git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
     version: aac11c79819a228696eb48bc6cc60fb652778e14
@@ -197,7 +201,7 @@
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: fcbb3a4ff9d6e98611f978e33a4da339895b9c47
+    version: 2f901289a009ee3d277047b59a24e423f200efad
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
@@ -269,7 +273,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: d1c0e7534dd4483dc64539c4fc511dfba2b5e947
+    version: 2216d71acfb6dab6f5334d125ba13120023d5588
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
