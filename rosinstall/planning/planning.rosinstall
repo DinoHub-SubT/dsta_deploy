@@ -9,7 +9,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 1016eb2922064086bdc1cd69ddda4ae661e2d4ae
+    version: 319408e9d76e04f5851c645a220cec214869098d
 - git:
     local-name: circular_curve_lib
     uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
@@ -89,7 +89,7 @@
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 6407f976836e45d54b55d15cfe1989dd47f935f4
+    version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
@@ -155,9 +155,13 @@
     uri: git@bitbucket.org:cmusubt/local_planner.git
     version: 355e8bd7ce500818ede9378eb55cfcb67fcb2313
 - git:
-    local-name: comms_planner
-    uri: git@bitbucket.org:cmusubt/comms_planner.git
-    version: d7e364bc7578991c39002cb9861ead7365d42421
+    local-name: comms_planner_batman
+    uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
+    version: 5f6e391cd729506aac05e83c209927ae701f3fda
+- git:
+    local-name: comms_monitor
+    uri: git@bitbucket.org:cmusubt/comms_monitor.git
+    version: cf14d42096342468fd8657b79ddd446f20380b0a
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
@@ -197,7 +201,7 @@
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: fcbb3a4ff9d6e98611f978e33a4da339895b9c47
+    version: 2f901289a009ee3d277047b59a24e423f200efad
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
@@ -257,7 +261,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: 45e97d991e848a31292b4fc3c5fa5a90c4a10b11
+    version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
 - git:
     local-name: blink1_node
     uri: git@bitbucket.org:castacks/blink1_node.git
@@ -269,7 +273,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: f0520e77908eb647f423bd7d460786f6aa26ce40
+    version: 2216d71acfb6dab6f5334d125ba13120023d5588
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
