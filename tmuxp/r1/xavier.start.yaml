@@ -20,10 +20,19 @@ windows:
       - shell_command:  
         - ssh robot@planning-pc
         - ssh nvidia@xavier
-        - tmux a -t launch_perception
+        - tmux a -t launch_cameras
       - shell_command:
         - ssh robot@planning-pc
         - ssh nvidia@xavier
+        - tmux a -t launch_modules
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nvidia@xavier
+        - tmux a -t launch_inference
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nvidia@xavier
+        - tmux a -t launch_record
       - shell_command:
         - ssh robot@planning-pc
         - ssh nvidia@xavier

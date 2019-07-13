@@ -235,20 +235,53 @@
 
         ### == user can modify done. ==
         - start:
-          - perception:
+          - cameras:
             # start the tmux session
-            - tmux new -s launch_perception -d
+            - tmux new -s launch_cameras -d
             # source
-            - tmux send -t launch_perception 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
             # run perception-pc launch
-            - tmux send -t launch_perception 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier' ENTER
+            - tmux send -t launch_cameras 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier xavier_cameras:=true' ENTER
             # message user
-            - echo "Launch deployed in tmux session launch_perception"
+            - echo "Launch deployed in tmux session launch_cameras"
+          - modules:
+            # start the tmux session
+            - tmux new -s launch_modules -d
+            # source
+            - tmux send -t launch_modules 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            # run perception-pc launch
+            - tmux send -t launch_modules 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier xavier_modules:=true' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_modules"
+          - inference:
+            # start the tmux session
+            - tmux new -s launch_inference -d
+            # source
+            - tmux send -t launch_inference 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            # run perception-pc launch
+            - tmux send -t launch_inference 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier xavier_inference:=true' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_inference"
+          - recorder:
+            # start the tmux session
+            - tmux new -s launch_record -d
+            # source
+            - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            # run perception-pc launch
+            - tmux send -t launch_record 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_record"
 
         - stop:
           # remove all the tmux sessions
-          - perception:
-            - tmux kill-session -t launch_perception
+          - cameras:
+            - tmux kill-session -t launch_cameras
+          - modules:
+            - tmux kill-session -t launch_modules
+          - inference:
+            - tmux kill-session -t launch_inference
+          - recorder:
+            - tmux kill-session -t launch_recorder
 
         - rosclean:
           # stop all ros nodes
