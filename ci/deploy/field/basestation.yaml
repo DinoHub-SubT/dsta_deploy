@@ -177,13 +177,27 @@
                   rm .rosinstall;
                 fi
             - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
+        - perception:
+          - cd $DEPLOY_SRC/perception
+          - thirdparty:
+            - cd thirdparty/catkin
+            - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+            - ln -s $DEPLOY_SRC/rosinstall/perception/thirdparty.rosinstall .rosinstall
+          - recording:
+            - cd recording/catkin
+            - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+            - ln -s $DEPLOY_SRC/rosinstall/perception/recording.rosinstall .rosinstall
 
       # wstool update the workspaces
       - up:
         - perception:
           - cd $DEPLOY_SRC/perception
           - git submodule update --recursive
-
+        # planning ws update
         - planning:
           - darpa:
             - cd darpa/catkin
@@ -200,7 +214,7 @@
             - cd hardware/catkin
             - wstool info
             - wstool update
-
+        # state estimation ws update
         - state_est:
           - cd $DEPLOY_SRC/state_estimation
           - repo:
@@ -212,6 +226,17 @@
             - wstool update
           - loam:
             - cd loam/catkin
+            - wstool info
+            - wstool update
+        # perception ws update
+        - perception:
+          - cd $DEPLOY_SRC/perception
+          - thirdparty:
+            - cd thirdparty/catkin
+            - wstool info
+            - wstool update
+          - recording:
+            - cd recording/catkin
             - wstool info
             - wstool update
 
@@ -311,6 +336,14 @@
         - loam:
           - cd loam/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+      - perception:
+        - cd perception/
+        - recording:
+          - cd recording/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools -o -name CATKIN_IGNORE \) -exec rm -rf '{}' \;
+        - thirdparty:
+          - cd thirdparty/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools -o -name CATKIN_IGNORE \) -exec rm -rf '{}' \;
 
     ####################################################
     # launch workspaces
