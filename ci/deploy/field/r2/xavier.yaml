@@ -1,6 +1,6 @@
 ####################################################################################################
 # robot 1 configuration file
-- r1:
+- r2:
 ####################################################################################################
 
   ##################################################################################################
@@ -10,7 +10,7 @@
     - 'export BLUE="\033[1;36m"'
 
     ################################################################################################
-    # copy deploy repo from basestation to r1.xavier
+    # copy deploy repo from basestation to r2.xavier
     - transfer:
     ################################################################################################
       
@@ -19,7 +19,7 @@
       # connections
       - 'export user=nvidia'
       - 'export host=xavier'
-      - 'export HOP_HOST=robot@planning-pc'
+      - 'export HOP_HOST=ugv2@ugv2'
       
       # paths
       - 'export LOCAL_DEPLOY_PATH=/home/$USER/deploy_ws/src'
@@ -86,8 +86,8 @@
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
-      - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
       
       - hostname
       - whoami
@@ -226,12 +226,13 @@
         
         # launch configuration variables
         - 'export host=$(hostname)'
+        - 'export config=robots/r2/xavier'
         - 'export MCAST_GROUP=224.0.0.251'
-        - 'export ROBOT_NAME=ugv1'
+        - 'export ROBOT_NAME=ugv2'
+        - 'export UGV_XAVIER=true'
         - 'export USER=nvidia'
-        - 'export ROS_MASTER_URI=http://planning-pc:11311'
+        - 'export ROS_MASTER_URI=http://ugv2:11311'
         - 'export ROS_HOSTNAME=xavier'
-        - 'export ROS_MASTER=false'
 
         ### == user can modify done. ==
         - start:
