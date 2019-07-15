@@ -1,7 +1,7 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: f06e8c1f21797a6bb219e0d08de26afba288261a
+    version: f06e8c1
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
