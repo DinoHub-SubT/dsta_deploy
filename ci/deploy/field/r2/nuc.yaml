@@ -27,9 +27,9 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception" '
+      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/launch/ugv_setup/logging/nuc/bags" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
-      - export copy_from="rsync $copy_opts --exclude 'src/planning' $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
+      - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
       ### == user can modify done. ==
 
@@ -441,6 +441,9 @@
         
         ### == user can modify done. ==
 
+        # create the bag folder
+        - mkdir -p $DEPLOY_SRC/launch/ugv_setup/logging/planning-pc/bags/
+
         # get launch configuration data
         - export CONFIG_PATH="$DEPLOY_SRC/launch/robot_launch_scripting/config/"
         # parse config file for roslaunch params
@@ -457,53 +460,61 @@
         
         - start:
           - planning:
-            # parse the launch configuration params
-            - export config=robots/r2/nuc/planning
-            - export config_data=$(get_config_data "$config")
-            
             # start the tmux session
             - tmux new -s launch_planning -d
             # source
             - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-            # run planning-pc launch
+
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_planning 'export config=robots/r2/nuc/planning' ENTER
+            - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
+
+            # run nuc launch
             - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_planning"
           
           - state_est:
-            # parse the launch configuration params
-            - export config=robots/r2/nuc/state_est
-            - export config_data=$(get_config_data "$config")
-
             # start the tmux session
             - tmux new -s launch_state_est -d
             # source
             - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
-            # run planning-pc launch
+
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_state_est 'export config=robots/r2/nuc/state_est' ENTER
+            - tmux send -t launch_state_est 'export config_data=$(get_config_data "$config")' ENTER
+
+            # run nuc launch
             - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_state_est"
           
           - rosbag:
-            # default logging path
-            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
-            - mkdir -p $logging_path/nuc/bags/
-
             - recorder:  
               # start the recorder tmux session
               - tmux new -s launch_rosbag_recorder -d
               # source
               - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+
+              # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_recorder 'export config=robots/r2/nuc/recorder' ENTER
+              - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
+
               # launch recorder
-              - tmux send -t launch_rosbag_recorder 'roslaunch bag_recorder deploy.launch logging_path:=$logging_path computer:=nuc' ENTER
+              - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
+
             - bag:
               # start record hardware
-              - tmux new -s launch_rosbag -d
+              - tmux new -s launch_rosbag_start -d
               # source
-              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              
+              # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_start 'export config=robots/r2/nuc/rosbag_start' ENTER
+              - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
+              
               # launch rosbag
-              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
-                  node_name:=r2_nuc_rosbag config:=standard_run bag:="nuc"' ENTER
+              - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
 
             # message user
             - echo "Launch deployed in tmux session launch_rosbag"
@@ -523,6 +534,24 @@
             - tmux kill-session -t launch_planning
           - shell:  
             - tmux kill-session -t ros_shell
+          - rosbag:
+            - stop:
+              # start record hardware
+              - tmux new -s launch_rosbag_stop -d
+              # source
+              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+              
+              # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_stop 'export config=robots/r2/nuc/rosbag_stop' ENTER
+              - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
+              
+              # launch rosbag
+              - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
+              - tmux kill-session -t launch_rosbag_stop
+            - recorder:
+              - tmux kill-session -t launch_rosbag_recorder
+            - bag:
+              - tmux kill-session -t launch_rosbag_start
 
         - rosclean:
           # stop all ros nodes
