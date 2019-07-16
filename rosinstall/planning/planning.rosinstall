@@ -1,71 +1,11 @@
 - git:
-    local-name: Planning_workspace
-    uri: git@bitbucket.org:cmusubt/Planning_workspace.git
-    version: deploy-stable-branch#1
-- git:
-    local-name: at_path_planner
-    uri: git@bitbucket.org:cmusubt/at_path_planner.git
-    version: 773163cea0552edb2d74007b67847c56bff958fa
-- git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
     version: 319408e9d76e04f5851c645a220cec214869098d
 - git:
-    local-name: circular_curve_lib
-    uri: git@bitbucket.org:cmusubt/circular_curve_lib.git
-    version: d2fa8539148c9c3b681346e872733bc7dc985341
-- git:
-    local-name: common
-    uri: git@bitbucket.org:cmusubt/common.git
-    version: 98b352addf3f96ed78286a9062928da1b9d5530e
-- git:
-    local-name: coordinate
-    uri: git@bitbucket.org:cmusubt/coordinate.git
-    version: 01feaef75ad05407c9983b1421c988b59e968a2c
-- git:
-    local-name: curvature_constrained_state_spaces
-    uri: git@bitbucket.org:cmusubt/curvature_constrained_state_spaces.git
-    version: 553da7dffcb0f32b7fad59bc80060fe9c894c836
-- git:
-    local-name: map_representation
-    uri: git@bitbucket.org:cmusubt/map_representation.git
-    version: 16e6fbf9a78bedac92c9b25f7011ab7764dc58b3
-- git:
-    local-name: ompl
-    uri: git@bitbucket.org:cmusubt/ompl.git
-    version: 0b46153105c1f4445d6ef3148888722ab8e4aea0
-- git:
-    local-name: path_follower
-    uri: git@bitbucket.org:cmusubt/path_follower.git
-    version: aab6774e90627e1c6c276f0910ffea1b36880612
-- git:
-    local-name: planning_common
-    uri: git@bitbucket.org:cmusubt/planning_common.git
-    version: f9d08ee39afc1c08f0ca14d7c02b896d85e8f92d
-- git:
-    local-name: xyzpsi_state_space
-    uri: git@bitbucket.org:cmusubt/xyzpsi_state_space.git
-    version: f1e68d667c804617efe69c412a776cb65ce8a4a4
-- git:
-    local-name: ca_control_msgs
-    uri: git@bitbucket.org:cmusubt/ca_control_msgs.git
-    version: b973e07cde90b8139ffea1b13c8539c5781e93c4
-- git:
-    local-name: voxmap
-    uri: git@bitbucket.org:cmusubt/voxmap.git
-    version: b2e2b23663cb2e30843d3068e89503f013a1e72a
-- git:
-    local-name: openvdb_catkin
-    uri: git@bitbucket.org:cmusubt/openvdb_catkin.git
-    version: 98737e1f530fa8ba06f98795875855b1e4472493
-- git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
     version: 81f9f28e05f6f49d9c9632bbdb9efbd959dc0edf
-- git:
-    local-name: gridmapping_msgs
-    uri: git@bitbucket.org:cmusubt/gridmapping_msgs.git
-    version: 28b92fc45c886c53263d3dd1c6d42d3e715a51ca
 - git:
     local-name: payload_sim
     uri: git@bitbucket.org:cmusubt/payload_sim.git
@@ -75,81 +15,9 @@
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
     version: 317621e366b0f00488561ba93cf68cb44cfd1ab6
 - git:
-    local-name: dfs_planner
-    uri: git@bitbucket.org:cmusubt/dfs_planner.git
-    version: c269f4a3a2dfc53602286edff324b54bf58d285d
-- git:
-    local-name: task_manager_config
-    uri: git@bitbucket.org:cmusubt/task_manager_config.git
-    version: 352310a52a8c6e0969bac5b41e410a4090f400b5
-- git:
-    local-name: robot_motions_server_ros
-    uri: git@bitbucket.org:cmusubt/robot_motions_server_ros.git
-    version: 613b4ab87881e35ed5e0cd4411ccbf1373f95b8e
-- git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
     version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
-- git:
-    local-name: basestation_gui_python
-    uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 02103bc9c77a98688d15282d88f1dca40e5f125e
-- git:
-    local-name: darpa_command_post
-    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
-    version: f48b0f42cdd6786da958680323bad26beaca1488
-- git:
-    local-name: drone_interface
-    uri: git@bitbucket.org:cmusubt/drone_interface.git
-    version: df279cc3efa0ab4d97476ffb09f8a322aba58ebc
-- git:
-    local-name: local_planner_drone
-    uri: git@bitbucket.org:cmusubt/local_planner_drone.git
-    version: 6abb24606df82d927186f3113505e67984988a51
-- git:
-    local-name: pid_controller
-    uri: git@bitbucket.org:cmusubt/pid_controller.git
-    version: e981c582a9886f3f0a5ce15c0c51ce50ae892b0f
-- git:
-    local-name: pointcloud_map_representation
-    uri: git@bitbucket.org:cmusubt/pointcloud_map_representation.git
-    version: 86e20cbf2647eb10ce062fe70ce1c2a00b60625f
-- git:
-    local-name: pointcloud_pose_msgs
-    uri: git@bitbucket.org:cmusubt/pointcloud_pose_msgs.git
-    version: 91747a2ff0565ce4e328e9ded38d9f5e3a26d6ac
-- git:
-    local-name: big_pointcloud_rviz_plugin
-    uri: git@bitbucket.org:cmusubt/big_pointcloud_rviz_plugin.git
-    version: feab3a6473d659abd6ac35763da3398948470d7b
-- git:
-    local-name: state_machine
-    uri: git@bitbucket.org:cmusubt/state_machine.git
-    version: 525005554fa05e6faa835f729a7a9c14bcaf3f1a
-- git:
-    local-name: tflib
-    uri: git@bitbucket.org:cmusubt/tflib.git
-    version: c0b825f30b1b7a94ea84272b789025798b802509
-- git:
-    local-name: trajectory_controller
-    uri: git@bitbucket.org:cmusubt/trajectory_controller.git
-    version: 7423d6a2d630f8c99cbae663ba29f6c4a44a32d9
-- git:
-    local-name: trajectory_library_drone
-    uri: git@bitbucket.org:cmusubt/trajectory_library_drone.git
-    version: c0e84c12204e95126d84ab00499c826cb9f05a3f
-- git:
-    local-name: velocity_controller
-    uri: git@bitbucket.org:cmusubt/velocity_controller.git
-    version: 02afcfda6fe6c764d1979e1c754cdcce331d997f
-- git:
-    local-name: map_representation_interface
-    uri: git@bitbucket.org:cmusubt/map_representation_interface.git
-    version: f3fbefa9d22ea744b33d381599c1766c2fc1f512
-- git:
-    local-name: pose_controller
-    uri: git@bitbucket.org:cmusubt/pose_controller.git
-    version: 1ac7ea1af9e0b9002af10fc8a045c806e6b2aedb
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
@@ -167,10 +35,6 @@
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
     version: aac11c79819a228696eb48bc6cc60fb652778e14
 - git:
-    local-name: subt_auton_common
-    uri: git@bitbucket.org:cmusubt/subt_auton_common.git
-    version: 3f2bc82373e6d259bf9a4e573c4f8a22ae848a4a
-- git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
     version: 10b446b469bd527ffc599429604ef9b909fe1adf
@@ -179,57 +43,17 @@
     uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
     version: 716223d91781fb9a616f803b3eb10b832ff8c74c
 - git:
-    local-name: central
-    uri: git@bitbucket.org:cmusubt/central.git
-    version: 363d60a235f4b8839be55ac8a4ef66e3766372b9
-- git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
     version: master
-- git:
-    local-name: darpa_command_post
-    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
-    version: f48b0f42cdd6786da958680323bad26beaca1488
-- git:
-    local-name: dfs_control_panel
-    uri: git@bitbucket.org:cmusubt/dfs_control_panel.git
-    version: 7dd96d108dae4c69f56f743c6bc30f86271c5cf4
-- git:
-    local-name: entrance_calib
-    uri: git@bitbucket.org:cmusubt/entrance_calib.git
-    version: 1fa5bcdad6beb6be8dbcf3ee240188abf7ff88fe
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
     version: 3b1b6c6287f4b40df3f7454c62120d18c7f21205
 - git:
-    local-name: rostime_sync
-    uri: git@bitbucket.org:cmusubt/rostime_sync.git
-    version: 3e5fef3
-- git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
     version: 8a9fd78f2e3a39f9a6fb46c59557bd6c3a890a67
-- git:
-    local-name: rocker_motion_analysis_assembly
-    uri: git@bitbucket.org:cmusubt/rocker_motion_analysis_assembly.git
-    version: b896734fb662628c203509569f0a9d7ce1b990d2
-- git:
-    local-name: rqt_multiplot_plugin
-    uri: git@bitbucket.org:cmusubt/rqt_multiplot_plugin.git
-    version: 8ad4b284eb7986f60132f74bc80c8304d1947524
-- git:
-    local-name: total_station_node
-    uri: git@bitbucket.org:cmusubt/total_station_node.git
-    version: 97702cff75032ee0c9e074fe59ece84170e662e1
-- git:
-    local-name: general_health_monitor
-    uri: git@bitbucket.org:cmusubt/general_health_monitor.git
-    version: 17dad530f8fbe9453944b15734583ab7e9f7ed38
-- git:
-    local-name: online_pose_graph
-    uri: git@bitbucket.org:cmusubt/online_pose_graph.git
-    version: 9398d5866de5d3969a6feea51f7a649260c7c1cf
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
@@ -247,29 +71,9 @@
     uri: git@bitbucket.org:cmusubt/misc_utils.git
     version: 66cf30a1b4d16f9a31922b5c8003e4a915dc4ed6
 - git:
-    local-name: battery_monitor_drone
-    uri: git@bitbucket.org:cmusubt/battery_monitor_drone.git
-    version: master
-- git:
-    local-name: blink_monitor
-    uri: git@bitbucket.org:cmusubt/blink_monitor.git
-    version: master
-- git:
-    local-name: teensyrosserialradio
-    uri: git@bitbucket.org:cmusubt/teensyrosserialradio.git
-    version: master
-- git:
-    local-name: artifact_detection_simulator
-    uri: git@bitbucket.org:cmusubt/artifact_detection_simulator.git
-    version: master
-- git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
     version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
-- git:
-    local-name: blink1_node
-    uri: git@bitbucket.org:castacks/blink1_node.git
-    version: master
 
 ################################################################
 # moved from hardware_ws to planning_ws
@@ -277,8 +81,4 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: rji-recovery_behavior_BT
-- git:
-    local-name: led_matrix_bridge
-    uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
-    version: 3f43c7d
+    version: master
