@@ -34,4 +34,20 @@ windows:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
         - docker-join
+        - tmux a -t launch_rosbag_recorder
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t launch_rosbag_start
+  
+  - window_name: docker shell
+    focus: false
+    layout: main-horizontal
+    panes:
+      # enter the docker container on planning-pc
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
         - tmux a -t ros_shell
