@@ -273,7 +273,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: 2216d71acfb6dab6f5334d125ba13120023d5588
+    version: rji-recovery_behavior_BT
 - git:
     local-name: led_matrix_bridge
     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
