@@ -440,6 +440,9 @@
         - 'export ROS_HOSTNAME=nuc'
         
         ### == user can modify done. ==
+        
+        # create the bag folder
+        - mkdir -p $DEPLOY_SRC/launch/ugv_setup/logging/nuc/bags/
 
         # get launch configuration data
         - export CONFIG_PATH="$DEPLOY_SRC/launch/robot_launch_scripting/config/"
