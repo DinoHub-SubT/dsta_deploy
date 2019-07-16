@@ -201,7 +201,11 @@
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: 2f901289a009ee3d277047b59a24e423f200efad
+    version: 3b1b6c6287f4b40df3f7454c62120d18c7f21205
+- git:
+    local-name: rostime_sync
+    uri: git@bitbucket.org:cmusubt/rostime_sync.git
+    version: 3e5fef3
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
