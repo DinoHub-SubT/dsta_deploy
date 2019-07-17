@@ -18,8 +18,8 @@
     
     ####################################################
     # path setup
-    - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
-    - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+    - 'export DEPLOY_WS=/home/$USER/deploy_ws/'
+    - 'export DEPLOY_SRC=$DEPLOY_WS/src/'
     - 'export DOCKER_CONFIG=field/robot/basestation'
     - 'export DOCKER_CONFIG_PATH=docker/env'
     
@@ -92,7 +92,6 @@
   ################################################################################################
   - deploy:
   ################################################################################################
-  # TODO: perception submodule update
     # only docker container on basestation, no ssh
     - +docker:subt
     
@@ -110,11 +109,11 @@
 
       # download the subt_robot_examples_latest
       # NOTE: only do this on ONCE. requires internet access.
-      - download:
-        - if [ -f subt_robot_examples_latest.tgz ]; then
-            rm subt_robot_examples_latest.tgz;
-          fi
-        - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+      # - download:
+      #   - if [ -f subt_robot_examples_latest.tgz ]; then
+      #       rm subt_robot_examples_latest.tgz;
+      #     fi
+      #   - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
 
       # update any submodule
       - submodule:
@@ -135,12 +134,6 @@
       # setup the rosinstalls
       - rosinstall:
         - planning:
-          - darpa:
-            - cd darpa/catkin
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/planning/darpa.rosinstall .rosinstall
           - thirdparty:
             - cd thirdparty/catkin
             - if [ -f .rosinstall ]; then
@@ -177,6 +170,12 @@
                   rm .rosinstall;
                 fi
             - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
+          - xsens:
+            - cd xsens/catkin
+            - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+            - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
         - perception:
           - cd $DEPLOY_SRC/perception
           - thirdparty:
@@ -199,10 +198,6 @@
           - git submodule update --recursive
         # planning ws update
         - planning:
-          - darpa:
-            - cd darpa/catkin
-            - wstool info
-            - wstool update
           - thirdparty:
             - cd thirdparty/catkin
             - wstool info
@@ -226,6 +221,10 @@
             - wstool update
           - loam:
             - cd loam/catkin
+            - wstool info
+            - wstool update
+          - xsens:
+            - cd xsens/catkin
             - wstool info
             - wstool update
         # perception ws update
@@ -265,17 +264,6 @@
       - planning:
         - cd planning/
 
-        # build the darpa workspaces
-        - darpa:
-          - cd darpa/catkin
-          - catkin build --force-cmake
-        
-        # install the robot_examples
-        - robot_examples:
-          - cd $DEPLOY_WS/install/planning/
-          - cp $DEPLOY_SRC/subt_robot_examples_latest.tgz .
-          - tar xfv subt_robot_examples_latest.tgz -C darpa --strip-components 1
-
         # build the hardware workspace
         - thirdparty:
           - cd thirdparty/catkin
@@ -305,9 +293,6 @@
         - thirdparty:
           - cd thirdparty/catkin
           - catkin clean -y
-        - darpa:
-          - cd darpa/catkin
-          - catkin clean -y
 
     ####################################################
     # remove workspaces
@@ -320,21 +305,21 @@
         - hardware:
           - cd hardware/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-        - darpa:
-          - cd darpa/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
         - thirdparty:
           - cd thirdparty/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
       - state_est:
         - cd $DEPLOY_SRC/state_estimation/
         - repo:
-          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
+          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name xsens \) -exec rm -rf '{}' \;
         - thirdparty:
           - cd thirdparty/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
         - loam:
           - cd loam/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+        - xsens:
+          - cd xsens/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
       - perception:
         - cd perception/
@@ -354,7 +339,7 @@
       # launch configuration variables
       - 'export host=$(hostname)'
       - 'export MCAST_GROUP=224.0.0.251'
-      - 'export robot=robots/basestation'
+      - 'export robot=robots/planning-pc'
       - 'export USER=mtatum'
       - 'export ROS_MASTER_URI=http://ugv2:11311'
       - 'export ROS_HOSTNAME=basestation-pc'
@@ -478,19 +463,6 @@
       - planning:
         - cd $DEPLOY_SRC/planning
 
-        # git update to darpa ws
-        - darpa:
-          - status:
-            - 'export git_fn=git_status'
-          - update:
-            - 'export git_fn=git_updater'
-          - dirty:
-            - 'export git_fn=git_dirty'
-          # execute git fn
-          - cd darpa/catkin
-          - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-          - $git_fn "$REPOS"
-
         # git update to thirdparty ws
         - thirdparty:
           - status:
@@ -520,17 +492,6 @@
       # update the planning repso
       - state_est:
         - cd $DEPLOY_SRC/state_estimation
-        - darpa:
-          - status:
-            - 'export git_fn=git_status'
-          - update:
-            - 'export git_fn=git_updater'
-          - dirty:
-            - 'export git_fn=git_dirty'
-          # execute git fn
-          - cd loam/catkin
-          - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-          - $git_fn "$REPOS"
         - thirdparty:
           - status:
             - 'export git_fn=git_status'

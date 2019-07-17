@@ -188,12 +188,6 @@
         # setup the rosinstalls
         - rosinstall:
           - planning:
-            - darpa:
-              - cd darpa/catkin
-              - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-              - ln -s $DEPLOY_SRC/rosinstall/planning/darpa.rosinstall .rosinstall
             - thirdparty:
               - cd thirdparty/catkin
               - if [ -f .rosinstall ]; then
@@ -215,10 +209,6 @@
         # wstool update the workspaces
         - up:
           - planning:
-            - darpa:
-              - cd darpa/catkin
-              - wstool info
-              - wstool update
             - thirdparty:
               - cd thirdparty/catkin
               - wstool info
@@ -248,17 +238,6 @@
       - build:
         - planning:
           - cd planning/
-
-          # build the darpa workspaces
-          - darpa:
-            - cd darpa/catkin
-            - catkin build --force-cmake
-          
-          # install the robot_examples
-          - robot_examples:
-            - cd $DEPLOY_WS/install/planning/
-            - cp $DEPLOY_SRC/subt_robot_examples_latest.tgz .
-            - tar xfv subt_robot_examples_latest.tgz -C darpa --strip-components 1
 
           # build the hardware workspace
           - thirdparty:
@@ -298,9 +277,6 @@
           - thirdparty:
             - cd thirdparty/catkin
             - catkin clean -y
-          - darpa:
-            - cd darpa/catkin
-            - catkin clean -y
 
       ####################################################
       # remove workspaces
@@ -309,12 +285,9 @@
         - planning:
           - cd planning/
           - repo:
-            - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
+            - find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
           - hardware:
             - cd hardware/catkin
-            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-          - darpa:
-            - cd darpa/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
@@ -527,20 +500,7 @@
         - planning:
           - cd $DEPLOY_SRC/planning
 
-          # git update to darpa ws
-          - darpa:
-            - status:
-              - 'export git_fn=git_status'
-            - update:
-              - 'export git_fn=git_updater'
-            - dirty:
-              - 'export git_fn=git_dirty'
-            # execute git fn
-            - cd darpa/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - $git_fn "$REPOS"
-
-          # git update to thirdparty ws
+           git update to thirdparty ws
           - thirdparty:
             - status:
               - 'export git_fn=git_status'
@@ -562,7 +522,7 @@
             - dirty:
               - 'export git_fn=git_dirty'
             # execute git fn
-            - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
+            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
             - $git_fn "$REPOS"
 
 

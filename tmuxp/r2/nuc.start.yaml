@@ -35,11 +35,6 @@ windows:
         - ssh nuc@nuc
         - docker-join
         - tmux a -t launch_rosbag_recorder
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nuc@nuc
-        - docker-join
-        - tmux a -t launch_rosbag_start
   
   - window_name: docker shell
     focus: false

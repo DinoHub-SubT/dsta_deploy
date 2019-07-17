@@ -1,7 +1,7 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: fd54ed2f79ec4552e81fef80aff9bdb9d0d31197
+    version: 6d789f6
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
