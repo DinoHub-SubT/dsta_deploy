@@ -82,22 +82,12 @@
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
     version: master
-# - git:
-#     local-name: led_matrix_bridge
-#     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
-#     version: master
-
-# for launch files
-- git:
-    local-name: Planning_workspace
-    uri: git@bitbucket.org:cmusubt/Planning_workspace.git
-    version: deploy-stable-branch#1
-
-
-################################################################
-# moved from hardware_ws to planning_ws
-################################################################
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
     version: master
+# for main launch files
+- git:
+    local-name: Planning_workspace
+    uri: git@bitbucket.org:cmusubt/Planning_workspace.git
+    version: deploy-stable-branch#1
