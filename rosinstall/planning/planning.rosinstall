@@ -45,7 +45,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: master
+    version: 0150591
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -81,11 +81,12 @@
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
-    version: master
+    version: 3e5fef3
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
     version: master
+
 # for main launch files
 - git:
     local-name: Planning_workspace
