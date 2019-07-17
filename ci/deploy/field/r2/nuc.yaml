@@ -190,12 +190,6 @@
         # setup the rosinstalls
         - rosinstall:
           - planning:
-            - darpa:
-              - cd darpa/catkin
-              - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-              - ln -s $DEPLOY_SRC/rosinstall/planning/darpa.rosinstall .rosinstall
             - thirdparty:
               - cd thirdparty/catkin
               - if [ -f .rosinstall ]; then
@@ -242,10 +236,6 @@
         # wstool update the workspaces
         - up:
           - planning:
-            - darpa:
-              - cd darpa/catkin
-              - wstool info
-              - wstool update
             - thirdparty:
               - cd thirdparty/catkin
               - wstool info
@@ -299,17 +289,6 @@
       - build:
         - planning:
           - cd planning/
-
-          # build the darpa workspaces
-          - darpa:
-            - cd darpa/catkin
-            - catkin build
-          
-          # install the robot_examples
-          - robot_examples:
-            - cd $DEPLOY_WS/install/planning/
-            - cp $DEPLOY_SRC/subt_robot_examples_latest.tgz .
-            - tar xfv subt_robot_examples_latest.tgz -C darpa --strip-components 1
 
           # build the hardware workspace
           - thirdparty:
@@ -390,9 +369,6 @@
           - thirdparty:
             - cd thirdparty/catkin
             - catkin clean -y
-          - darpa:
-            - cd darpa/catkin
-            - catkin clean -y
 
       ####################################################
       # remove workspaces
@@ -401,12 +377,9 @@
         - planning:
           - cd planning/
           - repo:
-            - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
+            - find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
           - hardware:
             - cd hardware/catkin
-            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-          - darpa:
-            - cd darpa/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
@@ -414,7 +387,7 @@
         - state_est:
           - cd $DEPLOY_SRC/state_estimation/
           - repo:
-            - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
+            - find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
@@ -586,39 +559,11 @@
         - export -f git_status
         - printenv
 
-        # wstool update to git hash
-        # - git_updater() {
-        #     for repo in $1; do
-        #       echo "repo is $repo";
-        #       pushd $repo  > /dev/null 2>&1;
-        #       if [ -d .git ]; then
-        #         echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-        #         export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
-        #         export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
-        #         wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
-        #         echo -e "\n\n";
-        #       fi;
-        #       popd  > /dev/null 2>&1;
-        #     done;
-        #   }
-        # - export -f git_updater
-
         ####################################################
         # git commands for planning workspace
         ####################################################
         - planning:
           - cd $DEPLOY_SRC/planning
-
-          # git update to darpa ws
-          - darpa:
-            - status:
-              - 'export -f git_fn=$git_status'
-            - update:
-              - 'export -f git_fn=$git_updater'
-
-            - cd darpa/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_fn "$REPOS"
 
           # git update to thirdparty ws
           - thirdparty:
@@ -638,22 +583,18 @@
             - update:
               - 'export -f git_fn=$git_updater'
 
-            - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
+            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
             - git_fn "$REPOS"
           
         # update the planning repso
         - state_est:
           - cd $DEPLOY_SRC/state_estimation
-          - darpa:
-            - cd loam/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
           - thirdparty:
             - cd thirdparty/catkin
             - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
             - git_updater "$REPOS"
           - repo:
-            - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
+            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
             - git_updater "$REPOS"
 
           

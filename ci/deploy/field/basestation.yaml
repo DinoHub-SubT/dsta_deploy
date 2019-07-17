@@ -170,6 +170,12 @@
                   rm .rosinstall;
                 fi
             - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
+          - xsens:
+            - cd xsens/catkin
+            - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+            - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
         - perception:
           - cd $DEPLOY_SRC/perception
           - thirdparty:
@@ -215,6 +221,10 @@
             - wstool update
           - loam:
             - cd loam/catkin
+            - wstool info
+            - wstool update
+          - xsens:
+            - cd xsens/catkin
             - wstool info
             - wstool update
         # perception ws update
