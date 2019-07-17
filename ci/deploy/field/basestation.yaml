@@ -311,12 +311,15 @@
       - state_est:
         - cd $DEPLOY_SRC/state_estimation/
         - repo:
-          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
+          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name xsens \) -exec rm -rf '{}' \;
         - thirdparty:
           - cd thirdparty/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
         - loam:
           - cd loam/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+        - xsens:
+          - cd xsens/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
       - perception:
         - cd perception/
