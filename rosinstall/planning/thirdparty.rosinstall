@@ -5,12 +5,18 @@
     uri: https://github.com/xqms/rosmon.git
     version: 426c0772a8324b5bccd76135adcb5494887f2918
 
-- git:
-    local-name: rosfmt
-    uri: https://github.com/xqms/rosfmt.git
-    version: master
+# - git:
+#     local-name: rosfmt
+#     uri: https://github.com/xqms/rosfmt.git
+#     version: master
 
-- git:
-    local-name: catch_ros
-    uri: https://github.com/AIS-Bonn/catch_ros.git
-    version: master
+# - git:
+#     local-name: catch_ros
+#     uri: https://github.com/AIS-Bonn/catch_ros.git
+#     version: master
+
+# missing teleop job
+# - git:
+#     local-name: teleop_twist_joy
+#     uri: https://github.com/ros-teleop/teleop_twist_joy.git
+#     version: indigo-devel

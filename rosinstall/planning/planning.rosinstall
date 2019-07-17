@@ -78,6 +78,21 @@
     local-name: common
     uri: git@bitbucket.org:cmusubt/common.git
     version: 98b352addf3f96ed78286a9062928da1b9d5530e
+- git:
+    local-name: rostime_sync
+    uri: git@bitbucket.org:cmusubt/rostime_sync.git
+    version: master
+# - git:
+#     local-name: led_matrix_bridge
+#     uri: git@bitbucket.org:cmusubt/led_matrix_bridge.git
+#     version: master
+
+# for launch files
+- git:
+    local-name: Planning_workspace
+    uri: git@bitbucket.org:cmusubt/Planning_workspace.git
+    version: deploy-stable-branch#1
+
 
 ################################################################
 # moved from hardware_ws to planning_ws
