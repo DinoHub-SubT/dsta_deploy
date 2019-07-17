@@ -74,6 +74,10 @@
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
     version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
+- git:
+    local-name: common
+    uri: git@bitbucket.org:cmusubt/common.git
+    version: 98b352addf3f96ed78286a9062928da1b9d5530e
 
 ################################################################
 # moved from hardware_ws to planning_ws
