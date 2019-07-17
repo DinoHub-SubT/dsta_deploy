@@ -5,7 +5,7 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../../../devel/planning/thirdparty
-extend_path: ../../../../install/planning/darpa
+extend_path: /opt/ros/melodic
 install: false
 install_space: ../../../../install/planning/thirdparty/
 isolate_install: false
