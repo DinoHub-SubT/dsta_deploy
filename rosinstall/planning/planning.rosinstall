@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 319408e9d76e04f5851c645a220cec214869098d
+    version: e3fcd46790826a753eb36d4597725dda29d4aabb
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -21,11 +21,11 @@
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
-    version: 355e8bd7ce500818ede9378eb55cfcb67fcb2313
+    version: d06b6c24e1b8f23a6bfca67c270953fa4810cf02
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 5f6e391cd729506aac05e83c209927ae701f3fda
+    version: 14a8c97d70d1d8c0c979eb6aa0a89bdb366d0f69
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -85,6 +85,10 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
+    version: master
+- git:
+    local-name: artifact_detection_simulator
+    uri: git@bitbucket.org:cmusubt/artifact_detection_simulator.git
     version: master
 
 # for main launch files
