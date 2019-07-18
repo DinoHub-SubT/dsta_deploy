@@ -441,6 +441,12 @@
             - tmux new -s launch_planning -d
             # source
             - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_planning 'unset config_data' ENTER
+            - tmux send -t launch_planning 'export config=robots/r1/nuc/planning' ENTER
+            - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
+
             # run planning-pc launch
             - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
@@ -455,6 +461,12 @@
             - tmux new -s launch_state_est -d
             # source
             - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_state_est 'unset config_data' ENTER
+            - tmux send -t launch_state_est 'export config=robots/r1/nuc/state_est' ENTER
+            - tmux send -t launch_state_est 'export config_data=$(get_config_data "robots/r1/nuc/state_est")' ENTER
+
             # run planning-pc launch
             - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
             # message user
@@ -468,6 +480,7 @@
               - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
               # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
               - tmux send -t launch_rosbag_recorder 'export config=robots/r1/nuc/recorder' ENTER
               - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
 
@@ -481,6 +494,7 @@
               - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
               
               # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_start 'unset config_data' ENTER
               - tmux send -t launch_rosbag_start 'export config=robots/r1/nuc/rosbag_start' ENTER
               - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
               
@@ -513,6 +527,7 @@
               - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
               
               # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_stop 'unset config_data' ENTER
               - tmux send -t launch_rosbag_stop 'export config=robots/r1/nuc/rosbag_stop' ENTER
               - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
               
@@ -645,7 +660,7 @@
           # source
           - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
           # run planning-pc launch
-          - tmux send -t xsens 'mon launch receive_xsens receive_xsens.launch' ENTER
+          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
           # message user
           - echo "Launch xsens in tmux session xsens"
       

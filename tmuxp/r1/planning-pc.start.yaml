@@ -30,4 +30,13 @@ windows:
       - shell_command:
         - ssh robot@planning-pc
         - docker-join
+        - tmux a -t launch_rosbag_recorder
+  - window_name: docker shell
+    focus: false
+    layout: main-horizontal
+    panes:
+      # enter the docker container on planning-pc
+      - shell_command:
+        - ssh robot@planning-pc
+        - docker-join
         - tmux a -t ros_shell
