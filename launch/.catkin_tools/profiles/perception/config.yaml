@@ -8,7 +8,7 @@ cmake_args:
 - -DPYTHON_LIBRARY=/usr/lib/aarch64-linux-gnu/libpython3.6m.so
 devel_layout: linked
 devel_space: ../../devel/perception/launch
-extend_path: ../../devel/perception/repo
+extend_path: ../../devel/perception/recording
 install: false
 install_space: ../../install/perception/launch
 isolate_install: false

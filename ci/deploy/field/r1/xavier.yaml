@@ -266,7 +266,7 @@
             # start the tmux session
             - tmux new -s launch_record -d
             # source
-            - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/recorder/setup.zsh' ENTER
             # run perception-pc launch
             - tmux send -t launch_record 'mon launch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
             # message user
@@ -281,7 +281,7 @@
           - inference:
             - tmux kill-session -t launch_inference
           - recorder:
-            - tmux kill-session -t launch_recorder
+            - tmux kill-session -t launch_record
 
         - rosclean:
           # stop all ros nodes

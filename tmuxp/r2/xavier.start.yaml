@@ -33,6 +33,11 @@ windows:
         - ssh ugv2@ugv2
         - ssh nvidia@xavier
         - tmux a -t launch_record
+      
+  - window_name: xavier shell
+    focus: false
+    layout: main-horizontal
+    panes:
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nvidia@xavier
