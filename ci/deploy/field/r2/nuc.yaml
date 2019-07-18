@@ -597,4 +597,24 @@
             - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
             - git_updater "$REPOS"
 
-          
+    ################################################################################################
+    - local:
+    ################################################################################################
+      # only docker container on basestation, no ssh
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
+      - start:
+        - xsens:
+          # start the tmux session
+          - tmux new -s xsens -d
+          # source
+          - tmux send -t xsens 'source /home/nuc/workspace/xsens_driver/devel/setup.zsh' ENTER
+          # run planning-pc launch
+          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+          # message user
+          - echo "Launch xsens in tmux session xsens"
+      
+      # stop tmux sessions    
+      - stop:
+        - xsens:
+          - tmux kill-session -t xsens

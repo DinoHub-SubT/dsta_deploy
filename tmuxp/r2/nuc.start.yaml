@@ -6,12 +6,14 @@ suppress_history: true
 start_directory: /home/$USER/deploy_ws/src/
 
 # commands to run before panes startup
+# add 'r2.nuc.local.start.xsens' if using xsens outside of docker
 before_script: "
   ./deployer -s
     r2.nuc.docker.remove
     r2.nuc.docker.start 
     r2.nuc.rosdep.xsens
-    r2.nuc.launch.start"
+    r2.nuc.launch.start
+    r2.nuc.local.start.xsens"
 
 # This is where we list all the stuff we want to run
 windows:
@@ -30,6 +32,10 @@ windows:
         - ssh nuc@nuc
         - docker-join
         - tmux a -t launch_state_est
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - tmux a -t xsens
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
