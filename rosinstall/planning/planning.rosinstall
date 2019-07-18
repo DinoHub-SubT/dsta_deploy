@@ -7,10 +7,6 @@
     uri: git@bitbucket.org:castacks/base_main_class.git
     version: 81f9f28e05f6f49d9c9632bbdb9efbd959dc0edf
 - git:
-    local-name: payload_sim
-    uri: git@bitbucket.org:cmusubt/payload_sim.git
-    version: 4b1a937421427565fbfc297a2e35571c5a9dfd76
-- git:
     local-name: terrain_analysis
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
     version: 317621e366b0f00488561ba93cf68cb44cfd1ab6
@@ -75,21 +71,14 @@
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
     version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
 - git:
-    local-name: common
-    uri: git@bitbucket.org:cmusubt/common.git
-    version: 98b352addf3f96ed78286a9062928da1b9d5530e
-- git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
     version: 3e5fef3
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: master
-- git:
-    local-name: artifact_detection_simulator
-    uri: git@bitbucket.org:cmusubt/artifact_detection_simulator.git
-    version: master
+    version: d463c803a1749f708d17a860b678dc1b86c0a0db
+
 
 # for main launch files
 - git:
