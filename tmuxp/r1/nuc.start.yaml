@@ -11,9 +11,9 @@ before_script: "
   ./deployer -s
     r1.nuc.docker.remove
     r1.nuc.docker.start 
-    r1.nuc.rosdep.xsens
     r1.nuc.launch.start
-    r1.nuc.local.start.xsens"
+    r1.nuc.local.start.xsens
+    r1.nuc.local.start.bluetooth"
 
 # This is where we list all the stuff we want to run
 windows:
@@ -36,6 +36,10 @@ windows:
         - ssh robot@planning-pc
         - ssh nuc@nuc
         - tmux a -t xsens
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t bluetooth
       - shell_command:
         - ssh robot@planning-pc
         - ssh nuc@nuc

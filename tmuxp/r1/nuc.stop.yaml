@@ -13,7 +13,7 @@ windows:
     panes:
       - shell_command:
         - ./deployer -s r1.nuc.launch.stop
-        - ./deployer -s r1.nuc.local.stop.xsens
+        - ./deployer -s r1.nuc.local.stop
         - tmux kill-session -t r1_nuc_start
         - tmux kill-session -t r1_stop_nuc
 
