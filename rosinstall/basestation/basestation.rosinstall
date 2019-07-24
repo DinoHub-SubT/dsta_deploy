@@ -1,0 +1,56 @@
+- git:
+    local-name: base_main_class
+    uri: git@bitbucket.org:cmusubt/base_main_class.git
+    version: 9931153b7cbb7620b04107ece149c9de2a617b53
+- git:
+    local-name: base_main_class_py
+    uri: git@bitbucket.org:cmusubt/base_main_class_py.git
+    version: aac11c79819a228696eb48bc6cc60fb652778e14
+- git:
+    local-name: basestation_gui_python
+    uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
+    version: 7f2190a65a592ca57398880cd20efe50eeb81049
+- git:
+    local-name: basestation_launch
+    uri: git@bitbucket.org:cmusubt/basestation_launch.git
+    version: be9afca398c7a7d26ea6b2d0706ac480e82beea1
+- git:
+    local-name: basestation_msgs
+    uri: git@bitbucket.org:cmusubt/basestation_msgs.git
+    version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
+- git:
+    local-name: behavior_tree
+    uri: git@bitbucket.org:cmusubt/behavior_tree.git
+    version: 88ee06b3b0f7872a2e8da943e5ce9c42e06bd8fd
+- git:
+    local-name: behavior_tree_msgs
+    uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
+    version: 716223d91781fb9a616f803b3eb10b832ff8c74c
+- git:
+    local-name: comms_planner_batman
+    uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
+    version: 95da06a01765c7bb8dedc7cd35544b10bf2e30b7
+- git:
+    local-name: communication_manager
+    uri: git@bitbucket.org:cmusubt/communication_manager.git
+    version: c0ceb49ffd9df8017df738d221d6244866006620
+- git:
+    local-name: darpa_command_post
+    uri: git@bitbucket.org:cmusubt/darpa_command_post.git
+    version: 10642bea6675b6d1f1a49e6d5c9897a5a89eb1a2
+- git:
+    local-name: entrance_calib
+    uri: git@bitbucket.org:cmusubt/entrance_calib.git
+    version: 1fa5bcdad6beb6be8dbcf3ee240188abf7ff88fe
+- git:
+    local-name: map_compress
+    uri: git@bitbucket.org:cmusubt/map_compress.git
+    version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
+- git:
+    local-name: planning_workspace
+    uri: git@bitbucket.org:cmusubt/planning_workspace.git
+    version: 6f9911c4544258a57d0acc4a3667b97f05e23c34
+- git:
+    local-name: pointcloud_pose_msgs
+    uri: git@bitbucket.org:cmusubt/pointcloud_pose_msgs.git
+    version: 91747a2ff0565ce4e328e9ded38d9f5e3a26d6ac
