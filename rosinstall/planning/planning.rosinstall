@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: e3fcd46790826a753eb36d4597725dda29d4aabb
+    version: 9e7d31acde6b8f4f79a776b5a37df0376155bbe8
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -21,7 +21,7 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 14a8c97d70d1d8c0c979eb6aa0a89bdb366d0f69
+    version: 63b2bde2f73a71d0cd2b003e0e27f6890fc79dc1
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: 0150591
+    version: 73df0736d8f424981e7357a0dd22870b3464bfff
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
