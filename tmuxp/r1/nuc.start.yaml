@@ -17,7 +17,7 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: r1 nuc start
+  - window_name: main
     focus: false
     layout: main-horizontal
     panes:
@@ -32,6 +32,11 @@ windows:
         - ssh nuc@nuc
         - docker-join
         - tmux a -t launch_state_est
+
+  - window_name: recorder and xsens
+    focus: false
+    layout: main-horizontal
+    panes:
       - shell_command:
         - ssh robot@planning-pc
         - ssh nuc@nuc

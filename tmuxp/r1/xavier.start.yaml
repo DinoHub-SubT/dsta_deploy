@@ -12,8 +12,8 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: r1 xavier start
-    focus: false
+  - window_name: main
+    focus: true
     layout: main-horizontal
     panes:
       # enter the tmux launch on xavier
@@ -29,10 +29,16 @@ windows:
         - ssh robot@planning-pc
         - ssh nvidia@xavier
         - tmux a -t launch_inference
+  
+  - window_name: recorder
+    focus: false
+    layout: main-horizontal
+    panes:    
       - shell_command:
         - ssh robot@planning-pc
         - ssh nvidia@xavier
         - tmux a -t launch_record
+  
   - window_name: xavier shell
     focus: false
     layout: main-horizontal
