@@ -176,11 +176,11 @@
 
         # download the subt_robot_examples_latest
         # NOTE: only do this on ONCE. requires internet access.
-        - download:
-          - if [ -f subt_robot_examples_latest.tgz ]; then
-              rm subt_robot_examples_latest.tgz;
-            fi
-          - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+        # - download:
+        #   - if [ -f subt_robot_examples_latest.tgz ]; then
+        #       rm subt_robot_examples_latest.tgz;
+        #     fi
+        #   - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
 
         # clone & update the planning workspace
         - cd planning/

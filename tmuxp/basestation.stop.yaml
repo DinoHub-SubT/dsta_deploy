@@ -3,16 +3,15 @@ session_name: basestation_stop
 # Add commands to bash history
 suppress_history: true
 
-# start directory
-# start_directory: /home/$USER/deploy_ws/src
-start_directory: /home/katarina/airlab/deploy_ws/src/
+start_directory: /home/$USER/deploy_ws/src/
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: sim
+  - window_name: basestation stop
     layout: main-horizontal
     panes:
       - shell_command:
         - ./deployer -s basestation.launch.stop
-        # optional: stop docker container
-        # - ./deployer -s basestation.docker.remove
+        - tmux kill-session -t basestation_start
+        - tmux kill-session -t basestation_stop
+

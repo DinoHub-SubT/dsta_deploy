@@ -86,11 +86,8 @@ perception/recording/catkin/*
 !perception/recording/catkin/.catkin_tools/
 perception/recording/catkin/.catkin_tools/*
 
-#######################################
-### allow perception-deps
-
 ###################################################################################################
-### allow perception workspace
+### allow state-estimation workspace
 
 # unignore perception-ws 
 !state_estimation/
@@ -107,8 +104,23 @@ state_estimation/deps/catkin/*
 !state_estimation/deps/catkin/.catkin_tools/
 state_estimation/deps/catkin/.catkin_tools/*
 
-#######################################
-### allow state_estimation-deps
+###################################################################################################
+### allow basestation workspace
+
+# unignore perception-ws 
+!basestation/
+basestation/*
+
+# allow specific repos
+!basestation/.catkin_tools/
+
+# unignore deps-ws catkin
+!basestation/thirdparty/catkin
+basestation/thirdparty/catkin/*
+
+# allow specific repos
+!basestation/thirdparty/catkin/.catkin_tools/
+basestation/thirdparty/catkin/.catkin_tools/*
 
 ###################################################################################################
 
@@ -122,7 +134,7 @@ launch/*
 ###################################################################################################
 ### ignore anything that was previously allowed
 
-### ignore planning
+### ignore planning ###
 
 # ignore catkin tools non config packages
 planning/.catkin_tools/profiles/default/packages/
@@ -139,7 +151,7 @@ planning/hardware/catkin/.catkin_tools/profiles/default/packages/
 planning/hardware/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 planning/hardware/catkin/.catkin_tools/profiles/default/build.yaml
 
-### ignore perception
+### ignore perception ###
 
 # ignore catkin tools non config packages
 perception/.catkin_tools/profiles/default/packages/
@@ -151,13 +163,25 @@ perception/deps/catkin/.catkin_tools/profiles/default/packages/
 perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
 perception/deps/catkin/.catkin_tools/profiles/default/build.yaml
 
-### ignore state_estimation
+### ignore state_estimation ###
 
 # ignore catkin tools non config packages
 state_estimation/.catkin_tools/profiles/default/packages/
 state_estimation/.catkin_tools/profiles/default/devel_collisions.txt
 state_estimation/.catkin_tools/profiles/default/build.yaml
 
+### ignore basestation ###
+
+# ignore catkin tools non config packages
+basestation/.catkin_tools/profiles/default/packages/
+basestation/.catkin_tools/profiles/default/devel_collisions.txt
+basestation/.catkin_tools/profiles/default/build.yaml
+basestation/.catkin_tools/profiles/default/config.yaml
+
+# ignore catkin tools non config packages
+basestation/thirdparty/catkin/.catkin_tools/profiles/default/packages/
+basestation/thirdparty/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+basestation/thirdparty/catkin/.catkin_tools/profiles/default/build.yaml
 
 ### ignore launch
 
@@ -177,6 +201,10 @@ launch/.catkin_tools/profiles/planning-no-hardware/build.yaml
 launch/.catkin_tools/profiles/state_est/packages/
 launch/.catkin_tools/profiles/state_est/devel_collisions.txt
 launch/.catkin_tools/profiles/state_est/build.yaml
+
+launch/.catkin_tools/profiles/basestation/build.yaml
+launch/.catkin_tools/profiles/basestation/devel_collisions.txt
+launch/.catkin_tools/profiles/basestation/packages/
 
 # ignore which default settings is set
 launch/.catkin_tools/profiles/profiles.yaml

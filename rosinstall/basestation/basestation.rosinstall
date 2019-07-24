@@ -54,3 +54,7 @@
     local-name: pointcloud_pose_msgs
     uri: git@bitbucket.org:cmusubt/pointcloud_pose_msgs.git
     version: 91747a2ff0565ce4e328e9ded38d9f5e3a26d6ac
+- git:
+    local-name: bag_recorder
+    uri: git@bitbucket.org:cmusubt/bag_recorder.git
+    version: 6d789f6

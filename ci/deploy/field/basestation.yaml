@@ -76,7 +76,7 @@
     ####################################################
     # delete docker images & corresponding containers
     ####################################################
-    - clean:
+    - delete:
       - 'export DELETE_ARGS="--containers" '
       - ./clean.bash --env field/basestation $DELETE_ARGS
       - ./clean.bash --env local/subt/ros $DELETE_ARGS
@@ -123,17 +123,28 @@
           - git submodule update $DEPLOY_SRC/launch
         - docker:
           - git submodule update $DEPLOY_SRC/docker
-        # - field_support:
-        #   - git submodule update $DEPLOY_SRC/field_support
         - ci:
           - git submodule update $DEPLOY_SRC/ci
 
-      # clone & update the planning workspace
-      - cd planning/
-      
       # setup the rosinstalls
       - rosinstall:
+        # basestation rosinstall
+        - basestation:
+          - cd $DEPLOY_SRC/basestation
+          - thirdparty:
+            - cd thirdparty/catkin
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s $DEPLOY_SRC/rosinstall/basestation/thirdparty.rosinstall .rosinstall
+          - repo:
+            - if [ -f .rosinstall ]; then
+                rm .rosinstall;
+              fi
+            - ln -s $DEPLOY_SRC/rosinstall/basestation/basestation.rosinstall .rosinstall
+        # planning rosinstall
         - planning:
+          - cd $DEPLOY_SRC/planning
           - thirdparty:
             - cd thirdparty/catkin
             - if [ -f .rosinstall ]; then
@@ -151,12 +162,7 @@
                 rm .rosinstall;
               fi
             - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
-          - xsens:
-            - cd xsens/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
+        # state estimation rosinstall
         - state_est:
           - cd $DEPLOY_SRC/state_estimation
           - repo:
@@ -182,6 +188,7 @@
                   rm .rosinstall;
                 fi
             - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
+        # perception rosinstall
         - perception:
           - cd $DEPLOY_SRC/perception
           - thirdparty:
@@ -199,11 +206,23 @@
 
       # wstool update the workspaces
       - up:
+        # basestation ws update
+        - basestation:
+          - cd $DEPLOY_SRC/basestation
+          - thirdparty:
+            - cd thirdparty/catkin
+            - wstool info
+            - wstool update
+          - repo:
+            - wstool info
+            - wstool update
+        # perception ws update
         - perception:
           - cd $DEPLOY_SRC/perception
           - git submodule update --recursive
         # planning ws update
         - planning:
+          - cd $DEPLOY_SRC/planning
           - thirdparty:
             - cd thirdparty/catkin
             - wstool info
@@ -213,10 +232,6 @@
             - wstool update
           - hardware:
             - cd hardware/catkin
-            - wstool info
-            - wstool update
-          - xsens:
-            - cd xsens/catkin
             - wstool info
             - wstool update
         # state estimation ws update
@@ -250,45 +265,26 @@
             - wstool update
 
     ####################################################
-    # rosdep
-    # -- assumes the extended ws are already built
-    # -- add only those repos that need rosdep
-    ####################################################
-    - rosdep:
-      # install any thirdparty deps
-      - cd planning
-      - planning:
-        - ./Planning_workspace/install_dependencies.sh
-      - hardware:
-        - source $DEPLOY_WS/devel/planning/hardware/setup.bash
-        - cd $DEPLOY_SRC/state_estimation/thirdparty/catkin
-        - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
-      - xsens:
-        - cd $DEPLOY_SRC/state_estimation/xsens_cpp_driver/receive_xsens/config/mt_sdk
-        - sudo ./mt_sdk_4.8.sh
-      
-    ####################################################
     # build workspaces
     ####################################################
     - build:
-      - planning:
-        - cd planning/
+      - cd basestation/
 
-        # build the hardware workspace
-        - thirdparty:
-          - cd thirdparty/catkin
-          - catkin build --force-cmake
+      # build the hardware workspace
+      - thirdparty:
+        - cd thirdparty/catkin
+        - catkin build --force-cmake
 
-        # build planning workspace
-        - repo:
-          - catkin build --force-cmake
+      # build planning workspace
+      - basestation:
+        - catkin build --force-cmake
 
-        # build launch workspace
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin profile set planning-no-hardware
-          - catkin clean -b --yes
-          - catkin build --force-cmake
+      # build launch workspace
+      - launch:
+        - cd $DEPLOY_SRC/launch/
+        - catkin profile set basestation
+        - catkin build --force-cmake
+        - catkin clean -b --yes
 
     ####################################################
     # clean workspaces
@@ -297,19 +293,28 @@
       - launch:
         - cd $DEPLOY_SRC/launch/
         - catkin clean -y
-      - planning:
-        - repo:
-          - catkin clean -y
-        - thirdparty:
-          - cd thirdparty/catkin
-          - catkin clean -y
+      - cd $DEPLOY_SRC/basestation/
+      - basestation:
+        - catkin clean -y
+      - thirdparty:
+        - cd thirdparty/catkin
+        - catkin clean -y
 
     ####################################################
     # remove workspaces
     ####################################################
     - rm:
+      # clean the basestation
+      - basestation:
+        - cd $DEPLOY_SRC/basestation/
+        - basestation:
+          - find . -maxdepth 1 \! \( -name thirdparty -o -name .catkin_tools \) -exec rm -rf '{}' \;
+        - thirdparty:
+          - cd thirdparty/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+      # clean the planning
       - planning:
-        - cd planning/
+        - cd $DEPLOY_SRC/planning/
         - repo:
           - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
         - hardware:
@@ -318,9 +323,7 @@
         - thirdparty:
           - cd thirdparty/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-        - xsens:
-          - cd xsens/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+      # clean the state_estimation
       - state_est:
         - cd $DEPLOY_SRC/state_estimation/
         - repo:
@@ -334,8 +337,9 @@
         - xsens:
           - cd xsens/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+      # clean the perception
       - perception:
-        - cd perception/
+        - cd $DEPLOY_SRC/perception/
         - recording:
           - cd recording/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools -o -name CATKIN_IGNORE \) -exec rm -rf '{}' \;
@@ -352,29 +356,97 @@
       # launch configuration variables
       - 'export host=$(hostname)'
       - 'export MCAST_GROUP=224.0.0.251'
-      - 'export robot=robots/planning-pc'
-      - 'export USER=mtatum'
-      - 'export ROS_MASTER_URI=http://ugv2:11311'
-      - 'export ROS_HOSTNAME=basestation-pc'
+      - 'export robot=robots/basestation'
+      - 'export USER=explorer'
+      # - 'export ROS_MASTER_URI=http://ugv2:11311'
+      - 'export ROS_HOSTNAME=system76-pc'
       - 'export DISPLAY=:0.0'
       
       ### == user can modify done. ==
+      
+      # create the bag folder
+      - mkdir -p $DEPLOY_SRC/launch/ugv_setup/logging/base_station/bags/
+
+      # get launch configuration data
+      - export CONFIG_PATH="$DEPLOY_SRC/launch/robot_launch_scripting/config/"
+      # parse config file for roslaunch params
+      - get_config_data() {
+          CONFIG_FILE=$CONFIG_PATH/${1}.config;
+          while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [ ! "${line:0:1}" == "#" ]; then
+              config_data="$config_data $line ";
+            fi
+          done < "$CONFIG_FILE";
+          echo ${config_data};
+        }
+      - export -f get_config_data
 
       - start:
+        - roscore:
+          # start the tmux session
+          - tmux new -s launch_roscore -d
+          # export screen settings
+          - tmux send -t launch_roscore 'stty columns 204' ENTER
+          - tmux send -t launch_roscore 'stty lines 55' ENTER
+          # source
+          - tmux send -t launch_roscore 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+
+          # run autonomy launch
+          - tmux send -t launch_roscore 'roscore' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_roscore"
         - gui:
+          # parse the launch configuration params
+          - export config=robots/basestation/gui
+          - export config_data=$(get_config_data "$config")
+
           # start the tmux session
           - tmux new -s launch_gui -d
+          # export screen settings
+          - tmux send -t launch_gui 'stty columns 204' ENTER
+          - tmux send -t launch_gui 'stty lines 55' ENTER
           # source
-          - tmux send -t launch_gui 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux send -t launch_gui 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_gui 'unset config_data' ENTER
+          - tmux send -t launch_gui 'export config=robots/basestation/gui' ENTER
+          - tmux send -t launch_gui 'export config_data=$(get_config_data "$config")' ENTER
+          
           # run autonomy launch
-          - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot' ENTER
+          - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
           # message user
           - echo "Launch deployed in tmux session launch_gui"
+        - objdet:
+          # parse the launch configuration params
+          - export config=robots/basestation/objdet
+          - export config_data=$(get_config_data "$config")
+
+          # start the tmux session
+          - tmux new -s launch_objdet -d
+          # export screen settings
+          - tmux send -t launch_objdet 'stty columns 204' ENTER
+          - tmux send -t launch_objdet 'stty lines 55' ENTER
+          # source
+          - tmux send -t launch_objdet 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_objdet 'unset config_data' ENTER
+          - tmux send -t launch_objdet 'export config=robots/basestation/objdet' ENTER
+          - tmux send -t launch_objdet 'export config_data=$(get_config_data "$config")' ENTER
+          
+          # run autonomy launch
+          - tmux send -t launch_objdet 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_objdet"
         - shell:
           - pwd
           - tmux new -s ros_shell -d
-          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-        
+          # export screen settings
+          - tmux send -t ros_shell 'stty columns 204' ENTER
+          - tmux send -t ros_shell 'stty lines 55' ENTER
+          # source
+          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
         - rosbag:
             # default logging path
             - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
@@ -382,17 +454,30 @@
               # start the recorder tmux session
               - tmux new -s launch_rosbag_recorder -d
               # source
-              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/hardware/setup.bash' ENTER
+              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+              # export screen settings
+              - tmux send -t launch_rosbag_recorder 'stty columns 204' ENTER
+              - tmux send -t launch_rosbag_recorder 'stty lines 55' ENTER
+              # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
+              - tmux send -t launch_rosbag_recorder 'export config=robots/basestation/recorder' ENTER
+              - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
               # launch recorder
-              - tmux send -t launch_rosbag_recorder 'roslaunch bag_recorder deploy.launch logging_path:=$logging_path computer:=base_station' ENTER
+              - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
             - bag:
               # start record hardware
-              - tmux new -s launch_rosbag -d
+              - tmux new -s launch_rosbag_start -d
               # source
-              - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/hardware/setup.bash' ENTER
+              - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+              # export screen settings
+              - tmux send -t launch_rosbag_start 'stty columns 204' ENTER
+              - tmux send -t launch_rosbag_start 'stty lines 55' ENTER
+              # manually set the tmux env vars...for now.
+              - tmux send -t launch_rosbag_start 'unset config_data' ENTER
+              - tmux send -t launch_rosbag_start 'export config=robots/basestation' ENTER
+              - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
               # launch rosbag
-              - tmux send -t launch_rosbag 'roslaunch bag_recorder deploy_start.launch 
-                  node_name:=base_station config:=all bag:="test"' ENTER
+              - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_rosbag"
 
@@ -452,6 +537,23 @@
           done;
         }
       - export -f git_dirty
+
+      # wstool update to git hash
+      - git_updater() {
+          for repo in $1; do
+            echo "repo is $repo";
+            pushd $repo  > /dev/null 2>&1;
+            if [ -d .git ]; then
+              echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
+              export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
+              export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
+              wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
+              echo -e "\n\n";
+            fi;
+            popd  > /dev/null 2>&1;
+          done;AC
+        }
+      - export -f git_updater
 
       ####################################################
       # git commands for planning workspace
