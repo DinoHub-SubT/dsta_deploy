@@ -300,7 +300,7 @@
             - tmux kill-session -t launch_inference
           - recorder:
             - tmux kill-session -t launch_record
-          - recorder:
+          - bluetooth:
             - tmux kill-session -t launch_bluetooth
 
         - rosclean:
