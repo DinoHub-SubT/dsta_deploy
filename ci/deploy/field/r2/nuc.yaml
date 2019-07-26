@@ -27,7 +27,12 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/launch/ugv_setup/logging/nuc/bags" '
+      - 'export copy_opts="
+          -avzh
+          --delete
+          --exclude=src/perception
+          --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb 
+          --exclude=src/launch/ugv_setup/logging/nuc/bags" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 

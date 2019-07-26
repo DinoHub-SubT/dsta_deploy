@@ -29,6 +29,7 @@
       - export copy_opts="-avzh --delete
         --exclude=src/planning
         --exclude=src/state_estimation
+        --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb 
         --exclude=src/subt_robot_examples_latest.tgz 
         --exclude=src/perception/object_detection/inference/data/models/ssd_mnv1_positives_218056
         --exclude=src/perception/object_detection/inference/data/models/thermal_ssd_mnv1_positives_109218

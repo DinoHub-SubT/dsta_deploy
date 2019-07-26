@@ -42,47 +42,52 @@
         done < "$DEPLOY_SRC/$DOCKER_CONFIG_PATH/$DOCKER_CONFIG.config"
 
     ####################################################
-    # build docker images
+    # objdet docker image
     ####################################################
-    - cd $DEPLOY_SRC/docker/scripts
-    - image:
-      - 'export BUILD_ARGS="--force" '
-      - osrf:
-        - echo $LANG
-        - ./build.bash --env local/osrf/ros $BUILD_ARGS
-        - ./build.bash --env local/osrf/osrf $BUILD_ARGS
-      - subt:
-        - ./build.bash --env local/subt/ros $BUILD_ARGS
-        - ./build.bash --env field/basestation $BUILD_ARGS
+    - gui:
+      
+      ####################################################
+      # build docker images
+      ####################################################
+      - cd $DEPLOY_SRC/docker/scripts
+      - image:
+        - 'export BUILD_ARGS="--force" '
+        - osrf:
+          - echo $LANG
+          - ./build.bash --env local/osrf/ros $BUILD_ARGS
+          - ./build.bash --env local/osrf/osrf $BUILD_ARGS
+        - subt:
+          - ./build.bash --env local/subt/ros $BUILD_ARGS
+          - ./build.bash --env field/basestation/gui $BUILD_ARGS
 
-    ####################################################
-    # start docker images
-    ####################################################
-    - start:
-      - 'export START_ARGS=" " '
-      - ./run.bash --env field/basestation $START_ARGS
+      ####################################################
+      # start docker images
+      ####################################################
+      - start:
+        - 'export START_ARGS=" " '
+        - ./run.bash --env field/basestation/gui $START_ARGS
 
-    ####################################################
-    # stop docker images
-    ####################################################
-    - stop:
-      - 'export STOP_ARGS="--stop --containers " '
-      - ./clean.bash --env field/basestation $STOP_ARGS
-    
-    - remove:
-      - 'export STOP_ARGS="--remove --containers " '
-      - ./clean.bash --env field/basestation $STOP_ARGS
-    
-    ####################################################
-    # delete docker images & corresponding containers
-    ####################################################
-    - delete:
-      - 'export DELETE_ARGS="--containers" '
-      - ./clean.bash --env field/basestation $DELETE_ARGS
-      - ./clean.bash --env local/subt/ros $DELETE_ARGS
-      - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
-      - ./clean.bash --env local/osrf/ros $DELETE_ARGS
-    
+      ####################################################
+      # stop docker images
+      ####################################################
+      - stop:
+        - 'export STOP_ARGS="--stop --containers " '
+        - ./clean.bash --env field/basestation/gui $STOP_ARGS
+      
+      - remove:
+        - 'export STOP_ARGS="--remove --containers " '
+        - ./clean.bash --env field/basestation/gui $STOP_ARGS
+      
+      ####################################################
+      # delete docker images & corresponding containers
+      ####################################################
+      - delete:
+        - 'export DELETE_ARGS="--containers" '
+        - ./clean.bash --env field/basestation/gui $DELETE_ARGS
+        - ./clean.bash --env local/subt/ros $DELETE_ARGS
+        - ./clean.bash --env local/osrf/osrf $DELETE_ARGS
+        - ./clean.bash --env local/osrf/ros $DELETE_ARGS
+  
     ####################################################
     # misc.
     ####################################################
@@ -90,7 +95,7 @@
       - docker rmi -f $(docker images -f "dangling=true" -q)
     
   ################################################################################################
-  - deploy:
+  - gui:
   ################################################################################################
     # only docker container on basestation, no ssh
     - +docker:subt
@@ -101,168 +106,6 @@
     - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
     - 'export DEPLOY_SRC=$DEPLOY_WS/src'
     - cd $DEPLOY_SRC
-
-    ####################################################
-    # clone workspaces
-    ####################################################
-    - clone:
-
-      # download the subt_robot_examples_latest
-      # NOTE: only do this on ONCE. requires internet access.
-      # - download:
-      #   - if [ -f subt_robot_examples_latest.tgz ]; then
-      #       rm subt_robot_examples_latest.tgz;
-      #     fi
-      #   - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
-
-      # update any submodule
-      - submodule:
-        - perception:
-          - git submodule update --init --recursive $DEPLOY_SRC/perception
-        - launch:
-          - git submodule update $DEPLOY_SRC/launch
-        - docker:
-          - git submodule update $DEPLOY_SRC/docker
-        - ci:
-          - git submodule update $DEPLOY_SRC/ci
-
-      # setup the rosinstalls
-      - rosinstall:
-        # basestation rosinstall
-        - basestation:
-          - cd $DEPLOY_SRC/basestation
-          - thirdparty:
-            - cd thirdparty/catkin
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/basestation/thirdparty.rosinstall .rosinstall
-          - repo:
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/basestation/basestation.rosinstall .rosinstall
-        # planning rosinstall
-        - planning:
-          - cd $DEPLOY_SRC/planning
-          - thirdparty:
-            - cd thirdparty/catkin
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/planning/thirdparty.rosinstall .rosinstall
-          - repo:
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/planning/planning.rosinstall .rosinstall
-          - hardware:
-            - cd hardware/catkin
-            - if [ -f .rosinstall ]; then
-                rm .rosinstall;
-              fi
-            - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
-        # state estimation rosinstall
-        - state_est:
-          - cd $DEPLOY_SRC/state_estimation
-          - repo:
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/state_est/state_est.rosinstall .rosinstall
-          - thirdparty:
-            - cd thirdparty/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/state_est/thirdparty.rosinstall .rosinstall
-          - loam:
-            - cd loam/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
-          - xsens:
-            - cd xsens/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
-        # perception rosinstall
-        - perception:
-          - cd $DEPLOY_SRC/perception
-          - thirdparty:
-            - cd thirdparty/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/perception/thirdparty.rosinstall .rosinstall
-          - recording:
-            - cd recording/catkin
-            - if [ -f .rosinstall ]; then
-                  rm .rosinstall;
-                fi
-            - ln -s $DEPLOY_SRC/rosinstall/perception/recording.rosinstall .rosinstall
-
-      # wstool update the workspaces
-      - up:
-        # basestation ws update
-        - basestation:
-          - cd $DEPLOY_SRC/basestation
-          - thirdparty:
-            - cd thirdparty/catkin
-            - wstool info
-            - wstool update
-          - repo:
-            - wstool info
-            - wstool update
-        # perception ws update
-        - perception:
-          - cd $DEPLOY_SRC/perception
-          - git submodule update --recursive
-        # planning ws update
-        - planning:
-          - cd $DEPLOY_SRC/planning
-          - thirdparty:
-            - cd thirdparty/catkin
-            - wstool info
-            - wstool update
-          - repo:
-            - wstool info
-            - wstool update
-          - hardware:
-            - cd hardware/catkin
-            - wstool info
-            - wstool update
-        # state estimation ws update
-        - state_est:
-          - cd $DEPLOY_SRC/state_estimation
-          - repo:
-            - wstool info
-            - wstool update
-          - thirdparty:
-            - cd thirdparty/catkin
-            - wstool info
-            - wstool update
-          - loam:
-            - cd loam/catkin
-            - wstool info
-            - wstool update
-          - xsens:
-            - cd xsens/catkin
-            - wstool info
-            - wstool update
-        # perception ws update
-        - perception:
-          - cd $DEPLOY_SRC/perception
-          - thirdparty:
-            - cd thirdparty/catkin
-            - wstool info
-            - wstool update
-          - recording:
-            - cd recording/catkin
-            - wstool info
-            - wstool update
 
     ####################################################
     # build workspaces
@@ -299,53 +142,6 @@
       - thirdparty:
         - cd thirdparty/catkin
         - catkin clean -y
-
-    ####################################################
-    # remove workspaces
-    ####################################################
-    - rm:
-      # clean the basestation
-      - basestation:
-        - cd $DEPLOY_SRC/basestation/
-        - basestation:
-          - find . -maxdepth 1 \! \( -name thirdparty -o -name .catkin_tools \) -exec rm -rf '{}' \;
-        - thirdparty:
-          - cd thirdparty/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-      # clean the planning
-      - planning:
-        - cd $DEPLOY_SRC/planning/
-        - repo:
-          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name hardware -o -name .catkin_tools \) -exec rm -rf '{}' \;
-        - hardware:
-          - cd hardware/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-        - thirdparty:
-          - cd thirdparty/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-      # clean the state_estimation
-      - state_est:
-        - cd $DEPLOY_SRC/state_estimation/
-        - repo:
-          - find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name xsens \) -exec rm -rf '{}' \;
-        - thirdparty:
-          - cd thirdparty/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-        - loam:
-          - cd loam/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-        - xsens:
-          - cd xsens/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-      # clean the perception
-      - perception:
-        - cd $DEPLOY_SRC/perception/
-        - recording:
-          - cd recording/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools -o -name CATKIN_IGNORE \) -exec rm -rf '{}' \;
-        - thirdparty:
-          - cd thirdparty/catkin
-          - find . -maxdepth 1 \! \( -name .catkin_tools -o -name CATKIN_IGNORE \) -exec rm -rf '{}' \;
 
     ####################################################
     # launch workspaces
@@ -403,8 +199,8 @@
           # start the tmux session
           - tmux new -s launch_gui -d
           # export screen settings
-          - tmux send -t launch_gui 'stty columns 204' ENTER
-          - tmux send -t launch_gui 'stty lines 55' ENTER
+          # - tmux send -t launch_gui 'stty columns 204' ENTER
+          # - tmux send -t launch_gui 'stty lines 55' ENTER
           # source
           - tmux send -t launch_gui 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
 
@@ -417,28 +213,6 @@
           - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
           # message user
           - echo "Launch deployed in tmux session launch_gui"
-        - objdet:
-          # parse the launch configuration params
-          - export config=robots/basestation/objdet
-          - export config_data=$(get_config_data "$config")
-
-          # start the tmux session
-          - tmux new -s launch_objdet -d
-          # export screen settings
-          - tmux send -t launch_objdet 'stty columns 204' ENTER
-          - tmux send -t launch_objdet 'stty lines 55' ENTER
-          # source
-          - tmux send -t launch_objdet 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-
-          # manually set the tmux env vars...for now.
-          - tmux send -t launch_objdet 'unset config_data' ENTER
-          - tmux send -t launch_objdet 'export config=robots/basestation/objdet' ENTER
-          - tmux send -t launch_objdet 'export config_data=$(get_config_data "$config")' ENTER
-          
-          # run autonomy launch
-          - tmux send -t launch_objdet 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
-          # message user
-          - echo "Launch deployed in tmux session launch_objdet"
         - shell:
           - pwd
           - tmux new -s ros_shell -d
@@ -474,7 +248,7 @@
               - tmux send -t launch_rosbag_start 'stty lines 55' ENTER
               # manually set the tmux env vars...for now.
               - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_start 'export config=robots/basestation' ENTER
+              - tmux send -t launch_rosbag_start 'export config=robots/basestation/rosbag_start' ENTER
               - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
               # launch rosbag
               - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
@@ -484,10 +258,31 @@
       # stop tmux sessions    
       - stop:
         # remove all the tmux sessions
+        - roscore:
+          - tmux kill-session -t launch_roscore
         - gui:
           - tmux kill-session -t launch_gui
         - shell:
             - tmux kill-session -t ros_shell
+        - rosbag:
+          - stop:
+            # start record hardware
+            - tmux new -s launch_rosbag_stop -d
+            # source
+            - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+            
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_rosbag_start 'unset config_data' ENTER
+            - tmux send -t launch_rosbag_start 'export config=robots/basestation/rosbag_stop' ENTER
+            - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
+            
+            # launch rosbag
+            - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
+            - tmux kill-session -t launch_rosbag_stop
+          - recorder:
+            - tmux kill-session -t launch_rosbag_recorder
+          - bag:
+            - tmux kill-session -t launch_rosbag_start
 
       - rosclean:
         # stop all ros nodes

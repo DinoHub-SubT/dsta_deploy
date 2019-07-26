@@ -58,3 +58,7 @@
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
     version: 6d789f6
+- git:
+    local-name: healthmonitoringsystem
+    uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
+    version: ceb5d58

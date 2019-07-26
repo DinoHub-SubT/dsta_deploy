@@ -1,4 +1,7 @@
+# TODO: subt team fork, not jenkkins-castacks
+# installing rosmon from source.
+# bug in recent master branch. Going back to stable version.
 - git:
-    local-name: vision_opencv
-    uri: https://github.com/ros-perception/vision_opencv.git
-    version: melodic
+    local-name: rosmon
+    uri: git@bitbucket.org:jenkins-castacks/rosmon.git
+    version: 9b3e2dd2540a8da31542cb1643a8274b67f6ed06
