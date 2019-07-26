@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: 73df0736d8f424981e7357a0dd22870b3464bfff
+    version: 5c522336a1a90aba62b33273fd296e0a2a045f09
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git

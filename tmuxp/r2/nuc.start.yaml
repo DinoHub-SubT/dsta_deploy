@@ -11,7 +11,6 @@ before_script: "
   ./deployer -s
     r2.nuc.docker.remove
     r2.nuc.docker.start 
-    r2.nuc.rosdep.xsens
     r2.nuc.launch.start
     r2.nuc.local.start.xsens"
 

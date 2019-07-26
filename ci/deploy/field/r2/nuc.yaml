@@ -338,6 +338,20 @@
       # clean workspaces
       ####################################################
       - clean:
+        - planning:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set planning
+            - catkin clean -y
+          - cd $DEPLOY_SRC/planning/
+          - hardware:
+            - cd hardware/catkin
+            - catkin clean -y
+          - repo:
+            - catkin clean -y
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin clean -y
         - state_est:
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -351,20 +365,6 @@
             - catkin clean -y
           - loam:
             - cd loam/catkin
-            - catkin clean -y
-          - thirdparty:
-            - cd thirdparty/catkin
-            - catkin clean -y
-        - planning:
-          - launch:
-            - cd $DEPLOY_SRC/launch/
-            - catkin profile set planning
-            - catkin clean -y
-          - cd $DEPLOY_SRC/planning/
-          - hardware:
-            - cd hardware/catkin
-            - catkin clean -y
-          - repo:
             - catkin clean -y
           - thirdparty:
             - cd thirdparty/catkin
@@ -608,6 +608,14 @@
       # only docker container on basestation, no ssh
       - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
+      # launch configuration variables
+      - 'export host=$(hostname)'
+      - 'export MCAST_GROUP=224.0.0.251'
+      - 'export UGV_NUC=true'
+      - 'export USER=nuc'
+      - 'export ROS_MASTER_URI=http://ugv2:11311'
+      - 'export ROS_HOSTNAME=nuc'
+      
       - start:
         - xsens:
           # start the tmux session
