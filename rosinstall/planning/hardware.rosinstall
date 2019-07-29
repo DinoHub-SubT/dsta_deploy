@@ -5,7 +5,7 @@
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
-    version: 26a1952ecff44655d5e606eb8799a200981b032d
+    version: b72afc516bcac476c1939254a77dfe774d76a586
 - git:
     local-name: tip_over_monitor
     uri: git@bitbucket.org:cmusubt/tip_over_monitor.git
@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: 63e8a55b4123a8710d75cd1e1dbed0722a51a72d
+    version: 2092e3fdaffd6fc34481daeb3fb71715e481553c
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
