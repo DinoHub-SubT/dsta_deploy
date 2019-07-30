@@ -321,8 +321,6 @@
             - cd loam/catkin
             - catkin build --force-cmake
           - repo:
-            # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
-            - touch object_detection/modules/CATKIN_IGNORE
             - catkin build --force-cmake
           - xsens:
             - cd xsens/catkin
@@ -616,18 +614,45 @@
       - 'export ROS_MASTER_URI=http://ugv2:11311'
       - 'export ROS_HOSTNAME=nuc'
       
-      - start:
-        - xsens:
-          # start the tmux session
-          - tmux new -s xsens -d
-          # source
-          - tmux send -t xsens 'source /home/nuc/workspace/xsens_driver/devel/setup.zsh' ENTER
-          # run planning-pc launch
-          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
-          # message user
-          - echo "Launch xsens in tmux session xsens"
-      
-      # stop tmux sessions    
-      - stop:
-        - xsens:
-          - tmux kill-session -t xsens
+      - build:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
+          - touch object_detection/modules/CATKIN_IGNORE
+          - touch object_detection/realsense_fork/CATKIN_IGNORE
+          - catkin build --force-cmake
+
+      - clean:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          - catkin clean
+
+      - launch:
+        # start tmux sessions
+        - start:
+          - xsens:
+            # start the tmux session
+            - tmux new -s xsens -d
+            # source
+            - tmux send -t xsens 'source /home/nuc/workspace/xsens_driver/devel/setup.zsh' ENTER
+            # run planning-pc launch
+            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+            # message user
+            - echo "Launch xsens in tmux session xsens"
+          - wifi-bluetooth:
+            # start the tmux session
+            - tmux new -s wifi-bluetooth -d
+            # source
+            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/state_estimation/wifi_bluetooth/setup.zsh' ENTER
+            # run wifi-bluetooth launch
+            - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection mk_1_nuc.launch' ENTER
+            # message user
+            - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
+        # stop tmux sessions
+        - stop:
+          - xsens:
+            - tmux kill-session -t xsens
+          - wifi-bluetooth:
+            - tmux kill-session -t wifi-bluetooth

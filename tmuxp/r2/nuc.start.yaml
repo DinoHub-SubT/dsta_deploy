@@ -11,11 +11,31 @@ before_script: "
   ./deployer -s
     r2.nuc.docker.remove
     r2.nuc.docker.start 
-    r2.nuc.launch.start
-    r2.nuc.local.start.xsens"
+    r2.nuc.launch.start"
 
 # This is where we list all the stuff we want to run
 windows:
+  - window_name: recorder and xsens
+    focus: false
+    layout: main-horizontal
+    panes:
+      # launch the recorder
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t launch_rosbag_recorder
+      # launch the xsens on the robot directly
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - tmux a -t xsens
+      # launch the xsens on the robot directly
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - tmux a -t wifi-bluetooth
+  
   - window_name: main
     focus: true
     layout: main-horizontal
@@ -32,22 +52,6 @@ windows:
         - docker-join
         - tmux a -t launch_state_est
       
-  - window_name: recorder and xsens
-    focus: false
-    layout: main-horizontal
-    panes:
-      # launch the recorder
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nuc@nuc
-        - docker-join
-        - tmux a -t launch_rosbag_recorder
-      # launch the xsens on the robot directly
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nuc@nuc
-        - tmux a -t xsens
-
   - window_name: docker shell
     focus: false
     layout: main-horizontal

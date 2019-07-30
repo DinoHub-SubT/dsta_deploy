@@ -12,6 +12,23 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
+  - window_name: recorder and bluetooth
+    focus: false
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nvidia@xavier
+        - tmux a -t launch_record
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nvidia@xavier
+        - tmux a -t launch_healthmonitor
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nvidia@xavier
+        - tmux a -t launch_bluetooth
+
   - window_name: main
     focus: true
     layout: main-horizontal
@@ -29,23 +46,6 @@ windows:
         - ssh ugv2@ugv2
         - ssh nvidia@xavier
         - tmux a -t launch_inference
-  
-  - window_name: recorder and bluetooth
-    focus: false
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nvidia@xavier
-        - tmux a -t launch_record
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nvidia@xavier
-        - tmux a -t launch_healthmonitor
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nvidia@xavier
-        - tmux a -t launch_bluetooth
       
   - window_name: shell
     focus: false
