@@ -13,10 +13,6 @@
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
     version: b4ba963
 - git:
-    local-name: base_main_class
-    uri: git@bitbucket.org:castacks/base_main_class.git
-    version: 81f9f28e05f6f49d9c9632bbdb9efbd959dc0edf
-- git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
     version: aac11c79819a228696eb48bc6cc60fb652778e14

@@ -41,6 +41,10 @@ windows:
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nvidia@xavier
+        - tmux a -t launch_healthmonitor
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nvidia@xavier
         - tmux a -t launch_bluetooth
       
   - window_name: shell

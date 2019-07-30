@@ -288,6 +288,16 @@
             - tmux send -t launch_record 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
             # message user
             - echo "Launch deployed in tmux session launch_record"
+          - healthmonitor:
+            # start the tmux session
+            - tmux new -s launch_healthmonitor -d
+            # source
+            - tmux send -t launch_healthmonitor 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+            # run perception-pc launch
+            - tmux send -t launch_healthmonitor 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier health_monitor:=true computer:=ugv2' ENTER
+            # message user
+            - echo "Launch deployed in tmux session launch_healthmonitor"
+
           # TODO: bluetooth
 
         - stop:
@@ -302,6 +312,8 @@
             - tmux kill-session -t launch_record
           - bluetooth:
             - tmux kill-session -t launch_bluetooth
+          - healthmonitor:
+            - tmux kill-session -t launch_healthmonitor
 
         - rosclean:
           # stop all ros nodes
