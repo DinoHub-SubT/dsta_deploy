@@ -321,8 +321,6 @@
             - cd loam/catkin
             - catkin build --force-cmake
           - repo:
-            # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
-            - touch object_detection/modules/CATKIN_IGNORE
             - catkin build --force-cmake
           - xsens:
             - cd xsens/catkin
@@ -338,6 +336,20 @@
       # clean workspaces
       ####################################################
       - clean:
+        - planning:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin profile set planning
+            - catkin clean -y
+          - cd $DEPLOY_SRC/planning/
+          - hardware:
+            - cd hardware/catkin
+            - catkin clean -y
+          - repo:
+            - catkin clean -y
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin clean -y
         - state_est:
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -351,20 +363,6 @@
             - catkin clean -y
           - loam:
             - cd loam/catkin
-            - catkin clean -y
-          - thirdparty:
-            - cd thirdparty/catkin
-            - catkin clean -y
-        - planning:
-          - launch:
-            - cd $DEPLOY_SRC/launch/
-            - catkin profile set planning
-            - catkin clean -y
-          - cd $DEPLOY_SRC/planning/
-          - hardware:
-            - cd hardware/catkin
-            - catkin clean -y
-          - repo:
             - catkin clean -y
           - thirdparty:
             - cd thirdparty/catkin
@@ -470,29 +468,23 @@
               - tmux new -s launch_rosbag_recorder -d
               # source
               - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-
               # manually set the tmux env vars...for now.
               - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
               - tmux send -t launch_rosbag_recorder 'export config=robots/r2/nuc/recorder' ENTER
               - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
-
               # launch recorder
               - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
-
             - bag:
               # start record hardware
               - tmux new -s launch_rosbag_start -d
               # source
               - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
               # manually set the tmux env vars...for now.
               - tmux send -t launch_rosbag_start 'unset config_data' ENTER
               - tmux send -t launch_rosbag_start 'export config=robots/r2/nuc/rosbag_start' ENTER
               - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-              
               # launch rosbag
               - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
-
             # message user
             - echo "Launch deployed in tmux session launch_rosbag"
           
@@ -517,12 +509,10 @@
               - tmux new -s launch_rosbag_stop -d
               # source
               - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
               # manually set the tmux env vars...for now.
               - tmux send -t launch_rosbag_stop 'unset config_data' ENTER
               - tmux send -t launch_rosbag_stop 'export config=robots/r2/nuc/rosbag_stop' ENTER
               - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
-              
               # launch rosbag
               - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
               - tmux kill-session -t launch_rosbag_stop
@@ -608,18 +598,53 @@
       # only docker container on basestation, no ssh
       - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
-      - start:
-        - xsens:
-          # start the tmux session
-          - tmux new -s xsens -d
-          # source
-          - tmux send -t xsens 'source /home/nuc/workspace/xsens_driver/devel/setup.zsh' ENTER
-          # run planning-pc launch
-          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
-          # message user
-          - echo "Launch xsens in tmux session xsens"
+      # launch configuration variables
+      - 'export host=$(hostname)'
+      - 'export MCAST_GROUP=224.0.0.251'
+      - 'export UGV_NUC=true'
+      - 'export USER=nuc'
+      - 'export ROS_MASTER_URI=http://ugv2:11311'
+      - 'export ROS_HOSTNAME=nuc'
       
-      # stop tmux sessions    
-      - stop:
-        - xsens:
-          - tmux kill-session -t xsens
+      - build:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
+          - touch object_detection/modules/CATKIN_IGNORE
+          - touch object_detection/realsense_fork/CATKIN_IGNORE
+          - catkin build --force-cmake
+
+      - clean:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          - catkin clean
+
+      - launch:
+        # start tmux sessions
+        - start:
+          - xsens:
+            # start the tmux session
+            - tmux new -s xsens -d
+            # source
+            - tmux send -t xsens 'source /home/nuc/workspace/xsens_driver/devel/setup.zsh' ENTER
+            # run planning-pc launch
+            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+            # message user
+            - echo "Launch xsens in tmux session xsens"
+          - wifi-bluetooth:
+            # start the tmux session
+            - tmux new -s wifi-bluetooth -d
+            # source
+            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/state_estimation/wifi_bluetooth/setup.zsh' ENTER
+            # run wifi-bluetooth launch
+            - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection mk_1_nuc.launch' ENTER
+            # message user
+            - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
+        # stop tmux sessions
+        - stop:
+          - xsens:
+            - tmux kill-session -t xsens
+          - wifi-bluetooth:
+            - tmux kill-session -t wifi-bluetooth
