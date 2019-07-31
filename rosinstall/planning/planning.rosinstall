@@ -25,7 +25,7 @@
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 9c6fcfe08204aa6e6b0eac04ff90dd5d959b9fa9
+    version: 47159cd1aa31ce4950ccb9e90cdf650d7269cc39
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git

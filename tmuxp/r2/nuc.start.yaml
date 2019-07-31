@@ -15,7 +15,7 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: recorder and xsens
+  - window_name: bluetooth and xsens
     focus: false
     layout: main-horizontal
     panes:

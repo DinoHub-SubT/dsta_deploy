@@ -14,6 +14,15 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
+  - window_name: recorder
+    focus: false
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - ssh robot@planning-pc
+        - docker-join
+        - tmux a -t launch_rosbag_recorder
+
   - window_name: main
     focus: true
     layout: main-horizontal
@@ -27,15 +36,6 @@ windows:
         - ssh robot@planning-pc
         - docker-join
         - tmux a -t launch_hardware
-
-  - window_name: recorder
-    focus: false
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - ssh robot@planning-pc
-        - docker-join
-        - tmux a -t launch_rosbag_recorder
 
   - window_name: docker shell
     focus: false

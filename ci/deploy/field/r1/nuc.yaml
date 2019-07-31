@@ -1,5 +1,5 @@
 ####################################################################################################
-# robot 2 configuration file
+# robot 1 configuration file
 - r1:
 ####################################################################################################
 
@@ -324,7 +324,6 @@
             - catkin build --force-cmake
           - repo:
             # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
-            - touch object_detection/modules/CATKIN_IGNORE
             - catkin build --force-cmake
           - xsens:
             - cd xsens/catkin
@@ -655,29 +654,56 @@
       # only docker container on basestation, no ssh
       - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
-      - start:
-        - xsens:
-          # start the tmux session
-          - tmux new -s xsens -d
-          # source
-          - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
-          # run planning-pc launch
-          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
-          # message user
-          - echo "Launch xsens in tmux session xsens"
-        - bluetooth:
-          # start the tmux session
-          - tmux new -s bluetooth -d
-          # source
-          - tmux send -t bluetooth 'source /home/nuc/workspaces/objdet/devel/setup.zsh' ENTER
-          # run planning-pc launch
-          - tmux send -t bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
-          # message user
-          - echo "Launch bluetooth in tmux session bluetooth"
       
-      # stop tmux sessions    
-      - stop:
-        - xsens:
-          - tmux kill-session -t xsens
-        - bluetooth:
-          - tmux kill-session -t bluetooth
+      - build:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
+          - touch object_detection/modules/CATKIN_IGNORE
+          - touch object_detection/realsense_fork/CATKIN_IGNORE
+          - catkin build --force-cmake
+
+      - clean:
+        - cd ~/deploy_ws/src/
+        - wifi-bluetooth:
+          - cd state_estimation/wifi-bluetooth/catkin
+          - catkin clean
+      
+      - launch:
+        # start tmux sessions
+        - start:
+          - xsens:
+            # start the tmux session
+            - tmux new -s xsens -d
+            # source
+            - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
+            # run planning-pc launch
+            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+            # message user
+            - echo "Launch xsens in tmux session xsens"
+          # - bluetooth:
+          #   # start the tmux session
+          #   - tmux new -s bluetooth -d
+          #   # source
+          #   - tmux send -t bluetooth 'source /home/nuc/workspaces/objdet/devel/setup.zsh' ENTER
+          #   # run planning-pc launch
+          #   - tmux send -t bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
+          #   # message user
+          #   - echo "Launch bluetooth in tmux session bluetooth"
+          - wifi-bluetooth:
+            # start the tmux session
+            - tmux new -s wifi-bluetooth -d
+            # source
+            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/state_estimation/wifi_bluetooth/setup.zsh' ENTER
+            # run wifi-bluetooth launch
+            - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
+            # message user
+            - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
+      
+        # stop tmux sessions    
+        - stop:
+          - xsens:
+            - tmux kill-session -t xsens
+          - wifi-bluetooth:
+            - tmux kill-session -t wifi-bluetooth
