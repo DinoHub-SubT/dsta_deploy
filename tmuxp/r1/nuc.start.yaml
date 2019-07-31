@@ -23,7 +23,7 @@ windows:
         - ssh robot@planning-pc
         - ssh nuc@nuc
         - docker-join
-        - tmux a -t launch_rosbag_recorder
+        - tmux a -t launch_rosbag
       - shell_command:
         - ssh robot@planning-pc
         - ssh nuc@nuc

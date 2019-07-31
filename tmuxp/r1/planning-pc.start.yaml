@@ -21,7 +21,7 @@ windows:
       - shell_command:
         - ssh robot@planning-pc
         - docker-join
-        - tmux a -t launch_rosbag_recorder
+        - tmux a -t launch_rosbag
 
   - window_name: main
     focus: true
