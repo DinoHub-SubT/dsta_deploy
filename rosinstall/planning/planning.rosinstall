@@ -21,11 +21,11 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: bb38783677d9e2bab3ba893e7a0e73674d012344
+    version: 9755dbf3802c2040c43c7eca9a1f191580ba48b6
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 96342468fd8657b79ddd446f20380b0a
+    version: 9c6fcfe08204aa6e6b0eac04ff90dd5d959b9fa9
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git

@@ -41,4 +41,4 @@
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
-    version: f5d79f7f075611f0389bed4ca3be103aabbef9f4
+    version: 0217cf231d9a17c429894a813f5a98eb6e15435d
