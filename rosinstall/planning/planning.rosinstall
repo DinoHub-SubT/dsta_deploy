@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: e80c2e43de90a66beb488d28adcd3a32579db8fe
+    version: db4fec3694927e62802d420f33c6f377ddf2e236
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -21,7 +21,7 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 9755dbf3802c2040c43c7eca9a1f191580ba48b6
+    version: 9774b6c3ba0744856e3717af7f25ad5a1042bf18
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -33,7 +33,7 @@
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
-    version: 10b446b469bd527ffc599429604ef9b909fe1adf
+    version: 88ee06b3b0f7872a2e8da943e5ce9c42e06bd8fd
 - git:
     local-name: behavior_tree_msgs
     uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
@@ -41,31 +41,31 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: a7e76bcab5332e7db3a20ec58732425962612c4b
+    version: 02b135e5abf8bc9b6c6029532420b7f4742549d0
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: b4ba963
+    version: b4ba963da501ab99b3c138544a5337ac1c120187
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
-    version: 8a9fd78f2e3a39f9a6fb46c59557bd6c3a890a67
+    version: b0a2d8c71543e388a27362b51f26510374f69c59
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
-    version: 9472c826624776dd62b9d664086f8a1d607c7a07
+    version: a9b9c1b0a07d938a5fa5cd29c1f259b0168775c9
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
-    version: 577ebf4d52f7833928a2a8a12a63e91a76720c33
+    version: 43897702db3510b5fd446e298c6c5e212fabac7e
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
-    version: fcd8aa2731055bab8dc37ba979beeb2fc530d234
+    version: ab6257e41bca2f621d3556504668569f0191522e
 - git:
     local-name: misc_utils
     uri: git@bitbucket.org:cmusubt/misc_utils.git
-    version: 66cf30a1b4d16f9a31922b5c8003e4a915dc4ed6
+    version: 7793642cf9bf70b8e7aa7c2ae0a717791edee1c8
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
@@ -73,14 +73,11 @@
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
-    version: 3e5fef3
+    version: 3e5fef381528f6f5a7cf8a26ec427dd4e6ab233e
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
     version: d463c803a1749f708d17a860b678dc1b86c0a0db
-
-
-# for main launch files
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git

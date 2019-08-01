@@ -1,11 +1,11 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: 6d789f6
+    version: 6d789f6042fe3baced30765b0a0e9eb532c0bb63
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
-    version: b72afc516bcac476c1939254a77dfe774d76a586
+    version: 60bdee5603ac01300e871ff3381e927685686855
 - git:
     local-name: tip_over_monitor
     uri: git@bitbucket.org:cmusubt/tip_over_monitor.git
@@ -21,7 +21,7 @@
 - git:
     local-name: solenoid_toggle
     uri: git@bitbucket.org:cmusubt/solenoid_toggle.git
-    version: caf6235
+    version: caf62355a9fd6a258a84b66f6ac4bd5c664a945c
 - git:
     local-name: twist_mux
     uri: git@bitbucket.org:cmusubt/twist_mux.git
@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: 2092e3fdaffd6fc34481daeb3fb71715e481553c
+    version: a9cdf2dcf2256e70f978716efddb3f6ea2793ffa
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
