@@ -115,20 +115,24 @@
       # build the deps workspaces
       - thirdparty:
         - cd thirdparty/catkin
+        - catkin profile set basestation
         - catkin build --force-cmake
 
       # build the deps workspaces
       - objdet_deps:
         - cd objdet_deps/catkin
+        - catkin profile set basestation
         - catkin build --force-cmake
       
       # build perception workspace
       - perception:
+        - catkin profile set basestation
         - catkin build --force-cmake
       
         # build the deps workspaces
       - recording:
         - cd recording/catkin
+        - catkin profile set basestation
         - catkin build --force-cmake
       
       # build launch workspace

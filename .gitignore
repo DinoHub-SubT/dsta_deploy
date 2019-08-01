@@ -158,6 +158,10 @@ perception/.catkin_tools/profiles/default/packages/
 perception/.catkin_tools/profiles/default/devel_collisions.txt
 perception/.catkin_tools/profiles/default/build.yaml
 
+perception/.catkin_tools/profiles/basestation/packages/
+perception/.catkin_tools/profiles/basestation/devel_collisions.txt
+perception/.catkin_tools/profiles/basestation/build.yaml
+
 # ignore catkin tools non config packages
 perception/deps/catkin/.catkin_tools/profiles/default/packages/
 perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
