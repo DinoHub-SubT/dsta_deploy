@@ -9,7 +9,7 @@
 - git:
     local-name: terrain_analysis
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
-    version: 317621e366b0f00488561ba93cf68cb44cfd1ab6
+    version: 17558b45cb151b667fd08d0d54f5992d910c9017
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
@@ -21,7 +21,7 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 9774b6c3ba0744856e3717af7f25ad5a1042bf18
+    version: d56fcb0c020324dd3f0a4827beca93e15cbf3fca
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: 02b135e5abf8bc9b6c6029532420b7f4742549d0
+    version: 74a689feeec2c73aef08f934bff847a93603a96c
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git

@@ -15,9 +15,9 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
-  - window_name: bluetooth and xsens
+  - window_name: objdet and xsens
     focus: false
-    layout: main-horizontal
+    layout: tiled
     panes:
       - shell_command:
         - ssh robot@planning-pc
@@ -32,6 +32,10 @@ windows:
         - ssh robot@planning-pc
         - ssh nuc@nuc
         - tmux a -t wifi-bluetooth
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t map-resender
 
   - window_name: main
     focus: false

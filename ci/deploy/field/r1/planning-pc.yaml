@@ -205,6 +205,12 @@
                   rm .rosinstall;
                 fi
               - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
+            - xsens:
+              - cd xsens/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
 
         # wstool update the workspaces
         - up:
@@ -220,6 +226,10 @@
               - cd hardware/catkin
               - wstool info
               - wstool update
+            - xsens:
+              - cd xsens/catkin
+              - wstool info
+              - wstool update
 
       ####################################################
       # rosdep
@@ -231,6 +241,9 @@
         - cd planning
         - planning:
           - ./Planning_workspace/install_dependencies.sh
+        - xsens:
+          - cd $DEPLOY_SRC/planning/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
+          - sudo ./mt_sdk_4.8.sh
 
       ####################################################
       # build workspaces
@@ -264,10 +277,10 @@
       # clean workspaces
       ####################################################
       - clean:
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin clean -y
         - planning:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin clean -y
           - cd $DEPLOY_SRC/planning/
           - hardware:
             - cd hardware/catkin
@@ -291,6 +304,9 @@
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - xsens:
+            - cd xsens/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
@@ -557,3 +573,26 @@
             - $git_fn "$REPOS"
 
 
+    ################################################################################################
+    - local:
+    ################################################################################################
+      # only docker container on basestation, no ssh
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
+      
+      - launch:
+        # start tmux sessions
+        - start:
+          - xsens:
+            # start the tmux session
+            - tmux new -s xsens -d
+            # source
+            - tmux send -t xsens 'source ~/deploy_ws/devel/planning/launch/devel/setup.zsh' ENTER
+            # run planning-pc launch
+            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+            # message user
+            - echo "Launch xsens in tmux session xsens"
+          
+        # stop tmux sessions
+        - stop:
+          - xsens:
+            - tmux kill-session -t xsens
