@@ -210,6 +210,10 @@ launch/.catkin_tools/profiles/basestation-perception/build.yaml
 launch/.catkin_tools/profiles/basestation-perception/devel_collisions.txt
 launch/.catkin_tools/profiles/basestation-perception/packages/
 
+launch/.catkin_tools/profiles/perception/build.yaml
+launch/.catkin_tools/profiles/perception/devel_collisions.txt
+launch/.catkin_tools/profiles/perception/packages/
+
 # ignore which default settings is set
 launch/.catkin_tools/profiles/profiles.yaml
 
