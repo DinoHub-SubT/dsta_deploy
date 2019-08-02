@@ -82,3 +82,7 @@
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
     version: deploy-stable-branch#1
+- git:
+    local-name: terrain_cloud_reset
+    uri: git@bitbucket.org:cmusubt/terrain_cloud_reset.git
+    version: 0c684ef
