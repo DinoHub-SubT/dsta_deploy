@@ -1,16 +1,9 @@
-session_name: r2_planning_pc_start
+session_name: r1_planning_pc_start
 
 # Add commands to bash history
 suppress_history: true
 
 start_directory: /home/$USER/deploy_ws/src/
-
-# commands to run before panes startup
-before_script: "
-  ./deployer -s
-    r2.planning-pc.docker.remove
-    r2.planning-pc.docker.start 
-    r2.planning-pc.launch.start"
 
 # This is where we list all the stuff we want to run
 windows:
@@ -19,7 +12,7 @@ windows:
     layout: main-horizontal
     panes:
       - shell_command:
-        - ssh ugv2@ugv2
+        - ssh robot@planning-pc
         - docker-join
         - tmux a -t launch_rosbag
 
@@ -29,20 +22,20 @@ windows:
     panes:
       # enter the docker container on planning-pc
       - shell_command:  
-        - ssh ugv2@ugv2
+        - ssh robot@planning-pc
         - docker-join
         - tmux a -t launch_planning
       - shell_command:
-        - ssh ugv2@ugv2
+        - ssh robot@planning-pc
         - docker-join
         - tmux a -t launch_hardware
-  
+
   - window_name: docker shell
     focus: false
     layout: main-horizontal
     panes:
       # enter the docker container on planning-pc
       - shell_command:
-        - ssh ugv2@ugv2
+        - ssh robot@planning-pc
         - docker-join
         - tmux a -t ros_shell

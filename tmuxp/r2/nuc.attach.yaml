@@ -5,26 +5,18 @@ suppress_history: true
 
 start_directory: /home/$USER/deploy_ws/src/
 
-# commands to run before panes startup
-# add 'r2.nuc.local.start.xsens' if using xsens outside of docker
-before_script: "
-  ./deployer -s
-    r2.nuc.docker.remove
-    r2.nuc.docker.start 
-    r2.nuc.launch.start"
-
 # This is where we list all the stuff we want to run
 windows:
   - window_name: bluetooth and xsens
     focus: false
-    layout: main-horizontal
+    layout: tiled
     panes:
       # launch the recorder
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
         - docker-join
-        - tmux a -t launch_record
+        - tmux a -t launch_rosbag
       # launch the xsens on the robot directly
       - shell_command:
         - ssh ugv2@ugv2
@@ -35,6 +27,10 @@ windows:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
         - tmux a -t wifi-bluetooth
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t map-resender
   
   - window_name: main
     focus: true

@@ -490,32 +490,6 @@
             - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
             # launch rosbag
             - tmux send -t launch_rosbag 'eval $config_data' ENTER
-          # old rosbag that uses 'recorder'. cant use that, since recorder does not have the option to split
-          # - rosbag:
-          #   - recorder:  
-          #     # start the recorder tmux session
-          #     - tmux new -s launch_rosbag_recorder -d
-          #     # source
-          #     - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-          #     # manually set the tmux env vars...for now.
-          #     - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
-          #     - tmux send -t launch_rosbag_recorder 'export config=robots/r1/nuc/recorder' ENTER
-          #     - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
-          #     # launch recorder
-          #     - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
-          #   - bag:
-          #     # start record hardware
-          #     - tmux new -s launch_rosbag_start -d
-          #     # source
-          #     - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER              
-          #     # manually set the tmux env vars...for now.
-          #     - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-          #     - tmux send -t launch_rosbag_start 'export config=robots/r1/nuc/rosbag_start' ENTER
-          #     - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-          #     # launch rosbag
-          #     - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
-          #   # message user
-          #   - echo "Launch deployed in tmux session launch_rosbag"
           
         # stop tmux sessions    
         - stop:
@@ -538,24 +512,6 @@
             - tmux kill-session -t launch_planning
           - shell:  
             - tmux kill-session -t ros_shell
-          # old rosbag that uses 'recorder'. cant use that, since recorder does not have the option to split
-          # - rosbag:
-          #   - stop:
-          #     # start record hardware
-          #     - tmux new -s launch_rosbag_stop -d
-          #     # source
-          #     - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-          #     # manually set the tmux env vars...for now.
-          #     - tmux send -t launch_rosbag_stop 'unset config_data' ENTER
-          #     - tmux send -t launch_rosbag_stop 'export config=robots/r1/nuc/rosbag_stop' ENTER
-          #     - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
-          #     # launch rosbag
-          #     - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=nuc robot:=robots/logging $config_data' ENTER
-          #     - tmux kill-session -t launch_rosbag_stop
-          #   - recorder:
-          #     - tmux kill-session -t launch_rosbag_recorder
-          #   - bag:
-          #     - tmux kill-session -t launch_rosbag_start
 
         - rosclean:
           # stop all ros nodes
