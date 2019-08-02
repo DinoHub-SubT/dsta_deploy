@@ -210,9 +210,13 @@ launch/.catkin_tools/profiles/basestation/build.yaml
 launch/.catkin_tools/profiles/basestation/devel_collisions.txt
 launch/.catkin_tools/profiles/basestation/packages/
 
+# TODO: fix the double names
 launch/.catkin_tools/profiles/basestation-perception/build.yaml
 launch/.catkin_tools/profiles/basestation-perception/devel_collisions.txt
 launch/.catkin_tools/profiles/basestation-perception/packages/
+launch/.catkin_tools/profiles/perception-basestation/build.yaml
+launch/.catkin_tools/profiles/perception-basestation/devel_collisions.txt
+launch/.catkin_tools/profiles/perception-basestation/packages/
 
 launch/.catkin_tools/profiles/perception/build.yaml
 launch/.catkin_tools/profiles/perception/devel_collisions.txt
