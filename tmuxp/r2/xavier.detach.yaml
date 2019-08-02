@@ -1,4 +1,4 @@
-session_name: r1_xavier_detach
+session_name: r2_xavier_detach
 
 # Add commands to bash history
 suppress_history: true
@@ -24,6 +24,6 @@ windows:
         
       - shell_command:
         - sleep 3
-        - tmux kill-session -t r1_xavier_start
-        - tmux kill-session -t r1_xavier_detach
+        - tmux kill-session -t r2_xavier_start
+        - tmux kill-session -t r2_xavier_detach
 

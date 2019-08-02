@@ -655,15 +655,6 @@
             - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
             # message user
             - echo "Launch xsens in tmux session xsens"
-          # - bluetooth:
-          #   # start the tmux session
-          #   - tmux new -s bluetooth -d
-          #   # source
-          #   - tmux send -t bluetooth 'source /home/nuc/workspaces/objdet/devel/setup.zsh' ENTER
-          #   # run planning-pc launch
-          #   - tmux send -t bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
-          #   # message user
-          #   - echo "Launch bluetooth in tmux session bluetooth"
           - wifi-bluetooth:
             # start the tmux session
             - tmux new -s wifi-bluetooth -d

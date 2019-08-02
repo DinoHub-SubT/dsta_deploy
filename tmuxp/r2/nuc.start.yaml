@@ -17,14 +17,14 @@ before_script: "
 windows:
   - window_name: bluetooth and xsens
     focus: false
-    layout: main-horizontal
+    layout: tiled
     panes:
       # launch the recorder
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
         - docker-join
-        - tmux a -t launch_record
+        - tmux a -t launch_rosbag
       # launch the xsens on the robot directly
       - shell_command:
         - ssh ugv2@ugv2
@@ -35,6 +35,10 @@ windows:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
         - tmux a -t wifi-bluetooth
+      - shell_command:
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - tmux a -t map-resender
   
   - window_name: main
     focus: true

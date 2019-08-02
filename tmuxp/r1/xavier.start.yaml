@@ -20,6 +20,10 @@ windows:
         - ssh robot@planning-pc
         - ssh nvidia@xavier
         - tmux a -t launch_record
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nvidia@xavier
+        - tmux a -t launch_healthmonitor
   
   - window_name: main
     focus: true
