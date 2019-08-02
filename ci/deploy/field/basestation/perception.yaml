@@ -154,7 +154,7 @@
       - recording:
         - cd recording/catkin
         - catkin clean -y
-      - repo:
+      - perception:
         - catkin clean -y
       - objdet_deps:
         - cd objdet_deps/catkin

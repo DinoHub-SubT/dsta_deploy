@@ -14,6 +14,17 @@ before_script: "
 
 # This is where we list all the stuff we want to run
 windows:
+  - window_name: recorder
+    focus: false
+    layout: main-horizontal
+    panes:
+      - shell_command:
+        - docker-join
+        - tmux a -t launch_rosbag_recorder
+      - shell_command:
+        - docker-join
+        - tmux a -t launch_rosbag_start
+
   - window_name: main
     layout: main-horizontal
     panes:
@@ -26,17 +37,6 @@ windows:
         - ./join.bash --name subt-perception
         - tmux a -t launch_objdet
   
-  - window_name: recorder
-    focus: false
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - docker-join
-        - tmux a -t launch_rosbag_recorder
-      - shell_command:
-        - docker-join
-        - tmux a -t launch_rosbag_start
-
   - window_name: docker shell
     focus: false
     layout: main-horizontal

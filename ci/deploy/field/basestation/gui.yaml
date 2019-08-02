@@ -135,6 +135,8 @@
     - clean:
       - launch:
         - cd $DEPLOY_SRC/launch/
+        - "echo \"active: basestation\" > .catkin_tools/profiles/profiles.yaml"
+        # - catkin profile set basestation
         - catkin clean -y
       - cd $DEPLOY_SRC/basestation/
       - basestation:
