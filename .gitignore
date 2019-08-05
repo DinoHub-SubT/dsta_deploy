@@ -163,9 +163,29 @@ perception/.catkin_tools/profiles/basestation/devel_collisions.txt
 perception/.catkin_tools/profiles/basestation/build.yaml
 
 # ignore catkin tools non config packages
-perception/deps/catkin/.catkin_tools/profiles/default/packages/
-perception/deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
-perception/deps/catkin/.catkin_tools/profiles/default/build.yaml
+perception/objdet_deps/catkin/.catkin_tools/profiles/default/packages/
+perception/objdet_deps/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+perception/objdet_deps/catkin/.catkin_tools/profiles/default/build.yaml
+
+perception/objdet_deps/catkin/.catkin_tools/profiles/basestation/packages/
+perception/objdet_deps/catkin/.catkin_tools/profiles/basestation/devel_collisions.txt
+perception/objdet_deps/catkin/.catkin_tools/profiles/basestation/build.yaml
+
+perception/recording/catkin/.catkin_tools/profiles/default/packages/
+perception/recording/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+perception/recording/catkin/.catkin_tools/profiles/default/build.yaml
+
+perception/recording/catkin/.catkin_tools/profiles/basestation/packages/
+perception/recording/catkin/.catkin_tools/profiles/basestation/devel_collisions.txt
+perception/recording/catkin/.catkin_tools/profiles/basestation/build.yaml
+
+perception/thirdparty/catkin/.catkin_tools/profiles/default/packages/
+perception/thirdparty/catkin/.catkin_tools/profiles/default/devel_collisions.txt
+perception/thirdparty/catkin/.catkin_tools/profiles/default/build.yaml
+
+perception/thirdparty/catkin/.catkin_tools/profiles/basestation/packages/
+perception/thirdparty/catkin/.catkin_tools/profiles/basestation/devel_collisions.txt
+perception/thirdparty/catkin/.catkin_tools/profiles/basestation/build.yaml
 
 ### ignore state_estimation ###
 
@@ -180,7 +200,6 @@ state_estimation/.catkin_tools/profiles/default/build.yaml
 basestation/.catkin_tools/profiles/default/packages/
 basestation/.catkin_tools/profiles/default/devel_collisions.txt
 basestation/.catkin_tools/profiles/default/build.yaml
-basestation/.catkin_tools/profiles/default/config.yaml
 
 # ignore catkin tools non config packages
 basestation/thirdparty/catkin/.catkin_tools/profiles/default/packages/
@@ -210,13 +229,9 @@ launch/.catkin_tools/profiles/basestation/build.yaml
 launch/.catkin_tools/profiles/basestation/devel_collisions.txt
 launch/.catkin_tools/profiles/basestation/packages/
 
-# TODO: fix the double names
 launch/.catkin_tools/profiles/basestation-perception/build.yaml
 launch/.catkin_tools/profiles/basestation-perception/devel_collisions.txt
 launch/.catkin_tools/profiles/basestation-perception/packages/
-launch/.catkin_tools/profiles/perception-basestation/build.yaml
-launch/.catkin_tools/profiles/perception-basestation/devel_collisions.txt
-launch/.catkin_tools/profiles/perception-basestation/packages/
 
 launch/.catkin_tools/profiles/perception/build.yaml
 launch/.catkin_tools/profiles/perception/devel_collisions.txt
