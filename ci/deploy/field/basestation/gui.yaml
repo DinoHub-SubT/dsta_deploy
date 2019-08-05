@@ -125,6 +125,7 @@
       # build launch workspace
       - launch:
         - cd $DEPLOY_SRC/launch/
+        - rm .catkin_tools/profiles/profiles.yaml
         - catkin profile set basestation
         - catkin build --force-cmake
         - catkin clean -b --yes
@@ -135,8 +136,8 @@
     - clean:
       - launch:
         - cd $DEPLOY_SRC/launch/
-        - "echo \"active: basestation\" > .catkin_tools/profiles/profiles.yaml"
-        # - catkin profile set basestation
+        - rm .catkin_tools/profiles/profiles.yaml
+        - catkin profile set basestation
         - catkin clean -y
       - cd $DEPLOY_SRC/basestation/
       - basestation:

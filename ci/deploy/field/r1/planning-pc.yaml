@@ -276,6 +276,7 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake

@@ -312,6 +312,7 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -333,6 +334,7 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set state_est
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -344,6 +346,7 @@
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set planning
             - catkin clean -y
           - cd $DEPLOY_SRC/planning/
@@ -358,6 +361,7 @@
         - state_est:
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set state_est
             - catkin clean -y
           - cd $DEPLOY_SRC/state_estimation/
