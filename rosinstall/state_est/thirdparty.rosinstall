@@ -6,3 +6,10 @@
     local-name: serial
     uri: https://github.com/wjwwood/serial
     version: master
+
+# installing rosmon from source.
+# bug in recent master branch. Going back to stable version.
+- git:
+    local-name: rosmon
+    uri: git@bitbucket.org:cmusubt/rosmon.git
+    version: cfe2d03

@@ -20,11 +20,6 @@
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
     version: dc2a5b192541c783a15d4127eebdc78628027ee5
-# bluetooth
-- git:
-    local-name: object_detection
-    uri: git@bitbucket.org:cmusubt/object_detection.git
-    version: master
 # other
 - git:
     local-name: online_pose_graph
