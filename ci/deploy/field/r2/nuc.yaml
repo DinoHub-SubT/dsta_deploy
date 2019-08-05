@@ -594,17 +594,17 @@
       
       - build:
         - cd ~/deploy_ws/src/
-        - wifi-bluetooth:
-          - cd state_estimation/wifi-bluetooth/catkin
+        - objdet:
+          - cd perception/object_detection/
           # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
-          - touch object_detection/modules/CATKIN_IGNORE
-          - touch object_detection/realsense_fork/CATKIN_IGNORE
+          - touch modules/CATKIN_IGNORE
+          - touch realsense_fork/CATKIN_IGNORE
           - catkin build --force-cmake
 
       - clean:
         - cd ~/deploy_ws/src/
-        - wifi-bluetooth:
-          - cd state_estimation/wifi-bluetooth/catkin
+        - objdet:
+          - cd perception/object_detection/
           - catkin clean
 
       - launch:
@@ -623,7 +623,7 @@
             # start the tmux session
             - tmux new -s wifi-bluetooth -d
             # source
-            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/state_estimation/wifi_bluetooth/setup.zsh' ENTER
+            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
             # run wifi-bluetooth launch
             - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection mk_1_nuc.launch' ENTER
             # message user
@@ -632,7 +632,7 @@
             # start the tmux session
             - tmux new -s map-resender -d
             # source
-            - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/state_estimation/objdet/setup.zsh' ENTER
+            - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
             # run wifi-bluetooth launch
             - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
             # message user
