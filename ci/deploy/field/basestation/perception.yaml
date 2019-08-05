@@ -180,8 +180,8 @@
       - 'export MCAST_GROUP=224.0.0.251'
       - 'export robot=robots/basestation'
       - 'export USER=explorer'
-      # - 'export ROS_MASTER_URI=http://ugv2:11311'
-      - 'export ROS_HOSTNAME=system76-pc'
+      - 'export ROS_MASTER_URI=http://system76-pc:11311'
+      # - 'export ROS_HOSTNAME=system76-pc'
       - 'export DISPLAY=:0.0'
       
       ### == user can modify done. ==
