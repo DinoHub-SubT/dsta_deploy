@@ -5,7 +5,7 @@
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
-    version: b72afc516bcac476c1939254a77dfe774d76a586
+    version: c7bf078ace55c9fc53fd6b20b05c403259c8d20a
 - git:
     local-name: tip_over_monitor
     uri: git@bitbucket.org:cmusubt/tip_over_monitor.git
@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: 2092e3fdaffd6fc34481daeb3fb71715e481553c
+    version: 29ea293f67305a755b4ad8b7028a604f6354cca3
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
@@ -41,4 +41,8 @@
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
-    version: 0217cf231d9a17c429894a813f5a98eb6e15435d
+    version: 8599d2c224b2523501246f358e185b8a14537a08
+- git:
+    local-name: xbee_bridge
+    uri: git clone git@bitbucket.org:cmusubt/xbee_bridge.git
+    version: master

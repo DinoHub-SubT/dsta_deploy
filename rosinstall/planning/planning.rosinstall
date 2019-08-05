@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: db4fec3694927e62802d420f33c6f377ddf2e236
+    version: 7e34f6a6fc1d39bb9cf0384f8bf7c30ce4de97eb
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -13,7 +13,7 @@
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
+    version: 65e79fea0531d543f3af60f56d2abf83b684cf71
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
@@ -21,11 +21,11 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: d56fcb0c020324dd3f0a4827beca93e15cbf3fca
+    version: 11cb91709b888fb0f6be12a2ba03147f7b3dd204
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 47159cd1aa31ce4950ccb9e90cdf650d7269cc39
+    version: 9746530cfba970dde2496662296b277127f19558
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
@@ -41,15 +41,15 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: 74a689feeec2c73aef08f934bff847a93603a96c
+    version: b91339f76e55ccef7b6900ef2142ffba0798b604
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: b4ba963da501ab99b3c138544a5337ac1c120187
+    version: bad0c551d3977905c956bbc5cb4c7438b14a8833
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
-    version: b0a2d8c71543e388a27362b51f26510374f69c59
+    version: 46c3d343f614109730ad68cd27696347e697e3ca
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
