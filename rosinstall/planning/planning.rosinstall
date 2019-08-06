@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 7e34f6a6fc1d39bb9cf0384f8bf7c30ce4de97eb
+    version: d3596faf974499b910400b1fff4a7d0581667b13
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -21,7 +21,7 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 11cb91709b888fb0f6be12a2ba03147f7b3dd204
+    version: 7b3a0682e2d5d886f93b187c80db7838c2422410
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -69,7 +69,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
+    version: b98c728023df3b801c76f467eb36928d6279f025
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git

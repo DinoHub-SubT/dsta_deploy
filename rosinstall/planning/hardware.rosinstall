@@ -37,7 +37,7 @@
 - git:
     local-name: stuck_monitor
     uri: git@bitbucket.org:cmusubt/stuck_monitor.git
-    version: a3e55e6fcdb185c3771505d2354faf064490b0bf
+    version: 54d0451
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
