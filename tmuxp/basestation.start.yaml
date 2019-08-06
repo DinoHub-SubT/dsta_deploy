@@ -10,6 +10,8 @@ start_directory: /home/$USER/deploy_ws/src/
 # commands to run before panes startup
 before_script: "
   ./deployer -s
+    basestation.docker.gui.remove
+    basestation.docker.gui.start
     basestation.gui.launch.start"
 
 # This is where we list all the stuff we want to run
@@ -29,6 +31,8 @@ windows:
         - docker-join
         - tmux a -t launch_gui
       - shell_command:
+        - ./deployer -s basestation.docker.perception.remove
+        - ./deployer -s basestation.docker.perception.start
         - ./deployer -s basestation.perception.launch.start
         - cd docker/scripts/
         - ./join.bash --name subt-perception

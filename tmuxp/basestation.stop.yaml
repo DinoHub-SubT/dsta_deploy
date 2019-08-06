@@ -13,6 +13,8 @@ windows:
       - shell_command:
         - ./deployer -s basestation.gui.launch.stop
         - ./deployer -s basestation.perception.launch.stop
+        - ./deployer -s basestation.docker.gui.stop
+        - ./deployer -s basestation.docker.perception.stop
         - tmux kill-session -t basestation_start
         - tmux kill-session -t basestation_stop
 
