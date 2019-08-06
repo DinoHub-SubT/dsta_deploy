@@ -20,10 +20,7 @@ windows:
     panes:
       - shell_command:
         - docker-join
-        - tmux a -t launch_rosbag_recorder
-      - shell_command:
-        - docker-join
-        - tmux a -t launch_rosbag_start
+        - tmux a -t launch_rosbag
 
   - window_name: main
     layout: main-horizontal

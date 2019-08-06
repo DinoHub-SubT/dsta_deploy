@@ -159,7 +159,7 @@
       - 'export USER=explorer'
       - 'export ROS_MASTER_URI=http://system76-pc:11311'
       # - 'export ROS_HOSTNAME=system76-pc'
-      - 'export DISPLAY=:0.0'
+      # - 'export DISPLAY=:0.0'
       
       ### == user can modify done. ==
       
@@ -189,11 +189,10 @@
           - tmux send -t launch_roscore 'stty lines 55' ENTER
           # source
           - tmux send -t launch_roscore 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-
           # run autonomy launch
           - tmux send -t launch_roscore 'roscore' ENTER
           # message user
-          - echo "Launch deployed in tmux session launch_roscore"
+          - echo "Launch deployed in tmux session launch_roscore"      
         - gui:
           # parse the launch configuration params
           - export config=robots/basestation/gui
@@ -214,6 +213,7 @@
           
           # run autonomy launch
           - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
+          # - tmux send -t launch_gui 'roslaunch basestation_launch basestation_launch.launch' ENTER
           # message user
           - echo "Launch deployed in tmux session launch_gui"
         - shell:
@@ -225,41 +225,32 @@
           # source
           - tmux send -t ros_shell 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
         - rosbag:
-            # default logging path
-            - export logging_path=$DEPLOY_SRC/launch/ugv_setup/logging/
-            - recorder:  
-              # start the recorder tmux session
-              - tmux new -s launch_rosbag_recorder -d
-              # source
-              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-              # export screen settings
-              - tmux send -t launch_rosbag_recorder 'stty columns 204' ENTER
-              - tmux send -t launch_rosbag_recorder 'stty lines 55' ENTER
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config=robots/basestation/recorder' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
-              # launch recorder
-              - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
-            - bag:
-              # start record hardware
-              - tmux new -s launch_rosbag_start -d
-              # source
-              - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-              # export screen settings
-              - tmux send -t launch_rosbag_start 'stty columns 204' ENTER
-              - tmux send -t launch_rosbag_start 'stty lines 55' ENTER
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_start 'export config=robots/basestation/rosbag_start' ENTER
-              - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-              # launch rosbag
-              - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_rosbag"
+          # start record hardware
+          - tmux new -s launch_rosbag -d
+          # source
+          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_rosbag 'unset config_data' ENTER
+          - tmux send -t launch_rosbag 'export config=robots/basestation/rosbag' ENTER
+          - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+          # launch rosbag
+          - tmux send -t launch_rosbag 'eval $config_data' ENTER
 
       # stop tmux sessions    
       - stop:
+        # remove all the tmux sessions
+        - rosbag:
+          - stop:
+            # start stop record
+            - tmux new -s launch_rosbag_stop -d
+            - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+            # stop record node
+            - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_nuc' ENTER
+          - sessions:
+            # stop the sessions
+            # - until rostopic list ; do sleep 1; done
+            - tmux kill-session -t launch_rosbag_stop
+            - tmux kill-session -t launch_rosbag
         # remove all the tmux sessions
         - roscore:
           - tmux kill-session -t launch_roscore
@@ -267,25 +258,6 @@
           - tmux kill-session -t launch_gui
         - shell:
             - tmux kill-session -t ros_shell
-        - rosbag:
-          - stop:
-            # start record hardware
-            - tmux new -s launch_rosbag_stop -d
-            # source
-            - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-            
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-            - tmux send -t launch_rosbag_start 'export config=robots/basestation/rosbag_stop' ENTER
-            - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-            
-            # launch rosbag
-            - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=base_station robot:=robots/logging $config_data' ENTER
-            - tmux kill-session -t launch_rosbag_stop
-          - recorder:
-            - tmux kill-session -t launch_rosbag_recorder
-          - bag:
-            - tmux kill-session -t launch_rosbag_start
 
       - rosclean:
         # stop all ros nodes
