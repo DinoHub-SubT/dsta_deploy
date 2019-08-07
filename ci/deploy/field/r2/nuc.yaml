@@ -276,7 +276,7 @@
       # -- assumes the extended ws are already built
       # -- add only those repos that need rosdep
       ####################################################
-      - rosdep:
+      - setup:
         # install any thirdparty deps
         - cd planning
         - planning:
@@ -522,67 +522,6 @@
           - ps aux | grep ros
 
 
-      ####################################################
-      # git updater
-      ####################################################
-      - git:
-        - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
-        - 'export DEPLOY_SRC=$DEPLOY_WS/src'
-        
-        # git status check          
-        - git_status() {
-            for repo in $1; do
-              echo "repo is $repo";
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                echo "hello world";
-                echo -e "\n\n";
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_status
-        - printenv
-
-        ####################################################
-        # git commands for planning workspace
-        ####################################################
-        - planning:
-          - cd $DEPLOY_SRC/planning
-
-          # git update to thirdparty ws
-          - thirdparty:
-            - status:
-              - 'export -f git_fn=$git_status'
-            - update:
-              - 'export -f git_fn=$git_updater'
-              
-            - cd thirdparty/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_fn "$REPOS"
-
-          # git update to repo ws
-          - repo:
-            - status:
-              - 'export -f git_fn=$git_status'
-            - update:
-              - 'export -f git_fn=$git_updater'
-
-            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
-            - git_fn "$REPOS"
-          
-        # update the planning repso
-        - state_est:
-          - cd $DEPLOY_SRC/state_estimation
-          - thirdparty:
-            - cd thirdparty/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
-          - repo:
-            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
-
     ################################################################################################
     - local:
     ################################################################################################
@@ -600,10 +539,14 @@
       - build:
         - cd ~/deploy_ws/src/
         - objdet:
-          - cd perception/object_detection/
+          - cd perception/
+          - rm .catkin_tools/profiles/profiles.yaml
+          - rm -rf .catkin_tools/profiles/default
+          - catkin profile set nuc
+          - cd object_detection/
           # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
           - touch modules/CATKIN_IGNORE
-          - touch realsense_fork/CATKIN_IGNORE
+          # - touch realsense_fork/CATKIN_IGNORE
           - catkin build --force-cmake
 
       - clean:

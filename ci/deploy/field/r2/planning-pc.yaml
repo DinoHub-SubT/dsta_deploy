@@ -234,11 +234,14 @@
       # -- assumes the extended ws are already built
       # -- add only those repos that need rosdep
       ####################################################
-      - rosdep:
+      - setup:
         # install any thirdparty deps
         - cd planning
         - planning:
           - ./Planning_workspace/install_dependencies.sh
+        - copley:
+          - cd copley_ros_driver/setup/
+          - ./install_copley_module.sh
 
       ####################################################
       # build workspaces

@@ -235,6 +235,20 @@
           - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
           # launch rosbag
           - tmux send -t launch_rosbag 'eval $config_data' ENTER
+        - launch_relay_ugv1_agg:
+          # start record hardware
+          - tmux new -s launch_relay_ugv1_agg -d
+          # source
+          - tmux send -t launch_relay_ugv1_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+          # launch rosbag
+          - tmux send -t launch_relay_ugv1_agg 'rosrun topic_tools relay /cm_rel/ugv1/bs/diagnostics_agg /diagnostics_agg' ENTER
+        - launch_relay_ugv2_agg:
+          # start record hardware
+          - tmux new -s launch_relay_ugv2_agg -d
+          # source
+          - tmux send -t launch_relay_ugv2_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+          # launch rosbag
+          - tmux send -t launch_relay_ugv2_agg 'rosrun topic_tools relay /cm_rel/ugv2/bs/diagnostics_agg /diagnostics_agg' ENTER
 
       # stop tmux sessions    
       - stop:
@@ -257,7 +271,11 @@
         - gui:
           - tmux kill-session -t launch_gui
         - shell:
-            - tmux kill-session -t ros_shell
+          - tmux kill-session -t ros_shell
+        - launch_relay_ugv1_agg:
+          - tmux kill-session -t launch_relay_ugv1_agg
+        - launch_relay_ugv2_agg:
+          - tmux kill-session -t launch_relay_ugv2_agg
 
       - rosclean:
         # stop all ros nodes
