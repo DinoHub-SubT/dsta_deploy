@@ -13,7 +13,7 @@
 - git:
     local-name: basestation_launch
     uri: git@bitbucket.org:cmusubt/basestation_launch.git
-    version: be9afca398c7a7d26ea6b2d0706ac480e82beea1
+    version: f3ab8576026092360c91abd16bf92dc4a6da187c
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
@@ -62,3 +62,11 @@
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
     version: bad0c551d3977905c956bbc5cb4c7438b14a8833
+- git:
+    local-name: comms_monitor
+    uri: git@bitbucket.org:cmusubt/comms_monitor.git
+    version: 9746530cfba970dde2496662296b277127f19558
+- git:
+    local-name: xbee_bridge
+    uri: git@bitbucket.org:cmusubt/xbee_bridge.git
+    version: b7d2ae5f61f346824acfaed6f0f327d40a8e5d86
