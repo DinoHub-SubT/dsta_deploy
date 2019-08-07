@@ -179,21 +179,34 @@
         # build the deps workspaces
         - thirdparty:
           - cd thirdparty/catkin
+          # - rm .catkin_tools/profiles/profiles.yaml
+          - catkin profile set default
+          - catkin build --force-cmake
+        
+        # build the deps workspaces
+        - objdet_deps:
+          - cd objdet_deps/catkin
+          # - rm .catkin_tools/profiles/profiles.yaml
+          - catkin profile set default
           - catkin build --force-cmake
         
         # build perception workspace
         - perception:
+          - catkin profile set default
+          # - rm .catkin_tools/profiles/profiles.yaml
           - catkin build --force-cmake
         
           # build the deps workspaces
         - recording:
           - cd recording/catkin
+          # - rm .catkin_tools/profiles/profiles.yaml
+          - catkin profile set default
           - catkin build --force-cmake
         
         # build launch workspace
         - launch:
           - cd $DEPLOY_SRC/launch/
-          - rm .catkin_tools/profiles/profiles.yaml
+          # - rm .catkin_tools/profiles/profiles.yaml
           - catkin profile set perception
           - catkin clean -b --yes
           - catkin build
@@ -211,7 +224,10 @@
         - recording:
           - cd recording/catkin
           - catkin clean -y
-        - repo:
+        - perception:
+          - catkin clean -y
+        - objdet_deps:
+          - cd objdet_deps/catkin
           - catkin clean -y
         - thirdparty:
           - cd thirdparty/catkin
