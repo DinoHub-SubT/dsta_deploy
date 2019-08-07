@@ -35,6 +35,7 @@
           --exclude=src/perception
           --exclude=src/state_estimation
           --exclude=src/launch/ugv_setup/logging/planning-pc/bags
+          --exclude=src/launch/ugv_setup/logging/base_station/bags
           -e \"ssh -i $HOME/.ssh/deploy\" " ' 
       # rsync commands
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "

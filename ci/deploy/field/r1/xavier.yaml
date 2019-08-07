@@ -29,6 +29,7 @@
       - export copy_opts="-avzh --delete
         --exclude=src/planning
         --exclude=src/state_estimation
+        --exclude=src/launch/ugv_setup/logging/base_station/bags
         --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb 
         --exclude=src/subt_robot_examples_latest.tgz 
         --exclude=src/perception/object_detection/inference/data/models/ssd_mnv1_positives_218056
@@ -69,7 +70,7 @@
         # ignoring transfer.to delete of 'ssd_mnv1_positives_218056' so we do not lose protobuf generation
         # users must force a transfer clean.
         # TODO: re-structure setups
-        - to-clean:
+        - to-models:
           # create the remote directory
           - ssh $HOP_HOST ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
