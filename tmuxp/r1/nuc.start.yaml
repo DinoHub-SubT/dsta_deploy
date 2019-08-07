@@ -11,12 +11,32 @@ before_script: "
   ./deployer -s
     r1.nuc.docker.remove
     r1.nuc.docker.start 
-    r1.nuc.launch.start
-    r1.nuc.local.start.xsens
-    r1.nuc.local.start.bluetooth"
+    r1.nuc.launch.start"
 
 # This is where we list all the stuff we want to run
 windows:
+  - window_name: objdet and xsens
+    focus: false
+    layout: tiled
+    panes:
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - docker-join
+        - tmux a -t launch_rosbag
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t xsens
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t wifi-bluetooth
+      - shell_command:
+        - ssh robot@planning-pc
+        - ssh nuc@nuc
+        - tmux a -t map-resender
+
   - window_name: main
     focus: false
     layout: main-horizontal
@@ -33,31 +53,13 @@ windows:
         - docker-join
         - tmux a -t launch_state_est
 
-  - window_name: recorder and xsens
-    focus: false
-    layout: main-horizontal
-    panes:
-      - shell_command:
-        - ssh robot@planning-pc
-        - ssh nuc@nuc
-        - tmux a -t xsens
-      - shell_command:
-        - ssh robot@planning-pc
-        - ssh nuc@nuc
-        - tmux a -t bluetooth
-      - shell_command:
-        - ssh robot@planning-pc
-        - ssh nuc@nuc
-        - docker-join
-        - tmux a -t launch_rosbag_recorder
-
   - window_name: docker shell
     focus: false
     layout: main-horizontal
     panes:
       # enter the docker container on planning-pc
       - shell_command:
-        - ssh ugv2@ugv2
+        - ssh robot@planning-pc
         - ssh nuc@nuc
         - docker-join
         - tmux a -t ros_shell

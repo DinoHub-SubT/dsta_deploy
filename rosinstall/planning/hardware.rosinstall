@@ -1,11 +1,11 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: 6d789f6
+    version: 6d789f6042fe3baced30765b0a0e9eb532c0bb63
 - git:
     local-name: comms_dropper_driver
     uri: git@bitbucket.org:cmusubt/comms_dropper_driver.git
-    version: b72afc516bcac476c1939254a77dfe774d76a586
+    version: c7bf078ace55c9fc53fd6b20b05c403259c8d20a
 - git:
     local-name: tip_over_monitor
     uri: git@bitbucket.org:cmusubt/tip_over_monitor.git
@@ -13,7 +13,7 @@
 - git:
     local-name: tip_over_recovery
     uri: git@bitbucket.org:cmusubt/tip_over_recovery.git
-    version: 9f84fddaae5ddacf408cf1412c7d83bc037ea496
+    version: 3d1f5069f14f9c605d6b64a9196aa1e963af99a6
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
@@ -21,7 +21,7 @@
 - git:
     local-name: solenoid_toggle
     uri: git@bitbucket.org:cmusubt/solenoid_toggle.git
-    version: caf6235
+    version: caf62355a9fd6a258a84b66f6ac4bd5c664a945c
 - git:
     local-name: twist_mux
     uri: git@bitbucket.org:cmusubt/twist_mux.git
@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: 2092e3fdaffd6fc34481daeb3fb71715e481553c
+    version: ee64dac23b7d40602514d5929bdeb892bc4a5a4f
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
@@ -37,8 +37,12 @@
 - git:
     local-name: stuck_monitor
     uri: git@bitbucket.org:cmusubt/stuck_monitor.git
-    version: a3e55e6fcdb185c3771505d2354faf064490b0bf
+    version: 54d0451
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
-    version: 0217cf231d9a17c429894a813f5a98eb6e15435d
+    version: 7d52538293b48120473efbc43a92c4cb6d393264
+- git:
+    local-name: xbee_bridge
+    uri: git clone git@bitbucket.org:cmusubt/xbee_bridge.git
+    version: master

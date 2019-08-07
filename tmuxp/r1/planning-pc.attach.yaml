@@ -5,13 +5,6 @@ suppress_history: true
 
 start_directory: /home/$USER/deploy_ws/src/
 
-# commands to run before panes startup
-before_script: "
-  ./deployer -s
-    r1.planning-pc.docker.remove
-    r1.planning-pc.docker.start 
-    r1.planning-pc.launch.start"
-
 # This is where we list all the stuff we want to run
 windows:
   - window_name: recorder

@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: e80c2e43de90a66beb488d28adcd3a32579db8fe
+    version: d3596faf974499b910400b1fff4a7d0581667b13
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -9,11 +9,11 @@
 - git:
     local-name: terrain_analysis
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
-    version: 317621e366b0f00488561ba93cf68cb44cfd1ab6
+    version: 17558b45cb151b667fd08d0d54f5992d910c9017
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
+    version: 65e79fea0531d543f3af60f56d2abf83b684cf71
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
@@ -21,11 +21,11 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 9755dbf3802c2040c43c7eca9a1f191580ba48b6
+    version: 7b3a0682e2d5d886f93b187c80db7838c2422410
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 9c6fcfe08204aa6e6b0eac04ff90dd5d959b9fa9
+    version: 9746530cfba970dde2496662296b277127f19558
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
@@ -33,7 +33,7 @@
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
-    version: 10b446b469bd527ffc599429604ef9b909fe1adf
+    version: 88ee06b3b0f7872a2e8da943e5ce9c42e06bd8fd
 - git:
     local-name: behavior_tree_msgs
     uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
@@ -41,47 +41,48 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: a7e76bcab5332e7db3a20ec58732425962612c4b
+    version: b91339f76e55ccef7b6900ef2142ffba0798b604
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: b4ba963
+    version: bad0c551d3977905c956bbc5cb4c7438b14a8833
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
-    version: 8a9fd78f2e3a39f9a6fb46c59557bd6c3a890a67
+    version: 46c3d343f614109730ad68cd27696347e697e3ca
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
-    version: 9472c826624776dd62b9d664086f8a1d607c7a07
+    version: a9b9c1b0a07d938a5fa5cd29c1f259b0168775c9
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
-    version: 577ebf4d52f7833928a2a8a12a63e91a76720c33
+    version: 43897702db3510b5fd446e298c6c5e212fabac7e
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
-    version: fcd8aa2731055bab8dc37ba979beeb2fc530d234
+    version: ab6257e41bca2f621d3556504668569f0191522e
 - git:
     local-name: misc_utils
     uri: git@bitbucket.org:cmusubt/misc_utils.git
-    version: 66cf30a1b4d16f9a31922b5c8003e4a915dc4ed6
+    version: 7793642cf9bf70b8e7aa7c2ae0a717791edee1c8
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
+    version: b98c728023df3b801c76f467eb36928d6279f025
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
-    version: 3e5fef3
+    version: 3e5fef381528f6f5a7cf8a26ec427dd4e6ab233e
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: d463c803a1749f708d17a860b678dc1b86c0a0db
-
-
-# for main launch files
+    version: 700752eb19db97c35b6c7d63835e6073774aeed6
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
-    version: deploy-stable-branch#1
+    version: 30259050cbf9be499e0c4bf777095d77c8a8f071
+- git:
+    local-name: terrain_cloud_reset
+    uri: git@bitbucket.org:cmusubt/terrain_cloud_reset.git
+    version: 0c684ef

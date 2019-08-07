@@ -5,11 +5,6 @@ suppress_history: true
 
 start_directory: /home/$USER/deploy_ws/src/
 
-# commands to run before panes startup
-before_script: "
-  ./deployer -s
-    r1.xavier.launch.start"
-
 # This is where we list all the stuff we want to run
 windows:
   - window_name: recorder
@@ -20,10 +15,6 @@ windows:
         - ssh robot@planning-pc
         - ssh nvidia@xavier
         - tmux a -t launch_record
-      - shell_command:
-        - ssh robot@planning-pc
-        - ssh nvidia@xavier
-        - tmux a -t launch_healthmonitor
   
   - window_name: main
     focus: true

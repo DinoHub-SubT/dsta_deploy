@@ -151,6 +151,12 @@
                 rm .rosinstall;
               fi
             - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
+          - xsens:
+            - cd xsens/catkin
+            - if [ -f .rosinstall ]; then
+                  rm .rosinstall;
+                fi
+            - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
         - state_est:
           - cd $DEPLOY_SRC/state_estimation
           - repo:
@@ -207,6 +213,10 @@
             - wstool update
           - hardware:
             - cd hardware/catkin
+            - wstool info
+            - wstool update
+          - xsens:
+            - cd xsens/catkin
             - wstool info
             - wstool update
         # state estimation ws update
@@ -307,6 +317,9 @@
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
         - thirdparty:
           - cd thirdparty/catkin
+          - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+        - xsens:
+          - cd xsens/catkin
           - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
       - state_est:
         - cd $DEPLOY_SRC/state_estimation/
@@ -439,23 +452,6 @@
           done;
         }
       - export -f git_dirty
-
-      # wstool update to git hash
-      - git_updater() {
-          for repo in $1; do
-            echo "repo is $repo";
-            pushd $repo  > /dev/null 2>&1;
-            if [ -d .git ]; then
-              echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-              export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
-              export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
-              wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
-              echo -e "\n\n";
-            fi;
-            popd  > /dev/null 2>&1;
-          done;
-        }
-      - export -f git_updater
 
       ####################################################
       # git commands for planning workspace

@@ -205,6 +205,12 @@
                   rm .rosinstall;
                 fi
               - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
+            - xsens:
+              - cd xsens/catkin
+              - if [ -f .rosinstall ]; then
+                    rm .rosinstall;
+                  fi
+              - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
 
         # wstool update the workspaces
         - up:
@@ -220,6 +226,10 @@
               - cd hardware/catkin
               - wstool info
               - wstool update
+            - xsens:
+              - cd xsens/catkin
+              - wstool info
+              - wstool update
 
       ####################################################
       # rosdep
@@ -231,6 +241,9 @@
         - cd planning
         - planning:
           - ./Planning_workspace/install_dependencies.sh
+        - xsens:
+          - cd $DEPLOY_SRC/planning/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
+          - sudo ./mt_sdk_4.8.sh
 
       ####################################################
       # build workspaces
@@ -264,10 +277,10 @@
       # clean workspaces
       ####################################################
       - clean:
-        - launch:
-          - cd $DEPLOY_SRC/launch/
-          - catkin clean -y
         - planning:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - catkin clean -y
           - cd $DEPLOY_SRC/planning/
           - hardware:
             - cd hardware/catkin
@@ -291,6 +304,9 @@
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
+            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
+          - xsens:
+            - cd xsens/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
@@ -376,46 +392,38 @@
             # message user
             - echo "Launch deployed in tmux session launch_hardware"
           
-          - rosbag:
-            - recorder:  
-              # start the recorder tmux session
-              - tmux new -s launch_rosbag_recorder -d
-              # source
-              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config=robots/r1/planning-pc/recorder' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
-
-              # launch recorder
-              - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-
-            - bag:
-              # start record hardware
-              - tmux new -s launch_rosbag_start -d
-              # source
-              - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_start 'export config=robots/r1/planning-pc/rosbag_start' ENTER
-              - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-              
-              # launch rosbag
-              - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-
-            # message user
-            - echo "Launch deployed in tmux session launch_rosbag"
-
           - shell:
             # empty shell prompt
             - pwd
             - tmux new -s ros_shell -d
             - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
+          - rosbag:
+            # start record hardware
+            - tmux new -s launch_rosbag -d
+            # source
+            - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_rosbag 'unset config_data' ENTER
+            - tmux send -t launch_rosbag 'export config=robots/r1/planning-pc/rosbag' ENTER
+            - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+            # launch rosbag
+            - tmux send -t launch_rosbag 'eval $config_data' ENTER
+          
         - stop:
           # remove all the tmux sessions
+          - rosbag:
+              - stop:
+                # start stop record
+                - tmux new -s launch_rosbag_stop -d
+                - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+                # stop record node
+                - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_planning_pc' ENTER
+              - sessions:
+                # stop the sessions
+                # - until rostopic list ; do sleep 1; done
+                - tmux kill-session -t launch_rosbag_stop
+                - tmux kill-session -t launch_rosbag
           - roscore:
             - tmux kill-session -t ${host}_roscore
           - planning:
@@ -424,25 +432,6 @@
             - tmux kill-session -t launch_hardware
           - shell:
             - tmux kill-session -t ros_shell
-          - rosbag:
-            - stop:
-              # start record hardware
-              - tmux new -s launch_rosbag_stop -d
-              # source
-              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_stop 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_stop 'export config=robots/r1/planning-pc/rosbag_stop' ENTER
-              - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
-              
-              # launch rosbag
-              - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-              - tmux kill-session -t launch_rosbag_stop
-            - recorder:
-              - tmux kill-session -t launch_rosbag_recorder
-            - bag:
-              - tmux kill-session -t launch_rosbag_start
           
         - rosclean:
           # stop all ros nodes
@@ -541,3 +530,26 @@
             - $git_fn "$REPOS"
 
 
+    ################################################################################################
+    - local:
+    ################################################################################################
+      # only docker container on basestation, no ssh
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
+      
+      - launch:
+        # start tmux sessions
+        - start:
+          - xsens:
+            # start the tmux session
+            - tmux new -s xsens -d
+            # source
+            - tmux send -t xsens 'source ~/deploy_ws/devel/planning/launch/devel/setup.zsh' ENTER
+            # run planning-pc launch
+            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+            # message user
+            - echo "Launch xsens in tmux session xsens"
+          
+        # stop tmux sessions
+        - stop:
+          - xsens:
+            - tmux kill-session -t xsens

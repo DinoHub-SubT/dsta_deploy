@@ -377,36 +377,16 @@
             - echo "Launch deployed in tmux session ${host}_launch_${config}"
           
           - rosbag:
-            - recorder:  
-              # start the recorder tmux session
-              - tmux new -s launch_rosbag_recorder -d
-              # source
-              - tmux send -t launch_rosbag_recorder 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_recorder 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config=robots/r2/planning-pc/recorder' ENTER
-              - tmux send -t launch_rosbag_recorder 'export config_data=$(get_config_data "$config")' ENTER
-
-              # launch recorder
-              - tmux send -t launch_rosbag_recorder 'mon launch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-
-            - bag:
-              # start record hardware
-              - tmux new -s launch_rosbag_start -d
-              # source
-              - tmux send -t launch_rosbag_start 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_start 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_start 'export config=robots/r2/planning-pc/rosbag_start' ENTER
-              - tmux send -t launch_rosbag_start 'export config_data=$(get_config_data "$config")' ENTER
-              
-              # launch rosbag
-              - tmux send -t launch_rosbag_start 'roslaunch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-
-            # message user
-            - echo "Launch deployed in tmux session launch_rosbag"
+            # start record hardware
+            - tmux new -s launch_rosbag -d
+            # source
+            - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+            # manually set the tmux env vars...for now.
+            - tmux send -t launch_rosbag 'unset config_data' ENTER
+            - tmux send -t launch_rosbag 'export config=robots/r2/planning-pc/rosbag' ENTER
+            - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+            # launch rosbag
+            - tmux send -t launch_rosbag 'eval $config_data' ENTER
           
           - shell:
             # empty shell prompt
@@ -416,6 +396,18 @@
 
         - stop:
           # remove all the tmux sessions
+          - rosbag:
+              - stop:
+                # start stop record
+                - tmux new -s launch_rosbag_stop -d
+                - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+                # stop record node
+                - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_planning_pc' ENTER
+              - sessions:
+                # stop the sessions
+                # - until rostopic list ; do sleep 1; done
+                - tmux kill-session -t launch_rosbag_stop
+                - tmux kill-session -t launch_rosbag
           - roscore:
             - tmux kill-session -t ${host}_roscore
           - planning:
@@ -424,25 +416,6 @@
             - tmux kill-session -t launch_hardware
           - shell:
             - tmux kill-session -t ros_shell
-          - rosbag:
-            - stop:
-              # start record hardware
-              - tmux new -s launch_rosbag_stop -d
-              # source
-              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-              
-              # manually set the tmux env vars...for now.
-              - tmux send -t launch_rosbag_stop 'unset config_data' ENTER
-              - tmux send -t launch_rosbag_stop 'export config=robots/r2/planning-pc/rosbag_stop' ENTER
-              - tmux send -t launch_rosbag_stop 'export config_data=$(get_config_data "$config")' ENTER
-              
-              # launch rosbag
-              - tmux send -t launch_rosbag_stop 'roslaunch robot_launch_scripting subt.launch computer:=planning-pc robot:=robots/logging $config_data' ENTER
-              - tmux kill-session -t launch_rosbag_stop
-            - recorder:
-              - tmux kill-session -t launch_rosbag_recorder
-            - bag:
-              - tmux kill-session -t launch_rosbag_start
           
         - rosclean:
           # stop all ros nodes
