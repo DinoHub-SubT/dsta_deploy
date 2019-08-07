@@ -632,6 +632,7 @@
             - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
             # message user
             - echo "Launch map-resender in tmux session map-resender"
+
         # stop tmux sessions
         - stop:
           - xsens:

@@ -13,7 +13,7 @@
 - git:
     local-name: tip_over_recovery
     uri: git@bitbucket.org:cmusubt/tip_over_recovery.git
-    version: 9f84fddaae5ddacf408cf1412c7d83bc037ea496
+    version: 3d1f5069f14f9c605d6b64a9196aa1e963af99a6
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: 29ea293f67305a755b4ad8b7028a604f6354cca3
+    version: ee64dac23b7d40602514d5929bdeb892bc4a5a4f
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
@@ -41,7 +41,7 @@
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
-    version: 8599d2c224b2523501246f358e185b8a14537a08
+    version: 7d52538293b48120473efbc43a92c4cb6d393264
 - git:
     local-name: xbee_bridge
     uri: git clone git@bitbucket.org:cmusubt/xbee_bridge.git

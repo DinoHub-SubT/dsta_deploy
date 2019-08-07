@@ -77,11 +77,11 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: d463c803a1749f708d17a860b678dc1b86c0a0db
+    version: 700752eb19db97c35b6c7d63835e6073774aeed6
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
-    version: deploy-stable-branch#1
+    version: 30259050cbf9be499e0c4bf777095d77c8a8f071
 - git:
     local-name: terrain_cloud_reset
     uri: git@bitbucket.org:cmusubt/terrain_cloud_reset.git

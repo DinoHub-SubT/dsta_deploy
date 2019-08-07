@@ -682,3 +682,4 @@
             - tmux kill-session -t wifi-bluetooth
           - map-resender:
             - tmux kill-session -t map-resender
+ 
