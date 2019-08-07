@@ -32,7 +32,6 @@
           --delete
           --exclude=src/basestation
           --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
-          --exclude=src/perception
           --exclude=src/launch/ugv_setup/logging/nuc/bags" '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
@@ -546,7 +545,7 @@
           - cd object_detection/
           # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
           - touch modules/CATKIN_IGNORE
-          # - touch realsense_fork/CATKIN_IGNORE
+          - touch realsense_fork/CATKIN_IGNORE
           - catkin build --force-cmake
 
       - clean:
