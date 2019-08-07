@@ -9,7 +9,7 @@
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 7f2190a65a592ca57398880cd20efe50eeb81049
+    version: 6f6ad0dbbec398daf2ada32acd186a33b772e19d 
 - git:
     local-name: basestation_launch
     uri: git@bitbucket.org:cmusubt/basestation_launch.git
@@ -17,7 +17,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: 6dcfd3b21dccc7a7f4e6224a647cadd902464bce
+    version: b98c728023df3b801c76f467eb36928d6279f025
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
@@ -29,11 +29,11 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 95da06a01765c7bb8dedc7cd35544b10bf2e30b7
+    version: 7b3a0682e2d5d886f93b187c80db7838c2422410
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: c0ceb49ffd9df8017df738d221d6244866006620
+    version: b91339f76e55ccef7b6900ef2142ffba0798b604
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
@@ -45,11 +45,11 @@
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 3158185b712b5f05c6b3b3e75ae93146454f3aef
+    version: 65e79fea0531d543f3af60f56d2abf83b684cf71
 - git:
     local-name: planning_workspace
     uri: git@bitbucket.org:cmusubt/planning_workspace.git
-    version: 6f9911c4544258a57d0acc4a3667b97f05e23c34
+    version: ac07af62fb0544d4e89c942ecfb9dfce7f8c17fe
 - git:
     local-name: pointcloud_pose_msgs
     uri: git@bitbucket.org:cmusubt/pointcloud_pose_msgs.git
@@ -61,4 +61,4 @@
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
-    version: ceb5d58
+    version: bad0c551d3977905c956bbc5cb4c7438b14a8833
