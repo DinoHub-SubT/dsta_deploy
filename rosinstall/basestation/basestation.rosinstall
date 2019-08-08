@@ -9,7 +9,7 @@
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 6f6ad0dbbec398daf2ada32acd186a33b772e19d 
+    version: 6cd20c0e923a114a775f80a27c50e40b73c5505b 
 - git:
     local-name: basestation_launch
     uri: git@bitbucket.org:cmusubt/basestation_launch.git
@@ -17,7 +17,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: b98c728023df3b801c76f467eb36928d6279f025
+    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
@@ -70,3 +70,11 @@
     local-name: xbee_bridge
     uri: git@bitbucket.org:cmusubt/xbee_bridge.git
     version: b7d2ae5f61f346824acfaed6f0f327d40a8e5d86
+- git:
+    local-name: subt_control_panel
+    uri: git@bitbucket.org:cmusubt/subt_control_panel.git
+    version: master 
+- git:
+    local-name: total_station_gate_node
+    uri: git@bitbucket.org:cmusubt/total_station_gate_node.git
+    version: 8ac49b0f4f1c68a233061a9bab7d8658b9a88443

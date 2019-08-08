@@ -347,3 +347,23 @@
         - export REPOS=$(find . -maxdepth 1 \! \( -name darpa -o -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
         - $git_fn "$REPOS"
 
+# current alias settings -- for now
+# alias deployer="cd $HOME/deploy_ws/src && ./deployer"
+# alias docker-join-basestation="
+#  docker exec subt bash -c \"sed -i '/MCAST_GROUP/d' /home/developer/.bashrc  \";
+#  docker exec subt bash -c \"sed -i '/ROS_MASTER_URI/d' /home/developer/.bashrc  \";
+#  docker exec subt bash -c \"sed -i '/deploy_ws\/devel/d' /home/developer/.bashrc  \";
+#  docker exec subt bash -c \"echo 'export MCAST_GROUP=224.0.0.251 ' >> ~/.bashrc \";
+#  docker exec subt bash -c \"echo 'export ROS_MASTER_URI=http://system76-pc:11311 ' >> ~/.bashrc \";
+#  docker exec subt bash -c \"echo 'source ~/deploy_ws/devel/basestation/repo/setup.bash' >> ~/.bashrc  \";
+#  cd /home/explorer/deploy_ws/src/docker/scripts;
+#  ./join.bash --name subt;"
+# alias docker-join-perception="
+#  docker exec subt-perception bash -c \"sed -i '/MCAST_GROUP/d' /home/developer/.bashrc  \";
+#  docker exec subt-perception bash -c \"sed -i '/ROS_MASTER_URI/d' /home/developer/.bashrc  \";
+#  docker exec subt-perception bash -c \"sed -i '/deploy_ws\/devel/d' /home/developer/.bashrc  \";
+#  docker exec subt-perception bash -c \"echo 'export MCAST_GROUP=224.0.0.251 ' >> ~/.bashrc \";
+#  docker exec subt-perception bash -c \"echo 'export ROS_MASTER_URI=http://system76-pc:11311 ' >> ~/.bashrc \";
+#  docker exec subt-perception bash -c \"echo 'source ~/deploy_ws/devel/perception/objdet/setup.bash' >> ~/.bashrc  \";
+#  cd /home/explorer/deploy_ws/src/docker/scripts;
+#  ./join.bash --name subt-perception;"
