@@ -27,6 +27,7 @@
       
       # rsync options
       - export copy_opts="-avzh --delete
+        --exclude=src/basestation
         --exclude=src/planning
         --exclude=src/state_estimation
         --exclude=src/launch/ugv_setup/logging/base_station/bags
@@ -75,7 +76,13 @@
           - ssh $HOP_HOST ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
           # copy command
-          - export copy_opts="-avzh --delete --exclude=src/planning --exclude=src/state_estimation --exclude=src/subt_robot_examples_latest.tgz "
+          - export copy_opts="-avzh --delete
+                --exclude=src/planning
+                --exclude=src/basestation
+                --exclude=src/state_estimation
+                --exclude=src/launch/ugv_setup/logging/base_station/bags
+                --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb 
+                --exclude=src/subt_robot_examples_latest.tgz "
           - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
           - 'export copy_cmd=$copy_to'
 
