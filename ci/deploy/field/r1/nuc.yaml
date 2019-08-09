@@ -316,7 +316,9 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
-            - rm .catkin_tools/profiles/profiles.yaml
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -339,7 +341,9 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
-            - rm .catkin_tools/profiles/profiles.yaml
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set state_est
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -351,7 +355,9 @@
         - state_est:
           - launch:
             - cd $DEPLOY_SRC/launch/
-            - rm .catkin_tools/profiles/profiles.yaml
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set state_est
             - catkin clean -y
           - cd $DEPLOY_SRC/state_estimation/
@@ -369,7 +375,9 @@
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
-            - rm .catkin_tools/profiles/profiles.yaml
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set planning
             - catkin clean -y
           - cd $DEPLOY_SRC/planning/
@@ -545,7 +553,9 @@
         - cd ~/deploy_ws/src/
         - wifi-bluetooth:
           - cd perception/
-          - rm .catkin_tools/profiles/profiles.yaml
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
           - rm -rf .catkin_tools/profiles/default
           - catkin profile set nuc
           - cd object_detection/
