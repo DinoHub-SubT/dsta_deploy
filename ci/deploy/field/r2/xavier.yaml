@@ -225,9 +225,13 @@
         # build launch workspace
         - launch:
           - cd $DEPLOY_SRC/launch/
+<<<<<<< HEAD
           - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
               rm .catkin_tools/profiles/profiles.yaml;
             fi
+=======
+          - rm .catkin_tools/profiles/profiles.yaml
+>>>>>>> update to rosbag remove
           - catkin profile set perception
           - catkin clean -b --yes
           - catkin build

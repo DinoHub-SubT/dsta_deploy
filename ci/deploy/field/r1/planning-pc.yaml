@@ -77,8 +77,8 @@
         - eval $copy_cmd
      
       # delete remote deploy workspace
-      - bags:
-        - delete:
+      - delete:
+        - bags:
           - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/planning-pc/*"
 
       # delete remote deploy workspace
