@@ -96,8 +96,12 @@
 
       # delete remote deploy workspace
       - delete:
-        - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+        - bags:
+          - ssh $HOP_HOST ssh $user@$host "rm -rf ~/logging/*"
 
+      # delete remote deploy workspace
+      - delete-deploy:
+        - ssh $HOP_HOST ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
       
     ################################################################################################
     - deploy:
@@ -174,9 +178,8 @@
       - setup:
         - cd $DEPLOY_SRC/perception/object_detection/training/tensorrt/
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/ssd_mnv1_positives_218056 --batch_size 4
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_ssd_mnv1_positives_109218 --batch_size 2
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_ssd_mnv1_positives_08_01 --batch_size 4
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_with_negatives --batch_size 2
+        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_negative_08_06 --batch_size 4
+        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_negative_08_06 --batch_size 2
 
       ####################################################
       # build workspaces

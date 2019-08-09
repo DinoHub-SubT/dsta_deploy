@@ -75,9 +75,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-      
+
       # delete remote deploy workspace
       - delete:
+        - bags:
+          - ssh $user@$host "rm -f $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/planning-pc/*"
+
+      # delete remote deploy workspace
+      - delete-deploy:
         - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################

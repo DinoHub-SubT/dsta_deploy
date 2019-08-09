@@ -93,11 +93,15 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
+      
+      # delete remote deploy workspace
+        - delete:
+          - bags:
+            - ssh $HOP_HOST ssh $user@$host "rm -rf /logging/*"
 
       # delete remote deploy workspace
-      - delete:
-        - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
-
+      - delete-deploy:
+        - ssh $HOP_HOST ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
       
     ################################################################################################
     - deploy:
