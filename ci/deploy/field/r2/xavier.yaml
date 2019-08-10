@@ -33,10 +33,7 @@
             --exclude=src/subt_robot_examples_latest.tgz
             --exclude=src/launch/ugv_setup/logging/base_station/bags
             --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
-            --exclude=src/perception/object_detection/inference/data/models/ssd_mnv1_positives_218056
-            --exclude=src/perception/object_detection/inference/data/models/thermal_ssd_mnv1_positives_109218
-            --exclude=src/perception/object_detection/inference/data/models/rgb_ssd_mnv1_positives_08_01
-            --exclude=src/perception/object_detection/inference/data/models/thermal_with_negatives"
+            --exclude=src/perception/object_detection/inference/data/models/"
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
@@ -177,7 +174,7 @@
       ####################################################
       - setup:
         - cd $DEPLOY_SRC/perception/object_detection/training/tensorrt/
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/ssd_mnv1_positives_218056 --batch_size 4
+        - sudo jetson_clocks
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_negative_08_06 --batch_size 4
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_negative_08_06 --batch_size 2
 
