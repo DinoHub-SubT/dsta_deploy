@@ -27,9 +27,11 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete 
-            --exclude=src/perception
-            --exclude=src/launch/ugv_setup/logging/nuc/bags" '
+      - 'export copy_opts="-avzh --delete
+        --exclude=src/basestation
+        --exclude=src/launch/ugv_setup/logging/base_station/bags
+        --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
+        --exclude=src/launch/ugv_setup/logging/nuc/bags " '
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST -i ~/.ssh/deploy ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
@@ -67,9 +69,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-      
+     
       # delete remote deploy workspace
       - delete:
+        - bags:
+          - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/nuc/*"
+
+      # delete remote deploy workspace
+      - delete-deploy:
         - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
@@ -272,7 +279,7 @@
       # -- assumes the extended ws are already built
       # -- add only those repos that need rosdep
       ####################################################
-      - rosdep:
+      - setup:
         # install any thirdparty deps
         - cd planning
         - planning:
@@ -309,6 +316,9 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -331,6 +341,9 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set state_est
             - catkin clean -b --yes
             - catkin build --force-cmake
@@ -342,6 +355,9 @@
         - state_est:
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set state_est
             - catkin clean -y
           - cd $DEPLOY_SRC/state_estimation/
@@ -359,6 +375,9 @@
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
             - catkin profile set planning
             - catkin clean -y
           - cd $DEPLOY_SRC/planning/
@@ -523,104 +542,6 @@
           - ps aux | grep ros
 
 
-      ####################################################
-      # git updater
-      ####################################################
-      - git:
-        - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
-        - 'export DEPLOY_SRC=$DEPLOY_WS/src'
-        
-        # git status check          
-        - git_status() {
-            for repo in $1; do
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                git config --get remote.origin.url;
-                git status;
-                echo -e "\n\n";
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_status
-
-        # git status check          
-        - git_dirty() {
-            for repo in $1; do
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                if [[ $(git status -s) ]]; then
-                  echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                  git config --get remote.origin.url;
-                  git status;
-                  echo -e "\n\n";
-                fi;
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_dirty
-
-        # wstool update to git hash
-        - git_updater() {
-            for repo in $1; do
-              echo "repo is $repo";
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
-                export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
-                wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
-                echo -e "\n\n";
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_updater
-
-        ####################################################
-        # git commands for planning workspace
-        ####################################################
-        - planning:
-          - cd $DEPLOY_SRC/planning
-
-          # git update to thirdparty ws
-          - thirdparty:
-            - status:
-              - 'export -f git_fn=$git_status'
-            - update:
-              - 'export -f git_fn=$git_updater'
-              
-            - cd thirdparty/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_fn "$REPOS"
-
-          # git update to repo ws
-          - repo:
-            - status:
-              - 'export -f git_fn=$git_status'
-            - update:
-              - 'export -f git_fn=$git_updater'
-
-            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
-            - git_fn "$REPOS"
-          
-        # update the planning repso
-        - state_est:
-          - cd $DEPLOY_SRC/state_estimation
-          - loam:
-            - cd loam/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
-          - thirdparty:
-            - cd thirdparty/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
-          - repo:
-            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools -o -name .rosinstall \) )
-            - git_updater "$REPOS"
-
     ################################################################################################
     - local:
     ################################################################################################
@@ -631,16 +552,22 @@
       - build:
         - cd ~/deploy_ws/src/
         - wifi-bluetooth:
-          - cd state_estimation/wifi-bluetooth/catkin
+          - cd perception/
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
+          - rm -rf .catkin_tools/profiles/default
+          - catkin profile set nuc
+          - cd object_detection/
           # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
-          - touch object_detection/modules/CATKIN_IGNORE
-          - touch object_detection/realsense_fork/CATKIN_IGNORE
+          - touch modules/CATKIN_IGNORE
+          # - touch realsense_fork/CATKIN_IGNORE
           - catkin build --force-cmake
 
       - clean:
         - cd ~/deploy_ws/src/
         - wifi-bluetooth:
-          - cd state_estimation/wifi-bluetooth/catkin
+          - cd perception/object_detection/
           - catkin clean
       
       - launch:
@@ -659,7 +586,7 @@
             # start the tmux session
             - tmux new -s wifi-bluetooth -d
             # source
-            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/state_estimation/objdet/setup.zsh' ENTER
+            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
             # run wifi-bluetooth launch
             - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
             # message user
@@ -668,7 +595,7 @@
             # start the tmux session
             - tmux new -s map-resender -d
             # source
-            - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/state_estimation/objdet/setup.zsh' ENTER
+            - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
             # run wifi-bluetooth launch
             - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
             # message user

@@ -139,6 +139,7 @@
     - launch:
       - cd $DEPLOY_SRC/launch/
       - catkin clean -b --yes
+      - rm .catkin_tools/profiles/profiles.yaml
       - catkin profile set planning-no-hardware
       - catkin build --no-status
 

@@ -28,8 +28,11 @@
       # rsync options
       - export copy_opts="-avzh --delete
             --exclude=src/planning
+            --exclude=src/basestation
             --exclude=src/state_estimation 
             --exclude=src/subt_robot_examples_latest.tgz
+            --exclude=src/launch/ugv_setup/logging/base_station/bags
+            --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
             --exclude=src/perception/object_detection/inference/data/models/ssd_mnv1_positives_218056
             --exclude=src/perception/object_detection/inference/data/models/thermal_ssd_mnv1_positives_109218
             --exclude=src/perception/object_detection/inference/data/models/rgb_ssd_mnv1_positives_08_01
@@ -68,12 +71,18 @@
         # ignoring transfer.to delete of 'ssd_mnv1_positives_218056' so we do not lose protobuf generation
         # users must force a transfer clean.
         # TODO: re-structure setups
-        - to-clean:
+        - to-models:
           # create the remote directory
           - ssh $HOP_HOST ssh $user@$host "mkdir -p $REMOTE_DEPLOY_PATH"
           
           # copy command
-          - export copy_opts="-avzh --delete --exclude=src/planning --exclude=src/state_estimation --exclude=src/subt_robot_examples_latest.tgz "
+          - export copy_opts="-avzh --delete 
+            --exclude=src/planning
+            --exclude=src/basestation
+            --exclude=src/state_estimation
+            --exclude=src/launch/ugv_setup/logging/base_station/bags
+            --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
+            --exclude=src/subt_robot_examples_latest.tgz "
           - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
           - 'export copy_cmd=$copy_to'
 
@@ -87,8 +96,12 @@
 
       # delete remote deploy workspace
       - delete:
-        - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+        - bags:
+          - ssh $HOP_HOST ssh $user@$host "rm -rf ~/logging/*"
 
+      # delete remote deploy workspace
+      - delete-deploy:
+        - ssh $HOP_HOST ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
       
     ################################################################################################
     - deploy:
@@ -165,9 +178,8 @@
       - setup:
         - cd $DEPLOY_SRC/perception/object_detection/training/tensorrt/
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/ssd_mnv1_positives_218056 --batch_size 4
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_ssd_mnv1_positives_109218 --batch_size 2
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_ssd_mnv1_positives_08_01 --batch_size 4
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_with_negatives --batch_size 2
+        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_negative_08_06 --batch_size 4
+        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_negative_08_06 --batch_size 2
 
       ####################################################
       # build workspaces
@@ -178,20 +190,44 @@
         # build the deps workspaces
         - thirdparty:
           - cd thirdparty/catkin
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
+          - catkin profile set default
+          - catkin build --force-cmake
+        
+        # build the deps workspaces
+        - objdet_deps:
+          - cd objdet_deps/catkin
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
+          - catkin profile set default
           - catkin build --force-cmake
         
         # build perception workspace
         - perception:
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
+          - catkin profile set default
           - catkin build --force-cmake
         
           # build the deps workspaces
         - recording:
           - cd recording/catkin
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
+          - catkin profile set default
           - catkin build --force-cmake
         
         # build launch workspace
         - launch:
           - cd $DEPLOY_SRC/launch/
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
           - catkin profile set perception
           - catkin clean -b --yes
           - catkin build
@@ -203,12 +239,18 @@
         - cd perception/
         - launch:
           - cd $DEPLOY_SRC/launch/
+          - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+              rm .catkin_tools/profiles/profiles.yaml;
+            fi
           - catkin profile set perception
           - catkin clean -y
         - recording:
           - cd recording/catkin
           - catkin clean -y
-        - repo:
+        - perception:
+          - catkin clean -y
+        - objdet_deps:
+          - cd objdet_deps/catkin
           - catkin clean -y
         - thirdparty:
           - cd thirdparty/catkin

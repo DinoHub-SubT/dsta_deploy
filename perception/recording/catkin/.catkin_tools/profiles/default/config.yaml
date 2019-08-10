@@ -9,7 +9,7 @@ cmake_args:
 - -DCATKIN_ENABLE_TESTING=False
 devel_layout: linked
 devel_space: ../../../../devel/perception/recording
-extend_path: ../../../../devel/perception/repo
+extend_path: ../../../../devel/perception/objdet
 install: false
 install_space: ../../../../install/perception/recording
 isolate_install: false

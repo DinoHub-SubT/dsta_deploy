@@ -44,5 +44,5 @@
     version: 7d52538293b48120473efbc43a92c4cb6d393264
 - git:
     local-name: xbee_bridge
-    uri: git clone git@bitbucket.org:cmusubt/xbee_bridge.git
+    uri: git@bitbucket.org:cmusubt/xbee_bridge.git
     version: master

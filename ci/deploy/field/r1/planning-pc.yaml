@@ -27,7 +27,16 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation --exclude=src/launch/ugv_setup/logging/planning-pc/bags -e \"ssh -i $HOME/.ssh/deploy\" " ' 
+      - 'export copy_opts="
+          -avzh
+          --delete
+          --exclude=src/basestation
+          --exclude=src/launch/ugv_setup/logging/base_station/bags
+          --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
+          --exclude=src/perception
+          --exclude=src/state_estimation
+          --exclude=src/launch/ugv_setup/logging/planning-pc/bags
+          -e \"ssh -i $HOME/.ssh/deploy\" " ' 
       # rsync commands
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
@@ -66,9 +75,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-      
+     
       # delete remote deploy workspace
       - delete:
+        - bags:
+          - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/planning-pc/*"
+
+      # delete remote deploy workspace
+      - delete-deploy:
         - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
@@ -176,11 +190,11 @@
 
         # download the subt_robot_examples_latest
         # NOTE: only do this on ONCE. requires internet access.
-        - download:
-          - if [ -f subt_robot_examples_latest.tgz ]; then
-              rm subt_robot_examples_latest.tgz;
-            fi
-          - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
+        # - download:
+        #   - if [ -f subt_robot_examples_latest.tgz ]; then
+        #       rm subt_robot_examples_latest.tgz;
+        #     fi
+        #   - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
 
         # clone & update the planning workspace
         - cd planning/
@@ -236,7 +250,7 @@
       # -- assumes the extended ws are already built
       # -- add only those repos that need rosdep
       ####################################################
-      - rosdep:
+      - setup:
         # install any thirdparty deps
         - cd planning
         - planning:
@@ -244,6 +258,9 @@
         - xsens:
           - cd $DEPLOY_SRC/planning/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
           - sudo ./mt_sdk_4.8.sh
+        - copley:
+          - cd $DEPLOY_SRC/planning/copley_ros_driver/setup/
+          - ./install_copley_module.sh
 
       ####################################################
       # build workspaces
@@ -269,6 +286,7 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake

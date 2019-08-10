@@ -27,7 +27,16 @@
       - 'export REMOTE_DEPLOY_PATH=/home/$user/deploy_ws/'
       
       # rsync options
-      - 'export copy_opts="-avzh --delete --exclude=src/perception --exclude=src/state_estimation --exclude=src/launch/ugv_setup/logging/planning-pc/bags -e \"ssh -i $HOME/.ssh/deploy\" " ' 
+      - 'export copy_opts="
+          -avzh
+          --delete
+          --exclude=src/basestation
+          --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
+          --exclude=src/perception
+          --exclude=src/state_estimation
+          --exclude=src/launch/ugv_setup/logging/planning-pc/bags
+          --exclude=src/launch/ugv_setup/logging/base_station/bags
+          -e \"ssh -i $HOME/.ssh/deploy\" " ' 
       # rsync commands
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
@@ -66,9 +75,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-      
+
       # delete remote deploy workspace
       - delete:
+        - bags:
+          - ssh $user@$host "rm -f $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/planning-pc/*"
+
+      # delete remote deploy workspace
+      - delete-deploy:
         - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
 
     ################################################################################################
@@ -226,11 +240,14 @@
       # -- assumes the extended ws are already built
       # -- add only those repos that need rosdep
       ####################################################
-      - rosdep:
+      - setup:
         # install any thirdparty deps
         - cd planning
         - planning:
           - ./Planning_workspace/install_dependencies.sh
+        - copley:
+          - cd copley_ros_driver/setup/
+          - ./install_copley_module.sh
 
       ####################################################
       # build workspaces
@@ -256,6 +273,7 @@
           # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
+            - rm .catkin_tools/profiles/profiles.yaml
             - catkin profile set planning
             - catkin clean -b --yes
             - catkin build --force-cmake

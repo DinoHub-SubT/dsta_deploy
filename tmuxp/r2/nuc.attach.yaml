@@ -28,7 +28,7 @@ windows:
         - ssh nuc@nuc
         - tmux a -t wifi-bluetooth
       - shell_command:
-        - ssh robot@planning-pc
+        - ssh ugv2@ugv2
         - ssh nuc@nuc
         - tmux a -t map-resender
   

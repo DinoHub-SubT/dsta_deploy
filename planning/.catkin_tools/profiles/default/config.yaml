@@ -10,7 +10,7 @@ install: false
 install_space: ../../install/planning/repo
 isolate_install: false
 jobs_args: []
-log_space: ../../logs/planning/repo/
+log_space: ../../logs/planning/repo
 make_args: []
 source_space: .
 use_env_cache: false

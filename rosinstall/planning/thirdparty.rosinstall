@@ -2,5 +2,5 @@
 # bug in recent master branch. Going back to stable version.
 - git:
     local-name: rosmon
-    uri: https://github.com/xqms/rosmon.git
-    version: 426c0772a8324b5bccd76135adcb5494887f2918
+    uri: git@bitbucket.org:cmusubt/rosmon.git
+    version: cfe2d03

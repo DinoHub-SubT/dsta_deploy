@@ -69,7 +69,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: b98c728023df3b801c76f467eb36928d6279f025
+    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git

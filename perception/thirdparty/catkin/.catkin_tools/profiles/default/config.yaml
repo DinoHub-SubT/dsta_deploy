@@ -9,7 +9,7 @@ cmake_args:
 devel_layout: linked
 devel_space: ../../../../devel/perception/thirdparty
 extend_path: /opt/ros/melodic
-install: true
+install: false
 install_space: ../../../../install/perception/thirdparty
 isolate_install: false
 jobs_args: []
