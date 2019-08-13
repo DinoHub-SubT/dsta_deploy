@@ -90,15 +90,13 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-      
-      # delete remote deploy workspace
-      - delete:
-        - bags:
-          - ssh $HOP_HOST ssh $user@$host "rm -rf /logging/*"
 
-      # delete remote deploy workspace
-      - delete-deploy:
-        - ssh $HOP_HOST ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+    ################################################################################################
+    - delete-bags:
+    ################################################################################################
+      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
+      - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
+      - rm -rf /logging/*
       
     ################################################################################################
     - deploy:
@@ -283,67 +281,62 @@
 
         ### == user can modify done. ==
         - start:
-          - cameras:
-            # start the tmux session
-            - tmux new -s launch_cameras -d
-            # source
-            - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_cameras 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
-                xavier_cameras:=true xavier_realsense_launch:=silver_payload_xavier xavier_flir_launch:=silver_payload' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_cameras"
-          - inference:
-            # start the tmux session
-            - tmux new -s launch_inference -d
-            # source
-            - tmux send -t launch_inference 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_inference 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
-                xavier_inference:=true xavier_inference_launch:=silver_payload' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_inference"
-          - modules:
-            # start the tmux session
-            - tmux new -s launch_modules -d
-            # source
-            - tmux send -t launch_modules 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_modules 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
-                xavier_modules:=true xavier_modules_launch:=silver_payload' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_modules"
-          - recorder:
-            # start the tmux session
-            - tmux new -s launch_record -d
-            # source
-            - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_record 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_record"
-          - healthmonitor:
-            # start the tmux session
-            - tmux new -s launch_healthmonitor -d
-            # source
-            - tmux send -t launch_healthmonitor 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_healthmonitor 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier health_monitor:=true computer:=ugv1' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_healthmonitor"
+          # cameras
+          # start the tmux session
+          - tmux new -s launch_cameras -d
+          # source
+          - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_cameras 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
+              xavier_cameras:=true xavier_realsense_launch:=silver_payload_xavier xavier_flir_launch:=silver_payload' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_cameras"
+          # inference
+          # start the tmux session
+          - tmux new -s launch_inference -d
+          # source
+          - tmux send -t launch_inference 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_inference 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
+              xavier_inference:=true xavier_inference_launch:=silver_payload' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_inference"
+          # modules
+          # start the tmux session
+          - tmux new -s launch_modules -d
+          # source
+          - tmux send -t launch_modules 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_modules 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
+              xavier_modules:=true xavier_modules_launch:=silver_payload' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_modules"
+          # recorder
+          # start the tmux session
+          - tmux new -s launch_record -d
+          # source
+          - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_record 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_record"
+          #  healthmonitor
+          # start the tmux session
+          - tmux new -s launch_healthmonitor -d
+          # source
+          - tmux send -t launch_healthmonitor 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_healthmonitor 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier health_monitor:=true computer:=ugv1' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_healthmonitor"
 
         - stop:
           # remove all the tmux sessions
-          - cameras:
-            - tmux kill-session -t launch_cameras
-          - modules:
-            - tmux kill-session -t launch_modules
-          - inference:
-            - tmux kill-session -t launch_inference
-          - recorder:
-            - tmux kill-session -t launch_record
-          - healthmonitor:
-            - tmux kill-session -t launch_healthmonitor
+          - tmux kill-session -t launch_cameras
+          - tmux kill-session -t launch_modules
+          - tmux kill-session -t launch_inference
+          - tmux kill-session -t launch_record
+          - tmux kill-session -t launch_healthmonitor
 
         - rosclean:
           # stop all ros nodes

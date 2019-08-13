@@ -75,15 +75,13 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-     
-      # delete remote deploy workspace
-      - delete:
-        - bags:
-          - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/planning-pc/*"
 
-      # delete remote deploy workspace
-      - delete-deploy:
-        - ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+    ################################################################################################
+    - delete-bags:
+    ################################################################################################
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
+      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+      - rm -rf $DEPLOY_SRC/launch/ugv_setup/logging/planning-pc/bags/*
 
     ################################################################################################
     - docker:
@@ -360,73 +358,68 @@
         - export -f get_config_data
 
         - start:
-          - roscore:
-            # enable roscore
-            - 'export ROS_MASTER=true'
-            # start the tmux sessions
-            - tmux new -s ${host}_roscore -d
-            # source
-            - tmux send -t ${host}_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-            # run roscore
-            - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
           
-          - planning:
-            # parse the launch configuration params
-            - export config=robots/r1/planning-pc/planning
-            - export config_data=$(get_config_data "$config")
+          # enable roscore
+          - 'export ROS_MASTER=true'
+          # start the tmux sessions
+          - tmux new -s ${host}_roscore -d
+          # source
+          - tmux send -t ${host}_roscore 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # run roscore
+          - tmux send -t ${host}_roscore 'rosrun robot_launch_scripting launch_roscore.sh' ENTER
+          # parse the launch configuration params
+          - export config=robots/r1/planning-pc/planning
+          - export config_data=$(get_config_data "$config")
 
-            # start the tmux session
-            - tmux new -s launch_planning -d
-            # source
-            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # start the tmux session
+          - tmux new -s launch_planning -d
+          # source
+          - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_planning 'unset config_data' ENTER
-            - tmux send -t launch_planning 'export config=robots/r1/planning-pc/planning' ENTER
-            - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_planning 'unset config_data' ENTER
+          - tmux send -t launch_planning 'export config=robots/r1/planning-pc/planning' ENTER
+          - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
 
-            # run autonomy launch
-            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_planning"
-          
-          - hardware:
-            # parse the launch configuration params
-            - export config=robots/r1/planning-pc/hardware
-            - export config_data=$(get_config_data "$config")
+          # run autonomy launch
+          - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_planning"
+        
+          # parse the launch configuration params
+          - export config=robots/r1/planning-pc/hardware
+          - export config_data=$(get_config_data "$config")
 
-            # start the tmux session
-            - tmux new -s launch_hardware -d
-            # source
-            - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # start the tmux session
+          - tmux new -s launch_hardware -d
+          # source
+          - tmux send -t launch_hardware 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_hardware 'unset config_data' ENTER
-            - tmux send -t launch_hardware 'export config=robots/r1/planning-pc/hardware' ENTER
-            - tmux send -t launch_hardware 'export config_data=$(get_config_data "$config")' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_hardware 'unset config_data' ENTER
+          - tmux send -t launch_hardware 'export config=robots/r1/planning-pc/hardware' ENTER
+          - tmux send -t launch_hardware 'export config_data=$(get_config_data "$config")' ENTER
 
-            # run hardware launch
-            - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_hardware"
-          
-          - shell:
-            # empty shell prompt
-            - pwd
-            - tmux new -s ros_shell -d
-            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # run hardware launch
+          - tmux send -t launch_hardware 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_hardware"
+        
+          # empty shell prompt
+          - pwd
+          - tmux new -s ros_shell -d
+          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
-          - rosbag:
-            # start record hardware
-            - tmux new -s launch_rosbag -d
-            # source
-            - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_rosbag 'unset config_data' ENTER
-            - tmux send -t launch_rosbag 'export config=robots/r1/planning-pc/rosbag' ENTER
-            - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
-            # launch rosbag
-            - tmux send -t launch_rosbag 'eval $config_data' ENTER
+          # start record hardware
+          - tmux new -s launch_rosbag -d
+          # source
+          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_rosbag 'unset config_data' ENTER
+          - tmux send -t launch_rosbag 'export config=robots/r1/planning-pc/rosbag' ENTER
+          - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+          # launch rosbag
+          - tmux send -t launch_rosbag 'eval $config_data' ENTER
           
         - stop:
           # remove all the tmux sessions
@@ -442,13 +435,10 @@
                 # - until rostopic list ; do sleep 1; done
                 - tmux kill-session -t launch_rosbag_stop
                 - tmux kill-session -t launch_rosbag
-          - roscore:
+          - other:
             - tmux kill-session -t ${host}_roscore
-          - planning:
             - tmux kill-session -t launch_planning
-          - hardware:
             - tmux kill-session -t launch_hardware
-          - shell:
             - tmux kill-session -t ros_shell
           
         - rosclean:
@@ -459,94 +449,6 @@
           - pkill -f ros
           - rosnode list
           - ps aux | grep ros
-        
-      ####################################################
-      # git updater
-      ####################################################
-      - git:
-        - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
-        - 'export DEPLOY_SRC=$DEPLOY_WS/src'
-        
-        # git status check          
-        - git_status() {
-            for repo in $1; do
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                git config --get remote.origin.url;
-                git status;
-                echo -e "\n\n";
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_status
-
-        # git status check          
-        - git_dirty() {
-            for repo in $1; do
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                if [[ $(git status -s) ]]; then
-                  echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                  git config --get remote.origin.url;
-                  git status;
-                  echo -e "\n\n";
-                fi;
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_dirty
-
-        # wstool update to git hash
-        - git_updater() {
-            for repo in $1; do
-              echo "repo is $repo";
-              pushd $repo  > /dev/null 2>&1;
-              if [ -d .git ]; then
-                echo -e "\n${YELLOW}\trepo -> \t $(basename $repo) \n ${RESET}" ;
-                export GIT_COMMIT_HASH=$(git rev-parse --verify HEAD);
-                export ROSINSTALL_GIT_HASH=$(wstool info $(basename $repo) --yaml | grep -oP "version\K.*" | grep -oP " \K.*");
-                wstool set $(basename $repo) -v $GIT_COMMIT_HASH -y;
-                echo -e "\n\n";
-              fi;
-              popd  > /dev/null 2>&1;
-            done;
-          }
-        - export -f git_updater
-
-        ####################################################
-        # git commands for planning workspace
-        ####################################################
-        - planning:
-          - cd $DEPLOY_SRC/planning
-
-           git update to thirdparty ws
-          - thirdparty:
-            - status:
-              - 'export git_fn=git_status'
-            - update:
-              - 'export git_fn=git_updater'
-            - dirty:
-              - 'export git_fn=git_dirty'
-            # execute git fn            
-            - cd thirdparty/catkin
-            - export REPOS=$(find . -maxdepth 1 \! \( -name .catkin_tools -o -name .rosinstall \) )
-            - $git_fn "$REPOS"
-
-          # git update to repo ws
-          - repo:
-            - status:
-              - 'export git_fn=git_status'
-            - update:
-              - 'export git_fn=git_updater'
-            - dirty:
-              - 'export git_fn=git_dirty'
-            # execute git fn
-            - export REPOS=$(find . -maxdepth 1 \! \( -name thirdparty -o -name hardware -o -name .catkin_tools -o -name .rosinstall \) )
-            - $git_fn "$REPOS"
-
 
     ################################################################################################
     - local:

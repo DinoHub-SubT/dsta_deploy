@@ -70,15 +70,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
-     
-      # delete remote deploy workspace
-      - delete:
-        - bags:
-          - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH/launch/ugv_setup/logging/nuc/*"
 
-      # delete remote deploy workspace
-      - delete-deploy:
-        - ssh $HOP_HOST -i ~/.ssh/deploy ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
+    ################################################################################################
+    - delete-bags:
+    ################################################################################################
+      - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
+      - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
+      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+      - rm -rf $DEPLOY_SRC/launch/ugv_setup/logging/nuc/bags/*
 
     ################################################################################################
     - docker:
@@ -453,84 +452,81 @@
         - export -f get_config_data
         
         - start:
-          - planning:
-            # parse the launch configuration params
-            - export config=robots/r1/nuc/planning
-            - export config_data=$(get_config_data "$config")
+          # planning
+          # parse the launch configuration params
+          - export config=robots/r1/nuc/planning
+          - export config_data=$(get_config_data "$config")
 
-            # start the tmux session
-            - tmux new -s launch_planning -d
-            # source
-            - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # start the tmux session
+          - tmux new -s launch_planning -d
+          # source
+          - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
 
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_planning 'unset config_data' ENTER
-            - tmux send -t launch_planning 'export config=robots/r1/nuc/planning' ENTER
-            - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_planning 'unset config_data' ENTER
+          - tmux send -t launch_planning 'export config=robots/r1/nuc/planning' ENTER
+          - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
 
-            # run planning-pc launch
-            - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_planning"
+          # run planning-pc launch
+          - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_planning"
           
-          - state_est:
-            # parse the launch configuration params
-            - export config=robots/r1/nuc/state_est
-            - export config_data=$(get_config_data "$config")
+          # state_est
+          # parse the launch configuration params
+          - export config=robots/r1/nuc/state_est
+          - export config_data=$(get_config_data "$config")
 
-            # start the tmux session
-            - tmux new -s launch_state_est -d
-            # source
-            - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+          # start the tmux session
+          - tmux new -s launch_state_est -d
+          # source
+          - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_state_est 'unset config_data' ENTER
-            - tmux send -t launch_state_est 'export config=robots/r1/nuc/state_est' ENTER
-            - tmux send -t launch_state_est 'export config_data=$(get_config_data "robots/r1/nuc/state_est")' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_state_est 'unset config_data' ENTER
+          - tmux send -t launch_state_est 'export config=robots/r1/nuc/state_est' ENTER
+          - tmux send -t launch_state_est 'export config_data=$(get_config_data "robots/r1/nuc/state_est")' ENTER
 
-            # run planning-pc launch
-            - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_state_est"
+          # run planning-pc launch
+          - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_state_est"
           
-          - shell:
-            # empty shell prompt
-            - pwd
-            - tmux new -s ros_shell -d
-            - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+          # shell
+          # empty shell prompt
+          - pwd
+          - tmux new -s ros_shell -d
+          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
 
-          - rosbag:
-            # start record hardware
-            - tmux new -s launch_rosbag -d
-            # source
-            - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
-            # manually set the tmux env vars...for now.
-            - tmux send -t launch_rosbag 'unset config_data' ENTER
-            - tmux send -t launch_rosbag 'export config=robots/r1/nuc/rosbag' ENTER
-            - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
-            # launch rosbag
-            - tmux send -t launch_rosbag 'eval $config_data' ENTER
+          # rosbag
+          # start record hardware
+          - tmux new -s launch_rosbag -d
+          # source
+          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          # manually set the tmux env vars...for now.
+          - tmux send -t launch_rosbag 'unset config_data' ENTER
+          - tmux send -t launch_rosbag 'export config=robots/r1/nuc/rosbag' ENTER
+          - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+          # launch rosbag
+          - tmux send -t launch_rosbag 'eval $config_data' ENTER
           
         # stop tmux sessions    
         - stop:
-          # remove all the tmux sessions
           - rosbag:
-              - stop:
-                # start stop record
-                - tmux new -s launch_rosbag_stop -d
-                - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
-                # stop record node
-                - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_nuc' ENTER
-              - sessions:
-                # stop the sessions
-                # - until rostopic list ; do sleep 1; done
-                - tmux kill-session -t launch_rosbag_stop
-                - tmux kill-session -t launch_rosbag
-          - state_est:
+            - stop:
+              # start stop record
+              - tmux new -s launch_rosbag_stop -d
+              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+              # stop record node
+              - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_nuc' ENTER
+            - sessions:
+              # stop the sessions
+              # - until rostopic list ; do sleep 1; done
+              - tmux kill-session -t launch_rosbag_stop
+              - tmux kill-session -t launch_rosbag
+          - other:
             - tmux kill-session -t launch_state_est
-          - planning:
             - tmux kill-session -t launch_planning
-          - shell:  
             - tmux kill-session -t ros_shell
 
         - rosclean:
@@ -574,40 +570,37 @@
       - launch:
         # start tmux sessions
         - start:
-          - xsens:
-            # start the tmux session
-            - tmux new -s xsens -d
-            # source
-            - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
-            # run planning-pc launch
-            - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
-            # message user
-            - echo "Launch xsens in tmux session xsens"
-          - wifi-bluetooth:
-            # start the tmux session
-            - tmux new -s wifi-bluetooth -d
-            # source
-            - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
-            # run wifi-bluetooth launch
-            - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
-            # message user
-            - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
-          - map-resender:
-            # start the tmux session
-            - tmux new -s map-resender -d
-            # source
-            - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
-            # run wifi-bluetooth launch
-            - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
-            # message user
-            - echo "Launch map-resender in tmux session map-resender"
+          # xsens
+          # start the tmux session
+          - tmux new -s xsens -d
+          # source
+          - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
+          # run planning-pc launch
+          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+          # message user
+          - echo "Launch xsens in tmux session xsens"
+          #  wifi-bluetooth
+          # start the tmux session
+          - tmux new -s wifi-bluetooth -d
+          # source
+          - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
+          # run wifi-bluetooth launch
+          - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
+          # message user
+          - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
+          # map-resender
+          # start the tmux session
+          - tmux new -s map-resender -d
+          # source
+          - tmux send -t map-resender 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
+          # run wifi-bluetooth launch
+          - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
+          # message user
+          - echo "Launch map-resender in tmux session map-resender"
       
         # stop tmux sessions    
         - stop:
-          - xsens:
-            - tmux kill-session -t xsens
-          - wifi-bluetooth:
-            - tmux kill-session -t wifi-bluetooth
-          - map-resender:
-            - tmux kill-session -t map-resender
+          - tmux kill-session -t xsens
+          - tmux kill-session -t wifi-bluetooth
+          - tmux kill-session -t map-resender
  
