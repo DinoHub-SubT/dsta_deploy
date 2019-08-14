@@ -9,11 +9,11 @@
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 6cd20c0e923a114a775f80a27c50e40b73c5505b 
+    version: 8205cb7b6465719d9b8c20b7b9f3ccf18b1cc0c6 
 - git:
     local-name: basestation_launch
     uri: git@bitbucket.org:cmusubt/basestation_launch.git
-    version: f3ab8576026092360c91abd16bf92dc4a6da187c
+    version: 5996ac83be3f5255e954c6f506354ee5979db0b6
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
@@ -33,7 +33,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: b91339f76e55ccef7b6900ef2142ffba0798b604
+    version: d32b08d1a9a6b6028397ff131f241aafc14ac1f7
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git

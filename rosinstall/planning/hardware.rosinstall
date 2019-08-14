@@ -9,11 +9,11 @@
 - git:
     local-name: tip_over_monitor
     uri: git@bitbucket.org:cmusubt/tip_over_monitor.git
-    version: 5a3de232353ab475a9b90b7f30907bf27105b7ce
+    version: 9ede10c5c1dfe8e1b518b1115cc872fb1c471859
 - git:
     local-name: tip_over_recovery
     uri: git@bitbucket.org:cmusubt/tip_over_recovery.git
-    version: 3d1f5069f14f9c605d6b64a9196aa1e963af99a6
+    version: 6cfce917903c8523315e474be0f3ffe2e26aa839
 - git:
     local-name: mcmn_status_monitor
     uri: git@bitbucket.org:cmusubt/mcmn_status_monitor.git
@@ -41,7 +41,7 @@
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
-    version: 7d52538293b48120473efbc43a92c4cb6d393264
+    version: 53e47a42e3106123e4f7ab599d3ea3698a7a2c9d
 - git:
     local-name: xbee_bridge
     uri: git@bitbucket.org:cmusubt/xbee_bridge.git
