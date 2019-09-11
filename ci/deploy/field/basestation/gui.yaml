@@ -121,7 +121,7 @@
           fi
         - catkin build --force-cmake
 
-      # build planning workspace
+      # build basestation workspace
       - basestation:
         - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
             rm .catkin_tools/profiles/profiles.yaml;
@@ -191,105 +191,84 @@
       - export -f get_config_data
 
       - start:
-        - roscore:
-          # start the tmux session
-          - tmux new -s launch_roscore -d
-          # export screen settings
-          - tmux send -t launch_roscore 'stty columns 204' ENTER
-          - tmux send -t launch_roscore 'stty lines 55' ENTER
-          # source
-          - tmux send -t launch_roscore 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-          # run autonomy launch
-          - tmux send -t launch_roscore 'roscore' ENTER
-          # message user
-          - echo "Launch deployed in tmux session launch_roscore"      
-        - gui:
-          # parse the launch configuration params
-          - export config=robots/basestation/gui
-          - export config_data=$(get_config_data "$config")
-
-          # start the tmux session
-          - tmux new -s launch_gui -d
-          # export screen settings
-          # - tmux send -t launch_gui 'stty columns 204' ENTER
-          # - tmux send -t launch_gui 'stty lines 55' ENTER
-          # source
-          - tmux send -t launch_gui 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-
-          # manually set the tmux env vars...for now.
-          - tmux send -t launch_gui 'unset config_data' ENTER
-          - tmux send -t launch_gui 'export config=robots/basestation/gui' ENTER
-          - tmux send -t launch_gui 'export config_data=$(get_config_data "$config")' ENTER
-          
-          # run autonomy launch
-          - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
-          # - tmux send -t launch_gui 'roslaunch basestation_launch basestation_launch.launch' ENTER
-          # message user
-          - echo "Launch deployed in tmux session launch_gui"
-        - shell:
-          - pwd
-          - tmux new -s ros_shell -d
-          # export screen settings
-          - tmux send -t ros_shell 'stty columns 204' ENTER
-          - tmux send -t ros_shell 'stty lines 55' ENTER
-          # source
-          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-        - rosbag:
-          # start record hardware
-          - tmux new -s launch_rosbag -d
-          # source
-          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-          # manually set the tmux env vars...for now.
-          - tmux send -t launch_rosbag 'unset config_data' ENTER
-          - tmux send -t launch_rosbag 'export config=robots/basestation/rosbag' ENTER
-          - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
-          # launch rosbag
-          - tmux send -t launch_rosbag 'eval $config_data' ENTER
-        - launch_relay_ugv1_agg:
-          # start record hardware
-          - tmux new -s launch_relay_ugv1_agg -d
-          # source
-          - tmux send -t launch_relay_ugv1_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-          # launch rosbag
-          - tmux send -t launch_relay_ugv1_agg 'rosrun topic_tools relay /cm_rel/ugv1/bs/diagnostics_agg /diagnostics_agg' ENTER
-        - launch_relay_ugv2_agg:
-          # start record hardware
-          - tmux new -s launch_relay_ugv2_agg -d
-          # source
-          - tmux send -t launch_relay_ugv2_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
-          # launch rosbag
-          - tmux send -t launch_relay_ugv2_agg 'rosrun topic_tools relay /cm_rel/ugv2/bs/diagnostics_agg /diagnostics_agg' ENTER
+        # roscore
+        # start the tmux session
+        - tmux new -s launch_roscore -d
+        # export screen settings
+        - tmux send -t launch_roscore 'stty columns 204' ENTER
+        - tmux send -t launch_roscore 'stty lines 55' ENTER
+        # source
+        - tmux send -t launch_roscore 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        # run autonomy launch
+        - tmux send -t launch_roscore 'roscore' ENTER
+        # message user
+        - echo "Launch deployed in tmux session launch_roscore"      
+        # parse the launch configuration params
+        - export config=robots/basestation/gui
+        - export config_data=$(get_config_data "$config")
+        # gui
+        - tmux new -s launch_gui -d
+        # source
+        - tmux send -t launch_gui 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        # manually set the tmux env vars...for now.
+        - tmux send -t launch_gui 'unset config_data' ENTER
+        - tmux send -t launch_gui 'export config=robots/basestation/gui' ENTER
+        - tmux send -t launch_gui 'export config_data=$(get_config_data "$config")' ENTER
+        # run autonomy launch
+        - tmux send -t launch_gui 'mon launch robot_launch_scripting subt.launch robot:=$robot $config_data' ENTER
+        # message user
+        - echo "Launch deployed in tmux session launch_gui"
+        - pwd
+        - tmux new -s ros_shell -d
+        # export screen settings
+        - tmux send -t ros_shell 'stty columns 204' ENTER
+        - tmux send -t ros_shell 'stty lines 55' ENTER
+        - tmux send -t ros_shell 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        # start record hardware
+        - tmux new -s launch_rosbag -d
+        # source
+        - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        # manually set the tmux env vars...for now.
+        - tmux send -t launch_rosbag 'unset config_data' ENTER
+        - tmux send -t launch_rosbag 'export config=robots/basestation/rosbag' ENTER
+        - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
+        # launch rosbag
+        - tmux send -t launch_rosbag 'eval $config_data' ENTER
+        # - launch_relay_ugv1_agg:
+        - tmux new -s launch_relay_ugv1_agg -d
+        - tmux send -t launch_relay_ugv1_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        - tmux send -t launch_relay_ugv1_agg 'rosrun topic_tools relay /cm_rel/ugv1/bs/diagnostics_agg /diagnostics_agg' ENTER
+        # - launch_relay_ugv2_agg:
+        - tmux new -s launch_relay_ugv2_agg -d
+        - tmux send -t launch_relay_ugv2_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
+        - tmux send -t launch_relay_ugv2_agg 'rosrun topic_tools relay /cm_rel/ugv2/bs/diagnostics_agg /diagnostics_agg' ENTER
 
       # stop tmux sessions    
       - stop:
-        # remove all the tmux sessions
         - rosbag:
           - stop:
             # start stop record
             - tmux new -s launch_rosbag_stop -d
-            - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+            - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER  
             # stop record node
-            - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_nuc' ENTER
+            - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_base_station' ENTER
+            - sleep 3
           - sessions:
             # stop the sessions
             # - until rostopic list ; do sleep 1; done
             - tmux kill-session -t launch_rosbag_stop
             - tmux kill-session -t launch_rosbag
-        # remove all the tmux sessions
-        - roscore:
+        - other:
+          # remove all the tmux sessions
           - tmux kill-session -t launch_roscore
-        - gui:
           - tmux kill-session -t launch_gui
-        - shell:
           - tmux kill-session -t ros_shell
-        - launch_relay_ugv1_agg:
           - tmux kill-session -t launch_relay_ugv1_agg
-        - launch_relay_ugv2_agg:
           - tmux kill-session -t launch_relay_ugv2_agg
 
       - rosclean:
         # stop all ros nodes
-        - source $DEPLOY_WS/devel/planning/launch/setup.bash
+        - source $DEPLOY_WS/devel/basestation/launch/setup.bash
         - ps aux | grep ros
         - rosnode kill -a
         - pkill -f ros

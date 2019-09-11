@@ -33,10 +33,7 @@
             --exclude=src/subt_robot_examples_latest.tgz
             --exclude=src/launch/ugv_setup/logging/base_station/bags
             --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
-            --exclude=src/perception/object_detection/inference/data/models/ssd_mnv1_positives_218056
-            --exclude=src/perception/object_detection/inference/data/models/thermal_ssd_mnv1_positives_109218
-            --exclude=src/perception/object_detection/inference/data/models/rgb_ssd_mnv1_positives_08_01
-            --exclude=src/perception/object_detection/inference/data/models/thermal_with_negatives"
+            --exclude=src/perception/object_detection/inference/data/models/"
       - export copy_to="rsync $copy_opts $LOCAL_DEPLOY_PATH -e 'ssh $HOP_HOST ssh ' $user@$host:$REMOTE_DEPLOY_PATH "
       - export copy_from="rsync $copy_opts $user@$host:$REMOTE_DEPLOY_PATH $LOCAL_DEPLOY_PATH "
 
@@ -93,16 +90,14 @@
         # evaluate copy
         - echo -e "\n${YELLOW}\t copy command -> \t $copy_cmd \n"
         - eval $copy_cmd
+    
+    ################################################################################################
+    - delete-bags:
+    ################################################################################################
+      - +ssh:{ ugv2:ugv2:/home/$USER/.ssh/deploy }
+      - +ssh:{ nvidia:xavier:/home/nvidia/.ssh/deploy }
+      - rm -rf /logging/*
 
-      # delete remote deploy workspace
-      - delete:
-        - bags:
-          - ssh $HOP_HOST ssh $user@$host "rm -rf ~/logging/*"
-
-      # delete remote deploy workspace
-      - delete-deploy:
-        - ssh $HOP_HOST ssh $user@$host "rm -rf $REMOTE_DEPLOY_PATH"
-      
     ################################################################################################
     - deploy:
     ################################################################################################
@@ -177,7 +172,7 @@
       ####################################################
       - setup:
         - cd $DEPLOY_SRC/perception/object_detection/training/tensorrt/
-        - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/ssd_mnv1_positives_218056 --batch_size 4
+        - sudo jetson_clocks
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/rgb_negative_08_06 --batch_size 4
         - ./export_tf_trt_graph.py --inference_folder ../../inference/data/models/thermal_negative_08_06 --batch_size 2
 
@@ -287,92 +282,83 @@
 
         ### == user can modify done. ==
         - start:
-          - cameras:
-            # start the tmux session
-            - tmux new -s launch_cameras -d
-            # source
-            - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_cameras 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
-                xavier_cameras:=true xavier_realsense_launch:=mk_1 xavier_flir_launch:=mk_1' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_cameras"
-          - inference:
-            # start the tmux session
-            - tmux new -s launch_inference -d
-            # source
-            - tmux send -t launch_inference 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_inference 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
-                xavier_inference:=true xavier_inference_launch:=mk_1' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_inference"
-          - modules:
-            # start the tmux session
-            - tmux new -s launch_modules -d
-            # source
-            - tmux send -t launch_modules 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_modules 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
-                xavier_modules:=true xavier_modules_launch:=mk_1' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_modules"
-          - bluetooth:
-            # start the tmux session
-            - tmux new -s launch_bluetooth -d
-            # source
-            - tmux send -t launch_bluetooth 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_bluetooth 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
-                xavier_bluetooth:=true xavier_bluetooth_launch:=mk_1_xavier' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_bluetooth"
-          - recorder:
-            # start the tmux session
-            - tmux new -s launch_record -d
-            # source
-            - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_record 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_record"
-          - healthmonitor:
-            # start the tmux session
-            - tmux new -s launch_healthmonitor -d
-            # source
-            - tmux send -t launch_healthmonitor 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_healthmonitor 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier health_monitor:=true computer:=ugv2' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_healthmonitor"
-          - audio:
-            # start the tmux session
-            - tmux new -s launch_audio -d
-            # source
-            - tmux send -t launch_audio 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-            # run perception-pc launch
-            - tmux send -t launch_audio 'rosrun modules play_audio.sh /home/nvidia/Documents/audio' ENTER
-            # message user
-            - echo "Launch deployed in tmux session launch_audio"
-
-          # TODO: bluetooth
+          # cameras
+          # start the tmux session
+          - tmux new -s launch_cameras -d
+          # source
+          - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_cameras 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
+              xavier_cameras:=true xavier_realsense_launch:=mk_1 xavier_flir_launch:=mk_1' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_cameras"
+          # inference
+          # start the tmux session
+          - tmux new -s launch_inference -d
+          # source
+          - tmux send -t launch_inference 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_inference 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
+              xavier_inference:=true xavier_inference_launch:=mk_1' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_inference"
+          # modules
+          # start the tmux session
+          - tmux new -s launch_modules -d
+          # source
+          - tmux send -t launch_modules 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_modules 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
+              xavier_modules:=true xavier_modules_launch:=mk_1' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_modules"
+          # bluetooth
+          # start the tmux session
+          - tmux new -s launch_bluetooth -d
+          # source
+          - tmux send -t launch_bluetooth 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_bluetooth 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier
+              xavier_bluetooth:=true xavier_bluetooth_launch:=mk_1_xavier' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_bluetooth"
+          # recorder
+          # start the tmux session
+          - tmux new -s launch_record -d
+          # source
+          - tmux send -t launch_record 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_record 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier xavier_record:=true' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_record"
+          # healthmonitor
+          # start the tmux session
+          - tmux new -s launch_healthmonitor -d
+          # source
+          - tmux send -t launch_healthmonitor 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_healthmonitor 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier health_monitor:=true computer:=ugv2' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_healthmonitor"
+          # audio
+          # start the tmux session
+          - tmux new -s launch_audio -d
+          # source
+          - tmux send -t launch_audio 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # run perception-pc launch
+          - tmux send -t launch_audio 'rosrun modules play_audio.sh /home/nvidia/Documents/audio' ENTER
+          # message user
+          - echo "Launch deployed in tmux session launch_audio"
 
         - stop:
           # remove all the tmux sessions
-          - cameras:
-            - tmux kill-session -t launch_cameras
-          - modules:
-            - tmux kill-session -t launch_modules
-          - inference:
-            - tmux kill-session -t launch_inference
-          - recorder:
-            - tmux kill-session -t launch_record
-          - bluetooth:
-            - tmux kill-session -t launch_bluetooth
-          - healthmonitor:
-            - tmux kill-session -t launch_healthmonitor
-          - audio:
-            - tmux kill-session -t launch_audio
+          - tmux kill-session -t launch_cameras
+          - tmux kill-session -t launch_modules
+          - tmux kill-session -t launch_inference
+          - tmux kill-session -t launch_record
+          - tmux kill-session -t launch_bluetooth
+          - tmux kill-session -t launch_healthmonitor
+          - tmux kill-session -t launch_audio
 
         - rosclean:
           # stop all ros nodes

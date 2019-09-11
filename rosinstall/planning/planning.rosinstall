@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: d3596faf974499b910400b1fff4a7d0581667b13
+    version: 98c53f76b737585d7f1b28e55d14a3fec95cf714
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -21,7 +21,7 @@
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
-    version: 7b3a0682e2d5d886f93b187c80db7838c2422410
+    version: c05ed6f1db9beb2822bff6bf4bc6f702464d38da
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: b91339f76e55ccef7b6900ef2142ffba0798b604
+    version: d32b08d1a9a6b6028397ff131f241aafc14ac1f7
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -57,7 +57,7 @@
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
-    version: 43897702db3510b5fd446e298c6c5e212fabac7e
+    version: 522502fbdfb2dc276c57ce8d03f7a4087f2b4deb
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
@@ -86,3 +86,7 @@
     local-name: terrain_cloud_reset
     uri: git@bitbucket.org:cmusubt/terrain_cloud_reset.git
     version: 0c684ef
+- git:
+    local-name: graph_planner
+    uri: git@bitbucket.org:cmusubt/graph_planner.git
+    version fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
