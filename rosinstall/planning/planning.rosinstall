@@ -9,7 +9,7 @@
 - git:
     local-name: terrain_analysis
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
-    version: 17558b45cb151b667fd08d0d54f5992d910c9017
+    version: 150dc136e766d94708436e73d641b49666ebc355
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
@@ -17,7 +17,7 @@
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
-    version: d06b6c24e1b8f23a6bfca67c270953fa4810cf02
+    version: 2d31de0d107398509fab1c2928917765b7859bfa
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: d32b08d1a9a6b6028397ff131f241aafc14ac1f7
+    version: dfeab20ebd2ce31b9afbfc924273bdcdfec71950
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -77,7 +77,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: 700752eb19db97c35b6c7d63835e6073774aeed6
+    version: b8772fb6979867a0e2d79be56c455f1097a59af6 
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
@@ -89,4 +89,4 @@
 - git:
     local-name: graph_planner
     uri: git@bitbucket.org:cmusubt/graph_planner.git
-    version fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
+    version: fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
