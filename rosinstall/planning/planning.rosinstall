@@ -89,4 +89,4 @@
 - git:
     local-name: graph_planner
     uri: git@bitbucket.org:cmusubt/graph_planner.git
-    version fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
+    version: fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
