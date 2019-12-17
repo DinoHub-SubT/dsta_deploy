@@ -94,14 +94,14 @@
     ################################################################################################
     - delete-bags:
     ################################################################################################
-      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
+      - +ssh:{robot:planning-pc:/home/$USER/.ssh/deploy }
       - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
       - rm -rf /logging/*
       
     ################################################################################################
     - deploy:
     ################################################################################################
-      - +ssh:{robot:planning-pc:/home/$USER/.ssh/planning_pc }
+      - +ssh:{robot:planning-pc:/home/$USER/.ssh/deploy }
       - +ssh:{nvidia:xavier:/home/nvidia/.ssh/nuc }
       
       - hostname
