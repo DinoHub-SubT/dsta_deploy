@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 98c53f76b737585d7f1b28e55d14a3fec95cf714
+    version: 150dc136e766d94708436e73d641b49666ebc355
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -17,7 +17,7 @@
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
-    version: 2d31de0d107398509fab1c2928917765b7859bfa
+    version: 695c4f55c57330f5578dc9ccdb0d0d4712c0f0bd
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
@@ -33,7 +33,7 @@
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
-    version: 88ee06b3b0f7872a2e8da943e5ce9c42e06bd8fd
+    version: 31d149cea1a948b1601265c9cdd3ee2a029e9e53
 - git:
     local-name: behavior_tree_msgs
     uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
@@ -53,7 +53,7 @@
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
-    version: a9b9c1b0a07d938a5fa5cd29c1f259b0168775c9
+    version: 6150f4a400174571d95dd1f1ee349a67f97d442b
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
@@ -61,15 +61,15 @@
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
-    version: ab6257e41bca2f621d3556504668569f0191522e
+    version: deb3b0f4c83f6a929b85abc9c0da0f17f5935adf
 - git:
     local-name: misc_utils
     uri: git@bitbucket.org:cmusubt/misc_utils.git
-    version: 7793642cf9bf70b8e7aa7c2ae0a717791edee1c8
+    version: 78fe56d06744fb6eab26b27808f6c8ec0f62ebc9
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
+    version: 898f8f1456d2b7db0e8e4561647e7cf11fbce90c
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
@@ -89,4 +89,4 @@
 - git:
     local-name: graph_planner
     uri: git@bitbucket.org:cmusubt/graph_planner.git
-    version: fd3ac1acce085e0f14f1e0338cac52015ad0a7e0
+    version: 53ca4949b127731408c485db6716e409655a0013

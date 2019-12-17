@@ -33,7 +33,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: d32b08d1a9a6b6028397ff131f241aafc14ac1f7
+    version: dfeab20ebd2ce31b9afbfc924273bdcdfec71950
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
