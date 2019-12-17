@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 150dc136e766d94708436e73d641b49666ebc355
+    version: 1996d073280610c1eaa1c308c2c372b239f193e8
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -37,11 +37,11 @@
 - git:
     local-name: behavior_tree_msgs
     uri: git@bitbucket.org:cmusubt/behavior_tree_msgs.git
-    version: 716223d91781fb9a616f803b3eb10b832ff8c74c
+    version: 898f8f1456d2b7db0e8e4561647e7cf11fbce90c
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: dfeab20ebd2ce31b9afbfc924273bdcdfec71950
+    version: 5d0233476c51b64a90e33e5c46e61bcda1cfb1ba
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -57,7 +57,7 @@
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
-    version: 522502fbdfb2dc276c57ce8d03f7a4087f2b4deb
+    version: 4d25a1bdc44d1e184435cf2e17366832b083f55b
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
@@ -69,7 +69,7 @@
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: 898f8f1456d2b7db0e8e4561647e7cf11fbce90c
+    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
@@ -85,8 +85,32 @@
 - git:
     local-name: terrain_cloud_reset
     uri: git@bitbucket.org:cmusubt/terrain_cloud_reset.git
-    version: 0c684ef
+    version: 0c684ef7daf3590d9e2441805d73c9666da90ac2
 - git:
     local-name: graph_planner
     uri: git@bitbucket.org:cmusubt/graph_planner.git
     version: 53ca4949b127731408c485db6716e409655a0013
+- git:
+    local-name: comms_planner
+    uri: git@bitbucket.org:cmusubt/comms_planner.git
+    version: 7496aec7099f28ebfa1e2a61530a0e37a046afee
+- git:
+    local-name: coordination_msgs
+    uri: git@bitbucket.org:cmusubt/coordination_msgs.git
+    version: a42cc1ec5836a41640804cffe838f114f33f8896
+- git:
+    local-name: node_dropper_labjack
+    uri: git@bitbucket.org:cmusubt/node_dropper_labjack.git
+    version: c784a11a35d4bd2282b9cbf482d27c257b7c9d75
+- git:
+    local-name: robot_speed_monitor
+    uri: git@bitbucket.org:cmusubt/robot_speed_monitor.git
+    version: b4bf4395d141a19778686192cb5dc8dd7585064c
+- git:
+    local-name: sensor_coverage_planner
+    uri: git@bitbucket.org:cmusubt/sensor_coverage_planner.git
+    version: 60ab405b602e4b71f2595c28d52945c83d69a1d7
+- git:
+    local-name: uwb-radio-driver
+    uri: git@bitbucket.org:cmusubt/uwb-radio-driver.git
+    version: a43efc4f1f6ffee8815f4bf4b7813cf4a72060aa

@@ -25,7 +25,7 @@
 - git:
     local-name: twist_mux
     uri: git@bitbucket.org:cmusubt/twist_mux.git
-    version: cdb93f4
+    version: cdb93f4f72c4d9526e5058505c743a3df049a41e
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
@@ -33,11 +33,11 @@
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git
-    version: 24c7e7f
+    version: 24c7e7f37c83d16409e047c878442ad3078721b0
 - git:
     local-name: stuck_monitor
     uri: git@bitbucket.org:cmusubt/stuck_monitor.git
-    version: 54d0451
+    version: 54d0451ff20cd74732cb3933ec6f089e7960687f
 - git:
     local-name: recovery_behavior
     uri: git@bitbucket.org:cmusubt/recovery_behavior.git
@@ -45,4 +45,4 @@
 - git:
     local-name: xbee_bridge
     uri: git@bitbucket.org:cmusubt/xbee_bridge.git
-    version: master
+    version: 892929bd1423f582819353f795fcde8541467dc0
