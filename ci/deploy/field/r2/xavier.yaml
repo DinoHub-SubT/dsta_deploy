@@ -342,13 +342,13 @@
           - echo "Launch deployed in tmux session launch_healthmonitor"
           # audio
           # start the tmux session
-          - tmux new -s launch_audio -d
-          # source
-          - tmux send -t launch_audio 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
-          # run perception-pc launch
-          - tmux send -t launch_audio 'rosrun modules play_audio.sh /home/nvidia/Documents/audio' ENTER
-          # message user
-          - echo "Launch deployed in tmux session launch_audio"
+          # - tmux new -s launch_audio -d
+          # # source
+          # - tmux send -t launch_audio 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
+          # # run perception-pc launch
+          # - tmux send -t launch_audio 'rosrun modules play_audio.sh /home/nvidia/Documents/audio' ENTER
+          # # message user
+          # - echo "Launch deployed in tmux session launch_audio"
 
         - stop:
           # remove all the tmux sessions
@@ -358,7 +358,7 @@
           - tmux kill-session -t launch_record
           - tmux kill-session -t launch_bluetooth
           - tmux kill-session -t launch_healthmonitor
-          - tmux kill-session -t launch_audio
+          # - tmux kill-session -t launch_audio
 
         - rosclean:
           # stop all ros nodes
