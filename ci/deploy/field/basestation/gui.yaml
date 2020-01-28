@@ -242,7 +242,7 @@
         - tmux new -s launch_relay_ugv2_agg -d
         - tmux send -t launch_relay_ugv2_agg 'source $DEPLOY_WS/devel/basestation/launch/setup.bash' ENTER
         - tmux send -t launch_relay_ugv2_agg 'rosrun topic_tools relay /cm_rel/ugv2/bs/diagnostics_agg /diagnostics_agg' ENTER
-
+      
       # stop tmux sessions    
       - stop:
         - rosbag:
@@ -274,3 +274,27 @@
         - pkill -f ros
         - rosnode list
         - ps aux | grep ros
+
+    ####################################################
+    # relaunch rviz in case of crash
+    ####################################################
+    - relaunch-rviz:
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+      - source $DEPLOY_WS/devel/basestation/launch/setup.bash
+      - rosrun rviz rviz -d $DEPLOY_WS/src/basestation/basestation_launch/rviz_configs/robot_darpa.rviz
+
+    ####################################################
+    # relaunch main gui in case of crash
+    ####################################################
+    - relaunch-main-gui:
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+      - source $DEPLOY_WS/devel/basestation/launch/setup.bash
+      - roslaunch $DEPLOY_WS/src/basestation/basestation_gui_python/launch/gui.launch
+
+    ################################################################################################
+    # launch node that echos total station data
+    ################################################################################################
+    - total-station-node:
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+      - source $DEPLOY_WS/devel/basestation/repo/setup.bash
+      - roslaunch $DEPLOY_WS/src/basestation/total_station_gate_node/launch/total_station_node.launch

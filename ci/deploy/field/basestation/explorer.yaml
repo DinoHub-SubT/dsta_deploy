@@ -18,6 +18,13 @@
     - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
     - rm -rf $DEPLOY_SRC/launch/ugv_setup/logging/base_station/bags/*
 
+  ################################################################################################
+  - delete-artifacts:
+  ################################################################################################
+    - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src/'
+    - rm -rf $DEPLOY_SRC/basestation/basestation_gui_python/data/artifacts/received/*.json
+    - rm -rf $DEPLOY_SRC/basestation/basestation_gui_python/data/artifacts/submitted/*.json
+
   ####################################################
   # clone workspaces
   ####################################################

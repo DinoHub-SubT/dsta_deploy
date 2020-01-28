@@ -171,27 +171,18 @@
       # only docker container on basestation, no ssh
       - +ssh:{ robot:planning-pc:/home/$USER/.ssh/deploy }
       - +ssh:{ nuc:nuc:/home/nuc/.ssh/deploy }
-      - +docker:subt
       
       - hostname
       - whoami
       - pwd
-      - 'export DEPLOY_SRC=/home/developer/deploy_ws/src'
-      - 'export DEPLOY_WS=/home/developer/deploy_ws/'
+      - 'export DEPLOY_SRC=/home/$(whoami)/deploy_ws/src'
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
       - cd $DEPLOY_SRC
   
       ####################################################
       # clone workspaces
       ####################################################
       - clone:
-
-        # download the subt_robot_examples_latest
-        # NOTE: only do this on ONCE. requires internet access.
-        - download:
-          - if [ -f subt_robot_examples_latest.tgz ]; then
-              rm subt_robot_examples_latest.tgz;
-            fi
-          - wget --no-check-certificate https://s3.amazonaws.com/osrf-distributions/subt_robot_examples/releases/subt_robot_examples_latest.tgz
 
         # clone & update the planning workspace
         - cd planning/
@@ -218,12 +209,6 @@
               - ln -s $DEPLOY_SRC/rosinstall/planning/hardware.rosinstall .rosinstall
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
-            - xsens:
-              - cd xsens/catkin
-              - if [ -f .rosinstall ]; then
-                    rm .rosinstall;
-                  fi
-              - ln -s $DEPLOY_SRC/rosinstall/state_est/xsens.rosinstall .rosinstall
             - repo:
               - if [ -f .rosinstall ]; then
                     rm .rosinstall;
@@ -235,12 +220,6 @@
                     rm .rosinstall;
                   fi
               - ln -s $DEPLOY_SRC/rosinstall/state_est/thirdparty.rosinstall .rosinstall
-            - loam:
-              - cd loam/catkin
-              - if [ -f .rosinstall ]; then
-                    rm .rosinstall;
-                  fi
-              - ln -s $DEPLOY_SRC/rosinstall/state_est/loam.rosinstall .rosinstall
 
         # wstool update the workspaces
         - up:
@@ -258,10 +237,6 @@
               - wstool update
           - state_est:
             - cd $DEPLOY_SRC/state_estimation
-            - xsens:
-              - cd xsens/catkin
-              - wstool info
-              - wstool update
             - repo:
               - wstool info
               - wstool update
@@ -269,25 +244,9 @@
               - cd thirdparty/catkin
               - wstool info
               - wstool update
-            - loam:
-              - cd loam/catkin
-              - wstool info
-              - wstool update
 
-      ####################################################
-      # rosdep
-      # -- assumes the extended ws are already built
-      # -- add only those repos that need rosdep
-      ####################################################
+      # install any thirdparty deps
       - setup:
-        # install any thirdparty deps
-        - cd planning
-        - planning:
-          - ./Planning_workspace/install_dependencies.sh
-        - hardware:
-          - source $DEPLOY_WS/devel/planning/hardware/setup.bash
-          - cd $DEPLOY_SRC/state_estimation/thirdparty/catkin
-          - rosdep install --from-paths . --ignore-src --rosdistro melodic -y
         - xsens:
           - cd $DEPLOY_SRC/state_estimation/xsens/catkin/xsens_cpp_driver/receive_xsens/config/mt_sdk
           - sudo ./mt_sdk_4.8.sh
@@ -326,19 +285,12 @@
         # build the state_est
         - state_est:
           - cd $DEPLOY_SRC/state_estimation/
+          # misc. workspaces
           - thirdparty:
             - cd thirdparty/catkin
             - catkin build --force-cmake
-          - loam:
-            - cd loam/catkin
-            - catkin build --force-cmake
           - repo:
-            # NOTE: temporary. modules requires CUDA flag, not set in nuc, so ignore.
             - catkin build --force-cmake
-          - xsens:
-            - cd xsens/catkin
-            - catkin build --force-cmake
-          # build launch workspace
           - launch:
             - cd $DEPLOY_SRC/launch/
             - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
@@ -347,31 +299,15 @@
             - catkin profile set state_est
             - catkin clean -b --yes
             - catkin build --force-cmake
+          # laser odometry workspace
+          - laser_odometry:
+            - cd laser_odometry/catkin
+            - catkin build --force-cmake
 
       ####################################################
       # clean workspaces
       ####################################################
       - clean:
-        - state_est:
-          - launch:
-            - cd $DEPLOY_SRC/launch/
-            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
-                rm .catkin_tools/profiles/profiles.yaml;
-              fi
-            - catkin profile set state_est
-            - catkin clean -y
-          - cd $DEPLOY_SRC/state_estimation/
-          - xsens:
-            - cd xsens/catkin
-            - catkin clean -y
-          - repo:
-            - catkin clean -y
-          - loam:
-            - cd loam/catkin
-            - catkin clean -y
-          - thirdparty:
-            - cd thirdparty/catkin
-            - catkin clean -y
         - planning:
           - launch:
             - cd $DEPLOY_SRC/launch/
@@ -388,6 +324,25 @@
             - catkin clean -y
           - thirdparty:
             - cd thirdparty/catkin
+            - catkin clean -y
+
+        - state_est:
+          - launch:
+            - cd $DEPLOY_SRC/launch/
+            - if [ -f .catkin_tools/profiles/profiles.yaml ]; then
+                rm .catkin_tools/profiles/profiles.yaml;
+              fi
+            - catkin profile set state_est
+            - catkin clean -y
+          - cd $DEPLOY_SRC/state_estimation/
+          - repo:
+            - catkin clean -y
+          - thirdparty:
+            - cd thirdparty/catkin
+            - catkin clean -y
+          # laser odometry workspace
+          - laser_odom:
+            - cd laser_odometry/catkin
             - catkin clean -y
 
       ####################################################
@@ -410,12 +365,6 @@
             - find . -maxdepth 1 \! \( -name thirdparty -o -name loam -o -name .catkin_tools \) -exec rm -rf '{}' \;
           - thirdparty:
             - cd thirdparty/catkin
-            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-          - loam:
-            - cd loam/catkin
-            - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
-          - xsens:
-            - cd xsens/catkin
             - find . -maxdepth 1 \! \( -name .catkin_tools \) -exec rm -rf '{}' \;
 
       ####################################################
@@ -460,7 +409,7 @@
           # start the tmux session
           - tmux new -s launch_planning -d
           # source
-          - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux send -t launch_planning 'source $DEPLOY_WS/devel/planning/launch/setup.zsh' ENTER
 
           # manually set the tmux env vars...for now.
           - tmux send -t launch_planning 'unset config_data' ENTER
@@ -468,7 +417,9 @@
           - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
 
           # run planning-pc launch
-          - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          # - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          - tmux send -t launch_planning 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc robot_id:=1 computer:=ugv1 autonomy:=true state_est:=false node_dropper:=false xsens:=false health_monitor:=false' ENTER
+
           # message user
           - echo "Launch deployed in tmux session launch_planning"
           
@@ -480,7 +431,7 @@
           # start the tmux session
           - tmux new -s launch_state_est -d
           # source
-          - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+          - tmux send -t launch_state_est 'source $DEPLOY_WS/devel/state_estimation/launch/setup.zsh' ENTER
 
           # manually set the tmux env vars...for now.
           - tmux send -t launch_state_est 'unset config_data' ENTER
@@ -488,7 +439,7 @@
           - tmux send -t launch_state_est 'export config_data=$(get_config_data "robots/r1/nuc/state_est")' ENTER
 
           # run planning-pc launch
-          - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch $config_data' ENTER
+          - tmux send -t launch_state_est 'mon launch robot_launch_scripting subt.launch robot:=robots/nuc robot_id:=1 computer:=ugv1 autonomy:=false state_est:=true node_dropper:=false xsens:=false' ENTER
           # message user
           - echo "Launch deployed in tmux session launch_state_est"
           
@@ -496,19 +447,19 @@
           # empty shell prompt
           - pwd
           - tmux new -s ros_shell -d
-          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.bash' ENTER
+          - tmux send -t ros_shell 'source $DEPLOY_WS/devel/state_estimation/launch/setup.zsh' ENTER
 
           # rosbag
           # start record hardware
           - tmux new -s launch_rosbag -d
           # source
-          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
+          - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.zsh' ENTER
           # manually set the tmux env vars...for now.
           - tmux send -t launch_rosbag 'unset config_data' ENTER
           - tmux send -t launch_rosbag 'export config=robots/r1/nuc/rosbag' ENTER
           - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
           # launch rosbag
-          - tmux send -t launch_rosbag 'eval $config_data' ENTER
+          - tmux send -t launch_rosbag 'cd ~/deploy_ws/src/launch/ugv_setup/logging/nuc/bags/ && ./../scripts/nuc.bash' ENTER
           
         # stop tmux sessions    
         - stop:
@@ -516,7 +467,7 @@
             - stop:
               # start stop record
               - tmux new -s launch_rosbag_stop -d
-              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER  
+              - tmux send -t launch_rosbag_stop 'source $DEPLOY_WS/devel/planning/launch/setup.zsh' ENTER  
               # stop record node
               - tmux send -t launch_rosbag_stop 'rosnode kill /rosbag_recording_nuc' ENTER
             - sessions:
@@ -531,7 +482,7 @@
 
         - rosclean:
           # stop all ros nodes
-          - source $DEPLOY_WS/devel/planning/repo/setup.bash
+          - source $DEPLOY_WS/devel/planning/repo/setup.zsh
           - ps aux | grep ros
           - rosnode kill -a
           - pkill -f ros
@@ -570,24 +521,29 @@
       - launch:
         # start tmux sessions
         - start:
-          # xsens
+          #########################################################################################
+          ### loam -- launches loam, velodyne driver, xsens driver ###
           # start the tmux session
-          - tmux new -s xsens -d
+          - tmux new -s loam -d
           # source
-          - tmux send -t xsens 'source /home/nuc/workspaces/xsense_ws/devel/setup.zsh' ENTER
+          # - tmux send -t loam 'source /home/nuc/workspace/loam_ws/devel/setup.zsh' ENTER
+          - tmux send -t loam 'source $DEPLOY_WS/devel/state_estimation/laser_odometry/setup.zsh' ENTER
           # run planning-pc launch
-          - tmux send -t xsens 'roslaunch receive_xsens receive_xsens.launch' ENTER
+          - tmux send -t loam 'mon launch loam_velodyne_16 loam_velodyne_16_headless.launch' ENTER
           # message user
-          - echo "Launch xsens in tmux session xsens"
-          #  wifi-bluetooth
+          - echo "Launch loam in tmux session loam"
+          #########################################################################################
+          
+          # ### wifi-bluetooth ###
           # start the tmux session
           - tmux new -s wifi-bluetooth -d
           # source
           - tmux send -t wifi-bluetooth 'source /home/nuc/deploy_ws/devel/perception/objdet/setup.zsh' ENTER
           # run wifi-bluetooth launch
-          - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection silver_payload.launch' ENTER
+          - tmux send -t wifi-bluetooth 'roslaunch bluetooth_detection mk_1_nuc.launch' ENTER
           # message user
           - echo "Launch wifi-bluetooth in tmux session wifi-bluetooth"
+          
           # map-resender
           # start the tmux session
           - tmux new -s map-resender -d
@@ -597,10 +553,11 @@
           - tmux send -t map-resender 'roslaunch map_resender map_resender.launch' ENTER
           # message user
           - echo "Launch map-resender in tmux session map-resender"
-      
-        # stop tmux sessions    
+
+        # stop tmux sessions
         - stop:
-          - tmux kill-session -t xsens
-          - tmux kill-session -t wifi-bluetooth
+          - tmux kill-session -t loam
+          - tmux kill-session -t wifi-bluetooth          
           - tmux kill-session -t map-resender
+
  
