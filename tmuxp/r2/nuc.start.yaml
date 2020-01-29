@@ -10,7 +10,6 @@ start_directory: /home/$USER/deploy_ws/src/
 before_script: "
   ./deployer -s
     r2.nuc.docker.remove
-    r2.nuc.docker.start 
     r2.nuc.launch.start"
 
 # This is where we list all the stuff we want to run
@@ -23,13 +22,8 @@ windows:
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
-        - docker-join
+        # - docker-join
         - tmux a -t launch_rosbag
-      # launch the xsens on the robot directly
-      - shell_command:
-        - ssh ugv2@ugv2
-        - ssh nuc@nuc
-        - tmux a -t xsens
       # launch the xsens on the robot directly
       - shell_command:
         - ssh ugv2@ugv2
@@ -40,20 +34,24 @@ windows:
         - ssh nuc@nuc
         - tmux a -t map-resender
   
+  ### misc state estimation ###
   - window_name: main
     focus: true
     layout: main-horizontal
     panes:
+      # LOAM (outside docker launch)
+      - shell_command:  
+        - ssh ugv2@ugv2
+        - ssh nuc@nuc
+        - tmux a -t loam
       # enter the docker container on nuc
       - shell_command:  
         - ssh ugv2@ugv2
         - ssh nuc@nuc
-        - docker-join
         - tmux a -t launch_planning
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
-        - docker-join
         - tmux a -t launch_state_est
       
   - window_name: docker shell
@@ -64,5 +62,4 @@ windows:
       - shell_command:
         - ssh ugv2@ugv2
         - ssh nuc@nuc
-        - docker-join
         - tmux a -t ros_shell
