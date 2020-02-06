@@ -291,6 +291,14 @@
       - source $DEPLOY_WS/devel/basestation/launch/setup.bash
       - roslaunch $DEPLOY_WS/src/basestation/basestation_gui_python/launch/gui.launch
 
+    ####################################################
+    # relaunch main gui in case of crash
+    ####################################################
+    - relaunch-control-gui:
+      - 'export DEPLOY_WS=/home/$(whoami)/deploy_ws/'
+      - source $DEPLOY_WS/devel/basestation/launch/setup.bash
+      - rqt --perspective-file $DEPLOY_WS/src/basestation/subt_control_panel/perspective/subt_control_panel.perspective
+
     ################################################################################################
     # launch node that echos total station data
     ################################################################################################

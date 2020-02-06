@@ -275,7 +275,7 @@
         
         # launch configuration variables
         - 'export host=$(hostname)'
-        - 'export config=robots/r2/xavier'
+        - 'export config=robots/r3/xavier'
         - 'export MCAST_GROUP=224.0.0.251'
         - 'export ROBOT_NAME=ugv3'
         - 'export UGV_XAVIER=true'
@@ -292,7 +292,7 @@
           - tmux send -t launch_cameras 'source $DEPLOY_WS/devel/perception/launch/setup.zsh' ENTER
           # run perception-pc launch
           - tmux send -t launch_cameras 'roslaunch robot_launch_scripting subt.launch robot:=robots/xavier 
-              xavier_cameras:=true xavier_realsense_launch:=mk_1 xavier_flir_launch:=mk_1' ENTER
+              xavier_cameras:=true xavier_realsense_launch:=mk_2 xavier_flir_launch:=mk_2' ENTER
           # message user
           - echo "Launch deployed in tmux session launch_cameras"
           # inference

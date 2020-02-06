@@ -33,6 +33,7 @@
           --exclude=src/basestation
           --exclude=src/docker/nv-tensorrt-repo-ubuntu1604-cuda9.0-ga-trt4.0.1.6-20180612_1-1_amd64.deb
           --exclude=src/perception
+          --exclude=src/planning/copley_ros_driver
           --exclude=src/state_estimation
           --exclude=src/launch/ugv_setup/logging/planning-pc/bags
           --exclude=src/launch/ugv_setup/logging/base_station/bags
@@ -354,7 +355,7 @@
           
           # planning
           # parse the launch configuration params
-          - export config=robots/r2/planning-pc/planning
+          - export config=robots/r3/planning-pc/planning
           - export config_data=$(get_config_data "$config")
 
           # start the tmux session
@@ -364,7 +365,7 @@
           
           # manually set the tmux env vars...for now.
           - tmux send -t launch_planning 'unset config_data' ENTER
-          - tmux send -t launch_planning 'export config=robots/r2/planning-pc/planning' ENTER
+          - tmux send -t launch_planning 'export config=robots/r3/planning-pc/planning' ENTER
           - tmux send -t launch_planning 'export config_data=$(get_config_data "$config")' ENTER
 
           # run autonomy launch
@@ -374,7 +375,7 @@
         
           # hardware
           # parse the launch configuration params
-          - export config=robots/r2/planning-pc/hardware
+          - export config=robots/r3/planning-pc/hardware
           - export config_data=$(get_config_data "$config")
 
           # start the tmux session
@@ -384,7 +385,7 @@
           
           # manually set the tmux env vars...for now.
           - tmux send -t launch_hardware 'unset config_data' ENTER
-          - tmux send -t launch_hardware 'export config=robots/r2/planning-pc/hardware' ENTER
+          - tmux send -t launch_hardware 'export config=robots/r3/planning-pc/hardware' ENTER
           - tmux send -t launch_hardware 'export config_data=$(get_config_data "$config")' ENTER
 
           # run hardware launch
@@ -399,7 +400,7 @@
           - tmux send -t launch_rosbag 'source $DEPLOY_WS/devel/planning/launch/setup.bash' ENTER
           # manually set the tmux env vars...for now.
           - tmux send -t launch_rosbag 'unset config_data' ENTER
-          - tmux send -t launch_rosbag 'export config=robots/r2/planning-pc/rosbag' ENTER
+          - tmux send -t launch_rosbag 'export config=robots/r3/planning-pc/rosbag' ENTER
           - tmux send -t launch_rosbag 'export config_data=$(get_config_data "$config")' ENTER
           # launch rosbag
           - tmux send -t launch_rosbag 'eval $config_data' ENTER

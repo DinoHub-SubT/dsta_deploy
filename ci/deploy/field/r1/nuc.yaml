@@ -529,7 +529,7 @@
           # - tmux send -t loam 'source /home/nuc/workspace/loam_ws/devel/setup.zsh' ENTER
           - tmux send -t loam 'source $DEPLOY_WS/devel/state_estimation/laser_odometry/setup.zsh' ENTER
           # run planning-pc launch
-          - tmux send -t loam 'mon launch loam_velodyne_16 loam_velodyne_16_headless.launch' ENTER
+          - tmux send -t loam 'mon launch loam_velodyne_16 loam_velodyne_16_headless.launch blind_back_arg:=-1.15' ENTER
           # message user
           - echo "Launch loam in tmux session loam"
           #########################################################################################
