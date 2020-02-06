@@ -29,7 +29,7 @@
 - git:
     local-name: ugv_hardware
     uri: git@bitbucket.org:cmusubt/ugv_hardware.git
-    version: f2483a06124abcbcfa48b3357e6b80441de61a9b
+    version: 32ede295fd267224316489420a946c73f570164f
 - git:
     local-name: xsense_driver
     uri: git@bitbucket.org:cmusubt/xsense_driver.git

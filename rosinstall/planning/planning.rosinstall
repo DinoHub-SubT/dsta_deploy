@@ -1,7 +1,7 @@
 - git:
     local-name: behavior_executive
     uri: git@bitbucket.org:cmusubt/behavior_executive.git
-    version: 1996d073280610c1eaa1c308c2c372b239f193e8
+    version: bd7f986987b526f90f40f6829fbd5cdb9c82c1e5
 - git:
     local-name: base_main_class
     uri: git@bitbucket.org:castacks/base_main_class.git
@@ -9,15 +9,15 @@
 - git:
     local-name: terrain_analysis
     uri: git@bitbucket.org:cmusubt/terrain_analysis.git
-    version: 150dc136e766d94708436e73d641b49666ebc355
+    version: 4651578126a442a055d3356f643b128363c47fc4
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 65e79fea0531d543f3af60f56d2abf83b684cf71
+    version: 4d1c4b4e8c5b975aa0693487c64dd729d3c3b039
 - git:
     local-name: local_planner
     uri: git@bitbucket.org:cmusubt/local_planner.git
-    version: 695c4f55c57330f5578dc9ccdb0d0d4712c0f0bd
+    version: aebbbb2933d52d5c7e24f25f2efcd0d1bf413811
 - git:
     local-name: comms_planner_batman
     uri: git@bitbucket.org:cmusubt/comms_planner_batman.git
@@ -25,7 +25,7 @@
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 9746530cfba970dde2496662296b277127f19558
+    version: 95ef06afae729481d7ddcbb058c22441169d4dcb
 - git:
     local-name: base_main_class_py
     uri: git@bitbucket.org:cmusubt/base_main_class_py.git
@@ -41,7 +41,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: 5d0233476c51b64a90e33e5c46e61bcda1cfb1ba
+    version: bf0e957e4740b500fcf2b8f7ffe634091aba9ed0
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -49,15 +49,15 @@
 - git:
     local-name: image_streamer
     uri: git@bitbucket.org:cmusubt/image_streamer.git
-    version: 46c3d343f614109730ad68cd27696347e697e3ca
+    version: 9c5eb6aa6e46ee101ea385082d82bfdc465bc8b8
 - git:
     local-name: world_abstraction
     uri: git@bitbucket.org:cmusubt/world_abstraction.git
-    version: 6150f4a400174571d95dd1f1ee349a67f97d442b
+    version: d4132ab94e6f7a31fbbe529ad6aa4f23f82b6374
 - git:
     local-name: dfs_behavior_planner
     uri: git@bitbucket.org:cmusubt/dfs_behavior_planner.git
-    version: 4d25a1bdc44d1e184435cf2e17366832b083f55b
+    version: 598d2c8daeab66f9227d07df40e79f6f19a5e2d3
 - git:
     local-name: opening_detector
     uri: git@bitbucket.org:cmusubt/opening_detector.git
@@ -65,11 +65,11 @@
 - git:
     local-name: misc_utils
     uri: git@bitbucket.org:cmusubt/misc_utils.git
-    version: 78fe56d06744fb6eab26b27808f6c8ec0f62ebc9
+    version: c1945036d8ca88daa74cb8bfb8a9ed81d6417376
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
+    version: 584e2b7fc0eafa7e196412154b0904890d9105d5
 - git:
     local-name: rostime_sync
     uri: git@bitbucket.org:cmusubt/rostime_sync.git
@@ -77,7 +77,7 @@
 - git:
     local-name: copley_ros_driver
     uri: git@bitbucket.org:cmusubt/copley_ros_driver.git
-    version: b8772fb6979867a0e2d79be56c455f1097a59af6 
+    version: 69a07742cdc65484b12a772e035d34a8937a9f55 
 - git:
     local-name: Planning_workspace
     uri: git@bitbucket.org:cmusubt/Planning_workspace.git
@@ -89,11 +89,11 @@
 - git:
     local-name: graph_planner
     uri: git@bitbucket.org:cmusubt/graph_planner.git
-    version: 53ca4949b127731408c485db6716e409655a0013
+    version: 0ccd85e9b1491edff43859d2e9ab0b1c081afebc
 - git:
     local-name: comms_planner
     uri: git@bitbucket.org:cmusubt/comms_planner.git
-    version: 7496aec7099f28ebfa1e2a61530a0e37a046afee
+    version: 9c4b96abab364cf8334c63ce0e2682019024da1a
 - git:
     local-name: coordination_msgs
     uri: git@bitbucket.org:cmusubt/coordination_msgs.git
@@ -101,16 +101,48 @@
 - git:
     local-name: node_dropper_labjack
     uri: git@bitbucket.org:cmusubt/node_dropper_labjack.git
-    version: c784a11a35d4bd2282b9cbf482d27c257b7c9d75
+    version: aac7b40ad9afa191e0c4819d2092068dc65878f9
 - git:
     local-name: robot_speed_monitor
     uri: git@bitbucket.org:cmusubt/robot_speed_monitor.git
-    version: b4bf4395d141a19778686192cb5dc8dd7585064c
+    version: a613d0a5828864ceab4ac711931a470d94d736de
 - git:
     local-name: sensor_coverage_planner
     uri: git@bitbucket.org:cmusubt/sensor_coverage_planner.git
-    version: 60ab405b602e4b71f2595c28d52945c83d69a1d7
+    version: e31fef1a97cac466d9e1c424ddcacf2ac82b0781
 - git:
     local-name: uwb-radio-driver
     uri: git@bitbucket.org:cmusubt/uwb-radio-driver.git
-    version: a43efc4f1f6ffee8815f4bf4b7813cf4a72060aa
+    version: 88000981915764e18faf746524ba57ade6a7d174
+- git:
+    local-name: collision_planner
+    uri: git@bitbucket.org:cmusubt/collision_planner.git
+    version: f8806d174dd3b15f0fa52e685135fa1117373b52
+- git:
+    local-name: darpa_transform
+    uri: git@bitbucket.org:cmusubt/darpa_transform.git
+    version: 6211fd6e2afb0860ddd050c69a4f3ca02da49d34
+- git:
+    local-name: negative_obj_detection
+    uri: git@bitbucket.org:cmusubt/negative_obj_detection.git
+    version: e6515ff2846b9598c5c4a7f66f94b35537c3d436
+- git:
+    local-name: ray_caster
+    uri: git@bitbucket.org:cmusubt/ray_caster.git
+    version: 5fa0464c9119cbdb9b2c77a9cbf07cb37fc6b5e4
+- git:
+    local-name: recovery_behavior_stuck_tipover
+    uri: git@bitbucket.org:cmusubt/recovery_behavior_stuck_tipover.git
+    version: 931e4ec817e5a365a20cf70f1c748770afcc8138
+- git:
+    local-name: ros_type_introspection
+    uri: git@bitbucket.org:cmusubt/ros_type_introspection.git
+    version: 86571a8fa43baef6cc007d83633c8b9929e94859
+- git:
+    local-name: takeoff_manager
+    uri: git@bitbucket.org:cmusubt/takeoff_manager.git
+    version: b50ef712cfb8527eaf515de5a08c4c36aa202ca8
+- git:
+    local-name: tflib
+    uri: git@bitbucket.org:cmusubt/tflib.git
+    version: 78e73416fef91f126ca0ca630a7d34c4629304c5    

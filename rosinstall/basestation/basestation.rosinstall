@@ -9,15 +9,15 @@
 - git:
     local-name: basestation_gui_python
     uri: git@bitbucket.org:cmusubt/basestation_gui_python.git
-    version: 8205cb7b6465719d9b8c20b7b9f3ccf18b1cc0c6 
+    version: 444880d41cac6b32963918cc25fa59dfb373d432 
 - git:
     local-name: basestation_launch
     uri: git@bitbucket.org:cmusubt/basestation_launch.git
-    version: 5996ac83be3f5255e954c6f506354ee5979db0b6
+    version: a9ba2df0fca376f888503869bd000dd431761fd5
 - git:
     local-name: basestation_msgs
     uri: git@bitbucket.org:cmusubt/basestation_msgs.git
-    version: d46302a7f8c62d4e2c70a327f0ed52daf7a02834
+    version: 584e2b7fc0eafa7e196412154b0904890d9105d5
 - git:
     local-name: behavior_tree
     uri: git@bitbucket.org:cmusubt/behavior_tree.git
@@ -33,7 +33,7 @@
 - git:
     local-name: communication_manager
     uri: git@bitbucket.org:cmusubt/communication_manager.git
-    version: dfeab20ebd2ce31b9afbfc924273bdcdfec71950
+    version: 566a81d08b82c9d003fbd54570bb4e1abec703eb
 - git:
     local-name: darpa_command_post
     uri: git@bitbucket.org:cmusubt/darpa_command_post.git
@@ -41,11 +41,11 @@
 - git:
     local-name: entrance_calib
     uri: git@bitbucket.org:cmusubt/entrance_calib.git
-    version: 1fa5bcdad6beb6be8dbcf3ee240188abf7ff88fe
+    version: 3d11d7c0a76e96a8788b3ad202b9a16b55714b51
 - git:
     local-name: map_compress
     uri: git@bitbucket.org:cmusubt/map_compress.git
-    version: 65e79fea0531d543f3af60f56d2abf83b684cf71
+    version: 7ab89dd95a9af5dbf21e338ca1139c294fd78a5d
 - git:
     local-name: planning_workspace
     uri: git@bitbucket.org:cmusubt/planning_workspace.git
@@ -57,7 +57,7 @@
 - git:
     local-name: bag_recorder
     uri: git@bitbucket.org:cmusubt/bag_recorder.git
-    version: 6d789f6
+    version: 6d789f6042fe3baced30765b0a0e9eb532c0bb63
 - git:
     local-name: healthmonitoringsystem
     uri: git@bitbucket.org:cmusubt/healthmonitoringsystem.git
@@ -65,7 +65,7 @@
 - git:
     local-name: comms_monitor
     uri: git@bitbucket.org:cmusubt/comms_monitor.git
-    version: 9746530cfba970dde2496662296b277127f19558
+    version: 19dd6dbab1164f25e74d80f3209e7ce3c1c5705b
 - git:
     local-name: xbee_bridge
     uri: git@bitbucket.org:cmusubt/xbee_bridge.git
@@ -73,8 +73,64 @@
 - git:
     local-name: subt_control_panel
     uri: git@bitbucket.org:cmusubt/subt_control_panel.git
-    version: master 
+    version: 66a053cb8bf1ea19ac541d5a96cbdf55f3c9f3d0 
 - git:
     local-name: total_station_gate_node
     uri: git@bitbucket.org:cmusubt/total_station_gate_node.git
     version: 8ac49b0f4f1c68a233061a9bab7d8658b9a88443
+- git:
+    local-name: collision_planner
+    uri: git@bitbucket.org:cmusubt/collision_planner.git
+    version: 39979f997670d20d48d1c690b952ac8fb604e4ae
+- git:
+    local-name: coordination_msgs
+    uri: git@bitbucket.org:cmusubt/coordination_msgs.git
+    version: a42cc1ec5836a41640804cffe838f114f33f8896
+- git:
+    local-name: image_streamer
+    uri: git@bitbucket.org:cmusubt/image_streamer.git
+    version: 9c5eb6aa6e46ee101ea385082d82bfdc465bc8b8
+- git:
+    local-name: manual-calib
+    uri: git@bitbucket.org:cmusubt/manual-calib.git
+    version: 71a18d9e439c81356e2525b4d1bb4b6300186543
+- git:
+    local-name: marker_3d
+    uri: git@bitbucket.org:cmusubt/marker_3d.git
+    version: e36bf60de1d9cd8ed5d9259a58392dc56b54395d
+- git:
+    local-name: plant_artifact
+    uri: git@bitbucket.org:cmusubt/plant_artifact.git
+    version: f1c454c6f488cb1d3e870e56b02fcbd102a4cbca
+- git:
+    local-name: robot_monitor
+    uri: git@bitbucket.org:cmusubt/robot_monitor.git
+    version: 8988736c10c7d54f4ced32fbc09f54c5932754cb
+- git:
+    local-name: ros_type_introspection
+    uri: git@bitbucket.org:cmusubt/ros_type_introspection.git
+    version: 86571a8fa43baef6cc007d83633c8b9929e94859
+- git:
+    local-name: rqt_tsgui
+    uri: git@bitbucket.org:cmusubt/rqt_tsgui.git
+    version: eb39b325fe14b7390162ec2da15dbb6180711bb5
+- git:
+    local-name: takeoff_manager
+    uri: git@bitbucket.org:cmusubt/takeoff_manager.git
+    version: 96cd7bb5f107b9f39c85bc220c7937483ca4f735
+- git:
+    local-name: tflib
+    uri: git@bitbucket.org:cmusubt/tflib.git
+    version: 78e73416fef91f126ca0ca630a7d34c4629304c5
+- git:
+    local-name: transform_utils
+    uri: git@bitbucket.org:cmusubt/transform_utils.git
+    version: 3869ca44cafbeb8fc32a905c10cff82f0688c065
+- git:
+    local-name: uwb-radio-driver
+    uri: git@bitbucket.org:cmusubt/uwb-radio-driver.git
+    version: f406bc78afc024f8e8bb5f4dcefcfd0dffa64681
+- git:
+    local-name: waypoint_rviz_plugin
+    uri: git@bitbucket.org:cmusubt/waypoint_rviz_plugin.git
+    version: 951254d30ea8c0c7bcb00529367062fe97ceb30d    
