@@ -23,37 +23,37 @@ windows:
       - shell_command:
         - ssh snuc@ugv3
         - ssh nuc@nuc
-        - docker-join
+        # - docker-join
         - tmux a -t launch_rosbag
       # launch the xsens on the robot directly
       - shell_command:
         - ssh snuc@ugv3
         - ssh nuc@nuc
-        - tmux a -t xsens
-      # launch the xsens on the robot directly
-      # - shell_command:
-      #   - ssh snuc@ugv3
-      #   - ssh nuc@nuc
-      #   - tmux a -t wifi-bluetooth
-      # - shell_command:
-      #   - ssh snuc@ugv3
-      #   - ssh nuc@nuc
-      #   - tmux a -t map-resender
+        - tmux a -t wifi-bluetooth
+      - shell_command:
+        - ssh snuc@ugv3
+        - ssh nuc@nuc
+        - tmux a -t map-resender
   
   - window_name: main
     focus: true
     layout: main-horizontal
     panes:
+      # LOAM (outside docker launch)
+      - shell_command:  
+        - ssh snuc@ugv3
+        - ssh nuc@nuc
+        - tmux a -t loam
       # enter the docker container on nuc
       - shell_command:  
         - ssh snuc@ugv3
         - ssh nuc@nuc
-        - docker-join
+        # - docker-join
         - tmux a -t launch_planning
       - shell_command:
         - ssh snuc@ugv3
         - ssh nuc@nuc
-        - docker-join
+        # - docker-join
         - tmux a -t launch_state_est
       
   - window_name: docker shell
@@ -64,5 +64,5 @@ windows:
       - shell_command:
         - ssh snuc@ugv3
         - ssh nuc@nuc
-        - docker-join
+        # - docker-join
         - tmux a -t ros_shell
