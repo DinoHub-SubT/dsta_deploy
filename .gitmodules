@@ -16,3 +16,6 @@
 [submodule "ugv"]
 	path = ugv
 	url = git@bitbucket.org:cmusubt/deploy-ugv.git
+[submodule "deploy-basestation"]
+	path = deploy-basestation
+	url = git@bitbucket.org:cmusubt/deploy-basestation

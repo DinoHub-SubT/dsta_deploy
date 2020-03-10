@@ -16,6 +16,8 @@
 !install-deployer.bash
 !tmuxp
 !documentation
+!ugv
+!basestation
 
 ###################################################################################################
 ### allow planning workspace
