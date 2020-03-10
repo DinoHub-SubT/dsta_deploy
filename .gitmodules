@@ -1,18 +1,18 @@
 [submodule "ci/ci_jenkins"]
-	path = ci/ci_jenkins
+	path = operations/ci/ci_jenkins
 	url = git@bitbucket.org:cmusubt/ci_jenkins.git
 [submodule "ci/ci_phase"]
-	path = ci/ci_phase
+	path = operations/ci/ci_phase
 	url = git@bitbucket.org:cmusubt/ci_phase.git
 [submodule "launch/ugv_setup"]
-	path = launch/ugv_setup
+	path = operations/launch/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
 [submodule "perception/object_detection"]
 	path = perception/object_detection
 	url = git@bitbucket.org:cmusubt/object_detection.git
 [submodule "launch/robot_launch_scripting"]
-	path = launch/robot_launch_scripting
+	path = operations/launch/robot_launch_scripting
 	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
 [submodule "docker"]
-	path = docker
+	path = operations/docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
