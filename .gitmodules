@@ -13,3 +13,6 @@
 [submodule "docker"]
 	path = operations/docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
+[submodule "ugv"]
+	path = ugv
+	url = git@bitbucket.org:cmusubt/deploy-ugv.git
