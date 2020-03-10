@@ -7,9 +7,6 @@
 [submodule "launch/ugv_setup"]
 	path = operations/launch/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
-[submodule "perception/object_detection"]
-	path = perception/object_detection
-	url = git@bitbucket.org:cmusubt/object_detection.git
 [submodule "launch/robot_launch_scripting"]
 	path = operations/launch/robot_launch_scripting
 	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
