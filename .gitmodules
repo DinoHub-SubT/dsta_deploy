@@ -1,21 +1,21 @@
-[submodule "ci/ci_jenkins"]
-	path = operations/ci/ci_jenkins
+[submodule "operations/ci/scripts/ci_jenkins"]
+	path = operations/ci/scripts/ci_jenkins
 	url = git@bitbucket.org:cmusubt/ci_jenkins.git
-[submodule "ci/ci_phase"]
-	path = operations/ci/ci_phase
+[submodule "operations/ci/scripts/ci_phase"]
+	path = operations/ci/scripts/ci_phase
 	url = git@bitbucket.org:cmusubt/ci_phase.git
-[submodule "launch/ugv_setup"]
+[submodule "operations/launch/ugv_setup"]
 	path = operations/launch/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
-[submodule "launch/robot_launch_scripting"]
+[submodule "operations/launch/robot_launch_scripting"]
 	path = operations/launch/robot_launch_scripting
 	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
-[submodule "docker"]
+[submodule "operations/docker"]
 	path = operations/docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
 [submodule "ugv"]
 	path = ugv
 	url = git@bitbucket.org:cmusubt/deploy-ugv.git
-[submodule "deploy-basestation"]
+[submodule "basestation"]
 	path = basestation
 	url = git@bitbucket.org:cmusubt/deploy-basestation
