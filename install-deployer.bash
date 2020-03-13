@@ -29,12 +29,9 @@ SRC_DIR=$(pwd)
 
 # install 
 install() {
-  git submodule init
-  git submodule update $SRC_DIR/ci/ci_phase
-  git submodule update $SRC_DIR/docker
-  git submodule update $SRC_DIR/launch
+  git submodule update --init --recursive $SRC_DIR/operations
   # validate "ci_phase submodule update failed."
-  cd ci/ci_phase
+  cd operations/ci/scripts/ci_phase
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
@@ -48,7 +45,7 @@ install() {
 
 # uninstall
 uninstall() {
-  cd ci/ci_phase
+  cd $SRC_DIR/operations/ci/scripts/ci_phase
   python setup.py install --record egg-files.txt --user
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
