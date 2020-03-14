@@ -26,36 +26,82 @@ validate() { if [ $? -ne 0 ]; then print_error "$1"; exit_failure; fi; }
 
 # //////////////////////////////////////////////////////////////////////////////
 SRC_DIR=$(pwd)
+# get the home directory
+homedir=~
+eval homedir=$homedir
 
-# install 
-install() {
-  git submodule update --init --recursive $SRC_DIR/operations
-  # validate "ci_phase submodule update failed."
-  cd operations/ci/scripts/ci_phase
+# remove from config
+remove_from_config() {
+  # check if file exists
+  if [ ! -f /$homedir/.$1 ]; then
+    return;
+  fi
+  # remove from path
+  sed -i '/SUBT_PATH/d' /$homedir/.$1
+  sed -i '/SUBT_DOCKER_PATH/d' /$homedir/.$1
+  sed -i '/\$SUBT_DOCKER_PATH/d' /$homedir/.$1
+}
+
+# add to config
+add_to_config() {
+  # check if file exists
+  if [ ! -f /$homedir/.$1 ]; then
+    return;
+  fi
+  # remove from path
+  echo "export SUBT_PATH=$SRC_DIR/" >> /$homedir/.$1
+  echo "export SUBT_DOCKER_PATH=$SRC_DIR/operations/docker/scripts/" >> /$homedir/.$1
+  echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH" >> /$homedir/.$1
+}
+
+# install deployer's python scripts
+install_deployer_py_scripts() {
+  # install python scripts
+  cd $SRC_DIR/operations/ci/scripts/ci_phase
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
-  # remove any previous alias
-  sed -i '/docker-join/d' /home/$USER/.bashrc
-  # sed -i '/docker-join/d' /home/$USER/.zshrc
-  # add new alias
-  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt \"" >> /home/$USER/.bashrc
-  echo "alias docker-join=\"cd $SRC_DIR/docker/scripts && ./join.bash --name subt \"" >> /home/$USER/.zshrc
 }
 
-# uninstall
-uninstall() {
+# uninstall deployer's python scripts
+uninstall_deployer_py_scripts() {
   cd $SRC_DIR/operations/ci/scripts/ci_phase
   python setup.py install --record egg-files.txt --user
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
   git clean -f -d
-  # remove any previous alias
-  sed -i '/docker-join/d' /home/$USER/.bashrc
-  sed -i '/docker-join/d' /home/$USER/.zshrc
 }
 
-# perform the install/uninstall
+# install 
+install() {
+  # update the submodules & install deployer python scripts
+  git submodule update --init --recursive $SRC_DIR/operations  
+  install_deployer_py_scripts
+
+  # remove any previous alias
+  remove_from_config "zshrc"
+  remove_from_config "bashrc"
+
+  # script add to zsh, bash configs
+  add_to_config "zshrc"
+  add_to_config "bashrc"
+
+  echo "subt scripts installed."
+}
+
+# uninstall
+uninstall() {
+  # remove deployer python scripts
+  uninstall_deployer_py_scripts
+
+  # remove any previous alias
+  remove_from_config "zshrc"
+  remove_from_config "bashrc"
+
+  echo "subt scripts uninstalled."
+}
+
+### perform the install/uninstall ###
 if [ "$1" == "--install" ]; then
   install
 elif [ "$1" == "--uninstall" ]; then 
@@ -69,4 +115,3 @@ validate "builder install or uninstall failed."
 
 # exit
 exit_success
-
