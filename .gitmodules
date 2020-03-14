@@ -20,5 +20,5 @@
 	path = basestation
 	url = git@bitbucket.org:cmusubt/deploy-basestation
 [submodule "operations/deploy/scripts/deployer_scripts"]
-	path = operations/deploy/scripts/deployer_scripts
+	path = operations/deploy/scripts
 	url = git@bitbucket.org:cmusubt/ci_phase.git
