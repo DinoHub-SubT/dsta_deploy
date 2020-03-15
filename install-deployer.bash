@@ -23,6 +23,7 @@ exit_success() { exit 0; }
 exit_failure() { exit 1; }
 print_error() { echo -e "$RED$1 $DEFCOL\n"; }
 validate() { if [ $? -ne 0 ]; then print_error "$1"; exit_failure; fi; }
+DEPLOYER_SCRIPTS_PATH="/operations/deploy/scripts/deployer_scripts/"
 
 # //////////////////////////////////////////////////////////////////////////////
 SRC_DIR=$(pwd)
@@ -57,7 +58,8 @@ add_to_config() {
 # install deployer's python scripts
 install_deployer_py_scripts() {
   # install python scripts
-  cd $SRC_DIR/operations/ci/scripts/ci_phase
+  cd $SRC_DIR/$DEPLOYER_SCRIPTS_PATH
+  pwd
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
@@ -65,7 +67,8 @@ install_deployer_py_scripts() {
 
 # uninstall deployer's python scripts
 uninstall_deployer_py_scripts() {
-  cd $SRC_DIR/operations/ci/scripts/ci_phase
+  cd $SRC_DIR/$DEPLOYER_SCRIPTS_PATH
+  pwd
   python setup.py install --record egg-files.txt --user
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
