@@ -5,7 +5,7 @@
 	path = operations/ci/scripts/ci_phase
 	url = git@bitbucket.org:cmusubt/ci_phase.git
 [submodule "operations/docker"]
-	path = operations/docker
+	path = operations/deploy/docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
 [submodule "ugv"]
 	path = ugv
@@ -14,8 +14,11 @@
 	path = basestation
 	url = git@bitbucket.org:cmusubt/deploy-basestation
 [submodule "operations/deploy/scripts/deployer_scripts"]
-	path = operations/deploy/scripts
+	path = operations/deploy/scripts/deployer_scripts
 	url = git@bitbucket.org:cmusubt/ci_phase.git
 [submodule "operations/deploy/setup/ugv_setup"]
 	path = operations/deploy/setup/robots/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
+[submodule "operations/launch/subt_launch"]
+	path = operations/launch/subt_launch
+	url = git@bitbucket.org:cmusubt/deploy_launch.git
