@@ -51,7 +51,7 @@ add_to_config() {
   fi
   # remove from path
   echo "export SUBT_PATH=$SRC_DIR/" >> /$homedir/.$1
-  echo "export SUBT_DOCKER_PATH=$SRC_DIR/operations/docker/scripts/" >> /$homedir/.$1
+  echo "export SUBT_DOCKER_PATH=$SRC_DIR/operations/deploy/docker/scripts/" >> /$homedir/.$1
   echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH" >> /$homedir/.$1
 }
 
