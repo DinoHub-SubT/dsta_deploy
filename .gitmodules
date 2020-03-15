@@ -4,12 +4,6 @@
 [submodule "operations/ci/scripts/ci_phase"]
 	path = operations/ci/scripts/ci_phase
 	url = git@bitbucket.org:cmusubt/ci_phase.git
-[submodule "operations/launch/ugv_setup"]
-	path = operations/launch/ugv_setup
-	url = git@bitbucket.org:cmusubt/ugv_setup.git
-[submodule "operations/launch/robot_launch_scripting"]
-	path = operations/launch/robot_launch_scripting
-	url = git@bitbucket.org:cmusubt/robot_launch_scripting.git
 [submodule "operations/docker"]
 	path = operations/docker
 	url = git@bitbucket.org:cmusubt/ci_docker.git
