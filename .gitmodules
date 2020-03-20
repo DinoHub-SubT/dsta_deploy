@@ -22,3 +22,12 @@
 [submodule "operations/launch/subt_launch"]
 	path = operations/launch/subt_launch
 	url = git@bitbucket.org:cmusubt/deploy_launch.git
+[submodule "uav/core_central"]
+	path = uav/core_central
+	url = git@bitbucket.org:castacks/core_central
+[submodule "uav"]
+	path = uav
+	url = git@bitbucket.org:cmusubt/deploy-uav.git
+[submodule "deploy-uav"]
+	path = uav
+	url = git@bitbucket.org:cmusubt/deploy-uav.git
