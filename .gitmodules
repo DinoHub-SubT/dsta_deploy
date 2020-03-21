@@ -31,3 +31,6 @@
 [submodule "deploy-uav"]
 	path = uav
 	url = git@bitbucket.org:cmusubt/deploy-uav.git
+[submodule "common"]
+	path = common
+	url = git@bitbucket.org:cmusubt/deploy-common.git
