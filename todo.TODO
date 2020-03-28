@@ -5,6 +5,7 @@ docker-compse:
   ☐ pass ssh keys to container
   ☐ move 'CHILD_DOCKER_COMPOSE' to deployer yamls
   ☐ make ugv setup an extension in the sim section
+  ☐ make compose universal command
 
 deployer-scripts:
   ☐ make deployer work from any path...
