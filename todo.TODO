@@ -8,6 +8,8 @@ docker-compse:
   ☐ make compose universal command
 
 deployer-scripts:
+  ☐ change the UI commands as:
+  ./deployer --system azure.r1 --run launch.start
   ☐ make deployer work from any path...
   ☐ remove hard-coded values
   ☐ add full path to yamls, not relative operations path, in find yamls in cli.py
