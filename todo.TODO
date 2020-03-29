@@ -6,6 +6,7 @@ docker-compse:
   ☐ move 'CHILD_DOCKER_COMPOSE' to deployer yamls
   ☐ make ugv setup an extension in the sim section
   ☐ make compose universal command
+  ☐ launch needs stop calls
 
 deployer-scripts:
   ☐ change the UI commands as:
