@@ -5,27 +5,29 @@ docker-compse:
   ☐ pass ssh keys to container
   ☐ move 'CHILD_DOCKER_COMPOSE' to deployer yamls
   ☐ make ugv setup an extension in the sim section
-  ☐ make compose universal command
-  ☐ launch needs stop calls
+  ✔ make compose universal command @done(20-03-28 21:48)
+  ✔ deployer run commander needs stop calls @done(20-03-28 21:48)
 
 deployer-scripts:
-  ☐ change the UI commands as:
-  ./deployer --system azure.r1 --run launch.start
+  ✔ change the UI commands as: @done(20-03-28 21:49)
+    ./deployer --system azure.r1 --run launch.start
   ☐ make deployer work from any path...
   ☐ remove hard-coded values
   ☐ add full path to yamls, not relative operations path, in find yamls in cli.py
   ☐ add user param to add to run anything
-  ☐ add a '+help: []' before each command that runs the help part of the command
+  ☐ add a tag '+help: []' before each command that runs the help part of the command
   ☐ only matches first yaml file found and stops. change to match all yamls
   ☐ fail the deploy script if a previous command failed.
   ☐ nested repls -- dont know a nice way to do that.
     ☐ hack fix: return a list of commands to run then have the bash script run the commands directly.
   ☐ cleanup deployer scripts, its a mess
   ☐ make sure have all the minor fixes from other branches.
+  ☐ if help and given both system and run commands, show preview and verbose for both!!
 
 other:
   ☐ algorithm split, sim and system, sensors launch
   ☐ cleanup gitignore in deploy
+  ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
 
 code base:
   ☐ obj_msgs need to be submoduled out of obj_det

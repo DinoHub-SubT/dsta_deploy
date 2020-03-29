@@ -35,7 +35,7 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
 - Deploy yamls are located in `ci/deploy/field/`
 
 
-# Quick Start
+# Quick Setup: Operation Tools Installation
 
 ## Prerequisites
   
@@ -72,7 +72,7 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
 
 - Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
 
-## Clone the deploy Repository
+## Deploy Repository
 
 1. Install deploy dependencies
 
@@ -89,11 +89,12 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
         cd src
         ./install-deployer.bash --install
 
-* * *
 
-## Docker Setup
+Please notify the maintainer if cloning the deploy repository failed.
 
-### Install Docker
+## Container Provisioning Tools
+
+### Docker
 
 1. Remove old versions of Docker
 
@@ -153,7 +154,7 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
         
         docker-compose --version
 
-### Install NVIDIA Docker
+### NVIDIA Docker
 
 * **Proceed with the below instructions only if you have a NVidia GPU.**
 
@@ -237,12 +238,52 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
         
             docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi        
 
+## Configuration Management Tools
+
+### Ansible
+
+- **Install Ansible**
+
+        sudo apt update
+        sudo apt install software-properties-common
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible
+
+## Cloud Provisioning Tools
+
+### Terraform
+
+- **Install Terraform**
+
+        sudo apt-get install unzip wget
+        cd ~/Downloads/
+        wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
+        unzip terraform_0.12.24_linux_amd64.zip
+        sudo mv terraform /usr/local/bin/
+        rm terraform_0.12.24_linux_amd64.zip
+
 * * *
 
-# Verify Setup
+# Verify Operation Tools Installation
 
+Verify you have all the third-party operations tools installed correctly
 
-Verify you can run the deployer & docker scripts
+        # verify docker
+        docker --version
+
+        # verify nvidia-docker
+        nvidia-docker -v
+
+        # verify docker-compose
+        docker-compose -v
+
+        # verify ansible configuration management tools
+        ansible --version
+
+        # verify terraform cloud provisioning tool
+        terraform --version
+
+Verify you can run the deployer scripts installed correctly
 
         # source your bashrc (or zshrc)
         source ~/.bashrc
@@ -253,18 +294,18 @@ Verify you can run the deployer & docker scripts
         # verify deployer script shows the help usage message
         ./deployer --help
 
-    - Please notify the maintainer if the help usage messages do not show up.
-
+Please notify the maintainer if any of the help usage messages do not show up.
 
 * * *
-  
-# Clone Specific Workspace
+
+# Getting The Repositories
+
 
 When the user clones the deploy workspace, the submodules will not be cloned by default.
 
-The user must decide which submodules to clone. Submodules are grouped by robot or computer type. 
+The user must decide which *group of submodules* to clone. Submodules are organized into groups of algorithm, computer or robot type.
 
-- Example: `ugv`, `uav`, `basestation`, etc. 
+- Example: `common, ugv uav, basestation`, etc. 
 
 ## Required submodules
 
@@ -276,8 +317,7 @@ The user must clone these groups of submodules.
 
 ## Optional submodules
 
-The user does not need to clone all the submodules if they do not work on that part of the project.
-Choose which group of submodules to clone as listed below.
+The user only needs to clone what they need. Choose which group of submodules to clone as listed below.
 
 **Clone the basestation submodules**
 
@@ -292,16 +332,17 @@ Choose which group of submodules to clone as listed below.
     git submodule update --recursive --init uav
 
 
-## Locally removing group of submodules
+## Removing Submodules
 
-To remove a group of submodules locally, when the user is done developing on it, perform the following:
+To remove a group of submodules locally *(for example, when the user is done developing on them)*, perform the following:
 
-    # git command outline
-    # git submodule deinit -f [ group-name ]
+    # git command structure template:
+    #   -> git submodule deinit -f [ group-name ]
 
     # example, removing all ugv submodules locally
     git submodule deinit -f ugv
 
+* * *
 
 # Who do I talk to
 
