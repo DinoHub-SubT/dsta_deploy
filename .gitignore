@@ -245,3 +245,6 @@ launch/.catkin_tools/profiles/profiles.yaml
 
 ### ignore other misc.
 ci/deploy/field/laptop.yaml
+
+# terraforms
+operations/deploy/azurebooks/example/.terraform/

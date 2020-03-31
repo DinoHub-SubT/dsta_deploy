@@ -37,3 +37,6 @@ code base:
 basestation:
   ☐ make sure all repos build correctly
   ☐ make sure all repos launches correctly
+
+terraform:
+  ☐ VPN needs to be manually done

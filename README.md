@@ -251,6 +251,23 @@ Please notify the maintainer if cloning the deploy repository failed.
 
 ## Cloud Provisioning Tools
 
+### Azure CLI
+
+        # Dependencies
+        sudo apt-get update
+        sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
+
+        # Software Signing Key
+        curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.asc.gpg > /dev/null
+
+        # Add Azure CLI Software Repository
+        AZ_REPO=$(lsb_release -cs)
+        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
+
+        # Azure CLI Package
+        sudo apt-get update
+        sudo apt-get install azure-cli
+
 ### Terraform
 
 - **Install Terraform**
@@ -283,6 +300,9 @@ Verify you have all the third-party operations tools installed correctly
         # verify terraform cloud provisioning tool
         terraform --version
 
+        # verify azure cli
+        az --help
+
 Verify you can run the deployer scripts installed correctly
 
         # source your bashrc (or zshrc)
@@ -293,6 +313,7 @@ Verify you can run the deployer scripts installed correctly
         
         # verify deployer script shows the help usage message
         ./deployer --help
+
 
 Please notify the maintainer if any of the help usage messages do not show up.
 
