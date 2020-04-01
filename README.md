@@ -270,9 +270,10 @@ Please notify the maintainer if cloning the deploy repository failed.
 
 ### Terraform
 
-- **Install Terraform**
-
+        # Dependencies
         sudo apt-get install unzip wget
+        
+        # Terraform CLI package
         cd ~/Downloads/
         wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
         unzip terraform_0.12.24_linux_amd64.zip
@@ -362,6 +363,12 @@ To remove a group of submodules locally *(for example, when the user is done dev
 
     # example, removing all ugv submodules locally
     git submodule deinit -f ugv
+
+* * *
+
+# Getting Started With Azure
+
+Please see `operations/deploy/azurebooks/README.md` instructions.
 
 * * *
 
