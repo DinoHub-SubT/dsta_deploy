@@ -1,12 +1,10 @@
-☐ global deployer scripts
-☐ nested deployer configs correctly done
-
 docker-compse:
   ☐ pass ssh keys to container
   ☐ move 'CHILD_DOCKER_COMPOSE' to deployer yamls
   ☐ make ugv setup an extension in the sim section
   ✔ make compose universal command @done(20-03-28 21:48)
   ✔ deployer run commander needs stop calls @done(20-03-28 21:48)
+  ☐ fix the transfer to setup, need to add ssh-key path in scenerio file
 
 deployer-scripts:
   ✔ change the UI commands as: @done(20-03-28 21:49)
@@ -23,11 +21,20 @@ deployer-scripts:
   ☐ cleanup deployer scripts, its a mess
   ☐ make sure have all the minor fixes from other branches.
   ☐ if help and given both system and run commands, show preview and verbose for both!!
+  ☐ deployer scripts not finding 'subt' or azure, need to change manually in ci_phase @high
+  ☐ duplication already happening in deploybooks -- fix this
+  ☐ global deployer scripts
+  ☐ nested deployer configs correctly done
+  ☐ preview with --system and --run needs to be done better, does not look nice now
 
 other:
   ☐ algorithm split, sim and system, sensors launch
   ☐ cleanup gitignore in deploy
   ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
+  ☐ needs to mount the directory from local host, not to transfer to.
+  ☐ cleanup scenerio file & fix the multiple scenerio file mess
+  ☐ move scenarios outside of docker, put it in operations
+  ☐ have terraform wrapper, to use scenario files?
 
 code base:
   ☐ obj_msgs need to be submoduled out of obj_det
@@ -35,8 +42,35 @@ code base:
   ☐ add missing nuc repos
 
 basestation:
-  ☐ make sure all repos build correctly
+  ✔ make sure all repos build correctly @done(20-04-01 05:40)
   ☐ make sure all repos launches correctly
 
 terraform:
-  ☐ VPN needs to be manually done
+  ✔ VPN needs to be manually done @done(20-04-01 05:40)
+    - fixed, added terraform for VPN
+
+azure:
+  ☐ add storage container to VM from another resource and see the files mounted
+  ☐ make sure can do remote desktop from VM to local (port is open?)
+  ☐ make sure cannot delete the main storage container
+
+------------------------------------------------------------------------------------------------
+
+Wed:
+  - terraform to setup resource group, vms, network, vpn
+  - readme setup, others can start using terraform
+  - ppc dockerfile
+  - transfer.to to azure vm
+
+Friday:
+  ☐ Get the storage attached to the VM
+  ☐ Get a simulation running on azure
+    - get rviz/gazebo running on the basestation
+    - have rosbags running on azure launch
+    - make sure port is open local<->VM communication
+    - see if remote desktop works as well
+  ☐ UGV:nuc, Drone dockerfile
+  ☐ nuc, drone workspaces build
+  ☐ Cleanup deployerbooks duplication
+  ☐ Move scenarios outside of operations/docker
+  ☐ Missing nuc/uav repos are added as submodules to workspaces
