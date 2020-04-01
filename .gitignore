@@ -248,3 +248,5 @@ ci/deploy/field/laptop.yaml
 
 # terraforms
 operations/deploy/azurebooks/example/.terraform/
+operations/deploy/azurebooks/example/terraform.tfstate
+operations/deploy/azurebooks/example/terraform.tfstate.backup
