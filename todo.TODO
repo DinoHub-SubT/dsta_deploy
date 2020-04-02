@@ -65,20 +65,27 @@ Wed:
 Friday:
   ☐ Get the storage attached to the VM
   ☐ Get a simulation running on azure
-    - get rviz/gazebo running on the basestation
+    - get rviz running on the basestation
+    - get gazebo on azure vm
     - have rosbags running on azure launch
     - make sure port is open local<->VM communication
     - see if remote desktop works as well
   ☐ UGV:nuc, Drone dockerfile
   ✔ nuc, ppc dockerfile build @done(20-04-02 01:20)
-  ☐ nuc, drone workspaces build
+  ✔ nuc, drone workspaces build @done(20-04-02 04:18)
+  ✔ transfer to azure cloud works. @done(20-04-02 15:51)
+  ☐ build ugv on remote
   ☐ Cleanup deployerbooks duplication
   ☐ Move scenarios outside of operations/docker
-  ☐ Missing nuc/uav repos are added as submodules to workspaces
+  ✔ Missing nuc/uav repos are added as submodules to workspaces @done(20-04-02 04:18)
 
 Submodules:
   ☐ git@bitbucket.org:cmusubt/tictoc_profiler.git needs to be moved to common
   ☐ make sure the submodules are at the correct commit hash
+  ☐ missing submodules
 
 Docker:
-  ☐ mounting is not seeing the changes reflected?
+  ✘ mounting is not seeing the changes reflected? @cancelled(20-04-02 04:19)
+
+Cloud:
+  ☐ allow password entry
