@@ -78,7 +78,7 @@ uninstall_deployer_py_scripts() {
 # install 
 install() {
   # update the submodules & install deployer python scripts
-  # git submodule update --init --recursive $SRC_DIR/operations  
+  git submodule update --init --recursive $SRC_DIR/operations  
   install_deployer_py_scripts
 
   # remove any previous alias
