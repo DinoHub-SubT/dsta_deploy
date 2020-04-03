@@ -36,7 +36,4 @@
 	url = git@bitbucket.org:cmusubt/deploy-common.git
 [submodule "operations/launch"]
 	path = operations/launch
-	url = git@bitbucket.org:cmusubt/deploy-launch
-[submodule "launch"]
-	path = launch
-	url = git@bitbucket.org:cmusubt/deploy-launch
+	url = git@bitbucket.org:cmusubt/deploy-launch.git
