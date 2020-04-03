@@ -246,8 +246,16 @@ launch/.catkin_tools/profiles/profiles.yaml
 ### ignore other misc.
 ci/deploy/field/laptop.yaml
 
-# terraforms
+# == terraforms ==
+
+# example
 operations/deploy/azurebooks/example/.terraform/
 operations/deploy/azurebooks/example/terraform.tfstate
 operations/deploy/azurebooks/example/terraform.tfstate.backup
 operations/deploy/azurebooks/example/.terraform.*
+
+# example
+operations/deploy/azurebooks/subt/.terraform/
+operations/deploy/azurebooks/subt/terraform.tfstate
+operations/deploy/azurebooks/subt/terraform.tfstate.backup
+operations/deploy/azurebooks/subt/.terraform.*
