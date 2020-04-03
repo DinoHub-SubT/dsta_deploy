@@ -364,9 +364,13 @@ To remove a group of submodules locally *(for example, when the user is done dev
 
 * * *
 
-# Getting Started With Azure
+# Getting Started With Azure & Local Deployment
 
-Please see `operations/deploy/azurebooks/README.md` instructions.
+You must go through both tutorials to have a working system. If not using azure, then skip all *azure* steps and only follow the *localhost* steps.
+
+Quick-start of azure resources setup `operations/deploy/azurebooks/README.md` instructions.
+
+Quick-start of operational deployment setup `operations/deploy/deploybooks/README.md` instructions.
 
 * * *
 

@@ -65,17 +65,17 @@ Wed:
 Friday:
   ☐ Get the storage attached to the VM
   ☐ Get a simulation running on azure
-    - get rviz running on the basestation
-    - get gazebo on azure vm
-    - have rosbags running on azure launch
-    - make sure port is open local<->VM communication
-    - see if remote desktop works as well
-  ☐ UGV:nuc, Drone dockerfile
+    ✔ get basestation launching locally @done(20-04-03 05:09)
+    ✔ get example gazebo on azure vm @done(20-04-03 05:08)
+    ☐ have rosbags running on azure launch
+    ☐ make rdp sure port is open local<->VM communication
+    ✔ see if remote desktop works as well @done(20-04-03 05:08)
   ✔ nuc, ppc dockerfile build @done(20-04-02 01:20)
-  ✔ nuc, drone workspaces build @done(20-04-02 04:18)
+  ✔ sim, drone workspaces build @done(20-04-02 04:18)
+  ☐ robot/hardware, drone workspaces build
   ✔ transfer to azure cloud works. @done(20-04-02 15:51)
-  ☐ build ugv on remote
-  ☐ Cleanup deployerbooks duplication
+  ✔ build ugv on remote @done(20-04-03 05:07)
+  ✔ Cleanup deployerbooks duplication @done(20-04-03 05:07)
   ☐ Move scenarios outside of operations/docker
   ✔ Missing nuc/uav repos are added as submodules to workspaces @done(20-04-02 04:18)
 
@@ -89,3 +89,46 @@ Docker:
 
 Cloud:
   ☐ allow password entry
+
+------------------------------------------------------------------------------------------------
+
+Next Tasks:
+  - comunication manager setup between local basestation <-> uav simulation
+  - move scenarios outside of operations/docker
+  - minor bugs in deploy script workspace
+  - attach dataset storage
+
+Bigger Tasks:
+  - launch restructure: there needs to be a centralized launch folder with params that are easily changed
+  - fix all deployer script bugs (there were a few made with new ui changes)
+  - make sure all the repositories are on the correct branches & everything builds
+    - had to make a few manual changes in a couple of places
+  - make sure we have put everything that is duplicated in "common"
+  - add ansible to install on base vm
+  - terraform state files requires version control
+  - multi robot simulation launch
+  
+Issues:
+  
+  - communication manager:
+    - need to know the ranjent setup
+      - will use the azure setup as a template
+    - list of all ugv, uav IPs
+    - need to know where in the communication manager configs to change the IPs
+    - the communication manger repo does not build.
+      - it is some auto-generated code that is missing, that was always before manually copied.
+      - this needs to be integrated into the deploy repo
+      - intstuctions on how to generate this is needed
+
+  - drone submodules setup:
+    - better organization of repos in uav directory (duplicated repos)
+    - some minimal manual changes in sim repo. Wrong git branches?
+    - non-simulation submodules setup requires opencl need more work to install this
+        - some repos failed to build, this needs to be double checked after opencl
+        - different dockerfile for "hardware" is needed
+        - probably still missing submodules/dependencies
+
+  - ugv setup:
+    - no information yet on update simulation, can follow up.
+    - there might need to be a "sim" folder in the ugv directory.
+    - simulation might need another dockerfile
