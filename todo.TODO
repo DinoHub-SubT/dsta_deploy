@@ -93,8 +93,9 @@ Cloud:
 ------------------------------------------------------------------------------------------------
 
 Next Tasks:
-  - comunication manager setup between local basestation <-> uav simulation
-  - move scenarios outside of operations/docker
+  ✔ communication manager setup between local basestation <-> uav simulation @done(20-04-06 03:12)
+    - rajent networking and verified with launch
+  - move scenarios dir outside of operations/docker
   - minor bugs in deploy script workspace
   - attach dataset storage
 
@@ -104,31 +105,8 @@ Bigger Tasks:
   - make sure all the repositories are on the correct branches & everything builds
     - had to make a few manual changes in a couple of places
   - make sure we have put everything that is duplicated in "common"
-  - add ansible to install on base vm
+  - add ansible to install on a base vm
+    - make sure gpu vm on azure works as well
   - terraform state files requires version control
-  - multi robot simulation launch
+  - multi robot simulation setup & launch
   
-Issues:
-  
-  - communication manager:
-    - need to know the ranjent setup
-      - will use the azure setup as a template
-    - list of all ugv, uav IPs
-    - need to know where in the communication manager configs to change the IPs
-    - the communication manger repo does not build.
-      - it is some auto-generated code that is missing, that was always before manually copied.
-      - this needs to be integrated into the deploy repo
-      - intstuctions on how to generate this is needed
-
-  - drone submodules setup:
-    - better organization of repos in uav directory (duplicated repos)
-    - some minimal manual changes in sim repo. Wrong git branches?
-    - non-simulation submodules setup requires opencl need more work to install this
-        - some repos failed to build, this needs to be double checked after opencl
-        - different dockerfile for "hardware" is needed
-        - probably still missing submodules/dependencies
-
-  - ugv setup:
-    - no information yet on update simulation, can follow up.
-    - there might need to be a "sim" folder in the ugv directory.
-    - simulation might need another dockerfile
