@@ -91,7 +91,7 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
         ./install-deployer.bash --install
 
 
-Please notify the maintainer if cloning the deploy repository failed.
+Please notify the maintainer if cloning or installing the deploy repository failed.
 
 ## Container Provisioning Tools
 
@@ -158,6 +158,7 @@ Please notify the maintainer if cloning the deploy repository failed.
 ### NVIDIA Docker
 
 * **Proceed with the below instructions only if you have a NVidia GPU.**
+* The instructions below assumes you already [installed](https://askubuntu.com/a/1056128) an nvidia driver.
 
 1. Remove old version of Nvidia Docker
 
@@ -239,15 +240,6 @@ Please notify the maintainer if cloning the deploy repository failed.
         
             docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi        
 
-## Configuration Management Tools
-
-### Ansible
-
-        sudo apt update
-        sudo apt install software-properties-common
-        sudo apt-add-repository --yes --update ppa:ansible/ansible
-        sudo apt install ansible
-
 ## Cloud Provisioning Tools
 
 ### Azure CLI
@@ -279,11 +271,20 @@ Please notify the maintainer if cloning the deploy repository failed.
         sudo mv terraform /usr/local/bin/
         rm terraform_0.12.24_linux_amd64.zip
 
+## Configuration Management Tools
+
+### Ansible
+
+        sudo apt update
+        sudo apt install software-properties-common
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible
+
 * * *
 
 # Verify Operation Tools Installation
 
-Verify you have all the third-party operations tools installed correctly
+Verify you have all the third-party operations tools installed correctly:
 
         # verify docker
         docker --version
@@ -303,7 +304,7 @@ Verify you have all the third-party operations tools installed correctly
         # verify azure cli
         az --help
 
-Verify you can run the deployer scripts installed correctly
+Verify you can run the deployer scripts installed correctly:
 
         # source your bashrc (or zshrc)
         source ~/.bashrc
