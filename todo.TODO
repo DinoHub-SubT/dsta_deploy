@@ -64,11 +64,11 @@ Wed:
 
 Friday:
   ☐ Get the storage attached to the VM
-  ☐ Get a simulation running on azure
+  ✔ Get a simulation running on azure @done(20-04-06 03:56)
     ✔ get basestation launching locally @done(20-04-03 05:09)
     ✔ get example gazebo on azure vm @done(20-04-03 05:08)
-    ☐ have rosbags running on azure launch
-    ☐ make rdp sure port is open local<->VM communication
+    ✘ have rosbags running on azure launch @cancelled(20-04-06 03:56)
+    ✔ make rdp sure port is open local<->VM communication @done(20-04-06 03:56)
     ✔ see if remote desktop works as well @done(20-04-03 05:08)
   ✔ nuc, ppc dockerfile build @done(20-04-02 01:20)
   ✔ sim, drone workspaces build @done(20-04-02 04:18)
