@@ -39,7 +39,8 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
 
 ## Prerequisites
   
-1. Ubuntu 16.04 or 18.04
+1. Ubuntu 18.04
+   - Not tested on other versions.
 
 2. python2 (does not work with python3)
 
