@@ -166,7 +166,7 @@ The uav simulation catkin workspace contains all repositories related in running
         # == Enter the Container ==
         
         # enter the docker shell container
-        docker-join.bash --name uav-shell
+        docker-join.bash --name uav-sim-shell
 
         # == Common Catkin Workspace ==
 
@@ -177,7 +177,7 @@ The uav simulation catkin workspace contains all repositories related in running
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set uav
 
         # build the catkin workspace
         catkin build
@@ -191,7 +191,7 @@ The uav simulation catkin workspace contains all repositories related in running
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set sim
 
         # build the catkin workspace
         catkin build
@@ -200,7 +200,7 @@ The uav simulation catkin workspace contains all repositories related in running
         exit
 
         # stop the running container
-        docker stop uav-shell
+        docker stop uav-sim-shell
 
 **Build UGV: Planning-PC**
 
@@ -220,7 +220,7 @@ The ugv planning-pc catkin workspace contains all repositories related in runnin
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set ugv
 
         # build the catkin workspace
         catkin build
@@ -234,7 +234,7 @@ The ugv planning-pc catkin workspace contains all repositories related in runnin
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set ugv
 
         # build the catkin workspace
         catkin build
@@ -261,7 +261,7 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set ugv
 
         # build the catkin workspace
         catkin build
@@ -275,7 +275,7 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set ugv
 
         # build the catkin workspace
         catkin build
