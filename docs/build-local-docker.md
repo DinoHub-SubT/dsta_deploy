@@ -31,7 +31,7 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         # build the basestation docker image
         ./deployer -s desktop.basestation.docker.image
 
-**UGV  Docker Image**
+**UGV Docker Image**
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -42,7 +42,7 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         # build the ugv:nuc docker image
         ./deployer -s desktop.ugv.nuc.docker.image
 
-**UAV  Docker Image**
+**UAV Docker Image**
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -51,7 +51,10 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         ./deployer -s desktop.uav.docker.image
 
 **Cleanup (Required)**
-        
+
+        # Remove any previously created docker containers (optional)
+        docker rm -f uav-sim-shell gui-shell ppc-shell nuc-shell
+
         # cleanup dangling docker images
         docker rmi -f $(docker images -f "dangling=true" -q)
 
@@ -116,7 +119,7 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 ## 3. Building The Catkin Workspace
 
-**Basestation**
+**Build Basestation**
 
 The basestation catkin workspace contains all basestation related repositories (example GUI control).
 
@@ -298,7 +301,7 @@ You should become more familiar with operational tools for different types of op
         cd ~/deploy_ws/src
 
         # Create the docker image
-        ./deployer -s [deployment host].[(optional) robot].[computer].docker.image
+        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.image
 
 **Template: Creating Docker Shell Access Containers**
 
@@ -306,7 +309,7 @@ You should become more familiar with operational tools for different types of op
         cd ~/deploy_ws/src
 
         # Create the docker shell container
-        ./deployer -s [deployment host].[(optional) robot].[computer].docker.shell
+        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.shell
 
 **Template: Building the catkin workspace**
 
@@ -321,3 +324,13 @@ You should become more familiar with operational tools for different types of op
 
         # select the catkin profile
         catkin profile set [profile name]
+
+To learn more about the available options, please use the `--preview` or `-p` command as example:
+
+        # preview ugv options when deploying on the dekstop
+        ./deployer -s desktop.ugv -p
+
+To learn more about the available options actually do, please use the `--verbose` or `-v` option with the `preview` option
+
+        # preview, verbose the ugv options when deploying on the dekstop
+        ./deployer -s desktop.ugv -p -v

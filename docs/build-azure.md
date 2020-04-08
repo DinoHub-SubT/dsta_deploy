@@ -107,11 +107,30 @@ You can change more default variables not listed above or can leave it as the de
 
 #### 1. Transfer the Repositories To the Azure VM
 
-You will need to transfer the deploy repository to the remote VM. There are two available options:
+You will want to setup development on the remote VM. There are a few options available:
 
-**Option 1:** Mount a remote filesystem using SFTP
+**Option 1:** Clone the repository directly on the remote host
 
-Mount the deploy repo to the remote directory. This needs to be done only once when the VM starts up.
+This option will clone the deploy repository directly on the remote VM and develop as you would on the localhost.
+
+- Follow the top level [`README.md`](../README.md) (the same steps apply as on the localhost), to setup the deploy workspace on the remote Azure VM.
+
+**Option 2:** Mount a remote filesystem using SFTP
+
+This option will mount the deploy repo found on the localhost to a directory found on the remote VM.
+
+- This needs to be done only once when the VM starts up and the repositories will be kept in sync.
+
+- You will need to develop on the remote repository, not on the localhost deploy repository.
+
+Find your desktop's IP on the Azure VPN:
+
+- Go to Virtual network gateway
+- Go to Point-to-site configuration
+- See the Allocated IP addresses
+
+        # == ssh into your VM ==
+        ssh [VM username]@[private VM IP]
 
         # Install sshfs
         sudo apt-get install sshfs
@@ -120,14 +139,15 @@ Mount the deploy repo to the remote directory. This needs to be done only once w
         mkdir /vm1/mountpoint/path/
 
         # Mount remote directory
-        sshfs [VM USERNAME][VM IP]:/remote/path /vm1/mountpoint/path/
+        sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
 
-        # Soft Link the deploy repo to the mount point
-        ln -S ~/deploy_ws/ /vm1/mountpoint/path/deploy_ws
+        # Setup a IDE on localhost with remote editing plugin
+        # Example: https://code.visualstudio.com/docs/remote/ssh
 
-- When done with development, remember to unmount the remote directory: `umount /vm1/mountpoint/path/`
+        # Remove the remote mount on remote VM host
+        sudo umount /vm1/mountpoint/path/
 
-**Option 2:** Deployer Transfer To Using `rsync`
+**Option 3:** Deployer Transfer
 
 This option will copy the deploy repo to the remote VM directory.
 
@@ -136,21 +156,20 @@ The transfer needs to be executed anytime you wish to see your local `deploy_ws`
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # transfer-to: rsync copy to the remove Azure VM
-        # template: ./deployer -s azure.[remote computer].docker.image
+        # `transfer-to` command does am rsync copy to the Azure VM
         
         # example: transfer to remove uav azure vm
-        ./deployer -s azure.uav.docker.image
+        ./deployer -s azure.uav.transfer.to
 
         # example: transfer to remove ugv azure vm
-        ./deployer -s azure.ugv.docker.image
+        ./deployer -s azure.ugv.transfer.to
 
         # example: transfer to remove basestation azure vm
-        ./deployer -s azure.basestation.docker.image
+        ./deployer -s azure.basestation.transfer.to
 
 #### 2. Connect and Setup Azure VM
 
-This setup only needs to be done once, on a newly created VM.
+This setup (if not already done) only needs to be done once, on a newly created VM.
 
         # == ssh into your VM ==
         ssh [username]@[private IP]
@@ -164,13 +183,13 @@ This setup only needs to be done once, on a newly created VM.
         pip2 install setuptools PyYAML pexpect --user
 
         # install the deployer tools
-        cd ~/deploy_ws/
+        cd ~/deploy_ws/src
         ./install-deployer.bash --install
 
         # == install docker tools ==
 
         # install docker
-        sudo apt install curl apt-transport-https ca-certificates curl software-properties-common`
+        sudo apt install curl apt-transport-https ca-certificates curl software-properties-common
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
         sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
         sudo apt-get update && sudo apt-get install docker-ce
@@ -188,9 +207,6 @@ Verify you have all the third-party operations tools installed correctly:
         # ssh into your VM (if not already done so)
         ssh [username]@[private IP]
 
-        # go to the deployer top level path
-        cd ~/deploy_ws/src
-
         # verify docker
         docker --version
 
@@ -204,6 +220,7 @@ Verify you have all the third-party operations tools installed correctly:
         docker-compose-wrapper --help
         
         # verify deployer script shows the help usage message
+        cd ~/deploy_ws/src
         ./deployer --help
 
 #### 3. Build The SubT Workspace
@@ -211,11 +228,12 @@ Verify you have all the third-party operations tools installed correctly:
 *Connect to the Azure VM (if not already done so):*
 
         # == ssh into your VM ==
-        ssh [username]@[private IP]
+        ssh [VM username]@[private VM IP]
 
 *Build the Workspace*
 
 - Continue with the build tutorial: [`docs/build-local-docker.md`](build-local-docker.md) at the `Quick Start:Basic Level` instructions.
+- Make sure to setup and build the correct the repository for the connected VM. You might have multiple VMs setup, each with a different workspace setup and built.
 
 #### 4. Summary
 

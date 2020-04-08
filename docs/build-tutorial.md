@@ -1,4 +1,4 @@
-# Deployment Operation Tools
+# Build Deployment Operation Tools
 
 [TOC]
 
@@ -57,17 +57,11 @@ Please chose the tutorial that matches your requirements.
 
 For basic setup, it is recommended you follow the tutorials: *Docker Deployment Example Walkthrough*, *Azure Deployment Example Walkthrough*.
 
-**Localhost Example Walkthrough (Optional)**
-
-Tutorial at: [`docs/build-local.md`](build-local.md)
-
-- Builds the `SubT` workspace directly on the host.
-
 **Docker Deployment Example Walkthrough (Recommended)**
 
 Tutorial at: [`docs/build-local-docker.md`](build-local-docker.md)
 
-- Everything will build and run in docker containers
+- Everything will build and run in docker containers.
 - All dependences will be installed using docker images.
 
 **Azure Deployment Example Walkthrough (Recommended)**
@@ -76,3 +70,10 @@ Tutorial at: [`docs/build-azure.md`](build-azure.md)
 
 - Everything will run in azure VMs.
 - Follows either (user's choice) the local direct or local docker build tutorials.
+
+**Localhost Example Walkthrough (Optional)**
+
+Tutorial at: [`docs/build-local.md`](build-local.md)
+
+- Builds the `SubT` workspace directly on the host.
+
