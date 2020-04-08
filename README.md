@@ -65,7 +65,7 @@ This deploy repo's maintains a working version of all the subt workspaces in ord
 
         mkdir ~/deploy_ws/
         cd ~/deploy_ws/
-        git clone git@bitbucket.org:cmusubt/deploy_ws.git src
+        git clone git@bitbucket.org:cmusubt/deploy.git src
         cd src
         ./install-deployer.bash --install
 
