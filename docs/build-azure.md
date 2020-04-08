@@ -1,27 +1,30 @@
 # Azure Deployment Example Walkthrough
 
 This tutorial will outline how to setup every workspace on the Azure VM.
+
 - Everything will build and run on the Azure VMs.
+
 - Please only follow the instructions that match your chosen setup.
 
 You can install the workspaces directly on the VM or using docker.
-  - The below instructions (recommended method) will follow using the docker setup.
-  - For installing directly on the host VM, please change the docker setup below with the setup found at: `docs/build-local.md`.
 
+  - The below instructions *(recommended method)* will follow the docker setup.
+
+  - For installing directly on the host VM, please change the docker setup instructions below with the setup found at: `docs/build-local.md`.
 
 ## Prerequisites
 
-This tutorial assumes:
+Assumes the user has already completed the *Azure Cloud Infrastructure Setup* at [`operations/deploy/azurebooks/README.md`](../operations/deploy/azurebooks/README.md) or have a an azure setup available with VM ssh access.
 
-  - You have completed the *Azure Cloud Infrastructure Setup* at `operations/deploy/azurebooks/README.md` or have a an azure setup available with VM ssh access.
+### Setup Configurations
 
-**Setup Remote Host Alias**
+**1. Setup Remote Host Alias**
 
         # open local host file
         sudo vim /etc/hosts
 
         # Add all the remote vm hosts. You can configure the names however you like.
-        # For example, add the following to the file:
+        # Example: add the following to the file:
 
         10.0.2.4        azure-ugv
         10.0.2.5        azure-uav
@@ -29,13 +32,13 @@ This tutorial assumes:
 
 - You can now ping the remote host using the above alias: `ping azure-ugv`
 
-**Setup Remote Host SSH Config**
+**2. Setup Remote Host SSH Config**
 
         # open local ssh config file
         sudo vim ~/.ssh/config
 
         # Add all the remote vm ssh configuration.  You can configure the names however you like.
-        # For example, add the following to the file:
+        # Example: add the following to the file:
 
         Host azure.ugv
           HostName azure-ugv
@@ -57,11 +60,9 @@ This tutorial assumes:
 
 - You can now ssh to the remote host using the above alias: `ssh azure.ugv`
 
-**Setup the Scenario Configuration Files**
+**3. Setup the Scenario Configuration Files**
 
 The user needs to list IPs for all remote hosts in configuration files called *scenarios files*.
-
-*About Scenario Files*
 
 All scenario files can be found in: `operations/deploy/scenarios`
 
@@ -83,17 +84,19 @@ All scenario files can be found in: `operations/deploy/scenarios`
 
   - Change `GPU_ENABLE_TYPE` if your VM has a gpu enabled and nvidia drivers installed.
 
-  - Change `user` to your remote VM username
+  - Change `user` to your localhost or remote VM username
   
-  - Change `host` to your remote VM host alias (as edited in /etc/hosts)
+  - Change `host` to your localhost or remote VM host alias (as edited in /etc/hosts)
 
-  - Change `ssh_config` to your remote ssh alias (as edited in ~/.ssh/config)
+  - Change `ssh_config` to your localhost or remote ssh alias (as edited in ~/.ssh/config)
 
-  - Change `LOCAL_DEPLOY_PATH` to the path to the deploy repo on your localhost
+  - Change `LOCAL_DEPLOY_PATH` to the deploy repo path on your localhost
 
-  - Change `REMOTE_DEPLOY_PATH` to the path to the deploy repo on your remote azure VM (even if it does not exist)
+  - Change `REMOTE_DEPLOY_PATH` to the deploy repo path on your remote azure VM (even if it does not exist)
 
 You can change more default variables not listed above or can leave it as the default value.
+
+* * *
 
 ## Quick Start
 
@@ -102,7 +105,7 @@ You can change more default variables not listed above or can leave it as the de
 - Explains how to install workspace dependencies in docker images and build catkin workspaces in docker containers on the remote VM.
 - This method is the *recommended method to use* because it is the most straight-forward for repository access and debugging in docker containers.
 
-### 1. Transfer the Repositories To the Azure VM
+#### 1. Transfer the Repositories To the Azure VM
 
 You will need to transfer the deploy repository to the remote VM. There are two available options:
 
@@ -145,7 +148,7 @@ The transfer needs to be executed anytime you wish to see your local `deploy_ws`
         # example: transfer to remove basestation azure vm
         ./deployer -s azure.basestation.docker.image
 
-### 2. Connect and Setup Azure VM
+#### 2. Connect and Setup Azure VM
 
 This setup only needs to be done once, on a newly created VM.
 
@@ -182,6 +185,12 @@ This setup only needs to be done once, on a newly created VM.
 
 Verify you have all the third-party operations tools installed correctly:
 
+        # ssh into your VM (if not already done so)
+        ssh [username]@[private IP]
+
+        # go to the deployer top level path
+        cd ~/deploy_ws/src
+
         # verify docker
         docker --version
 
@@ -197,18 +206,18 @@ Verify you have all the third-party operations tools installed correctly:
         # verify deployer script shows the help usage message
         ./deployer --help
 
-### 3. Build The SubT Workspace
+#### 3. Build The SubT Workspace
 
-**Connect to the Azure VM (if not already done so):**
+*Connect to the Azure VM (if not already done so):*
 
         # == ssh into your VM ==
         ssh [username]@[private IP]
 
-**Build the Workspace**
+*Build the Workspace*
 
 - Continue with the build tutorial: [`docs/build-local-docker.md`](build-local-docker.md) at the `Quick Start:Basic Level` instructions.
 
-### 4. Summary
+#### 4. Summary
 
 If you have completed with the build tutorial correctly, you should now have a built workspace on the Azure VM.
 

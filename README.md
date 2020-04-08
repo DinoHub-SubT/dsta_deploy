@@ -326,7 +326,6 @@ Tutorial at: [`docs/install-workspaces.md`](docs/install-workspaces.md)
 
 **2. Azure Cloud Infrastructure Setup (Optional)**
 
-
 Tutorial at: [`operations/deploy/azurebooks/README.md`](operations/deploy/azurebooks/README.md)
 
 - Please follow this tutorial only if you are planning on using the Azure Cloud resource.

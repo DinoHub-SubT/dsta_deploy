@@ -4,7 +4,7 @@ Everything will build and run in docker containers.
 
 - **All dependencies must be installed in docker images**
 
-This tutorial will outline how to setup every workspace, please  only follow instructions that match your chosen setup.
+This tutorial will outline how to setup every workspace, please  only follow instructions that matches your chosen setup.
 
 * * *
 
@@ -12,8 +12,8 @@ This tutorial will outline how to setup every workspace, please  only follow ins
 
 **Basic Level**
 
-- Explains how to install workspace dependencies in docker images and build catkin workspaces in docker containers.
-- This method is the *recommended method to use* because it is the most straight-forward for repository access and debugging in docker containers.
+- Explains how to install workspace dependencies as docker images, create docker containers and build catkin workspaces.
+- This level is the *recommended method to use* because of the simple for repository access and debugging in docker containers.
 
 ### 1. Building Docker Images
 
@@ -50,6 +50,12 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         # build the ugv planning-pc docker image
         ./deployer -s desktop.uav.docker.image
 
+**Cleanup (Required)**
+        
+        # cleanup dangling docker images
+        docker rmi -f $(docker images -f "dangling=true" -q)
+
+
 ## 2. Creating Docker Shell Access Containers
 
 Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
@@ -64,6 +70,12 @@ Docker shell containers will give the user access to the entire deploy workspace
         # create the basestation docker container
         ./deployer -s desktop.basestation.docker.shell
 
+        # view running docker containers
+        docker ps
+
+        # verify you see the docker container from the output in `docker ps`:
+        #   -> gui-shell
+
 **UGV Docker Container Shell Access**
 
         # go to the deploy top level path
@@ -72,8 +84,20 @@ Docker shell containers will give the user access to the entire deploy workspace
         # create the ugv:planning-pc docker container
         ./deployer -s desktop.ugv.ppc.docker.shell
 
+        # view running docker containers
+        docker ps
+
+        # verify you see the docker container from the output in `docker ps`:
+        #   -> ppc-shell
+
         # create the ugv:planning-pc docker container
         ./deployer -s desktop.ugv.nuc.docker.shell
+
+        # view running docker containers
+        docker ps
+
+        # verify you see the docker container from the output in `docker ps`:
+        #   -> nuc-shell
 
 **UAV Docker Container Shell Access**
 
@@ -82,6 +106,12 @@ Docker shell containers will give the user access to the entire deploy workspace
 
         # create the ugv:planning-pc docker container
         ./deployer -s desktop.uav.docker.shell
+
+        # view running docker containers
+        docker ps
+
+        # verify you see the docker container from the output in `docker ps`:
+        #   -> uav-shell
 
 
 ## 3. Building The Catkin Workspace
@@ -93,7 +123,7 @@ The basestation catkin workspace contains all basestation related repositories (
         # == Enter the Container ==
 
         # enter the docker shell container
-        docker-join --name gui-shell
+        docker-join.bash --name gui-shell
 
         # == Common Catkin Workspace ==
 
@@ -123,6 +153,12 @@ The basestation catkin workspace contains all basestation related repositories (
         # build the catkin workspace
         catkin build
 
+        # exit the container
+        exit
+
+        # stop the running container
+        docker stop gui-shell
+
 **Build UAV Simulation**
 
 The uav simulation catkin workspace contains all repositories related in running the uav in simulation.
@@ -130,7 +166,7 @@ The uav simulation catkin workspace contains all repositories related in running
         # == Enter the Container ==
         
         # enter the docker shell container
-        docker-join --name uav-shell
+        docker-join.bash --name uav-shell
 
         # == Common Catkin Workspace ==
 
@@ -160,6 +196,12 @@ The uav simulation catkin workspace contains all repositories related in running
         # build the catkin workspace
         catkin build
 
+        # exit the container
+        exit
+
+        # stop the running container
+        docker stop uav-shell
+
 **Build UGV: Planning-PC**
 
 The ugv planning-pc catkin workspace contains all repositories related in running the ugv's planning-pc in simulation.
@@ -167,7 +209,7 @@ The ugv planning-pc catkin workspace contains all repositories related in runnin
         # == Enter the Container ==
 
         # enter the docker shell container
-        docker-join --name ppc-shell
+        docker-join.bash --name ppc-shell
 
         # == Common Catkin Workspace ==
 
@@ -197,6 +239,12 @@ The ugv planning-pc catkin workspace contains all repositories related in runnin
         # build the catkin workspace
         catkin build
 
+        # exit the container
+        exit
+
+        # stop the running container
+        docker stop ppc-shell
+
 **Build UGV: NUC**
 
 The ugv nuc catkin workspace contains all repositories related in running the ugv's nuc in simulation.
@@ -204,7 +252,7 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         # == Common Catkin Workspace ==
 
         # enter the docker shell container
-        docker-join --name nuc-shell
+        docker-join.bash --name nuc-shell
 
         # go to the `common` catkin workspace inside the docker container
         cd ~/deploy_ws/src/common
@@ -232,6 +280,12 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         # build the catkin workspace
         catkin build
 
+        # exit the container
+        exit
+
+        # stop the running container
+        docker stop nuc-shell
+
 ## 4. Summary
 
 You should now have a built SubT workspace.
@@ -257,7 +311,7 @@ You should become more familiar with operational tools for different types of op
 **Template: Building the catkin workspace**
 
         # enter the docker shell container
-        docker-join --name gui-shell
+        docker-join.bash --name gui-shell
 
         # go to the workspace path
         cd ~/deploy_ws/src/path/to/workspace
