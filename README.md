@@ -11,31 +11,10 @@
 
 # Overview
 
-This deploy repo's purpose is to maintain a working version of the subt workspaces & make robot deployment easier.
-
-Local development, basestation & robot computers can *mostly* all run the deploy repo, in [docker](https://docs.docker.com/get-started/) containers.
-
-The advantage of using the deploy repo & running everything in docker is:
-
-- Fast deployment on multiple robots.
-- Development version are maintained, making issues easier and faster to debug.
-- Launch configurations for different robots are version control maintained.
-- System dependencies are version control maintained in [dockerfiles](https://docs.docker.com/engine/reference/builder/).
-- Continuous integration builds & tests integrated on lab cluster severs.
-
-Deployer automates, on multiple robots, the following tasks:
-
-- bulding docker images
-- creating & running docker containers
-- building & launching workspaces
-
-The deployer script requires a corresponding *robot deploy configuration yaml*.
-
-- A deploy yaml lists a sequence of shell commands for different tasks.
-- Deploy yamls are located in `ci/deploy/field/`
+This deploy repo's maintains a working version of all the subt workspaces in order to make local, robot, cloud deployment somewhat easier.
 
 
-# Quick Setup: Operation Tools Installation
+# Quick Setup
 
 ## Prerequisites
   
@@ -75,14 +54,14 @@ The deployer script requires a corresponding *robot deploy configuration yaml*.
 
 ## Deploy Repository
 
-1. Install deploy dependencies
+**1. Install deploy dependencies**
 
         sudo apt-get update
         sudo apt install -y --no-install-recommends python python-setuptools python-pip
         pip2 install wheel --user
         pip2 install setuptools PyYAML pexpect --user
 
-2. Clone the deploy repo *(please follow these instructions exactly)* :
+**2. Clone the deploy repo *(please follow these instructions exactly)* :**
 
         mkdir ~/deploy_ws/
         cd ~/deploy_ws/
@@ -99,11 +78,11 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
 1. Remove old versions of Docker
 
-    `sudo apt-get remove docker docker-engine docker.io`
+        sudo apt-get remove docker docker-engine docker.io
 
 2. Install dependencies and keys
 
-    `sudo apt install curl apt-transport-https ca-certificates curl software-properties-common`
+        sudo apt install curl apt-transport-https ca-certificates curl software-properties-common
 
 3. Add the official GPG key of Docker
 
@@ -113,30 +92,28 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
 4. Install Docker
 
-    `sudo apt-get update && sudo apt-get install docker-ce`
+        sudo apt-get update && sudo apt-get install docker-ce
 
 
 5. Add your user to the docker group:
 
-    `sudo usermod -a -G docker $USER`
+        sudo usermod -a -G docker $USER
 
     - logout-log-back-in for the changes to take effect
 
 
 6. Verify your Docker installation
 
-    * **Please** do not run with `sudo docker`. Go back to Step 5 if you still cannot run as a non-root user.
+        # verify docker is installed (without sudo access)
+        docker -v
 
+    - Do not run with `sudo docker`. Go back to Step 5 if you still cannot run as a non-root user.
+    
+7. Try running a sample container
+    
+        sudo docker run hello-world
 
-    *To verify if `docker` is installed:*
-
-    `docker -v`
-
-    *Try running a sample container:*
-
-    `sudo docker run hello-world`
-
-    - You should see the message *Hello from Docker!* confirming that your installation was successfully completed.
+      - You should see the message *Hello from Docker!* confirming that your installation was successfully completed.
 
 ### Docker Compose
 
@@ -157,8 +134,9 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
 ### NVIDIA Docker
 
-* **Proceed with the below instructions only if you have a NVidia GPU.**
-* The instructions below assumes you already [installed](https://askubuntu.com/a/1056128) an nvidia driver.
+**Proceed with the below instructions ONLY if you have a NVidia GPU.**
+
+The instructions below assumes you already [installed](https://askubuntu.com/a/1056128) an nvidia driver.
 
 1. Remove old version of Nvidia Docker
 
@@ -183,24 +161,22 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
         sudo service docker restart
 
-6. Verify the installation:
+6. Verify your Docker installation
 
-    *To verify if `nvidia-docker` is installed:*
+        # verify docker is installed (without sudo access)
+        nvidia-docker -v
 
-    `nvidia-docker -v`
+7. Try running a sample container
 
-    *Try running a sample container:*
-
-    `docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi`
+        docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
     - The docker image `nvidia/cuda` requires a recent CUDA version. If you have an earlier CUDA version, then [find a tag](https://hub.docker.com/r/nvidia/cuda/tags) with an earlier version.
-        - Example: `docker pull nvidia/cuda:8.0-runtime` and then run the `docker run` command with the `nvidia/cuda:8.0-runtime` image.
-
+        - Example: `docker run --runtime=nvidia --rm nvidia/cuda:8.0-runtime nvidia-smi`
+        
     - This command should print your GPU information.
 
 
 #### Enable NVidia Docker
-
 
 1. Test NVIDIA Docker runntime is enabled:
 
@@ -242,6 +218,8 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
 ## Cloud Provisioning Tools
 
+Please install the following third-party cloud provisioning operational tools.
+
 ### Azure CLI
 
         # Dependencies
@@ -271,8 +249,6 @@ Please notify the maintainer if cloning or installing the deploy repository fail
         sudo mv terraform /usr/local/bin/
         rm terraform_0.12.24_linux_amd64.zip
 
-## Configuration Management Tools
-
 ### Ansible
 
         sudo apt update
@@ -282,7 +258,7 @@ Please notify the maintainer if cloning or installing the deploy repository fail
 
 * * *
 
-# Verify Operation Tools Installation
+## Verify Operation Tools Installation
 
 Verify you have all the third-party operations tools installed correctly:
 
@@ -320,59 +296,63 @@ Please notify the maintainer if any of the help usage messages do not show up.
 
 * * *
 
-# Getting The Repositories
+# Getting Started
+
+The below instructions should get you started on a basic SubT setup locally or on Azure.
+
+## Operational Tools To Learn
+
+There are a few operational tools to learn to be able to navigate setup more smoothly.
+
+Please have a basic understanding of the following tools:
+
+- [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
+- [Docker](https://docs.docker.com/get-started/)
+- [Docker Compose (optional)](https://docs.docker.com/compose//)
+- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
+- [Terraform (optional)](https://www.terraform.io/)
+- [Ansible (optional)](https://www.ansible.com/)
+- [SubT Deployer Tool (TODO) ](./operations/deploy/deploybooks/README.md)
+
+## Tutorials
+
+You will need to go through a few tutorials to have a working system.
+
+**1. SubT Repository Setup (Required)**
+
+Tutorial at: [`docs/install-workspaces.md`](docs/install-workspaces.md)
+
+- Installs all the SubT repositories.
+
+**2. Azure Cloud Infrastructure Setup (Optional)**
 
 
-When the user clones the deploy workspace, the submodules will not be cloned by default.
+Tutorial at: [`operations/deploy/azurebooks/README.md`](operations/deploy/azurebooks/README.md)
 
-The user must decide which *group of submodules* to clone. Submodules are organized into groups of algorithm, computer or robot type.
+- Please follow this tutorial only if you are planning on using the Azure Cloud resource.
+- Creates an example azure infrastructure with VMs, virtual networking, VPN.
+- Setup remote desktop access.
 
-- Example: `common, ugv uav, basestation`, etc. 
+**3. Deployment Operation: Build (Required)**
 
-## Required submodules
+Tutorial at: [`docs/build-tutorial.md`](docs/build-tutorial.md)
 
-The user must clone these groups of submodules.
+- Installs all the workspace dependencies locally or as docker images.
+- Docker container access setup.
+- Build all the SubT catkin workspaces.
 
-**Clone the common submodules**
+**4. Deployment Operation: Launch Simulation (Required)**
 
-    git submodule update --recursive --init common
+TODO
 
-## Optional submodules
+**5. Deployment Operation: Launch Robots (Required)**
 
-The user only needs to clone what they need. Choose which group of submodules to clone as listed below.
+TODO
 
-**Clone the basestation submodules**
-
-    git submodule update --recursive --init basestation
-
-**Clone the ugv submodules**
-
-    git submodule update --recursive --init ugv
-
-**Clone the uav submodules**
-
-    git submodule update --recursive --init uav
+## Rererences
 
 
-## Removing Submodules
 
-To remove a group of submodules locally *(for example, when the user is done developing on them)*, perform the following:
-
-    # git command structure template:
-    #   -> git submodule deinit -f [ group-name ]
-
-    # example, removing all ugv submodules locally
-    git submodule deinit -f ugv
-
-* * *
-
-# Getting Started With Azure & Local Deployment
-
-You must go through both tutorials to have a working system. If not using azure, then skip all *azure* steps and only follow the *localhost* steps.
-
-Quick-start of azure resources setup `operations/deploy/azurebooks/README.md` instructions.
-
-Quick-start of operational deployment setup `operations/deploy/deploybooks/README.md` instructions.
 
 * * *
 
