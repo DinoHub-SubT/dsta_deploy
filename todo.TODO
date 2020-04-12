@@ -88,14 +88,14 @@ Docker:
   ✘ mounting is not seeing the changes reflected? @cancelled(20-04-02 04:19)
 
 Cloud:
-  ☐ allow password entry
+  ✔ allow password entry @done(20-04-11 00:16)
 
 ------------------------------------------------------------------------------------------------
 
 Next Tasks:
   ✔ communication manager setup between local basestation <-> uav simulation @done(20-04-06 03:12)
     - rajent networking and verified with launch
-  - move scenarios dir outside of operations/docker
+  ✔ move scenarios dir outside of operations/docker @done(20-04-11 00:16)
   - minor bugs in deploy script workspace
   - attach dataset storage
 
@@ -110,3 +110,5 @@ Bigger Tasks:
   - terraform state files requires version control
   - multi robot simulation setup & launch
   
+sim:
+  ☐ add a git hook to remove subt_gazebo

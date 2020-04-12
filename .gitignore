@@ -262,3 +262,4 @@ operations/deploy/azurebooks/subt/terraform.tfstate.backup
 operations/deploy/azurebooks/subt/.terraform.*
 
 todo-tmp.TODO
+operations/deploy/scripts/remote-desktop-*
