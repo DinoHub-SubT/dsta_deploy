@@ -15,6 +15,12 @@ The quick start will walkthrough the following:
 - How to create docker containers on your localhost.
 - How to build the catkin workspaces in the docker containers.
 
+### 0. Check the Scenario Files
+
+Please check the scenario files: `operations/deploy/scenarios`
+
+This build uses the `desktop-[project].env` files (even if building on azure).
+
 ### 1. Building Docker Images
 
 Building docker images on the localhost will install all the workspace dependencies.
@@ -85,6 +91,15 @@ Docker shell containers will give the user access to the entire deploy workspace
         #       ppc-shell
         #       nuc-shell
 
+**Common Issues**
+
+- Error `Unknown runtime specified nvidia`, please change:
+
+        # open the scenario file
+        gedit operations/deploy/scenarios/desktop-ugv.env
+
+        # change the variable 'GPU_ENABLE_TYPE' to be the below:
+        export GPU_ENABLE_TYPE="non-gpu"
 
 ## 3. Building The Catkin Workspace
 
