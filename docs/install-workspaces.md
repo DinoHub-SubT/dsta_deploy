@@ -35,13 +35,11 @@ The SubT repositories are grouped as the following workspaces:
 
 ## Tutorial: Install The Submodules
 
-**Please follow this tutorial**: If you have a new clone of the deploy repository.
-
-When the user clones the deploy repository, the submodules will not be cloned by default.
+When the user clones the deploy repository, the submodules will not be cloned by default. Therefore, the user must manually clone the submodules.
 
 - The user decides which *group of submodules* to clone.
 
-- Submodules are organized into groups of algorithm, computer or robot type.
+- Submodules are grouped by algorithm, computer or robot type.
 
 ## Required submodules
 
@@ -85,4 +83,3 @@ To remove a group of submodules locally *(for example, when the user is done dev
 
     # example, removing all ugv submodules locally
     git submodule deinit -f ugv
-

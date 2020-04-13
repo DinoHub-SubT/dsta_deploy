@@ -24,7 +24,7 @@ Assumes the user has already completed the *Azure Cloud Infrastructure Setup* at
         sudo vim /etc/hosts
 
         # Add all the remote vm hosts. You can configure the names however you like.
-        # Example: add the following to the file:
+        # Example: add the following to the file (please confirm your VM IPs):
 
         10.0.2.4        azure-ugv
         10.0.2.5        azure-uav
@@ -96,16 +96,7 @@ All scenario files can be found in: `operations/deploy/scenarios`
 
 You can change more default variables not listed above or can leave it as the default value.
 
-* * *
-
-## Quick Start
-
-**Basic Level**
-
-- Explains how to install workspace dependencies in docker images and build catkin workspaces in docker containers on the remote VM.
-- This method is the *recommended method to use* because it is the most straight-forward for repository access and debugging in docker containers.
-
-#### 1. Transfer the Repositories To the Azure VM
+**4. Transfer SubT Worksapce To Azure VM**
 
 You will want to setup development on the remote VM. There are a few options available:
 
@@ -113,7 +104,7 @@ You will want to setup development on the remote VM. There are a few options ava
 
 This option will clone the deploy repository directly on the remote VM and develop as you would on the localhost.
 
-- Follow the top level [`README.md`](../README.md) (the same steps apply as on the localhost), to setup the deploy workspace on the remote Azure VM.
+- Follow the top level [`README.md`](../README.md) to clone the deploy workspace directly on the remote Azure VM.
 
 **Option 2:** Mount a remote filesystem using SFTP
 
@@ -167,7 +158,14 @@ The transfer needs to be executed anytime you wish to see your local `deploy_ws`
         # example: transfer to remove basestation azure vm
         ./deployer -s azure.basestation.transfer.to
 
-#### 2. Connect and Setup Azure VM
+* * *
+
+## Quick Start
+
+- Explains how to install workspace dependencies in docker images and build catkin workspaces in docker containers on the remote VM.
+- This method is the *recommended method to use* because it is the most straight-forward for repository access and debugging in docker containers.
+
+#### 1. Setup Azure VM Dependencies
 
 This setup (if not already done) only needs to be done once, on a newly created VM.
 
@@ -202,6 +200,8 @@ This setup (if not already done) only needs to be done once, on a newly created 
         sudo chmod +x /usr/local/bin/docker-compose
         sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
+        # install remote
+
 Verify you have all the third-party operations tools installed correctly:
 
         # ssh into your VM (if not already done so)
@@ -223,17 +223,16 @@ Verify you have all the third-party operations tools installed correctly:
         cd ~/deploy_ws/src
         ./deployer --help
 
-#### 3. Build The SubT Workspace
+#### 2. Build The SubT Workspace
 
-*Connect to the Azure VM (if not already done so):*
+Connect to the Azure VM (if not already done so):
 
         # == ssh into your VM ==
         ssh [VM username]@[private VM IP]
 
-*Build the Workspace*
+Build the Workspace
 
-- Continue with the build tutorial: [`docs/build-local-docker.md`](build-local-docker.md) at the `Quick Start:Basic Level` instructions.
-- Make sure to setup and build the correct the repository for the connected VM. You might have multiple VMs setup, each with a different workspace setup and built.
+- Build the workspace by following the docker build tutorial: [`docs/build-local-docker.md`](build-local-docker.md) instructions.
 
 #### 4. Summary
 

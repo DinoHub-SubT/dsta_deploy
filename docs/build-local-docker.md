@@ -1,27 +1,24 @@
 # Docker Deployment Example Walkthrough
 
-Everything will build and run in docker containers.
+The `SubT` workspace will be built and will run in docker containers.
+    
+- workspace dependencies are installed in docker images.
 
-- **All dependencies must be installed in docker images**
-
-This tutorial will outline how to setup every workspace, please  only follow instructions that matches your chosen setup.
+**Note:** This tutorial will outline how to setup every workspace, please only follow instructions that matches your chosen setup.
 
 * * *
 
 ## Quick Start
 
-**Basic Level**
+The quick start will walkthrough the following:
 
-- Explains how to install workspace dependencies as docker images, create docker containers and build catkin workspaces.
-- This level is the *recommended method to use* because of the simple for repository access and debugging in docker containers.
+- How to install workspace dependencies in docker images on your localhost.
+- How to create docker containers on your localhost.
+- How to build the different `SubT` catkin project workspaces in the docker containers.
 
 ### 1. Building Docker Images
 
-You only need to build docker images whenever you make changes to dockerfiles found in: `operations/deploy/docker/dockerfiles`
-
-  - You should make changes to dockerfiles when you want to add workspace thirdparty dependencies.
-  - If you install a dependency in the container directly, please remember to put it in the dockerfile and rebuild the docker image.
-
+Building docker images on the localhost will install all the workspace dependencies.
 
 **Basestation Docker Image** 
 
@@ -42,6 +39,9 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         # build the ugv:nuc docker image
         ./deployer -s desktop.ugv.nuc.docker.image
 
+        # build the ugv:simulation docker image
+        ./deployer -s desktop.ugv.sim.docker.image
+
 **UAV Docker Image**
 
         # go to the deploy top level path
@@ -58,6 +58,23 @@ You only need to build docker images whenever you make changes to dockerfiles fo
         # cleanup dangling docker images
         docker rmi -f $(docker images -f "dangling=true" -q)
 
+**Closing Comments** 
+
+- *View the docker images built on the localhost:*
+
+        docker images
+
+- *When to re-build docker images:*
+
+    - When you do not have the docker image on your localhost
+    
+    - When  changes are made to dockerfiles (dockerfiles found in: `operations/deploy/docker/dockerfiles`)
+
+- *When to update dockerfiles:*
+
+    - You should make changes to dockerfiles when you want to add a new workspace thirdparty dependency.
+
+    - If you install a dependency in the container directly, please remember to put it in the dockerfile and rebuild the docker image.
 
 ## 2. Creating Docker Shell Access Containers
 
@@ -101,6 +118,15 @@ Docker shell containers will give the user access to the entire deploy workspace
 
         # verify you see the docker container from the output in `docker ps`:
         #   -> nuc-shell
+
+        # create the ugv:simulation docker container
+        ./deployer -s desktop.ugv.sim.docker.shell
+
+        # view running docker containers
+        docker ps
+
+        # verify you see the docker container from the output in `docker ps`:
+        #   -> sim-shell
 
 **UAV Docker Container Shell Access**
 

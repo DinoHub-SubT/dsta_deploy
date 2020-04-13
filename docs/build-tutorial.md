@@ -2,6 +2,28 @@
 
 [TOC]
 
+## About Operation Tools
+
+There are a few operational tools available to use:
+
+`docker`
+
+  - command interface to interact with `dockerfiles` found in `operations/deploy/docker/dockerfiles`
+  
+`docker-compose`
+
+  - command interface to interact with `docker-compose.yml` files found in `operations/deploy/docker/dockerfiles/`
+  
+`docker-compose-wrapper`
+
+  - command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/deploy/scenarios`
+  
+`deployer`
+
+  - command interface to interact with `deployerfiles` found in `operations/deploy/deploybooks/robot`
+
+* * *
+
 ## Prerequisites
 
 Verify you have all the operations tools installed correctly:
@@ -27,53 +49,29 @@ Verify you have all the operations tools installed correctly:
         # verify deployer script shows the help usage message
         ./deployer --help
 
-
-## About The Deployment Operation Tools
-
-There are a few operational tools available to use:
-
-`docker`
-
-  - is the command interface to interact with `dockerfiles` found in `operations/deploy/docker/dockerfiles`
-  
-`docker-compose`
-
-  - is the command interface to interact with `docker-compose.yml` files found in `operations/deploy/docker/dockerfiles/`
-  
-`docker-compose-wrapper`
-
-  - is the command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/deploy/scenarios`
-  
-`deployer`
-
-  - is the command interface to interact with `deployerfiles` found in `operations/deploy/deploybooks/robot`
-
-
 * * *
 
-# Tutorial Example Walkthrough
+## Tutorial Build Example Walkthrough
 
-Please chose the tutorial that matches your requirements.
+Please choose the tutorial that matches your requirements.
 
-For basic setup, it is recommended you follow the tutorials: *Docker Deployment Example Walkthrough*, *Azure Deployment Example Walkthrough*.
-
-**Docker Deployment Example Walkthrough (Recommended)**
+## Docker
 
 Tutorial at: [`docs/build-local-docker.md`](build-local-docker.md)
 
-- Everything will build and run in docker containers.
-- All dependences will be installed using docker images.
+- Builds the `SubT` workspace in docker containers.
+- All dependencies are installed in docker images and maintained in dockerfiles (`operations/deploy/docker/dockerfiles`).
 
-**Azure Deployment Example Walkthrough (Recommended)**
+## Azure (optional)
 
 Tutorial at: [`docs/build-azure.md`](build-azure.md)
 
-- Everything will run in azure VMs.
-- Follows either (user's choice) the local direct or local docker build tutorials.
+- Builds the `SubT` workspace on azure VMs.
 
-**Localhost Example Walkthrough (Optional)**
+    - After VM *ssh access*, the `SubT` workspace is built on the VM localhost or in the VM docker containers.
+
+## Localhost (optional)
 
 Tutorial at: [`docs/build-local.md`](build-local.md)
 
 - Builds the `SubT` workspace directly on the host.
-

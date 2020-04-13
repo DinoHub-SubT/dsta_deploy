@@ -300,9 +300,9 @@ Please notify the maintainer if any of the help usage messages do not show up.
 
 The below instructions should get you started on a basic SubT setup locally or on Azure.
 
-## Operational Tools To Learn
+## Operational Tool Resources
 
-There are a few operational tools to learn to be able to navigate setup more smoothly.
+There are a few operational tools resources available.
 
 Please have a basic understanding of the following tools:
 
@@ -318,13 +318,13 @@ Please have a basic understanding of the following tools:
 
 You will need to go through a few tutorials to have a working system.
 
-**1. SubT Repository Setup (Required)**
+### 1. Initial Repository Setup (Required)
 
 Tutorial at: [`docs/install-workspaces.md`](docs/install-workspaces.md)
 
 - Installs all the SubT repositories.
 
-**2. Azure Cloud Infrastructure Setup (Optional)**
+### 2. Azure Cloud Infrastructure Setup (Optional)
 
 Tutorial at: [`operations/deploy/azurebooks/README.md`](operations/deploy/azurebooks/README.md)
 
@@ -332,26 +332,21 @@ Tutorial at: [`operations/deploy/azurebooks/README.md`](operations/deploy/azureb
 - Creates an example azure infrastructure with VMs, virtual networking, VPN.
 - Setup remote desktop access.
 
-**3. Deployment Operation: Build (Required)**
+### 3. Build Setup (Required)
 
 Tutorial at: [`docs/build-tutorial.md`](docs/build-tutorial.md)
 
 - Installs all the workspace dependencies locally or as docker images.
-- Docker container access setup.
+- Setup docker on localhost or on Azure VMs.
 - Build all the SubT catkin workspaces.
 
-**4. Deployment Operation: Launch Simulation (Required)**
+### 4. Launch Simulation Setup (Required)
 
 TODO
 
-**5. Deployment Operation: Launch Robots (Required)**
+### 5. Launch Robots Setup (Required)
 
 TODO
-
-## Rererences
-
-
-
 
 * * *
 
