@@ -22,56 +22,95 @@ There are a few operational tools available to use:
 
   - command interface to interact with `deployerfiles` found in `operations/deploy/deploybooks/robot`
 
-* * *
-
-## Prerequisites
-
-Verify you have all the operations tools installed correctly:
-
-        # Go to the deployer top level path
-        cd ~/deploy_ws/src
-
-        # verify docker
-        docker --version
-
-        # (optional) verify nvidia-docker
-        nvidia-docker -v
-
-        # verify docker-compose
-        docker-compose -v
-
-        # source your bashrc (or zshrc)
-        source ~/.bashrc
-
-        # verify docker-compose shows the help usage message
-        docker-compose-wrapper --help
-        
-        # verify deployer script shows the help usage message
-        ./deployer --help
-
-* * *
 
 ## Tutorial Build Example Walkthrough
 
 Please choose the tutorial that matches your requirements.
 
-## Docker
+### Docker
 
-Tutorial at: [`docs/build-local-docker.md`](build-local-docker.md)
+Builds the `SubT` workspace on the localhost, in docker containers.
 
-- Builds the `SubT` workspace in docker containers.
 - All dependencies are installed in docker images and maintained in dockerfiles (`operations/deploy/docker/dockerfiles`).
 
-## Azure (optional)
+**Tutorials at:**
 
-Tutorial at: [`docs/build-azure.md`](build-azure.md)
+  - Basestation: [`docs/build-basestation-docker.md`](build-basestation-docker.md)
+  - UGV: [`docs/build-ugv-docker.md`](build-ugv-docker.md)
+  - UAV: [`docs/build-uav-docker.md`](build-uav-docker.md)
 
-- Builds the `SubT` workspace on azure VMs.
 
-    - After VM *ssh access*, the `SubT` workspace is built on the VM localhost or in the VM docker containers.
+### Azure (optional)
 
-## Localhost (optional)
+Builds the `SubT` workspaces on an azure VMs.
 
-Tutorial at: [`docs/build-local.md`](build-local.md)
+- After VM *ssh access*, the `SubT` workspace is built on the VM, in docker containers.
 
-- Builds the `SubT` workspace directly on the host.
+**Tutorial Prerequisites:** [`docs/build-azure-prereq.md`](build-azure-prereq.md)
+
+**Tutorial at:** [`docs/build-azure.md`](build-azure.md)
+
+## Summary
+
+You should now have a built `SubT` workspace.
+
+You should become more familiar with operational tools for different types of operations:
+
+**Template: Creating Docker Images**
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # Create the docker image
+        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.image
+
+**Template: Creating Docker Shell Access Containers**
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # Create the docker shell container
+        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.shell
+
+**Template: Building the catkin workspace**
+
+        # enter the docker shell container
+        docker-join.bash --name gui-shell
+
+        # go to the workspace path
+        cd ~/deploy_ws/src/path/to/workspace
+
+        # view the catkin profiles
+        catkin profile list
+
+        # select the catkin profile
+        catkin profile set [profile name]
+
+To learn more about the available options, please use the `--preview` or `-p` command as example:
+
+        # preview ugv options when deploying on the dekstop
+        ./deployer -s desktop.ugv -p
+
+To learn more about the available options actually do, please use the `--verbose` or `-v` option with the `preview` option
+
+        # preview, verbose the ugv options when deploying on the dekstop
+        ./deployer -s desktop.ugv -p -v
+
+
+### Common Questions
+
+- *How to view the docker images built on the localhost:*
+
+        docker images
+
+- *When to re-build docker images:*
+
+    - When you do not have the docker image on your localhost
+    
+    - When  changes are made to dockerfiles (dockerfiles found in: `operations/deploy/docker/dockerfiles`)
+
+- *When to update dockerfiles:*
+
+    - You should make changes to dockerfiles when you want to add a new workspace thirdparty dependency.
+
+    - If you install a dependency in the container directly, please remember to put it in the dockerfile and rebuild the docker image.
