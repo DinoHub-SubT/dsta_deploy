@@ -195,7 +195,7 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         # == Common Catkin Workspace ==
 
         # enter the docker shell container
-        docker-join.bash --name nuc-shell
+        docker-join.bash --name sim-shell
 
         # go to the `common` catkin workspace inside the docker container
         cd ~/deploy_ws/src/common

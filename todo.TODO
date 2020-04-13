@@ -98,6 +98,7 @@ Next Tasks:
   ✔ move scenarios dir outside of operations/docker @done(20-04-11 00:16)
   - minor bugs in deploy script workspace
   - attach dataset storage
+  ☐ password in terraform (didn't work)
 
 Bigger Tasks:
   - launch restructure: there needs to be a centralized launch folder with params that are easily changed

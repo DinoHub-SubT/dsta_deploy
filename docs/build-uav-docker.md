@@ -1,4 +1,4 @@
-# Build UGV With Docker Walkthrough
+# Build UAV With Docker Walkthrough
 
 The `SubT` workspace will be built and will run in docker containers.
     
