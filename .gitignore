@@ -261,5 +261,11 @@ operations/deploy/azurebooks/subt/terraform.tfstate
 operations/deploy/azurebooks/subt/terraform.tfstate.backup
 operations/deploy/azurebooks/subt/.terraform.*
 
+# admin
+operations/deploy/azurebooks/admin/.terraform/
+operations/deploy/azurebooks/admin/terraform.tfstate
+operations/deploy/azurebooks/admin/terraform.tfstate.backup
+operations/deploy/azurebooks/admin/.terraform.*
+
 todo-tmp.TODO
 
