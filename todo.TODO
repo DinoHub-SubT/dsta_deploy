@@ -99,6 +99,8 @@ Next Tasks:
   - minor bugs in deploy script workspace
   - attach dataset storage
   ☐ password in terraform (didn't work)
+  ✘ ugv:sim needs its own common -- flann error @cancelled(20-04-15 22:31)
+  ☐ transfer to should not copy over all of .catkin_profile, it will destroy what is set on the remote
 
 Bigger Tasks:
   - launch restructure: there needs to be a centralized launch folder with params that are easily changed
@@ -108,7 +110,8 @@ Bigger Tasks:
   - make sure we have put everything that is duplicated in "common"
   - add ansible to install on a base vm
     - make sure gpu vm on azure works as well
-  - terraform state files requires version control
+  ✔ terraform state files requires version control @done(20-04-15 22:31)
+    - using azure remote
   - multi robot simulation setup & launch
   
 sim:
