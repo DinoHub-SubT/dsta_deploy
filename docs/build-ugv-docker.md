@@ -209,9 +209,21 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         # build the catkin workspace
         catkin build
 
-        # == Common UGV:SIMULATION Workspace ==
+        # == UGV:SIMULATION Workspace ==
 
-        # go to the `nuc` catkin workspace
+        # go to the `sim:darpa` catkin workspace
+        cd ~/deploy_ws/src/ugv/sim/catkin/
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set ugv
+
+        # build the catkin workspace
+        catkin build
+
+        # go to the `sim` catkin workspace
         cd ~/deploy_ws/src/ugv/sim
 
         # list the catkin profiles available
@@ -227,7 +239,7 @@ The ugv nuc catkin workspace contains all repositories related in running the ug
         exit
 
         # stop the running container
-        docker stop nuc-shell
+        docker stop sim-shell
 
 
 ## 4. Summary
