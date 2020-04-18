@@ -132,28 +132,6 @@ Please notify the maintainer if cloning or installing the deploy repository fail
         
         docker-compose --version
 
-### Docker Machine
-
-1. Install the Docker Machine Binary
-
-        base=https://github.com/docker/machine/releases/download/v0.16.0
-        curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine
-        sudo mv /tmp/docker-machine /usr/local/bin/docker-machine
-        chmod +x /usr/local/bin/docker-machine
-
-2. Install the Docker Machine Extensions
-
-        # install extensions
-        ./operations/deploy/scripts/docker-machine-ext.bash
-
-3. Source the docker-machine extensions
-
-        # open your bashrc/zshrc
-        gedit ~/.bashrc
-
-        # add the below, to your bashrc/zhsrc
-        source /etc/bash_completion.d/docker-machine-prompt.bash
-
 
 ### NVIDIA Docker
 
@@ -333,9 +311,9 @@ There are a few operational tools resources available.
 Please have a basic understanding of the following tools:
 
 - [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
+- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
 - [Docker](https://docs.docker.com/get-started/)
 - [Docker Compose (optional)](https://docs.docker.com/compose//)
-- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
 - [Terraform (optional)](https://www.terraform.io/)
 - [Ansible (optional)](https://www.ansible.com/)
 - [SubT Deployer Tool (TODO) ](./operations/deploy/deploybooks/README.md)

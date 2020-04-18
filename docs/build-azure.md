@@ -17,54 +17,18 @@ Please make sure you have completed the *Build Azure Prerequisites* instructions
 - Explains how to install workspace dependencies in docker images and build catkin workspaces in docker containers on the remote VM.
 - This method is the *recommended method to use* because it is the most straight-forward for repository access and debugging in docker containers.
 
-#### 1. Setup Azure VM Dependencies
-
-This setup (if not already done) only needs to be done once, on a newly created VM.
-
-        # == ssh into your VM ==
-        ssh [username]@[private IP]
-
-        # == install deployer dependencies ==
-
-        # install general dependencies
-        sudo apt-get update
-        sudo apt install -y --no-install-recommends python python-setuptools python-pip
-        pip2 install wheel --user
-        pip2 install setuptools PyYAML pexpect --user
-
-        # install the deployer tools
-        cd ~/deploy_ws/src
-        ./install-deployer.bash --install
-
-        # == install docker tools ==
-
-        # install docker
-        sudo apt install curl apt-transport-https ca-certificates curl software-properties-common
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - 
-        sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-        sudo apt-get update && sudo apt-get install docker-ce
-        sudo usermod -a -G docker $USER
-
-        # install docker compose
-        sudo apt-get update
-        sudo apt-get install -y --no-install-recommends curl
-        sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-        sudo chmod +x /usr/local/bin/docker-compose
-        sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+### 1. Verify Azure VM Dependencies
 
 Verify you have all the third-party operations tools installed correctly:
 
-        # ssh into your VM (if not already done so)
-        ssh [username]@[private IP]
+        # ssh into your VM (if not already done so), please change the below command to match your VM ssh access
+        ssh azure.ugv1
 
         # verify docker
         docker --version
 
         # verify docker-compose
         docker-compose -v
-
-        # source your bashrc (or zshrc)
-        source ~/.bashrc
 
         # verify docker-compose shows the help usage message
         docker-compose-wrapper --help
@@ -73,23 +37,29 @@ Verify you have all the third-party operations tools installed correctly:
         cd ~/deploy_ws/src
         ./deployer --help
 
-#### 2. Build The SubT Workspace
+        # exit the Azure VM (return to localhost)
+        exit
 
-Connect to the Azure VM (if not already done so):
+### 2. Azure Docker Setup
 
-        # == ssh into your VM ==
-        ssh [VM username]@[private VM IP]
+Setup the docker images and containers by following any of the docker build tutorials:
 
-Build the Workspace
+Tutorials at:
 
-- Build the workspace by following any of the docker build tutorial instructions:
+  - **Basestation:** [`docs/azure-docker-basestation-setup.md`](azure-docker-basestation-setup.md)
+  - **UGV:** [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
+  - **UAV:** [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
+  
+### 3. Build Catkin Workspace
 
-    - Basestation: [`docs/build-basestation-docker.md`](build-basestation-docker.md)
-    - UGV: [`docs/build-ugv-docker.md`](build-ugv-docker.md)
-    - UAV: [`docs/build-uav-docker.md`](build-uav-docker.md)
+Build the workspace by following any of the docker build tutorials:
+
+  - **Basestation:** [`docs/catkin-basestation.md`](catkin-basestation.md)
+  - **UGV:** [`docs/catkin-ugv.md`](catkin-ugv.md)
+  - **UAV:** [`docs/catkin-uav.md`](catkin-uav.md)
 
 
-#### 3. Summary
+### 4. Summary
 
 You should now have a built `SubT` workspace on a Azure VM.
 
