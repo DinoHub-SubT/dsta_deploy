@@ -28,13 +28,13 @@ deployer-scripts:
 
 repo:
   ☐ transfer to should not copy over all of .catkin_profile, it will destroy what is set on the remote
-  ☐ cleanup gitignore in deploy
+  ✔ cleanup gitignore in deploy @done(20-04-18 04:33)
   ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
   ☐ ansible work from anywhere
   ☐ deployer work from anywhere
   ☐ docker container hostname must match the outside hostname @high
   ☐ needs to mount the directory from local host, not to transfer to.
-  ☐ cleanup scenerio file & fix the multiple scenerio file mess
+  ✔ first cleanup scenerio file & fix the multiple scenerio file mess @done(20-04-18 04:34)
   ☐ make sure all the repositories are on the correct branches & everything builds
     - had to make a few manual changes in a couple of places
   ☐ make sure we have put everything that is duplicated in "common"

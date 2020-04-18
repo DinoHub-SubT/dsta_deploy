@@ -22,6 +22,7 @@ operations/deploy/azurebooks/admin/.terraform/
 operations/deploy/azurebooks/admin/terraform.tfstate
 operations/deploy/azurebooks/admin/terraform.tfstate.backup
 operations/deploy/azurebooks/admin/.terraform.*
+operations/deploy/azurebooks/admin/terraform.tfstate.d
 
 # // /////////////////////////////////////////////////////////////////////////////
 # // other
