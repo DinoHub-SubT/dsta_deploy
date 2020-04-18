@@ -4,7 +4,8 @@ You will need to prepare the Azure VMs with the all the dependencies you setup o
 
 There are `ansible` scripts available that automates this process. 
 
-These `ansible` scripts do not give realtime output. So you will only see the success of the commands after it has completed. Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so please wait until `ansible` returns a fail or pass status. 
+These `ansible` scripts do not give realtime output. So you will only see the success of the commands after it has completed. Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so please wait until `ansible` returns a fail or pass status.
+
 - If a command takes longer than 30 minutes, check your VM or VPN connection.
 - If you have valid VM or VPN connection, please notify the maintainer.
 - If you see an error status for any task, please notify the maintainer.
