@@ -35,15 +35,19 @@ The SubT repositories are grouped as the following workspaces:
 
 ## Tutorial: Install The Submodules
 
-When the user clones the deploy repository, the submodules will not be cloned by default. Therefore, the user must manually clone the submodules.
+When you clone the deploy repository, the submodules will not be cloned by default. Therefore, you must manually clone the submodules.
 
-- The user decides which *group of submodules* to clone.
+- You must decide which *group of submodules* to clone.
 
 - Submodules are grouped by algorithm, computer or robot type.
 
+If you have any errors cloning the submodules, notify the maintainer.
+
+- You might need to be given permissions to clone the repositories.
+
 ## Required submodules
 
-The user must clone these of submodules.
+These are the required submodules that must be cloned.
 
 **Clone the common submodules**
 
@@ -83,11 +87,6 @@ The user only needs to clone what they need. Choose which group of submodules to
 
 * * *
 
-## Tutorial: Updating The Submodules
-
-TODO
-
-* * *
 
 ## Removing Submodules
 

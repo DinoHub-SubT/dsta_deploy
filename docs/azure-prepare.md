@@ -78,3 +78,4 @@ Please change the host from `azure-ugv1` to all your available Azure VM  hosts.
         ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-uav1
 
 Please change the host from `azure-uav1` to all your available Azure VM hosts.
+
