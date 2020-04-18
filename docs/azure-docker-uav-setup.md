@@ -69,7 +69,7 @@ These steps will create the docker container on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the UAV docker container
-        ./deployer -s azure.uav.docker.shell
+        ./deployer -s azure.uav1.docker.shell
 
 **Access The Remote UAV VM** 
 

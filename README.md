@@ -346,11 +346,10 @@ Tutorial at: [`docs/build-tutorial.md`](docs/build-tutorial.md)
 
 ### 4. Launch Simulation Setup (Required)
 
-TODO
-
-### 5. Launch Robots Setup (Required)
-
-TODO
+Tutorial at:
+  
+  - **Basestation:** [`docs/launch-basestation.md`](docs/launch-basestation.md)
+  - **UGV:** [`docs/launch-ugv.md`](docs/launch-ugv.md)
 
 * * *
 

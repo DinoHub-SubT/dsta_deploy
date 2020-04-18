@@ -19,7 +19,7 @@ If you are not using docker containers, you may skip this step.
         # enter the docker shell container on your local laptop host or Azure VM host
         docker-join.bash --name gui-shell
 
-### 2. Build UAV Common
+### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 

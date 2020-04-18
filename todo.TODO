@@ -57,10 +57,3 @@ Launch:
   ☐ launch restructure: there needs to be a centralized launch folder with params that are easily changed
   ☐ multi robot simulation setup & launch
 
-readme:
-  ☐ add ssh config, ansible config, scenario config setup
-  ☐ add /etc/hosts config
-  ☐ ansible install remote
-  ☐ fix azurebooks readme -- set remote backend
-  ☐ copy ssh keys to remote and make sure keys are bitbucket keys
-  ☐ ansible

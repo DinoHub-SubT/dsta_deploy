@@ -21,7 +21,7 @@ If you are not using docker containers, you may skip this step.
         # enter the docker shell container on your local laptop host or Azure VM host
         docker-join.bash --name ppc-shell
 
-### 2. Build UAV Common
+### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -77,7 +77,7 @@ If you are not using docker containers, you may skip this step.
         # enter the docker shell container on your local laptop host or Azure VM host
         docker-join.bash --name nuc-shell
 
-### 2. Build UAV Common
+### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -134,11 +134,9 @@ If you are not using docker containers, you may skip this step.
         # enter the docker shell container on your local laptop host or Azure VM host
         docker-join.bash --name sim-shell
 
-### 2. Build UAV Common
+### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
-
-        # == Common Catkin Workspace ==
 
         # go to the `common` catkin workspace inside the docker container
         cd ~/deploy_ws/src/common
