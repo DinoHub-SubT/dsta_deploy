@@ -10,6 +10,7 @@ operations/deploy/azurebooks/example/.terraform.*
 operations/deploy/azurebooks/example/terraform.tfstate.d
 
 # subt
+operations/deploy/azurebooks/subt/main.tf
 operations/deploy/azurebooks/subt/.terraform/
 operations/deploy/azurebooks/subt/terraform.tfstate
 operations/deploy/azurebooks/subt/terraform.tfstate.backup
@@ -28,3 +29,4 @@ operations/deploy/azurebooks/admin/.terraform.*
 
 todo-tmp.TODO
 .vscode/
+
