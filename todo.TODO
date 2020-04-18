@@ -2,8 +2,6 @@ docker-compse:
   ☐ pass ssh keys to container
   ☐ move 'CHILD_DOCKER_COMPOSE' to deployer yamls
   ☐ make ugv setup an extension in the sim section
-  ✔ make compose universal command @done(20-03-28 21:48)
-  ✔ deployer run commander needs stop calls @done(20-03-28 21:48)
   ☐ fix the transfer to setup, need to add ssh-key path in scenerio file
   ☐ pas through GUI of docker join in an ssh session
 
@@ -28,72 +26,36 @@ deployer-scripts:
   ☐ nested deployer configs correctly done
   ☐ preview with --system and --run needs to be done better, does not look nice now
 
-basestation:
-  ✔ make sure all repos build correctly @done(20-04-01 05:40)
-  ✔ make sure all repos launches correctly @done(20-04-18 01:52)
-
-azure:
-  ☐ add storage container to VM from another resource and see the files mounted
-  ✔ make sure can do remote desktop from VM to local (port is open?) @done(20-04-18 01:46)
-  ☐ make sure cannot delete the main storage container
-
-------------------------------------------------------------------------------------------------
-
-Wed:
-  ✔ terraform to setup resource group, vms, network, vpn @done(20-04-02 01:20)
-  ✔ readme setup, others can start using terraform @done(20-04-02 01:20)
-  ✔ ppc dockerfile @done(20-04-02 01:20)
-  ✔ transfer.to to azure vm @done(20-04-02 01:20)
-
-Friday:
-  ☐ Get the storage attached to the VM
-  ☐ robot/hardware, drone workspaces build
-  ☐ Move scenarios outside of operations/docker
-
-Submodules:
-  ☐ git@bitbucket.org:cmusubt/tictoc_profiler.git needs to be moved to common
-  ☐ make sure the submodules are at the correct commit hash
-
-Cloud:
-  ☐ allow password entry
-  ☐ maybe remove the duplicated terraform files? use output as a robot index counter ?
-
-------------------------------------------------------------------------------------------------
-
-Next Tasks:
-  ✔ communication manager setup between local basestation <-> uav simulation @done(20-04-06 03:12)
-    - rajent networking and verified with launch
-  ✔ move scenarios dir outside of operations/docker @done(20-04-11 00:16)
-  ☐ minor bugs in deploy script workspace
-  ☐ attach dataset storage
-  ☐ password in terraform (didn't work)
-  ✘ ugv:sim needs its own common -- flann error @cancelled(20-04-15 22:31)
+repo:
   ☐ transfer to should not copy over all of .catkin_profile, it will destroy what is set on the remote
-  ☐ docker container hostname must match the outside hostname
-
-Bigger Tasks:
-  ☐ launch restructure: there needs to be a centralized launch folder with params that are easily changed
-  ☐ fix all deployer script bugs (there were a few made with new ui changes)
+  ☐ cleanup gitignore in deploy
+  ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
+  ☐ ansible work from anywhere
+  ☐ deployer work from anywhere
+  ☐ docker container hostname must match the outside hostname @high
+  ☐ needs to mount the directory from local host, not to transfer to.
+  ☐ cleanup scenerio file & fix the multiple scenerio file mess
   ☐ make sure all the repositories are on the correct branches & everything builds
     - had to make a few manual changes in a couple of places
   ☐ make sure we have put everything that is duplicated in "common"
-  ✔ add ansible to install on a base vm @done(20-04-18 01:45)
-  ☐ ansible: make sure gpu vm on azure works as well
-  ✔ terraform state files requires version control @done(20-04-15 22:31)
-    - using azure remote
-  ☐ multi robot simulation setup & launch
-  
-other:
+  ☐ make sure the submodules are at the correct commit hash
   ☐ algorithm split, sim and system, sensors launch
-  ☐ cleanup gitignore in deploy
-  ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
-  ☐ needs to mount the directory from local host, not to transfer to.
-  ☐ cleanup scenerio file & fix the multiple scenerio file mess
-  ✔ move scenarios outside of docker, put it in operations @done(20-04-18 01:47)
-  ✘ have terraform wrapper, to use scenario files? @cancelled(20-04-18 01:47)
 
-sim:
-  ✘ add a git hook to remove subt_gazebo @cancelled(20-04-18 01:48)
+ansible:
+  ☐ ansible: make sure gpu vm on azure works as well
+  
+azure:
+  ☐ add storage container to VM from another resource and see the files mounted
+  ☐ make sure cannot delete the main storage container
+  ☐ Get the storage attached to the VM
+  ☐ robot/hardware, drone workspaces build
+  ☐ Move scenarios outside of operations/docker
+  ☐ allow password entry
+  ☐ maybe remove the duplicated terraform files? use output as a robot index counter ?
+
+Launch:
+  ☐ launch restructure: there needs to be a centralized launch folder with params that are easily changed
+  ☐ multi robot simulation setup & launch
 
 readme:
   ☐ add ssh config, ansible config, scenario config setup
