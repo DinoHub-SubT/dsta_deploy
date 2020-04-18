@@ -132,6 +132,29 @@ Please notify the maintainer if cloning or installing the deploy repository fail
         
         docker-compose --version
 
+### Docker Machine
+
+1. Install the Docker Machine Binary
+
+        base=https://github.com/docker/machine/releases/download/v0.16.0
+        curl -L $base/docker-machine-$(uname -s)-$(uname -m) >/tmp/docker-machine
+        sudo mv /tmp/docker-machine /usr/local/bin/docker-machine
+        chmod +x /usr/local/bin/docker-machine
+
+2. Install the Docker Machine Extensions
+
+        # install extensions
+        ./operations/deploy/scripts/docker-machine-ext.bash
+
+3. Source the docker-machine extensions
+
+        # open your bashrc/zshrc
+        gedit ~/.bashrc
+
+        # add the below, to your bashrc/zhsrc
+        source /etc/bash_completion.d/docker-machine-prompt.bash
+
+
 ### NVIDIA Docker
 
 **Proceed with the below instructions ONLY if you have a NVidia GPU.**
@@ -265,11 +288,14 @@ Verify you have all the third-party operations tools installed correctly:
         # verify docker
         docker --version
 
-        # verify nvidia-docker
-        nvidia-docker -v
-
         # verify docker-compose
         docker-compose -v
+
+        # verify docker-compose
+        docker-machine -v
+
+        # verify nvidia-docker
+        nvidia-docker -v
 
         # verify ansible configuration management tools
         ansible --version
