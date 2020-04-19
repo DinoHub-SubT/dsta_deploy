@@ -19,7 +19,7 @@ Please make sure you have completed the *Build Azure Prerequisites* instructions
 
 ### 1. Verify Azure VM Dependencies
 
-Verify you have all the third-party operations tools installed correctly:
+Verify you have all the third-party operations tools installed correctly (if not already done so):
 
         # ssh into your VM (if not already done so), please change the below command to match your VM ssh access
         ssh azure.ugv1
@@ -50,7 +50,7 @@ Tutorials at:
   - **UGV:** [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
   - **UAV:** [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
   
-### 3. Build Catkin Workspace
+### 3. Build Catkin Workspace on Azure VMs
 
 Build the workspace by following any of the docker build tutorials:
 

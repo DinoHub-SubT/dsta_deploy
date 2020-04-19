@@ -38,6 +38,7 @@ These steps will create the docker image on the Azure remote VM.
         docker rm -f ppc-shell nuc-shell sim-shell
 
         # cleanup dangling docker images
+        #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
         docker rmi -f $(docker images -f "dangling=true" -q)
 
 **Verify Docker Images** 
