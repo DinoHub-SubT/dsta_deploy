@@ -67,6 +67,7 @@ This deploy repo's maintains a working version of all the subt workspaces in ord
         cd ~/deploy_ws/
         git clone git@bitbucket.org:cmusubt/deploy.git src
         cd src
+        git checkout feature/launch-restructure
         ./install-deployer.bash --install
 
 
