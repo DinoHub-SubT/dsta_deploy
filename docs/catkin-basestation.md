@@ -16,7 +16,8 @@ If you are using an Azure VM, remember to ssh into the VM first.
 
 If you are not using docker containers, you may skip this step.
 
-        # enter the docker shell container on your local laptop host or Azure VM host
+        # enter the docker shell container on your local laptop host or Azure VM host#
+        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
         docker-join.bash --name gui-shell
 
 ### 2. Build Common

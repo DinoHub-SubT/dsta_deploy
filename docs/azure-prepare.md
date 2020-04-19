@@ -46,7 +46,7 @@ Summary:
         ansible-playbook -v -i inventory/azure.ini docker.yaml --limit azure-basestation
         ansible-playbook -v -i inventory/azure.ini docker-tools.yaml --limit azure-basestation
 
-        # Clones the deploy repo on the remote VM
+        # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-basestation
 
@@ -80,7 +80,7 @@ Please change the host from `azure-ugv1` to all your available Azure VM  hosts.
         ansible-playbook -v -i inventory/azure.ini docker.yaml --limit azure-uav1
         ansible-playbook -v -i inventory/azure.ini docker-tools.yaml --limit azure-uav1
 
-        # Clones the deploy repo on the remote VM (can take 20 minutes)
+        # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-uav1
 

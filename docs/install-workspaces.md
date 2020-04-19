@@ -57,6 +57,11 @@ These are the required submodules that must be cloned.
     # check the git status (please do this step and wait until command is completed)
     git status
 
+    # checkout the git-lfs files
+    cd common/communication_manager
+    git lfs fetch
+    git lfs pull
+
 ## Optional submodules
 
 The user only needs to clone what they need. Choose which group of submodules to clone as listed below.

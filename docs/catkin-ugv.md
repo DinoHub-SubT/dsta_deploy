@@ -19,6 +19,7 @@ If you are using an Azure VM, remember to ssh into the VM first.
 If you are not using docker containers, you may skip this step.
 
         # enter the docker shell container on your local laptop host or Azure VM host
+        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
         docker-join.bash --name ppc-shell
 
 ### 2. Build Common
@@ -75,6 +76,7 @@ If you are using an Azure VM, remember to ssh into the VM first.
 If you are not using docker containers, you may skip this step.
 
         # enter the docker shell container on your local laptop host or Azure VM host
+        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
         docker-join.bash --name nuc-shell
 
 ### 2. Build Common
@@ -132,6 +134,7 @@ If you are using an Azure VM, remember to ssh into the VM first.
 If you are not using docker containers, you may skip this step.
 
         # enter the docker shell container on your local laptop host or Azure VM host
+        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
         docker-join.bash --name sim-shell
 
 ### 2. Build Common
@@ -160,13 +163,16 @@ The UGV simulation catkin workspace contains all repositories related in running
 The `ugv:ugv` catkin workspace sets up default `cmake` options.
 
         # go to the `sim:darpa` catkin workspace
-        cd ~/deploy_ws/src/ugv/sim/catkin/
+        cd ~/deploy_ws/src/ugv/sim/darpa/catkin/
 
         # list the catkin profiles available
         catkin profile list
 
         # set the catkin profile
         catkin profile set ugv
+
+        # view catkin and cmake configuration
+        catkin config
 
         # build the catkin workspace
         catkin build
@@ -179,6 +185,9 @@ The `ugv:ugv` catkin workspace sets up default `cmake` options.
 
         # set the catkin profile
         catkin profile set ugv
+
+        # view catkin and cmake configuration
+        catkin config
 
         # build the catkin workspace
         catkin build
