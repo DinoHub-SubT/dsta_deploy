@@ -49,6 +49,11 @@ If you have any errors cloning the submodules, notify the maintainer.
 
 These are the required submodules that must be cloned.
 
+**Clone the operations submodules**
+
+    # clone the submodules
+    git submodule update --recursive --init --remote operations
+
 **Clone the common submodules**
 
     # clone the submodules
@@ -81,6 +86,11 @@ The user only needs to clone what they need. Choose which group of submodules to
 
     # check the git status (please do this step and wait until command is completed)
     git status
+
+    # checkout the git-lfs files
+    cd ugv/sim/subt_gazebo
+    git lfs fetch
+    git lfs pull
 
 **Clone the uav submodules**
 
