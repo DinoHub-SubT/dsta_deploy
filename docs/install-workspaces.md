@@ -52,12 +52,12 @@ These are the required submodules that must be cloned.
 **Clone the operations submodules**
 
     # clone the submodules
-    git submodule update --recursive --init --remote operations
+    git submodule update --recursive --init operations
 
 **Clone the common submodules**
 
     # clone the submodules
-    git submodule update --recursive --init --remote common
+    git submodule update --recursive --init common
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -74,7 +74,7 @@ The user only needs to clone what they need. Choose which group of submodules to
 **Clone the basestation submodules**
 
     # clone the submodules
-    git submodule update --recursive --init --remote basestation
+    git submodule update --recursive --init basestation
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -82,7 +82,7 @@ The user only needs to clone what they need. Choose which group of submodules to
 **Clone the ugv submodules**
 
     # clone the submodules
-    git submodule update --recursive --init --remote ugv
+    git submodule update --recursive --init ugv
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -95,7 +95,7 @@ The user only needs to clone what they need. Choose which group of submodules to
 **Clone the uav submodules**
 
     # clone the submodules
-    git submodule update --recursive --init --remote uav
+    git submodule update --recursive --init uav
 
     # check the git status (please do this step and wait until command is completed)
     git status
