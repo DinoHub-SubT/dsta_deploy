@@ -25,7 +25,6 @@ Summary:
         ls ~/.ssh/bitbucket
         ls ~/.ssh/bitbucket.pub
 
-
 ## 2. Ansible Workspace
 
         # go to the ansible workspace
@@ -35,56 +34,41 @@ Summary:
         ansible-playbook -v -i inventory/azure.ini robothost.yaml --list-hosts
 
 ## 3. Install Basestation VM Dependencies
-        
+
         # Verify VM Access
         ping -c 3 azure-basestation
 
-        # Install basic dependencies on the remote VM
-        ansible-playbook -v -i inventory/azure.ini robothost.yaml --limit azure-basestation
-
-        # Install docker & docker-tools on the remote VM
-        ansible-playbook -v -i inventory/azure.ini docker.yaml --limit azure-basestation
-        ansible-playbook -v -i inventory/azure.ini docker-tools.yaml --limit azure-basestation
-
+        # == Basestation VM Install ==
+        # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-basestation
+        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-basestation
 
 ## 4. Install UGV VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-ugv1
 
-        # Install basic dependencies on the remote VM
-        ansible-playbook -v -i inventory/azure.ini robothost.yaml --limit azure-ugv1
-
-        # Install docker & docker-tools on the remote VM
-        ansible-playbook -v -i inventory/azure.ini docker.yaml --limit azure-ugv1
-        ansible-playbook -v -i inventory/azure.ini docker-tools.yaml --limit azure-ugv1
-
+        # == UGV1 VM Install ==
+        # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-ugv1
+        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-ugv1
 
-Please change the host from `azure-ugv1` to all your available Azure VM  hosts.
+Please, apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
 ## 5. Install UAV VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-uav1
 
-        # Install basic dependencies on the remote VM
-        ansible-playbook -v -i inventory/azure.ini robothost.yaml --limit azure-uav1
-
-        # Install docker & docker-tools on the remote VM
-        ansible-playbook -v -i inventory/azure.ini docker.yaml --limit azure-uav1
-        ansible-playbook -v -i inventory/azure.ini docker-tools.yaml --limit azure-uav1
-
+        # == UAV VM Install ==
+        # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini git-repository.yaml --limit azure-uav1
+        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-uav1
 
-Please change the host from `azure-uav1` to all your available Azure VM hosts.
+Please, apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
 ## 6. Verify Install
 
