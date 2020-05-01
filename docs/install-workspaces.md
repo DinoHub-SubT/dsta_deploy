@@ -41,7 +41,7 @@ When you clone the deploy repository, the submodules will not be cloned by defau
 
 - Submodules are grouped by algorithm, computer or robot type.
 
-If you have any errors cloning the submodules, notify the maintainer.
+**If you have any errors cloning the submodules, notify the maintainer.**
 
 - You might need to be given permissions to clone the repositories.
 

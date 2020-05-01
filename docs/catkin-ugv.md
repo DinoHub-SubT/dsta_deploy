@@ -1,22 +1,20 @@
-# UAV Catkin Workspace
+# UGV Catkin Workspace
 
-Setting up the catkin workspace for the UAV workspaces requires using the `catkin` tool.
+Setting up the catkin workspace for the UGV workspaces requires using the `catkin` tool.
 
-There are multiple catkin workspaces that get extended *or linked* in order to fully setup the UAV catkin build workspace.
+- There are multiple catkin workspaces that get extended *or linked* in order to fully setup the UGV catkin build workspace.
 
-There are different docker containers for the different catkin workspaces.
+- There are different docker containers for the different catkin workspaces.
 
-Assuming you have already setup all your ugv docker containers, please follow the instructions below to setup the UAV catkin workspace.
-
-* * *
+Follow the instructions below to setup the UGV catkin workspace.
 
 ## UGV Planning-PC Catkin Workspace
 
-### 1. Access Docker Container
+### 1. Access Docker Container (optional)
 
-If you are using an Azure VM, remember to ssh into the VM first.
+**If you are not using docker containers, you may skip this step.**
 
-If you are not using docker containers, you may skip this step.
+**If you are using an Azure VM, remember to ssh into the VM first.**
 
         # enter the docker shell container on your local laptop host or Azure VM host
         #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
@@ -69,11 +67,11 @@ The `ugv:planning-pc` catkin workspace sets up default `cmake` options.
 
 ## UGV NUC Catkin Workspace
 
-### 1. Access Docker Container
+### 1. Access Docker Container (optional)
 
-If you are using an Azure VM, remember to ssh into the VM first.
+**If you are not using docker containers, you may skip this step.**
 
-If you are not using docker containers, you may skip this step.
+**If you are using an Azure VM, remember to ssh into the VM first.**
 
         # enter the docker shell container on your local laptop host or Azure VM host
         #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
@@ -127,11 +125,11 @@ The `ugv:nuc` catkin workspace sets up default `cmake` options.
 
 ## UGV Simulation Catkin Workspace
 
-### 1. Access Docker Container
+### 1. Access Docker Container (optional)
 
-If you are using an Azure VM, remember to ssh into the VM first.
+**If you are not using docker containers, you may skip this step.**
 
-If you are not using docker containers, you may skip this step.
+**If you are using an Azure VM, remember to ssh into the VM first.**
 
         # enter the docker shell container on your local laptop host or Azure VM host
         #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
@@ -158,7 +156,7 @@ The common catkin workspace sets up default `cmake` options.
 
 ### 3. Build UGV Simulation Catkin Workspace
 
-The UGV simulation catkin workspace contains all repositories related in running the ugv in simulation.
+The UGV simulation catkin workspace contains all repositories related in running the `ugv` in simulation.
 
 The `ugv:ugv` catkin workspace sets up default `cmake` options.
 
@@ -197,7 +195,7 @@ The `ugv:ugv` catkin workspace sets up default `cmake` options.
 
 * * *
 
-## Cleanup
+## Cleanup (optional)
 
 You should remove containers when done with its development.
 
@@ -219,10 +217,16 @@ You should remove containers when done with its development.
         # remove the container
         docker rm sim-shell
 
+- The above steps will remove the containers.
+
+- When you continue with development, you will need to re-create the docker containers again.
+
+- You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
+
+- The `docker-join.bash [container-name]` command will enter a stopped container.
+
 ## Summary
 
 You should now have a built `UGV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-Please go back to [`build-tutorial`](build-tutorial.md#Summary) for summary comments.

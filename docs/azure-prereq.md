@@ -1,9 +1,9 @@
-# Build With Azure Prerequisites
+# Azure Virtual Machine Prerequisites
 
 The Azure instructions assumes that the user has already completed the *Azure Cloud Infrastructure Setup* at [`operations/deploy/azurebooks/README.md`](../operations/deploy/azurebooks/README.md).
 
 
-Please follow the below instructions on your localhost deploy repository (not on the VMs).
+Please follow the below instructions **on your localhost** (not on the VMs).
 
 ## 1. Setup Remote Host Alias
 

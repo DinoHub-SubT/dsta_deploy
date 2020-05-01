@@ -1,22 +1,28 @@
 # Build With Azure Prepare
 
-You will need to prepare the Azure VMs with the all the dependencies you setup on your localhost.
+## About
 
-There are `ansible` scripts available that automates this process. 
+You will need to prepare the Azure VMs by installing all the dependencies you have already setup on your localhost and more.
 
-These `ansible` scripts do not give realtime output. So you will only see the success of the commands after it has completed. Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so please wait until `ansible` returns a fail or pass status.
+- There are `ansible` scripts available that automates this process.
 
-Summary:
+The `ansible` scripts can be found at: `operations/deploy/robotbooks`
+
+- Users can add to the scripts if there are missing dependencies.
+
+The `ansible` scripts do not give realtime output.
+
+- You will only see the success of the commands after it has completed.
+- Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so wait until `ansible` returns a fail or pass status.
+
+**Things to be keep in mind:**
 
 - If a command takes longer than 30 minutes, check your VM or VPN connection.
-- If you have valid VM or VPN connection, please notify the maintainer.
 - If you see an error status for any task, please notify the maintainer.
-
-- The `ansible` scripts will connect to the remote VMs and do all the installs.
-- Verify you have `ssh` access to the VMs.
+- The `ansible` scripts will connect to the remote VMs and run the installs. Verify you have `ssh` access to the VMs.
 - You can run the `basestation`, `ugv`, `uav` install steps in parallel of each other (meaning steps 3, 4, 5 can be run in parallel of each other).
 
-**Please, do the instructions below from your localhost laptop.**
+**Please, run the following instructions from your localhost.**
 
 
 ## 1. Verify Localhost Setup: Bitbucket SSH Keys
@@ -55,7 +61,7 @@ Summary:
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-ugv1
 
-Please, apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
+Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
 ## 5. Install UAV VM Dependencies
 
@@ -68,11 +74,11 @@ Please, apply the above steps again for all your `UGV` VMs. Change the host from
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-uav1
 
-Please, apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
+Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
 ## 6. Verify Install
 
-Please, verify everything was installed correctly on all the VMs.
+Verify everything was installed correctly on all the VMs.
 
 Example steps below show how to verify on the basestation VM:
 

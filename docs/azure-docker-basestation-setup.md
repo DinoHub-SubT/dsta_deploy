@@ -1,22 +1,12 @@
 # Azure Basestation Docker Setup
 
-Setting up the docker images and containers requires using the `deployer` tool. 
-
-The `deployer` tool hides `docker, docker-compose` details from the user and provides pre-configured options that run the remote docker setup.
-
-- Please notify the maintainer for any errors during any of the below tutorial steps.
-
-Assuming you have `ssh` access to the Azure VMs, please follow the instructions below to setup the VM docker images and containers.
-
 ### 1. Building Docker Images
 
-Building docker images on a remote Azure VM. You must perform these commands on your localhost.
+Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
 
 **Basestation Docker Image** 
 
-Please follow these steps, **while on the localhost**, not on the Azure remote VM.
-
-These steps will create the docker image on the Azure remote VM.
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -26,7 +16,7 @@ These steps will create the docker image on the Azure remote VM.
 
 **Access The Remote Basestation VM** 
 
-        # ssh into your VM (if not already done so), please change the below command to match your VM ssh access
+        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.basestation
 
 **Cleanup (Required)**
@@ -62,9 +52,7 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 **Basestation Docker Container Shell Access**
 
-Please follow these steps, **while on the localhost**, not on the Azure remote VM.
-
-These steps will create the docker container on the Azure remote VM.
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -74,7 +62,7 @@ These steps will create the docker container on the Azure remote VM.
 
 **Access The Remote Basestation VM** 
 
-        # ssh into your VM (if not already done so), please change the below command to match your VM ssh access
+        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.basestation
 
 **Verify Docker Containers**

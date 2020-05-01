@@ -2,25 +2,21 @@
 
 Setting up the catkin workspace for the Basestation workspaces requires using the `catkin` tool.
 
-There are multiple catkin workspaces that get extended *or linked* in order to fully setup the UAV catkin build workspace.
+- There are multiple catkin workspaces that get extended *or linked* in order to fully setup the basestation catkin workspace.
 
-Assuming you have already setup all your basestation docker containers, please follow the instructions below to setup the UAV catkin workspace.
+Assuming you have already setup all your basestation docker containers, follow the instructions below to setup the basestation catkin workspace.
 
-* * *
+## 1. Access Docker Container (optional)
 
-## Basestation Catkin Workspace
+**If you are not using docker containers, you may skip this step.**
 
-### 1. Access Docker Container
-
-If you are using an Azure VM, remember to ssh into the VM first.
-
-If you are not using docker containers, you may skip this step.
+**If you are using an Azure VM, remember to ssh into the VM first.**
 
         # enter the docker shell container on your local laptop host or Azure VM host#
         #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
         docker-join.bash --name gui-shell
 
-### 2. Build Common
+## 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -41,9 +37,9 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 3. Build Basestation Catkin Workspace
+## 3. Build Basestation Catkin Workspace
 
-The basestation catkin workspace contains all repositories that are running during SubT, on the basestation.
+The basestation catkin workspace contains all repositories that are running during `SubT` on the basestation.
 
         # go to the `basestation` catkin workspace
         cd ~/deploy_ws/src/basestation
@@ -66,9 +62,8 @@ The basestation catkin workspace contains all repositories that are running duri
         # stop the running container
         docker stop gui-shell
 
-* * *
 
-## Cleanup
+## Cleanup (optional)
 
 You should remove containers when done with its development.
 
@@ -78,10 +73,16 @@ You should remove containers when done with its development.
         # remove the container
         docker rm gui-shell
 
+- The above steps will remove the containers.
+
+- When you continue with development, you will need to re-create the docker containers again.
+
+- You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
+
+- The `docker-join.bash [container-name]` command will enter a stopped container.
+
 ## Summary
 
-You should now have a built `Basestation` workspace.
+You should now have a built `basestation` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-Please go back to [`build-tutorial`](build-tutorial.md#Summary) for summary comments.
