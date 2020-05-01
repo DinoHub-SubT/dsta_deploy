@@ -31,6 +31,13 @@ The SubT repositories are grouped as the following workspaces:
 
 - contains all simualation and hardware repositories for the subt drones
 
+`perception`:
+
+- found in `deploy_ws/src/object_detection`
+
+- contains all repositories for object detection
+
+
 * * *
 
 ## Tutorial: Install The Submodules
@@ -96,6 +103,15 @@ The user only needs to clone what they need. Choose which group of submodules to
 
     # clone the submodules
     git submodule update --recursive --init uav
+
+    # check the git status (please do this step and wait until command is completed)
+    git status
+
+
+**Clone the perception submodules**
+
+    # clone the submodules
+    git submodule update --recursive --init object_detection
 
     # check the git status (please do this step and wait until command is completed)
     git status

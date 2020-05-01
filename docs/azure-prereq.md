@@ -19,6 +19,7 @@ Please follow the below instructions **on your localhost** (not on the VMs).
         10.3.1.11       azure-ugv1
         10.3.1.12       azure-ugv2
         10.3.1.13       azure-ugv3
+	10.3.1.14       azure-perception
 
         10.3.1.51       azure-uav1
         10.3.1.52       azure-uav2
@@ -37,6 +38,10 @@ You should be able now to ping the remote host using the above alias.
 
         # ping the azure basestation
         ping azure-basestation
+
+        # ping the azure perception VM
+        ping azure-perception
+
 
 ## 2. Setup Remote Host SSH Config
 
@@ -70,6 +75,13 @@ Please setup the ssh config for all available Azure VMs.
           IdentitiesOnly yes
           IdentityFile ~/.ssh/azure_vpn
 
+        Host azure.perception
+          HostName azure-perception
+          User subt
+          IdentitiesOnly yes
+          IdentityFile ~/.ssh/azure_vpn
+
+
 **Verify Azure VM SSH Access**
 
 You should be able now to ssh into the remote host using the above alias.
@@ -82,3 +94,6 @@ You should be able now to ssh into the remote host using the above alias.
 
         # ssh into the azure basestation
         ssh azure.basestation
+
+        # ssh into the azure perception
+        ssh azure.perception

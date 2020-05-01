@@ -57,6 +57,8 @@ This Azure **docker setup tutorial** will setup the following:
   - **Basestation:** [`docs/azure-docker-basestation-setup.md`](azure-docker-basestation-setup.md)
   - **UGV:** [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
   - **UAV:** [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
+  - **Perception:** [`docs/azure-docker-uav-setup.md`](azure-docker-perception-setup.md)
+
 
 ## 6. Summary
 
