@@ -533,13 +533,11 @@ Use this option if you feel comfortable with git and if you are able to easily s
 
 **Option 2:** Mount a remote filesystem using SFTP
 
-This method seems to be vary slow. You can try this out for experimentation.
+This method seems to be very slow. You can try this out for experimentation.
 
 **Option 3:** Deployer Transfer (manual rsync)
 
-This option will have the user develop on the localhost. The `transfer` command does a `rsync` between the localhost and remote host deploy workspaces. As well, the user only needs to use git on the localhost since the remotes are synched.
-
-After a period of development, the user issues the `transfer` command which executes the `rsync` between the localhost and remote host deploy workspaces.
+This option will have the user develop on the localhost. The `transfer` command does a `rsync` between the localhost and remote host deploy repo. So, the user only needs to use git on the localhost since the remotes are synced.
 
 The issue are:
 
@@ -547,10 +545,11 @@ The issue are:
 
 - A transfer for a small code change can be slow for the development workflow.
 
-- The user might forget to do a `transfer` to the remote VM (can transfer to a group of VMs, not just individual).
+- The user might forget to do a `transfer` to the remote VM (there is the option available to transfer to a group of VMs, not just individual VM).
 
 **Some Helpful Tools For Remote Development**
 
+- `rdp`, `teamviewer`
 - `tmux`, `byobu`
 - remote desktop extensions on IDE, for [example](https://code.visualstudio.com/docs/remote/remote-overview).
 - `docker machine`, `docker swarm`
