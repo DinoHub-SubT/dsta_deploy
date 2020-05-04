@@ -258,6 +258,21 @@ Install the following third-party cloud provisioning operational tools.
         sudo apt-add-repository --yes --update ppa:ansible/ansible
         sudo apt install ansible
 
+### TeamViewer
+
+        # download the teamviewer deb package
+        cd /tmp/
+        wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
+
+        # install teamviewer
+        # At the prompt Do you want to continue? [Y/n], type Y to continue the installation.
+        sudo apt install ./teamviewer_amd64.deb
+
+        # remove the deb package
+        rm teamviewer_amd64.deb
+
+- For more reference, please see [here](https://linuxize.com/post/how-to-install-teamviewer-on-ubuntu-18-04/).
+
 * * *
 
 ## Verify Operation Tools Installation

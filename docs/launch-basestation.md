@@ -2,7 +2,28 @@
 
 ## Basestation Catkin Workspace
 
-### 1. Verify Communication Manager Connection
+### 1. Azure Access
+
+        # ssh into the remote VM. Example:
+        ssh azure.ugv1
+
+        # view teamviewer info
+        sudo teamviewer info
+
+        # get the teamviewer ID
+        sudo teamviewer info | grep "TeamViewer ID"
+
+Copy the remote `TeamViewer ID` into your localhost teamviewer "Control Remote Computer" Partner ID.
+
+- *teamviewer password:* `teamviewer`
+
+Once in the remote TeamViewer Window, access the `subt` user's desktop
+
+- Azure VM user `subt` password is: `Password1234!`
+
+If you do not prefer to use Teamveiwer, you can use RDP instead.
+
+### 2. Verify Communication Manager Connection
 
 Please verify you have setup the azure vm communication manager connection IPs
 
@@ -20,7 +41,7 @@ Please verify you have setup the azure vm communication manager connection IPs
         <element>10.3.1.53</element>
         <element>10.3.1.54</element>
 
-### 2. Access Docker Container
+### 3. Access Docker Container
 
 If you are using an Azure VM, remember to remote-desktop into the VM first.
 
@@ -29,7 +50,11 @@ If you are not using docker containers, you may skip this step.
         # enter the docker shell container on your local laptop host or Azure VM host
         docker-join.bash --name gui-shell
 
-### 3. Launch Basestation
+### 4. Launch Basestation
 
         # load the tmux session
         tmuxp load operations/launch/tmuxp/sim/basestation.yaml
+
+### Summary
+
+Please launch the other VMs (ugv, uav), to see the robots on the basestation RViz.
