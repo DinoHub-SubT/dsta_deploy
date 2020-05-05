@@ -58,28 +58,32 @@ resource "azurerm_linux_virtual_machine" "perception" {
   # toggle creation of a resource
   count                 = var.perception_robots_toggle
 
-  # NIC interface id
+    # NIC interface id
   network_interface_ids = [azurerm_network_interface.perception[count.index].id]
 
   # == VM instance Settings ==
   
   # instance type
-  size                  = "Standard_F8s_v2"
+  size                  = "Standard_NC6_Promo"
   
-  # OS disk setup
   os_disk {
     name                    = "${var.resource_name_prefix}-perception-os-disk"
     caching                 = "ReadWrite"
     storage_account_type    = "Standard_LRS"
-    disk_size_gb            = "64"
+    disk_size_gb            = "100"
   }
 
-  # VM image setup
   source_image_reference {
-    publisher = "Canonical"
-    offer     = "UbuntuServer"
-    sku       = "18.04-LTS"
-    version   = "latest"
+    offer                   = "ngc_azure_17_11"
+    publisher               = "nvidia"
+    sku                     = "ngc_machine_image_20_03_1"
+    version                 = "20.03.1"
+  }
+
+  plan {
+    product                   = "ngc_azure_17_11"
+    publisher                 = "nvidia"
+    name                      = "ngc_machine_image_20_03_1"
   }
 
   # == User Access Settings ==
@@ -97,4 +101,32 @@ resource "azurerm_linux_virtual_machine" "perception" {
   tags = {
     environment = var.tag_name_prefix
   }
+}
+
+data "azurerm_platform_image" "ubuntu1804" {
+  location  = var.resource_location
+  publisher = "Canonical"
+  offer     = "UbuntuServer"
+  sku       = "18.04-LTS"
+}
+
+resource "azurerm_managed_disk" "perception" {
+  name                 = "${var.resource_name_prefix}-perception-disk1"
+  location             = var.resource_location
+  resource_group_name  = var.user_defined_resource_group_name
+  storage_account_type = "Standard_LRS"
+  create_option        = "FromImage"
+  disk_size_gb         = 1000
+  image_reference_id   = "/Subscriptions/b1e974e5-8229-44c3-a472-235a580d611a/Providers/Microsoft.Compute/Locations/westus/Publishers/Canonical/ArtifactTypes/VMImage/Offers/UbuntuServer/Skus/18.04-LTS/Versions/18.04.202004080"
+  # toggle creation of a resource
+  count                 = var.perception_robots_toggle
+}
+
+resource "azurerm_virtual_machine_data_disk_attachment" "perception" {
+  managed_disk_id    = azurerm_managed_disk.perception[count.index].id
+  virtual_machine_id = azurerm_linux_virtual_machine.perception[count.index].id
+  lun                = "10"
+  caching            = "ReadWrite"
+  # toggle creation of a resource
+  count                 = var.perception_robots_toggle
 }

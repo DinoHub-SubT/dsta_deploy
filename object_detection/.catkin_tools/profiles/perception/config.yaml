@@ -1,0 +1,18 @@
+blacklist: []
+build_space: ../../build/object_detection/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/object_detection/
+extend_path: ../../devel/object_detection/common/
+install: false
+install_space: ../../install/object_detection/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/object_detection/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

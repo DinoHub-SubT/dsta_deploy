@@ -76,7 +76,20 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
-## 6. Verify Install
+
+## 6. Install Perception VM Dependencies
+
+        # Verify VM Access
+        ping -c 3 azure-perception
+
+        # == Perception VM Install ==
+        # Install basic dependencies on the remote VM (system, docker, docker tools)
+        # Clones the deploy repo on the remote VM (can take 30 minutes)
+        # You do not need to clone the repo on the remote VM manually, this command will do that for you.
+        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-perception
+
+
+## 7. Verify Install
 
 Verify everything was installed correctly on all the VMs.
 
