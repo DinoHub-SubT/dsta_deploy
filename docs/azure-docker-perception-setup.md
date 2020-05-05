@@ -1,5 +1,7 @@
 # Azure Basestation Docker Setup
 
+**Note:** Right now, there is no docker image available for perception. You cannot follow these steps right now. This will fixed in the soon future.
+
 ### 1. Building Docker Images
 
 Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
