@@ -428,6 +428,7 @@ These tutorials will setup the following:
 
     - Basestation: [`docs/launch-basestation.md`](docs/launch-basestation.md)
     - UGV: [`docs/launch-ugv.md`](docs/launch-ugv.md)
+    - UAV: [`docs/launch-ugv.md`](docs/launch-uav.md)
 
 These tutorials will setup the following:
 
