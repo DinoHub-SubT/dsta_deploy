@@ -43,9 +43,13 @@ Please verify you have setup the azure vm communication manager connection IPs
 
 ### 3. Access Docker Container
 
-If you are using an Azure VM, remember to remote-desktop into the VM first.
+        # ssh into the remote Azure VM (if not already logged in)
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.ugv1
 
-If you are not using docker containers, you may skip this step.
+        # enter the docker shell container (if not already joined)
+        # -- if you are not using Docker, you may skip this step.
+        docker-join.bash --name sim-shell
 
 ### 4. Edit Launch Files
 
@@ -103,7 +107,12 @@ Edit Launch File: `~/deploy_ws/src/ugv/sim/local_planner/launch/local_planner.la
 
 ### 5. Launch UGV Simulation
 
+        # ssh into the remote Azure VM (if not already logged in)
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.ugv1
+
         # enter the docker shell container on your local laptop host or Azure VM host
+        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name sim-shell
 
         # Load the tmux session. Example launch `ugv1`
@@ -111,6 +120,11 @@ Edit Launch File: `~/deploy_ws/src/ugv/sim/local_planner/launch/local_planner.la
 
         # (OPTIONAL) open a new tab/window and publish a waypoint
         rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'
+
+        # (OPTIONAL) Move the UGV using the Basestation Azure VM GUI. 
+        # -- On the Basestation Azure VM (example, moving ugv1):
+        #       Select UGV1 on both control GUIs 
+        #       Select waypoints on rviz
 
 ### 6. Verify Launch
 
@@ -122,4 +136,3 @@ If you see any launch that failed to come up, please refer to the ugv's `operati
 
 You should now be able to control the robot movement using the buttons in the basestation.
 
-- Select "waypoint" in rviz on the basestation VM.

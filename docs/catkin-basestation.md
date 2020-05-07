@@ -6,15 +6,18 @@ Setting up the catkin workspace for the Basestation workspaces requires using th
 
 Assuming you have already setup all your basestation docker containers, follow the instructions below to setup the basestation catkin workspace.
 
-## 1. Access Docker Container (optional)
+## 1. Access Docker Container
 
-**If you are not using docker containers, you may skip this step.**
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.basestation` to the correct VM name 
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.basestation
 
-**If you are using an Azure VM, remember to ssh into the VM first.**
-
-        # enter the docker shell container on your local laptop host or Azure VM host#
-        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
+        # enter the docker shell container on your local laptop host or Azure VM host
+        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name gui-shell
+
+        # its okay to ignore the following error if you have not yet built the workspace:
+        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
 ## 2. Build Common
 
@@ -61,7 +64,6 @@ The basestation catkin workspace contains all repositories that are running duri
 
         # stop the running container
         docker stop gui-shell
-
 
 ## Cleanup (optional)
 

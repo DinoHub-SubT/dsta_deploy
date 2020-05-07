@@ -12,13 +12,16 @@ Follow the instructions below to setup the UGV catkin workspace.
 
 ### 1. Access Docker Container (optional)
 
-**If you are not using docker containers, you may skip this step.**
-
-**If you are using an Azure VM, remember to ssh into the VM first.**
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.ugv1
 
         # enter the docker shell container on your local laptop host or Azure VM host
-        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
+        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name ppc-shell
+
+        # its okay to ignore the following error if you have not yet built the workspace:
+        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
 ### 2. Build Common
 
@@ -69,13 +72,16 @@ The `ugv:planning-pc` catkin workspace sets up default `cmake` options.
 
 ### 1. Access Docker Container (optional)
 
-**If you are not using docker containers, you may skip this step.**
-
-**If you are using an Azure VM, remember to ssh into the VM first.**
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.ugv1
 
         # enter the docker shell container on your local laptop host or Azure VM host
-        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
+        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name nuc-shell
+        
+        # its okay to ignore the following error if you have not yet built the workspace:
+        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
 ### 2. Build Common
 
@@ -131,9 +137,17 @@ The `ugv:nuc` catkin workspace sets up default `cmake` options.
 
 **If you are using an Azure VM, remember to ssh into the VM first.**
 
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
+        # -- if you are not using Azure, you may skip this step.
+        ssh azure.ugv1
+
         # enter the docker shell container on your local laptop host or Azure VM host
-        #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
+        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name sim-shell
+
+        # its okay to ignore the following error if you have not yet built the workspace:
+        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
+        
 
 ### 2. Build Common
 
