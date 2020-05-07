@@ -45,24 +45,9 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 If there are any dependencies missing, please notify the maintainer.
 
-## 5. Setup Docker On The Cloud Virtual Machines
+## 5. Summary
 
-This Azure **docker setup tutorial** will setup the following:
-
-- Install all docker images -- *this sets up the repository package dependencies*
-- Create all docker containers -- *the container is the environment where you will be building & running the code*
-
-**Tutorials at:**
-
-  - **Basestation:** [`docs/azure-docker-basestation-setup.md`](azure-docker-basestation-setup.md)
-  - **UGV:** [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
-  - **UAV:** [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
-  - **Perception:** [`docs/azure-docker-uav-setup.md`](azure-docker-perception-setup.md)
-
-
-## 6. Summary
-
-You should now have an Azure infrastructure, corresponding docker images and docker containers setup on the Azure VMs.
+You should now have the Azure infrastructure setup and be able to access (ssh, rdp, teamviewer) the remote Azure VMs.
 
 - Notify the maintainer if any of the tutorial steps did not succeed.
 

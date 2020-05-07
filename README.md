@@ -1,35 +1,49 @@
 
-# Deployer
+# Overview
 
 > Deployer, a deployment automation tool.
+
+The deploy repo maintains a working version of all the `SubT` workspaces in order to make local, robot, cloud deployment somewhat easier.
 
 **Table Of Contents**
 
 [TOC]
 
-* * *
-
-# Overview
-
-This deploy repo's maintains a working version of all the subt workspaces in order to make local, robot, cloud deployment somewhat easier.
 
 
-# Quick Setup
+# Prerequisites
 
-## Prerequisites
+## System Requirements
   
-1. Ubuntu 18.04
+**1. Linux System: Ubuntu 18.04**
    - Not tested on other versions.
 
-2. python2 (does not work with python3)
+**2. Install system packages without errors**
+
+   - If you have errors and need to do `sudo apt-get install --fix-broken`, you must fix your system package install errors.
+   - You will not be able to continue with the below readme until you have fixed all the broken packages.
+
+
+**3. python2 (some operational tools do not work with python3 yet)**
 
         # installing python 2.7 and pip
         sudo apt update
         sudo apt install python2.7 python-pip
 
-3. ROS Melodic *(optional)*
+**4. ROS Melodic *(optional)***
    - See the official [ROS install instructions](http://wiki.ros.org/melodic/Installation/Ubuntu).
 
+**5. Perception Cluster Account (optional)**
+
+  - If you plan on running the UAV or Perception software stacks, you will need access to the `SubT` internal cluster resource (*called Perceptron*)
+      - Please notify the maintainer for creating user accounts.
+  - Perceptron maintains all the `SubT` rosbag datasets (not all the datasets are found on Azure)
+  - Perceptron maintains thirdparty software libraries needed for *some* docker images.
+
+**6. Azure Account (optional)**
+
+  - If you plan on running on Azure, you will access to the `SubT` Azure resource.
+      - Please notify the maintainer for creating user accounts.
 
 ## SSH Keys
 
@@ -52,6 +66,28 @@ This deploy repo's maintains a working version of all the subt workspaces in ord
 
 - Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
 
+## Operational Tools Resources
+
+Please have a basic understanding of the following the operational tools:
+
+- [Git](https://git-scm.com/about)
+- [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
+- [ROS Melodic](http://wiki.ros.org/melodic)
+- [Catkin](https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html)
+- [Docker](https://docs.docker.com/get-started/)
+- [Docker Compose (optional)](https://docs.docker.com/compose/)
+- [Docker Context (optional)](https://docs.docker.com/engine/context/working-with-contexts/)
+- [Azure (optional)](https://docs.microsoft.com/en-us/azure/?product=featured)
+- [Azure CLI (optional)](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
+- [Terraform (optional)](https://www.terraform.io/)
+- [Ansible (optional)](https://www.ansible.com/)
+- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
+- [SubT Deployer Tool (optional) ](./docs/discuss-operation-tools.md)
+
+* * *
+
+# Install Requirements
+
 ## Deploy Repository
 
 **1. Install deploy dependencies**
@@ -70,8 +106,7 @@ This deploy repo's maintains a working version of all the subt workspaces in ord
         git checkout feature/launch-restructure
         ./install-deployer.bash --install
 
-
-Notify the maintainer if cloning or installing the deploy repository failed.
+- Notify the maintainer if cloning or installing the deploy repository failed.
 
 ## Container Provisioning Tools
 
@@ -134,7 +169,7 @@ Notify the maintainer if cloning or installing the deploy repository failed.
         docker-compose --version
 
 
-### NVIDIA Docker
+### NVIDIA Docker (Optional)
 
 **Proceed with the below instructions ONLY if you have a NVidia GPU.**
 
@@ -253,29 +288,30 @@ Install the following third-party cloud provisioning operational tools.
 
 ### Ansible
 
+        # Add ansible to install
         sudo apt update
         sudo apt install software-properties-common
         sudo apt-add-repository --yes --update ppa:ansible/ansible
+        
+        # Install ansible
         sudo apt install ansible
 
 ### TeamViewer
 
-        # download the teamviewer deb package
+        # Download the teamviewer deb package
         cd /tmp/
         wget https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
 
-        # install teamviewer
+        # Install teamviewer
         # At the prompt Do you want to continue? [Y/n], type Y to continue the installation.
         sudo apt install ./teamviewer_amd64.deb
 
-        # remove the deb package
+        # Remove the deb package
         rm teamviewer_amd64.deb
 
 - For more reference, please see [here](https://linuxize.com/post/how-to-install-teamviewer-on-ubuntu-18-04/).
 
-* * *
-
-## Verify Operation Tools Installation
+## Verify Installations
 
 Verify you have all the third-party operations tools installed correctly:
 
@@ -284,9 +320,6 @@ Verify you have all the third-party operations tools installed correctly:
 
         # verify docker-compose
         docker-compose -v
-
-        # verify docker-compose
-        docker-machine -v
 
         # verify nvidia-docker
         nvidia-docker -v
@@ -300,6 +333,9 @@ Verify you have all the third-party operations tools installed correctly:
         # verify azure cli
         az --help
 
+        # teamviewer client for remote VM desktop access
+        teamviewer --help
+
 Verify you can run the deployer scripts installed correctly:
 
         # source your bashrc (or zshrc)
@@ -312,58 +348,13 @@ Verify you can run the deployer scripts installed correctly:
         ./deployer --help
 
 
-Notify the maintainer if any of the help usage messages do not show up.
+Notify the maintainer if any of the `help` usage messages do not show up.
 
 * * *
 
-# Getting Started
+# Getting Started: Tutorials
 
-The below instructions should get you started on a basic SubT setup locally or on Azure.
-
-## About Operation Tools
-
-There are a few operational tools available to use:
-
-`docker`
-
-  - command interface to interact with `dockerfiles` found in `operations/deploy/docker/dockerfiles`
-  
-`docker-compose`
-
-  - command interface to interact with `docker-compose.yml` files found in `operations/deploy/docker/dockerfiles/`
-  
-`docker-compose-wrapper`
-
-  - command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/deploy/scenarios`
-  
-`docker-machine`
-
-  - command interface to interact with the different azure machine docker daemons.
-
-`deployer`
-
-  - command interface to interact with `deployerfiles` found in `operations/deploy/deploybooks/`
-  - automates running the tutorial steps, with realtime command output.
-
-`ansible`
-
-  - command interface to interact with `ansible playbooks` found in `operations/deploy/robotbooks/`
-  - automates installing dependencies and setting up systems.
-
-## Operational Tool Resources
-
-Please have a basic understanding of the following the operations tools:
-
-- [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
-- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
-- [Docker](https://docs.docker.com/get-started/)
-- [Docker Compose (optional)](https://docs.docker.com/compose//)
-- [Terraform (optional)](https://www.terraform.io/)
-- [Ansible (optional)](https://www.ansible.com/)
-- [SubT Deployer Tool (TODO) ](./operations/deploy/deploybooks/README.md)
-
-
-## Tutorials
+The below instructions should get you started on a basic `SubT` setup locally or on Azure.
 
 You will need to go through a few tutorials to have a working system.
 
@@ -371,223 +362,98 @@ You will need to go through a few tutorials to have a working system.
 
 **Tutorial at:** [`docs/install-workspaces.md`](docs/install-workspaces.md)
 
-- Installs all the SubT wrokspace repositories.
+- Installs the `SubT` repositories for all `catkin` workspaces.
 
 ### 2. Azure Cloud Infrastructure Setup (Optional)
 
 **Tutorial at:** [`docs/azure-setup.md`](docs/azure-setup.md)
 
 - Follow this tutorial only if you are planning on using the Azure Cloud resource.
+
+This tutorial will setup the following:
+
 - Creates an example azure infrastructure VMs, virtual networking, VPN, etc.
 - Sets up remote desktop access.
 - Create the docker images, containers on the remote VMs.
 
-### 3. Catkin Build Workspaces (Required)
+### 3. Docker Engine Setup (Required)
+
+
+**Localhost tutorials at:**
+
+*(not available yet)*
+
+  - Basestation: [`docs/localhost-docker-basestation-setup.md`](localhost-docker-basestation-setup.md)
+  - UGV: [`docs/localhost-docker-ugv-setup.md`](localhost-docker-ugv-setup.md)
+  - UAV: [`docs/localhost-docker-uav-setup.md`](localhost-docker-uav-setup.md)
+
+**Azure tutorials at:**
+
+  - Basestation: [`docs/azure-docker-basestation-setup.md`](azure-docker-basestation-setup.md)
+  - UGV: [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
+  - UAV: [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
+  - Perception: [`docs/azure-docker-uav-setup.md`](azure-docker-perception-setup.md)
+
+These tutorials will setup the following:
+
+- Assumes you have already setup the docker engine on the localhost.
+
+- Install all docker images on the remote machines
+    - *Docker images setup the all the submodules' package dependencies*
+
+- Create all docker containers on the remote machines
+    - *A docker container is the environment where you will be building & running the code*
+
+### 4. Catkin Workspaces Setup (Required)
 
 **Tutorials at**:
 
-  - **Basestation:** [`docs/catkin-basestation.md`](docs/catkin-basestation.md)
-  - **UGV:** [`docs/catkin-ugv.md`](docs/catkin-ugv.md)
-  - **UAV:** [`docs/catkin-uav.md`](docs/catkin-uav.md)
+  - Basestation: [`docs/catkin-basestation.md`](docs/catkin-basestation.md)
+  - UGV: [`docs/catkin-ugv.md`](docs/catkin-ugv.md)
+  - UAV: [`docs/catkin-uav.md`](docs/catkin-uav.md)
 
-### 4. Launch Simulation Setup (Required)
+These tutorials will setup the following:
 
-**Tutorial 'simple launch example' at**:
+- Build all the catkin workspaces for the different software stacks.
+- Pre-defines the explicit catkin extend paths.
+- Pre-defines some cmake and catkin flags (such as using the release flags).
+
+### 5. Simulation Launch Setup (Required)
+
+**Tutorials at**:
   
-- **Basestation:** [`docs/launch-basestation.md`](docs/launch-basestation.md)
-- **UGV:** [`docs/launch-ugv.md`](docs/launch-ugv.md)
+- **Simple Launch Example:**
 
+    - Basestation: [`docs/launch-basestation.md`](docs/launch-basestation.md)
+    - UGV: [`docs/launch-ugv.md`](docs/launch-ugv.md)
 
+These tutorials will setup the following:
 
-## Operation Tools Summary
+- Launch setups for different software stacks.
+- Launch setups for different scenarios (like simple localhost simulation, full Azure simulation, robot hardware, etc.).
 
-You should now have a built `SubT` workspace, either on the localhost or on an Azure setup.
+### 6. Managing Endpoints (Optional)
 
-You should become more familiar with the operational tools and their purpose of operations:
+**Discussion at:** [`docs/discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
 
-**Template: Creating Docker Images**
+- Methods of managing multiple remote docker endpoints.
+- Remote development workflow.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+### 7. Tools and Issues (Optional)
 
-        # Create the docker image
-        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.image
+**Discussion at:** [`docs/discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
-        # example: create a docker image on ugv1 Azure VM  (assumes ssh connection available)
-        ./deployer -s azure.ugv1.docker.image
-
-**Template: Creating Docker Shell Access Containers**
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # Create the docker shell container
-        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.shell
-
-        # example: create a docker container with shell access, on ugv1 Azure VM (assumes ssh connection available)
-        ./deployer -s azure.ugv1.docker.shell
-
-**Template: Building the catkin workspace**
-
-        # (optional) Access the host
-        ssh azure.host-name
-
-        # enter the docker shell container
-        docker-join.bash --name [container name]
-
-        # go to the workspace path
-        cd ~/deploy_ws/src/path/to/workspace
-
-        # view the catkin profiles
-        catkin profile list
-
-        # select the catkin profile
-        catkin profile set [profile name]
-
-        # build the workspace
-        catkin build
-
-**How to interact with the deployer tool**
-
-To learn more about the available `deployer` tool commands, use the `--preview` or `-p` command as shown below:
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # preview ugv options when deploying on the remote Azure VM
-        ./deployer -s azure.ugv1 -p
-
-To learn more what the command executes, use the `--verbose` or `-v` option with the `preview` option as shown below:
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # preview and verbosely display all the commands that will be executed on the Azure VM
-        ./deployer -s azure.ugv1 -p -v
-
-* * *
-
-# Discussion
-
-## Remote Development Setup Options
-
-You will want to setup development workflow on the remote VM. There are a few options available:
-
-**Option 1: Clone the repository directly on the remote host**
-
-This option will clone the deploy repository directly on the remote VM and develop as you would on the localhost. Then the user can use a remote desktop extension to develop or go directly in the vm and develop.
-
-- Use the `ansible` scripts to setup all the package dependencies and to clone the deploy repo on new VMs.
-
-**Option 2: Mount a remote filesystem using SFTP**
-
-This option will mount the deploy repo found on the localhost to a directory found on the remote VM.
-
-- This needs to be done only once when the VM starts up and the repositories will be kept in sync.
-
-- You will need to develop on the remote repository, not on the localhost deploy repository.
-
-Find your desktop's IP on the Azure VPN:
-
-- Go to Virtual network gateway
-- Go to Point-to-site configuration
-- See the Allocated IP addresses
-
-        # == ssh into your VM ==
-        ssh [VM username]@[private VM IP]
-
-        # Install sshfs
-        sudo apt-get install sshfs
-
-        # Create remote mount point on localhost
-        mkdir /vm1/mountpoint/path/
-
-        # Mount remote directory (desktop IP is found on Azure Portal VPN connections )
-        sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
-
-        # Setup a IDE on localhost with remote editing plugin
-        # Example: https://code.visualstudio.com/docs/remote/ssh
-
-        # Remove the remote mount on remote VM host
-        sudo umount /vm1/mountpoint/path/
-
-**Option 3: Deployer Transfer (manual rsync)**
-
-This option will copy the deploy repo to the remote VM directory.
-
-The transfer command does a `rsync` between the localhost and remote host deploy workspaces.
-
-- The transfer command references the setup in the `/etc/hosts` and in the `~/.ssh/config`. Please have those setup correctly.
-
-An example `transfer` command will have the following template format:
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-        
-        # example: transfer to remote uav1 azure vm
-        ./deployer -s azure.uav1.transfer.to
-
-        # example: transfer to the remote ugv1 azure vm
-        ./deployer -s azure.ugv1.transfer.to
-
-        # example: transfer to remote basestation azure vm
-        ./deployer -s azure.basestation.transfer.to
-
-**Recommendation**
-
-There is no good option to choose. Remote development will be difficult to manage.
-
-- A possible recommendation is to use Option 1 and if that becomes inconvenient then try out Option 3.
-
-- The `transfer` command can be limited by upload range. On the initial VM setup, use Option 1 (since the deploy repo can be large).
-
-**Option 1:** Clone the repository directly on the remote host
-
-This will require the user to manually manage the VMs, docker containers and to use git as a method of repo sharing.
-Use this option if you feel comfortable with git and if you are able to easily switch between the VMs.
-
-**Option 2:** Mount a remote filesystem using SFTP
-
-This method seems to be very slow. You can try this out for experimentation.
-
-**Option 3:** Deployer Transfer (manual rsync)
-
-This option will have the user develop on the localhost. The `transfer` command does a `rsync` between the localhost and remote host deploy repo. So, the user only needs to use git on the localhost since the remotes are synced.
-
-The issue are:
-
-- The user still has to manage remote docker containers for builds and launches.
-
-- A transfer for a small code change can be slow for the development workflow.
-
-- The user might forget to do a `transfer` to the remote VM (there is the option available to transfer to a group of VMs, not just individual VM).
-
-**Some Helpful Tools For Remote Development**
-
-- `rdp`, `teamviewer`
-- `tmux`, `byobu`
-- remote desktop extensions on IDE, for [example](https://code.visualstudio.com/docs/remote/remote-overview).
-- `docker machine`, `docker swarm`
-
-
-## Common Questions
-
-- **When to re-build docker images?**
-
-    - When docker image does not exist on the host ( run `docker images` on the localhost or VM to verify)
-
-    - When new repository dependencies are added to dockerfiles (dockerfiles found in: `operations/deploy/docker/dockerfiles`)
-
-- **When to update dockerfiles?**
-
-    - You should make changes to dockerfiles when you want to need new to add dependencies for workspace repositories (example ros packages, linux packages, etc.). See the existing dockerfiles, found in: `operations/deploy/docker/dockerfiles`, for example dependencies.
-
-    - If you install a dependency in the container directly, remember to put it in the dockerfile and rebuild the docker image.
+- Operational tools used in deploy, their function and their general syntax.
+- Helpful thidparty tools
+- Common questions
+- Known issues
 
 * * *
 
 # Who do I talk to
 
-* Katarina Cujic (kcujic@andrew.cmu.edu)
+Please notify the maintainer(s) for any issues or questions:
+
+- Katarina Cujic (`kcujic@andrew.cmu.edu`)
 
 [[top]](#markdown-header-deployer)
