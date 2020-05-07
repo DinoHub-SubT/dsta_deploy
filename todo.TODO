@@ -25,6 +25,7 @@ deployer-scripts:
   ☐ global deployer scripts
   ☐ nested deployer configs correctly done
   ☐ preview with --system and --run needs to be done better, does not look nice now
+  ☐ bug in extension. ugv, ugv1 nested does not work, missing suffix path
 
 repo:
   ☐ transfer to should not copy over all of .catkin_profile, it will destroy what is set on the remote
