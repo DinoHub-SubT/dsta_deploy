@@ -3,7 +3,7 @@
 
 > Deployer, a deployment automation tool.
 
-The deploy repo maintains a working version of all the `SubT` workspaces in order to make local, robot, cloud deployment somewhat easier.
+The deploy repo maintains a working version of all the `SubT` workspaces in order to make local, robot and cloud deployment somewhat easier.
 
 **Table Of Contents**
 
@@ -16,6 +16,7 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 ## System Requirements
   
 **1. Linux System: Ubuntu 18.04**
+
    - Not tested on other versions.
 
 **2. Install system packages without errors**
@@ -30,7 +31,8 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
         sudo apt update
         sudo apt install python2.7 python-pip
 
-**4. ROS Melodic *(optional)***
+**4. ROS Melodic *(optional)**
+
    - See the official [ROS install instructions](http://wiki.ros.org/melodic/Installation/Ubuntu).
 
 **5. Perception Cluster Account (optional)**
@@ -389,10 +391,10 @@ This tutorial will setup the following:
 
 **Azure tutorials at:**
 
-  - Basestation: [`docs/azure-docker-basestation-setup.md`](azure-docker-basestation-setup.md)
-  - UGV: [`docs/azure-docker-ugv-setup.md`](azure-docker-ugv-setup.md)
-  - UAV: [`docs/azure-docker-uav-setup.md`](azure-docker-uav-setup.md)
-  - Perception: [`docs/azure-docker-uav-setup.md`](azure-docker-perception-setup.md)
+  - Basestation: [`docs/azure-docker-basestation-setup.md`](docs/azure-docker-basestation-setup.md)
+  - UGV: [`docs/azure-docker-ugv-setup.md`](docs/azure-docker-ugv-setup.md)
+  - UAV: [`docs/azure-docker-uav-setup.md`](docs/azure-docker-uav-setup.md)
+  - Perception: [`docs/azure-docker-uav-setup.md`](docs/azure-docker-perception-setup.md)
 
 These tutorials will setup the following:
 

@@ -3,11 +3,13 @@
 If you have completed the full tutorial, you will end up with multiple endpoints and endpoint types.
 
 **Endpoints:**
+
 - Localhost
 - Robot Computers
 - Azure VMs
 
 **Endpoint Types:**
+
 - Git Repos
 - Docker Images
 - Docker Containers
@@ -21,6 +23,7 @@ You now will have setup multiple docker images and containers on different endpo
 You can manage docker on the different endpoints using the tool `docker context`.
 
 **Endpoints are defined as:**
+
 - Localhost
 - Robot Computers
 - Azure VMs
