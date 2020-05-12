@@ -127,6 +127,38 @@ You can manage docker on the different endpoints using the tool `docker context`
         # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
         # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
 
+## Issues
+
+### Docker Commands Not Responding
+
+If you leave the `docker context` pointing to a connection that is not accesible, then all docker commands will not respond.
+
+The docker daemon will be waiting indefinitely for the non-reachable connection.
+
+- For example, setting the docker context to an Azure VM, but the VM that is not accessible. The docker commands will be waiting for the Azure VM connection to come up.
+
+Manual changes to docker config files are needed to get out of the error state:
+
+        # open docker context config file
+        gedit /home/$USER/.docker/config.json
+
+        # you will output similar to:
+        {
+                "auths": {},
+                "HttpHeaders": {
+                        "User-Agent": "Docker-Client/19.03.8 (linux)"
+                },
+                "currentContext": "ugv1"
+        }
+
+        # From: edit the `currentContext` line in the config file.
+        "currentContext": "ugv1"
+
+        # To: change to the default context
+        "currentContext": "default"
+
+You should now be able to run docker commands, for example `docker ps`.
+
 ## Summary
 
 You should now be able to switch between the different docker endpoints using the docker context tool.
