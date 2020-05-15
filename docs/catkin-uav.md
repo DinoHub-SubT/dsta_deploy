@@ -59,7 +59,7 @@ The UAV simulation workspace requires manual code changes to thirdparty files.
 
         # change invalid define boolean value
         gedit Tools/sitl_gazebo/include/gazebo_opticalflow_plugin.h
-        
+
         # change line 43: with uppercase 'TRUE'
         #define HAS_GYRO TRUE <--- original line
 
@@ -89,7 +89,22 @@ The UAV simulation workspace requires building non-catkin dependencies.
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
-The `uav:sim` catkin workspace sets up default `cmake` options.
+The `uav` catkin workspaces sets up default `cmake` options.
+
+        # go to the uav:sim:darpa catkin workspace
+        cd ~/deploy_ws/src/uav/sim/darpa/catkin
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set uav
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
 
         # go to the uav:sim catkin workspace
         cd ~/deploy_ws/src/uav/sim
