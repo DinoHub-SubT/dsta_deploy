@@ -107,6 +107,10 @@ The user only needs to clone what they need. Choose which group of submodules to
     # check the git status (please do this step and wait until command is completed)
     git status
 
+    # checkout the git-lfs files
+    cd uav/sim/subt_gazebo
+    git lfs fetch
+    git lfs pull
 
 **Clone the perception submodules**
 
