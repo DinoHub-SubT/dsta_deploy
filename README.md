@@ -435,14 +435,21 @@ These tutorials will setup the following:
 - Launch setups for different software stacks.
 - Launch setups for different scenarios (like simple localhost simulation, full Azure simulation, robot hardware, etc.).
 
-### 6. Managing Endpoints (Optional)
+### 6. Updating Deploy Repos (Required)
+
+**Discussion at:** [`docs/tutorial-updating.md`](docs/tutorial-updating.md)
+
+- Discuss how to update a dockerfile
+- Discuss how to update submodules in deploy repo.
+
+### 7. Managing Endpoints (Optional)
 
 **Discussion at:** [`docs/discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
 
 - Methods of managing multiple remote docker endpoints.
 - Remote development workflow.
 
-### 7. Tools and Issues (Optional)
+### 8. Tools and Issues (Optional)
 
 **Discussion at:** [`docs/discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
