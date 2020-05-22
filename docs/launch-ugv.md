@@ -54,7 +54,7 @@ Please verify you have setup the azure vm communication manager connection IPs
 ### 4. Edit Launch Files
 
 Edit Launch File: `~/deploy_ws/src/ugv/sim/darpa/catkin/darpa_subt/x1_control/launch/control.launch`
-        
+
         # Change
         #       <rosparam command="load" file="$(arg config_extras)" />
         # To:
@@ -68,41 +68,6 @@ Edit Launch File: `~/deploy_ws/src/ugv/sim/local_planner/launch/local_planner.la
         # To:
         #       <!--remap from="/X1/cmd_vel" to="/auton_twist"/-->
 
-### 5. Add Launch File (temporary, until git merged)
-
-        # open the communication manager config
-        cd ~/deploy_ws/src/ugv/sim/behavior_executive/launch
-
-        # create the file
-        gedit behavior_executive_sim_headless.launch
-
-        # Add the following to the file:
-        <?xml version="1.0"?>
-        <launch>
-                <node name="behavior_tree" pkg="behavior_tree" type="behavior_tree_node.py">
-                <param name="config" type="string" value="$(find behavior_executive)/config/ugv_tree_sim.tree" />
-                </node>
-
-                <node name="behavior_executive" pkg="behavior_executive" type="behavior_executive" output="screen">
-                <param name="execute_target" type="double" value="40." />
-                <param name="dropper_connected" type="bool" value="true" />
-                <param name="comm_node_count" type="int" value="10" />
-                <param name="COMMS_RANGE_TIMEOUT_SECS" type="double" value="600.0" />
-                <param name="MAX_RESUME_TIMEOUT_SECS" type="double" value="1200.0" />
-                <param name="STOP_THRESHOLD" type="double" value="0.01" />
-                <param name="HOME_THRESHOLD" type="double" value="1.0" />
-                <param name="WAYPT_THRESHOLD" type="double" value="1.0" />
-                <param name="WHEEL_THRESHOLD" type="double" value="0.05" />
-                <param name="MOVE_THRESHOLD" type="double" value="0.05" />
-                <param name="Back_Home_Idx" type="double" value="6" />
-                <param name="TAKEOFF_STATUS" type="string" value="takeoff_complete" />
-                <param name="STOP_CHECK_TIMEOUT" type="double" value="0.1" />
-                <param name="COMMS_STATUS_TIMEOUT_SECS" type="double" value="5.0"/>
-                <param name="STATE_STAY_TIMEOUT_SECS" type="double" value="180.0"/>
-                <remap from="pose" to="/integrated_to_map"/>
-                <remap from="/sensor_coverage_planner_command" to="/coverage_planner_pause"/>
-                </node>
-        </launch>
 
 
 ### 5. Launch UGV Simulation
