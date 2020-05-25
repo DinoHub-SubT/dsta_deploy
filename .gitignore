@@ -24,6 +24,9 @@ operations/deploy/azurebooks/admin/terraform.tfstate.backup
 operations/deploy/azurebooks/admin/.terraform.*
 operations/deploy/azurebooks/admin/terraform.tfstate.d
 
+# example subt launch -- force adding any new catkin tools configs
+subt_launch_example/.catkin_tools/
+
 # // /////////////////////////////////////////////////////////////////////////////
 # // other
 # // /////////////////////////////////////////////////////////////////////////////

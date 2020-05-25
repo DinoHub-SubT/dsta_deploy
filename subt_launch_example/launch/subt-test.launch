@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<launch>
+
+  <include file="$(find subt_launch)/launch/robot/ugv/ugv1.xml" />
+
+  <!-- <arg name="name" command="$(find subt_launch)/scripts/timestamp.sh" /> -->
+
+  <param name="test" value="true"/>
+  <arg name="hostname" default="$(env robot_ugv1_ppc_hello)" />
+
+
+  <node name="pub_text" pkg="rostopic" type="rostopic"
+     args="pub /msg std_msgs/String '$(arg hostname)'"
+     output="screen" />
+  <node name="print_text" pkg="rostopic" type="rostopic" args="echo /msg" output="screen" />
+
+</launch>
