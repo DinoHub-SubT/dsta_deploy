@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer argument -->
+  <arg name="computer" default="ugv1" />
+
+  <!-- LOAM -->
+  <include file="$(find loam_velodyne_16)/loam_velodyne_16_headless.launch" >
+    <arg name="front_left" value="$(env ugv1_blind_back_arg)" />
+  </include>
+
+
+
+</launch>

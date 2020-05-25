@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer examples: ugv1, ugv2, uav1, etc. -->
+  <arg name="computer" default="ugv1" />
+
+  <!--launch basestation gui -->
+  <include file="$(find basestation_launch)/launch/base_station.launch" >
+    <arg name="computer" value="basestation" />
+  </include>
+
+  <!--launch communication manager -->
+  <include file="$(find comms_monitor)/launch/comms_monitor.launch" />
+
+  <!--launch the robot control panel gui -->
+  <node name="rqt" pkg="rqt_gui" type="rqt_gui"
+    args="--perspective-file $(find subt_control_panel)/perspective/subt_control_panel.perspective"/>
+
+  <!--launch the interactive marker processing node-->
+  <node name="marker_3d" pkg="marker_3d" type="marker_3d.py" output="screen">
+    <param name="execute_target" type="double" value="1." />
+  </node>
+
+  <include file="$(find comms_monitor)/launch/comms_visualizer.launch">
+    <arg name="robot_id" value="1"/>
+  </include>
+
+  <include file="$(find comms_monitor)/launch/comms_visualizer.launch">
+    <arg name="robot_id" value="2"/>
+  </include>
+
+  <include file="$(find comms_monitor)/launch/comms_visualizer.launch">
+    <arg name="robot_id" value="3"/>
+  </include>
+
+  <include file="$(find robot_monitor)/launch/robot_monitor.launch">
+    <arg name="robot_name" value="ugv1"/>
+  </include>
+
+  <include file="$(find robot_monitor)/launch/robot_monitor.launch">
+    <arg name="robot_name" value="ugv2"/>
+  </include>
+
+  <include file="$(find robot_monitor)/launch/robot_monitor.launch">
+    <arg name="robot_name" value="ugv3"/>
+  </include>
+
+  <include file="$(find subt_control_panel)/joy_from_basestation.launch"/>
+
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find basestation_launch)/rviz_configs/robot_darpa.rviz" />
+
+  <node name="rqt_image_view" pkg="rqt_gui" type="rqt_gui" args="--perspective-file $(find subt_control_panel)/perspective/image_view.perspective"/>
+
+  <node name="frame_swapper" pkg="transform_utils" type="frame_swapper.py" output="screen"/>
+
+  <node name="way_point_transform" pkg="subt_control_panel" type="way_point_transform" output="screen"/>
+
+  <include file="$(find robot_monitor)/launch/robot_selection_vis.launch"/>
+
+</launch>

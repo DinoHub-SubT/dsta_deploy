@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer argument -->
+  <arg name="computer" default="ugv1" />
+
+  <include file="$(find ugv_hardware)/launch/protected_drivers.launch" >
+    <arg name="computer" default="$(arg computer)" />
+    <arg name="front_left" value="$(env front_left)" />
+    <arg name="front_right" value="$(env front_right)" />
+    <arg name="rear_left" value="$(env rear_left)" />
+    <arg name="rear_right" value="$(env rear_right)" />
+    <arg name="1st_sol" default="$(env 1st_sol)" />
+    <arg name="2nd_sol" default="$(env 2nd_sol)" />
+    <arg name="3rd_sol" default="$(env 3rd_sol)" />
+    <arg name="4th_sol" default="$(env 4th_sol)" />
+  </include>
+
+</launch>

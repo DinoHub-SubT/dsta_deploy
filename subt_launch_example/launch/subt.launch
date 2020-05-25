@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<launch>
+
+  <!-- basic arguments passed through the command line -->
+
+  <!-- scenario examples: robot, azure, sim -->
+  <arg name="scenario" default="robot" />
+  <!-- robot_type examples: ugv, uav -->
+  <arg name="robot_type" default="ugv" />
+  <!-- computer examples: ugv1, ugv2, uav1, etc. -->
+  <arg name="computer" default="ugv1" />
+  <!-- launch_type examples: ppc, nuc, xavier, ds1, ds2, azure-ugv, azure-uav, etc -->
+  <arg name="launch_type" default="ppc" />
+
+  <!-- include the robot launch  -->
+  <include file="$(find subt_launch)/launch/$(arg scenario)/$(arg robot_type).launch" >
+    <arg name="computer" value="$(arg computer)" />
+    <arg name="launch_type" value="$(arg launch_type)" />
+  </include>
+
+</launch>
