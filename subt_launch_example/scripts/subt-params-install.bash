@@ -52,27 +52,27 @@ add_to_config() {
 
 # install
 install() {
-  echo "install $1"
-
   # remove any previous alias
   remove_from_config "$1"
 
   # script to source in zsh, bash ros setup file
   add_to_config "$1"
 
-  echo "SubT Launch Environment Variables Installed."
+  # summary message
+  echo "SubT Launch Environment Variables Installed. ($1) "
 }
 
 # uninstall
 uninstall() {
-  echo "uninstall $1"
+  # unset all previous env variables with 'subt_' prefix
+  unset "${!subt_@}"
 
   # remove any previous alias
   remove_from_config "$1"
 
-  echo "SubT Launch Environment Variables Uninstalled."
+  # summary message
+  echo "SubT Launch Environment Variables Uninstalled. ($1) "
 }
-
 
 ### perform the install/uninstall ###
 if [ "$1" == "--install" ]; then
