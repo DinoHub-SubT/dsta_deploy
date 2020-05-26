@@ -1,32 +1,57 @@
-repo:
-  ☐ transfer to should not copy over all of .catkin_profile, it will destroy what is set on the remote
-  ✔ cleanup gitignore in deploy @done(20-04-18 04:33)
-  ☐ nice to have script that keeps track of all repos:branchs and to tell user when branches have been merged into develop
+tools:
   ☐ ansible work from anywhere
   ☐ deployer work from anywhere
-  ✔ docker container hostname must match the outside hostname @high @done(20-05-26 02:46)
-  ☐ needs to mount the directory from local host, not to transfer to.
-  ✔ first cleanup scenerio file & fix the multiple scenerio file mess @done(20-04-18 04:34)
-  ✔ make sure all the repositories are on the correct branches & everything builds @done(20-05-26 02:46)
-    - had to make a few manual changes in a couple of places
-  ✘ make sure we have put everything that is duplicated in "common" @cancelled(20-05-26 02:47)
-  ✔ make sure the submodules are at the correct commit hash @done(20-05-26 02:47)
-  ✘ algorithm split, sim and system, sensors launch @cancelled(20-05-26 02:47)
 
 ansible:
   ☐ ansible: make sure gpu vm on azure works as well
   ☐ ignition, azure gpu vm
+  ☐ add gpu ansible install scirpts (if not working, need to check)
 
 azure:
   ☐ add storage container to VM from another resource and see the files mounted
   ☐ make sure cannot delete the main storage container
+  ☐ test out perception VM
   ☐ Get the storage attached to the VM
-  ✔ sim, drone workspaces build @done(20-05-26 02:45)
-  ✘ Move scenarios outside of operations/docker @cancelled(20-05-26 02:44)
-  ✔ allow password entry @done(20-05-26 02:44) -- done with ansible
-  ✔ maybe remove the duplicated terraform files? use output as a robot index counter ? @done(20-05-26 02:45)
+  ☐ VPN disconnect
+  ☐ ssh extra options in readme
+  ☐ add to readme to add 8.8.8.8 dns in /etc/reslove.conf if cant vpn connect
 
-Launch:
-  ✔ launch restructure: there needs to be a centralized launch folder with params that are easily changed @done(20-05-26 02:45)
-  ☐ multi robot simulation setup & launch
+repo-reorganization:
+
+  - create an initial repo reorganization
+    ☐ common
+    ☐ basestation
+    ☐ ugv
+    ☐ uav
+    ☐ operations
+    ☐ ... more to consider
+
+  Azure:
+    ☐ test out new central launch example on Azure -- make sure all the sims are working
+    ☐ update readme, with new launch setup
+    ☐ merge perception PR and make sure the perception docker image has all the dependencies to build objdet
+    ☐ add a tmux for perception sim -- to verify it is running correctly
+      - have not tested the perception launch before, need to make sure it is working
+    ☐ make the initial re-organization
+    ☐ test: re-organization catkin build & new cenetral launch, making sure all the sims are working
+    ☐ @time: end of the week, with temporary re-organization structure & verify on everything on Azure
+
+  Robot:
+    ☐ add ansible install for different robots
+    ☐ add deployer configs for transfering to robots
+    ☐ add deployer build yamls
+    ☐ build docker images on robots & start docker containers
+      - rename some containers
+    ☐ update tmux yamls, with new central launch for robot
+    ☐ test: re-organization catkin build (manually) & new cenetral launch
+      - xavier will current run outside docker as before, until it is built on the Xavier
+      - wont be exactly the same as the azure setup, will have hardware build and other repos
+    ☐ make sure all the robot paramas are correclty set.
+    ☐ go through old version of code params are correctly ported.
+    ☐ have not tested the new perception docker code on uav.
+      - have not committed to ugv perception docker. Will want to look into this in the future.
+    ☐ @time:
+      - at least 3 days to get all the ansible, docker, deploy configs & catkin builds (no launch) are tested for basestation, single ugv, single uav
+      - at least one week for verifying the repo versions, params porting & launching on all the robots: uavs, ugvs, basestation and testing
+        - might take a bit longer to make sure all the launch files, params and dependencies have correclty been added
 
