@@ -5,12 +5,12 @@
   <arg name="computer" default="ugv1" />
 
   <!-- objdet (vision) launch -->
-  <include file="$(find inference)/launch/$(env ugv1_inference).launch" />
-  <include file="$(find modules)/launch/$(env ugv1_modules).launch" />
+  <include file="$(find inference)/launch/$(env subt_$(arg computer)_inference).launch" />
+  <include file="$(find modules)/launch/$(env subt_$(arg computer)_modules).launch" />
 
   <!-- objdet (bluetooth) launch -->
   <group if="$(arg ugv1_has_bluetooth)">
-    <include file="$(find bluetooth_detection)/launch/$(env mk_1_xavier).launch" />
+    <include file="$(find bluetooth_detection)/launch/$(env subt_$(arg computer)_mk_1_xavier).launch" />
   </group>
 
   <!-- rosbag record launch -->

@@ -14,7 +14,7 @@
   <arg name="launch_type" default="ppc" />
 
   <!-- include the robot launch  -->
-  <include file="$(find subt_launch)/launch/$(arg scenario)/$(arg robot_type).launch" >
+  <include file="$(find subt_launch_example)/launch/$(arg scenario)/$(arg robot_type).launch" >
     <arg name="computer" value="$(arg computer)" />
     <arg name="launch_type" value="$(arg launch_type)" />
   </include>

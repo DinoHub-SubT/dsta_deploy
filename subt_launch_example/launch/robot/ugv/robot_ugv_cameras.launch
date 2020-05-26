@@ -5,7 +5,7 @@
   <arg name="computer" default="ugv1" />
 
   <!-- perception camera drivers launch -->
-  <include file="$(find realsense_fork)/launch/$(env ugv1_realsense).launch" />
+  <include file="$(find realsense_fork)/launch/$(env subt_$(arg computer)_realsense).launch" />
   <include file="$(find flir_ros)/launch/$(arg ugv1_flir).launch" />
   <include file="$(find scd30_ros)/launch/scd30_ros.launch" />
 

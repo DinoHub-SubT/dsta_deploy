@@ -6,7 +6,7 @@
 
   <!-- LOAM -->
   <include file="$(find loam_velodyne_16)/loam_velodyne_16_headless.launch" >
-    <arg name="front_left" value="$(env ugv1_blind_back_arg)" />
+    <arg name="front_left" value="$(env subt_$(arg computer)_blind_back_arg)" />
   </include>
 
 

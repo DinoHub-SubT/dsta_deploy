@@ -10,12 +10,12 @@
   <group if="$(eval arg('launch_type') == 'ppc' )">
 
     <!-- robot hardware launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_hardware.launch">
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_hardware.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
 
     <!-- planning launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_planning.launch">
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_planning.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
 
@@ -25,7 +25,7 @@
   <group if="$(eval arg('launch_type') == 'nuc' )">
 
     <!-- state estimation launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_state_estimation.launch" >
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_state_estimation.launch" >
       <arg name="computer" value="$(arg computer)" />
     </include>
 
@@ -35,7 +35,7 @@
   <group if="$(eval arg('launch_type') == 'nuc_host' )">
 
     <!-- state estimation, LOAM launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_state_estimation_host.launch" >
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_state_estimation_host.launch" >
       <arg name="computer" value="$(arg computer)" />
     </include>
 
@@ -45,12 +45,12 @@
   <group if="$(eval arg('launch_type') == 'xavier' )">
 
     <!-- perception hardware drivers launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_cameras.launch" >
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_cameras.launch" >
       <arg name="computer" value="$(arg computer)" />
     </include>
 
     <!-- perception object detection launch -->
-    <include file="$(find subt_launch)/launch/ugv/robot_ugv_objdet.launch" >
+    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_objdet.launch" >
       <arg name="computer" value="$(arg computer)" />
     </include>
 
