@@ -6,13 +6,21 @@
   <!-- launch_type examples: ppc, nuc, nuc_host, xavier, ds1, ds2, etc -->
   <arg name="launch_type" default="ppc" />
 
+  <!-- ///////////////////////////////////////////////////////////////////// -->
   <!-- Planning-PC (docker) -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
   <group if="$(eval arg('launch_type') == 'ppc' )">
 
     <!-- robot hardware launch -->
-    <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_hardware.launch">
-      <arg name="computer" value="$(arg computer)" />
-    </include>
+    <!-- check if we have set in the params, the enable hardware param, to launch hardware -->
+    <arg name="enable_hardware" value="$(env subt_$(arg computer)_enable_hardware)" />
+    <group if="$(eval arg('enable_hardware') == true )">
+
+      <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_hardware.launch">
+        <arg name="computer" value="$(arg computer)" />
+      </include>
+
+    </group>
 
     <!-- planning launch -->
     <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_planning.launch">
@@ -21,7 +29,9 @@
 
   </group>
 
+  <!-- /////////////////////////////////////////////////////////////////////// -->
   <!-- NUC (docker) -->
+  <!-- /////////////////////////////////////////////////////////////////////// -->
   <group if="$(eval arg('launch_type') == 'nuc' )">
 
     <!-- state estimation launch -->
@@ -41,7 +51,11 @@
 
   </group>
 
+  <!-- ///////////////////////////////////////////////////////////////////// -->
   <!-- XAVIER (host) -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+
+
   <group if="$(eval arg('launch_type') == 'xavier' )">
 
     <!-- perception hardware drivers launch -->
