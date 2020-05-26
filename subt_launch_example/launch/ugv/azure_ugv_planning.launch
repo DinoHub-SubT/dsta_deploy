@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer argument -->
+  <arg name="computer" default="ugv1" />
+
+  <!-- communication manager -->
+  <include file="$(find communication_manager)/launch/communication_manager.launch">
+    <arg name="computer" value="$(arg computer)"/>
+  </include>
+  <!-- behavior tree -->
+  <include file="$(find behavior_executive)/launch/behavior_executive_sim_headless.launch">
+  <!-- planning -->
+  <include file="$(find terrain_analysis)/launch/terrain_analysis.launch" />
+  <include file="$(find local_planner)/launch/local_planner.launch" />
+  <include file="$(find map_compress)/launch/map_sender.launch" />
+  <include file="$(find image_streamer)/launch/front_camera.launch" />
+  <include file="$(find sensor_coverage_planner)/launch/sensor_coverage_planner_open_space.launch" />
+
+</launch>

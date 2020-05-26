@@ -55,7 +55,6 @@
   <!-- XAVIER (host) -->
   <!-- ///////////////////////////////////////////////////////////////////// -->
 
-
   <group if="$(eval arg('launch_type') == 'xavier' )">
 
     <!-- perception hardware drivers launch -->
@@ -65,6 +64,23 @@
 
     <!-- perception object detection launch -->
     <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_objdet.launch" >
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+  </group>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Azure (docker) -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('launch_type') == 'azure-ugv' )">
+
+    <!-- gazebo sim launch -->
+    <include file="$(find subt_launch_example)/launch/robot/ugv/azure_ugv_sim.launch">
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+    <!-- planning launch -->
+    <include file="$(find subt_launch_example)/launch/robot/ugv/azure_ugv_planning.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
 

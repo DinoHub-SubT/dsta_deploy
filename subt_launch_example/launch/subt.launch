@@ -4,8 +4,6 @@
 
   <!-- basic arguments passed through the command line -->
 
-  <!-- scenario examples: robot, azure, sim -->
-  <arg name="scenario" default="robot" />
   <!-- computer examples: basestation, ugv1, ugv2, uav1, etc. -->
   <arg name="computer" default="ugv1" />
   <!-- launch_type examples: basestation-gui, ppc, nuc, xavier, ds1, ds2, azure-ugv, azure-uav, etc -->
@@ -14,7 +12,7 @@
   <arg name="robot_type" value="$(env subt_$(arg computer)_robot_type)" />
 
   <!-- include the robot launch  -->
-  <include file="$(find subt_launch_example)/launch/$(arg scenario)/$(arg robot_type).launch" >
+  <include file="$(find subt_launch_example)/launch/subt_$(arg robot_type).launch" >
     <arg name="computer" value="$(arg computer)" />
     <arg name="launch_type" value="$(arg launch_type)" />
   </include>

@@ -1,0 +1,22 @@
+# The tmux session name, has to be unique
+session_name: ugv_sim
+
+# Add commands to bash history
+suppress_history: true
+
+# start directory
+start_directory: /home/$USER/deploy_ws/src/
+
+# This is where we list all the stuff we want to run
+windows:
+  - window_name: recorder
+    focus: false
+    layout: main-vertical
+    panes:
+      # rosmon does not run correctly
+      # - shell_command:
+      #   - roscore
+      # - shell_command:
+      #   - mon launch basestation_launch basestation_azure.launch
+      - shell_command:
+        - roslaunch basestation_launch basestation_azure.launch

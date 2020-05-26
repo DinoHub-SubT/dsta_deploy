@@ -9,7 +9,7 @@
   <!-- Basestation (docker, non-perception) -->
   <group if="$(eval arg('launch_type') == 'basestation-gui' )">
 
-    <!-- robot hardware launch -->
+    <!-- basestation gui launch -->
     <include file="$(find subt_launch_example)/launch/basestation/robot_basestation_gui.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
@@ -19,7 +19,7 @@
   <!-- Basestation (docker, perception) -->
   <group if="$(eval arg('launch_type') == 'basestation-perception' )">
 
-    <!-- robot hardware launch -->
+    <!-- basestation objdet launch -->
     <include file="$(find subt_launch_example)/launch/basestation/robot_basestation_objdet.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
