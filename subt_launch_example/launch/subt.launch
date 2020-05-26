@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
-
 <launch>
 
   <!-- basic arguments passed through the command line -->
 
-  <!-- computer examples: basestation, ugv1, ugv2, uav1, etc. -->
+  <!-- computer type. Examples: basestation, ugv1, ugv2, uav1, etc. -->
   <arg name="computer" default="ugv1" />
-  <!-- launch_type examples: basestation-gui, ppc, nuc, xavier, ds1, ds2, azure-ugv, azure-uav, etc -->
-  <arg name="launch_type" default="ppc" />
-  <!-- robot_type examples: basestation, ugv, uav -->
-  <arg name="robot_type" value="$(env subt_$(arg computer)_robot_type)" />
+  <!-- scenario type. Examples: basestation_gui, ugv_ppc, ugv_nuc, ugv_xavier, ds1, ds2, ugv_azure, uav_azure, etc -->
+  <arg name="scenario" default="ugv_ppc" />
 
-  <!-- include the robot launch  -->
-  <include file="$(find subt_launch_example)/launch/subt_$(arg robot_type).launch" >
+  <!-- load the scenario file -->
+
+  <include file="$(find subt_launch_example)/launch/scenario/$(arg scenario).launch">
     <arg name="computer" value="$(arg computer)" />
-    <arg name="launch_type" value="$(arg launch_type)" />
+    <arg name="scenario" value="$(arg scenario)" />
   </include>
 
 </launch>

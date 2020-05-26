@@ -1,15 +1,21 @@
+<!-- ///////////////////////////////////////////////////////////////////// -->
+<!-- UGV, Scenario Launch -->
+<!-- ///////////////////////////////////////////////////////////////////// -->
 <?xml version="1.0" encoding="utf-8" ?>
 <launch>
 
   <!-- computer examples: ugv1, ugv2, uav1, etc. -->
   <arg name="computer" default="ugv1" />
-  <!-- launch_type examples: ppc, nuc, nuc_host, xavier, ds1, ds2, etc -->
-  <arg name="launch_type" default="ppc" />
+  <!-- scenario examples: ugv_ppc, ugv_nuc, ugv_nuc_host, ugv_xavier, ds1, ds2, etc -->
+  <arg name="scenario" default="ugv_robot_ppc" />
 
   <!-- ///////////////////////////////////////////////////////////////////// -->
-  <!-- Planning-PC (docker) -->
+  <!-- Scenario: "ugv_ppc"
+    Types of launches:
+    * launches the ugv algorithms that run on the intel planning-pc, in a docker container, on the ugv robot
+  -->
   <!-- ///////////////////////////////////////////////////////////////////// -->
-  <group if="$(eval arg('launch_type') == 'ppc' )">
+  <group if="$(eval arg('scenario') == 'ugv_robot_ppc' )">
 
     <!-- robot hardware launch -->
     <!-- check if we have set in the params, the enable hardware param, to launch hardware -->
@@ -29,10 +35,13 @@
 
   </group>
 
-  <!-- /////////////////////////////////////////////////////////////////////// -->
-  <!-- NUC (docker) -->
-  <!-- /////////////////////////////////////////////////////////////////////// -->
-  <group if="$(eval arg('launch_type') == 'nuc' )">
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "ugv_nuc"
+    Types of launches:
+      * launches the ugv algorithms that run on the intel nuc, in a docker container, on the ugv robot
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'ugv_robot_nuc' )">
 
     <!-- state estimation launch -->
     <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_state_estimation.launch" >
@@ -41,8 +50,13 @@
 
   </group>
 
-  <!-- NUC (host) -->
-  <group if="$(eval arg('launch_type') == 'nuc_host' )">
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "ugv_nuc_host"
+  Types of launches:
+    * launches the ugv algorithms that run on the intel nuc, on the host, on the ugv robot
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'ugv_robot_nuc_host' )">
 
     <!-- state estimation, LOAM launch -->
     <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_state_estimation_host.launch" >
@@ -52,10 +66,12 @@
   </group>
 
   <!-- ///////////////////////////////////////////////////////////////////// -->
-  <!-- XAVIER (host) -->
+  <!-- Scenario: "ugv_xavier"
+  Types of launches:
+    * launches the ugv algorithms that run on the xavier, on the host, on the ugv robot
+  -->
   <!-- ///////////////////////////////////////////////////////////////////// -->
-
-  <group if="$(eval arg('launch_type') == 'xavier' )">
+  <group if="$(eval arg('scenario') == 'ugv_robot_xavier' )">
 
     <!-- perception hardware drivers launch -->
     <include file="$(find subt_launch_example)/launch/robot/ugv/robot_ugv_cameras.launch" >
@@ -70,12 +86,20 @@
   </group>
 
   <!-- ///////////////////////////////////////////////////////////////////// -->
-  <!-- Azure (docker) -->
+  <!-- Scenario: "ugv_azure"
+  Types of launches:
+    * launches the ugv algorithms that run on an Azure VM, in a docker container, on the ugv VM
+  -->
   <!-- ///////////////////////////////////////////////////////////////////// -->
-  <group if="$(eval arg('launch_type') == 'azure-ugv' )">
+  <group if="$(eval arg('scenario') == 'ugv_azure_sim' )">
+
+    <!-- computer examples: ugv1, ugv2, uav1, etc. -->
+    <arg name="computer" default="ugv1" />
+    <!-- scenario examples: ugv_ppc, ugv_nuc, ugv_nuc_host, ugv_xavier, ds1, ds2, etc -->
+    <arg name="scenario" default="ppc" />
 
     <!-- gazebo sim launch -->
-    <include file="$(find subt_launch_example)/launch/robot/ugv/azure_ugv_sim.launch">
+    <include file="$(find subt_launch_example)/launch/robot/ugv/azure_ugv_simulation.launch">
       <arg name="computer" value="$(arg computer)" />
     </include>
 

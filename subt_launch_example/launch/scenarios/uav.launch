@@ -1,0 +1,42 @@
+<!-- ///////////////////////////////////////////////////////////////////// -->
+<!-- Basestation, Scenario Launch -->
+<!-- ///////////////////////////////////////////////////////////////////// -->
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer examples: ugv1, ugv2, uav1, etc. -->
+  <arg name="computer" default="uav1" />
+  <!-- scenario examples: ugv_ppc, ugv_nuc, ugv_nuc_host, ugv_xavier, ds1, ds2, etc -->
+  <arg name="scenario" default="ds1" />
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "uav_azure"
+  Types of launches:
+    * launches the uav algorithms that run on an Azure VM, in a docker container, on the uav VM
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'uav_azure_sim' )">
+
+    <!-- communication manager -->
+    <include file="$(find communication_manager)/launch/communication_manager.launch">
+      <arg name="computer" value="$(arg computer)"/>
+    </include>
+
+    <!-- communication manager relay topics -->
+    <include file="$(find subt_launch_example)/launch/algorithm/uav/uav_azure_relay.launch" >
+      <arg name="robot_name" value="$(arg computer)"/>
+    </include>
+
+    <!-- map sender -->
+    <include file="$(find map_compress)/launch/map_sender.launch"/ >
+
+    <!-- uav, world simulation launch -->
+    <include file="$(find subt_launch_example)/launch/algorithm/uav/uav_azure_simulation.launch">
+      <arg name="robot_name" value="$(arg computer)" />
+      <arg name="behavior_tree_config" value="$(env subt_$(arg computer)_behavior_tree)" />
+      <arg name="map_representation" value="$(env subt_$(arg computer)_map_representation)" />
+    </include>
+
+  </group>
+
+</launch>

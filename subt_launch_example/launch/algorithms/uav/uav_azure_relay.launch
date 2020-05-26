@@ -1,0 +1,10 @@
+<launch>
+  <arg name="robot_name" default="uav1" />
+
+  <node name="dds_odom_relay" pkg="topic_tools" type="relay" args="/integrated_to_map $(arg robot_name)/integrated_to_map" />
+  <node name="dds_artifact_relay" pkg="topic_tools" type="relay" args="/artifact_localizations_compressed $(arg robot_name)/artifact_localizations_compressed" />
+  <node name="dds_map_relay" pkg="topic_tools" type="relay" args="/compressed_cloud_string $(arg robot_name)/compressed_cloud_string" />
+  <node name="dds_gas" pkg="topic_tools" type="relay" args="$(arg robot_name)/gas_info /gas_info" />
+  <node name="dds_video_relay" pkg="topic_tools" type="relay" args="/image_resize_drop_compressed/compressed $(arg robot_name)/image_resize_drop_compressed/compressed" />
+
+</launch>

@@ -1,0 +1,32 @@
+# HOW TO RUN: $ROBOT=ugv1 tmuxp load subt_launch_example/tmux/azure/ugv.yaml
+
+# the tmux session name, has to be unique
+session_name: ugv_sim
+
+# add commands to bash history
+suppress_history: true
+
+# start directory
+start_directory: /home/$USER/deploy_ws/src/
+
+# ugv simulation windows
+windows:
+  - window_name: roscore
+    focus: false
+    layout: main-vertical
+    panes:
+      - shell_command:
+        - docker-join.bash ugv-sim-shell
+        - roscore
+
+  - window_name: simulation
+    focus: false
+    layout: main-vertical
+    panes:
+      - shell_command:
+        - docker-join.bash ugv-sim-shell
+        - mon launch subt_launch_example subt.launch computer:=${ROBOT} scenario:=azure-ugv
+      - shell_command:
+        - sleep 2
+        - docker-join.bash ugv-sim-shell
+        - X1_SENSOR_CONFIG_3=1 roslaunch subt_example x1.launch

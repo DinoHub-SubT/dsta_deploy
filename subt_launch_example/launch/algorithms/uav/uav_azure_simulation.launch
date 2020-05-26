@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="robot_name" default="uav1" />
+  <arg name="behavior_tree" default="azure_autonomy" />
+  <arg name="map_representation" default="OpenCLPointCloudMapRepresentation" />
+  <arg name="simulation" value="$(env subt_$(arg computer)_simulation)" />
+
+  <!-- create a simple drone -->
+  <include file="$(find core_central)/launch/ds2/sim/$(arg simulation).launch" pass_all_args="true">
+    <arg name="robot_name" value="$(arg robot_name)" />
+    <arg name="drone_interface" value="GazeboInterface" />
+    <arg name="map_representation" value="$(arg map_representation)" />
+  </include>
+
+  <!-- get the enable world type variables -->
+  <arg name="enable_darpa_world" value="$(env subt_$(arg computer)_enable_darpa_world)" />
+  <arg name="enable_core_world" value="$(env subt_$(arg computer)_enable_core_world)" />
+
+  <!-- enable to use darpa, gazebo, subt worlds -->
+  <group if="$(eval arg('enable_darpa_world') == true and eval arg('enable_core_world') == false )">
+    <include file="$(find subt_gazebo)/launch/competition.launch">
+      <arg name="scenario" value="$(env subt_$(arg computer)_gazebo_world)" />
+    </include>
+  </group>
+
+  <!-- enable to use core_central (non darpa), gazebo, subt worlds -->
+  <group if="$(eval arg('enable_darpa_world') == false and eval arg('enable_core_world') == true )">
+    <include file="$(find core_central)/launch/common/gazebo_world.launch">
+      <arg name="set_px4_paths" value="true" />
+      <arg name="world" value="$(env subt_$(arg computer)_gazebo_world).world" />
+    </include>
+  </group>
+
+</launch>
+

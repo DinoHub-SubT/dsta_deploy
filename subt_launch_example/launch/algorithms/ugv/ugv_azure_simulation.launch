@@ -6,6 +6,5 @@
 
   <include file="$(find ground_robot_sim)/launch/gazebo.launch" />
   <include file="$(find payload_sim)/launch/payload_sim.launch" />
-  
 
 </launch>

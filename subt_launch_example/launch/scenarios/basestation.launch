@@ -1,0 +1,67 @@
+<!-- ///////////////////////////////////////////////////////////////////// -->
+<!-- Basestation, Scenario Launch -->
+<!-- ///////////////////////////////////////////////////////////////////// -->
+<?xml version="1.0" encoding="utf-8" ?>
+<launch>
+
+  <!-- computer examples: ugv1, ugv2, uav1, etc. -->
+  <arg name="computer" default="basestation" />
+  <!-- scenario examples: ugv_ppc, ugv_nuc, ugv_nuc_host, ugv_xavier, ds1, ds2, etc -->
+  <arg name="scenario" default="basestation_robot_gui" />
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "basestation_gui"
+    Types of launches:
+    * launches the basestation GUI, in a docker container, on the basestation laptop
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'basestation_robot_gui' )">
+
+    <include file="$(find subt_launch_example)/launch/algorithms/basestation/$(arg scenario).launch">
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+  </group>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "basestation_azure_gui"
+    Types of launches:
+    * launches the basestation GUI, in a docker container, on an Azure VM
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'basestation_azure_gui' )">
+
+    <include file="$(find basestation_launch)/launch/algorithms/basestation/$(arg scenario).launch">
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+  </group>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "basestation_objdet"
+    * launches the basestation object detection, in a docker container, on the basestation laptop
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'basestation_robot_objdet' )">
+
+    <include file="$(find subt_launch_example)/launch/basestation/$(arg scenario).launch">
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+  </group>
+
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <!-- Scenario: "basestation_azure_objdet"
+    * launches the basestation object detection, in a docker container, on an Azure VM
+    TODO
+  -->
+  <!-- ///////////////////////////////////////////////////////////////////// -->
+  <group if="$(eval arg('scenario') == 'basestation_azure_objdet' )">
+
+    <include file="$(find subt_launch_example)/launch/basestation/$(arg scenario).launch">
+      <arg name="computer" value="$(arg computer)" />
+    </include>
+
+  </group>
+
+</launch>
