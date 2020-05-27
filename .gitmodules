@@ -37,3 +37,6 @@
 [submodule "operations/launch"]
 	path = operations/launch
 	url = git@bitbucket.org:cmusubt/deploy-launch.git
+[submodule "subt_launch"]
+	path = subt_launch
+	url = git@bitbucket.org:cmusubt/deploy_central_launch.git
