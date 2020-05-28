@@ -34,3 +34,6 @@
 [submodule "perception"]
 	path = perception
 	url = git@bitbucket.org:cmusubt/deploy_perception.git
+[submodule "simulation"]
+	path = simulation
+	url = git@bitbucket.org:cmusubt/deploy_simulation.git
