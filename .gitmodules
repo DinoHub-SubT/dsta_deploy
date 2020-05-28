@@ -31,3 +31,6 @@
 [submodule "subt_launch"]
 	path = subt_launch
 	url = git@bitbucket.org:cmusubt/deploy_central_launch.git
+[submodule "perception"]
+	path = perception
+	url = git@bitbucket.org:cmusubt/deploy_perception.git
