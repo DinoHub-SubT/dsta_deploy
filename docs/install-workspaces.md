@@ -1,67 +1,147 @@
-# Installing The Repositories
+# Deploy Workspace
 
-All the SubT repositories are *maintained* in the deploy workspace as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+The `deploy` workspace *maintains* all the `SubT` repositories as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
-**About SubT Workspaces**
+- Read the [deploy wiki page](https://docs.google.com/document/d/19dcKAV1WZBrLasjQ-4Nt33Ggk4_YhLD_ObwR3hpoXnA/edit?usp=sharing) for a simple submodule tutorial review.
 
-The SubT repositories are grouped as the following workspaces:
+## About Deploy Layout
 
-`common`:
+The deploy repos maintains all `SubT` repositories as nested submodules.
 
-- found in `deploy_ws/src/common`
+Submodules has many advantages and disadvantages. The reason for submodule selection includes the following:
 
-- contains repositories common between all other repositories (basestation, uav, ugv)
-  
-`basestation`:
+- submodules provide the ability to maintain a snapshot of repositories.
+- submodule allow for easy, isolate versioning.
+- intermediate submodule levels allow for easy, isolated group versioning.
+- submodules do not require new toolsets and provide user feedback from `git status`.
 
-- found in `deploy_ws/src/basestation`
+**Commit Levels**
 
-- contains all repositories for the subt basestation control
+The deploy repo is not flat hierarchy of submodules. It maintains a **3-commit level** groups of submodules as such:
 
+    deploy (meta-repo) [submodule]
+        intermediate-dir (meta-repo) [submodule]
+            module-dir  [submodule]
 
-`ugv`:
+**Layout**
 
-- found in `deploy_ws/src/ugv`
+The full layout, with descriptions, is as such:
 
-- contains all simualation and hardware repositories for the subt ground robots
-  
-`uav`:
+    deploy (meta-repo) [submodule]
 
-- found in `deploy_ws/src/uav`
+        operations [submodule]
+            * -- contains all operations configurations such as: azure, docker, ansible installs, deployment scripts, etc.
 
-- contains all simualation and hardware repositories for the subt drones
+        common [submodule]
+            * -- contains repositories that are common between basestation, ugv, uav repos
+            * -- contains common ros messages
 
-`perception`:
+        simulation [submodule]
+            * -- contains all repositories related to simulation launch of gazebo: world environments, robots, etc.
+            * -- contains third-party darpa's gazebo world setup.
+            * -- clone only on simulation systems, not on robots.
+            darpa
+            ignition (potentially)
 
-- found in `deploy_ws/src/object_detection`
+        subt_launch [submodule]
+            * -- central launch repository.
+            * -- contains a centralized location for different robot params
+            * -- creates groups of top-level launch scenarios, to handle different robot & system setups.
 
-- contains all repositories for object detection
+        basestation [submodule]
+            * -- contains all repositories related to the basestation GUI
 
+        perception [submodule]
+            * -- contains all repositories related to the perception object detection
+
+        ugv [submodule]
+            * -- contains all repositories related to ground robots
+            * -- sub-grouped into folders, named by the ground robot "computers" (planning-pc, nuc)
+            * -- hardware directory maintains all hardware related ugv repositories. clone only on robots, not in simulation.
+            * -- slam is a separate folder because of user permission restrictions
+            * -- some repositories will be built outside of docker (please refer to operations maintainer for details)
+            planning-pc
+                repo1 [submodule]
+                repo2 [submodule]
+                ...
+            nuc
+                repo1 [submodule]
+                repo2 [submodule]
+                ...
+            slam (example: laser only)
+                * - has user permission restrictions, cannot be cloned by everyone
+                laser_odometry (loam_velodyne_16, receive_xsens, velodyne_driver_16) will be outside docker
+            hardware
+                *- should only be cloned when testing on robots
+                *- uses catkin profile to switch between hardware repositories to build
+
+        uav [submodule]
+            * -- contains all repositories related to drone robots
+            * -- core algorithm repositories are found in the `uav/core` directory
+            * -- hardware directory maintains all hardware related uav repositories. clone only on robots, not in simulation.
+            * -- slam is a separate folder because of user permission restrictions
+            core
+                repo1 [submodule]
+                repo2 [submodule]
+                ...
+            hardware
+                *- should only be cloned when testing on robots
+            slam (example: camera, laser)
+                * - has user permission restrictions, cannot be cloned by everyone
+
+**Summary:**
+
+- The *deploy repository* is a 3-level commit layout
+- You will always need to do at least 3 commits, when making changes in the lowest level submodule.
+- Leverage the ability to create branches in intermediate-level submodules.
+    - git branches in the intermediate-levels will maintain independent development workflow and versioning.
 
 * * *
 
-## Tutorial: Install The Submodules
+## Tutorial: Localhost Deploy Workspace Setup
 
-When you clone the deploy repository, the submodules will not be cloned by default. Therefore, you must manually clone the submodules.
+### About
 
-- You must decide which *group of submodules* to clone.
+This tutorial will walk you through on how to manually clone all the submodules.
 
-- Submodules are grouped by algorithm, computer or robot type.
+- These steps can be automated, however it will be good practice to try it manually in order to become familiar with submodules and the deploy repository layout.
 
-**If you have any errors cloning the submodules, notify the maintainer.**
+**Basic Information**
 
-- You might need to be given permissions to clone the repositories.
+- When you clone the deploy repository, the submodules will not be cloned by default.
 
-## Required submodules
+    - You must manually clone the submodules.
 
-These are the required submodules that must be cloned.
+- You must decide which *submodule level groups* to clone.
+
+- Some submodule have user permission restrictions.
+    - You do not need to clone these repositories, unless you are doing active development on them.
+    - Please notifier the maintainer to give you permission to access the restricted repositories.
+
+**List of restricted permission repositories:**
+
+    ugv/slam/laser_odometry
+
+- If you have any errors cloning the submodules, notify the maintainer.
+
+### Required submodules
+
+These are the required submodules that must be cloned by every user.
+
+Please perform the following:
 
 **Clone the operations submodules**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
 
     # clone the submodules
     git submodule update --recursive --init operations
 
 **Clone the common submodules**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
 
     # clone the submodules
     git submodule update --recursive --init common
@@ -74,11 +154,24 @@ These are the required submodules that must be cloned.
     git lfs fetch
     git lfs pull
 
-## Optional submodules
+**Clone the central launch submodule**
 
-The user only needs to clone what they need. Choose which group of submodules to clone as listed below.
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
 
-**Clone the basestation submodules**
+    # clone the submodules
+    git submodule update --recursive --init subt_launch
+
+### Optional Submodules
+
+These are optional submodules, that are to be cloned depending on the user's development.
+
+Please perform any of the following:
+
+**Basestation**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
 
     # clone the submodules
     git submodule update --recursive --init basestation
@@ -86,23 +179,68 @@ The user only needs to clone what they need. Choose which group of submodules to
     # check the git status (please do this step and wait until command is completed)
     git status
 
-**Clone the ugv submodules**
+**UGV (ground robots)**
 
-    # clone the submodules
-    git submodule update --recursive --init ugv
+    # go to the ugv, intermediate-level submodule
+    cd ~/deploy_ws/src/ugv
+
+    # shallow clone the submodules
+    git submodule update --init .
+
+    # clone the core repositories
+    git submodule update --init planning-pc/
+    git submodule update --init nuc
+
+    # (optional) clone the hardware repositories
+    # -- clone only on the ground robot
+    git submodule update --init hardware
+
+    # (optional) clone the slam repositories
+    # -- user permission restrictions, only clone if you have permissions to do so.
+    git submodule update --init slam/laser_odometry
 
     # check the git status (please do this step and wait until command is completed)
     git status
 
-    # checkout the git-lfs files
-    cd ugv/sim/subt_gazebo
-    git lfs fetch
-    git lfs pull
 
-**Clone the uav submodules**
+**UAV (drone robots)**
+
+    # go to the uav, intermediate-level submodule
+    cd ~/deploy_ws/src/uav
 
     # clone the submodules
-    git submodule update --recursive --init uav
+    git submodule update --recursive --init .
+
+    # clone the core repositories
+    git submodule update --init core
+
+    # (optional) clone the hardware repositories
+    # -- clone only on the ground robot
+    git submodule update --init hardware
+
+    # check the git status (please do this step and wait until command is completed)
+    git status
+
+
+
+**Perception (object detection)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # clone the submodules
+    git submodule update --recursive --init object_detection
+
+    # check the git status (please do this step and wait until command is completed)
+    git status
+
+**Simulation (gazebo, ignition)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # clone the submodules
+    git submodule update --recursive --init simulation
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -112,23 +250,29 @@ The user only needs to clone what they need. Choose which group of submodules to
     git lfs fetch
     git lfs pull
 
-**Clone the perception submodules**
-
-    # clone the submodules
-    git submodule update --recursive --init object_detection
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
 * * *
-
 
 ## Removing Submodules
 
-To remove a group of submodules locally *(for example, when the user is done developing with the ugv workspace)*, perform the following:
+To remove a submodule-level, use the `deinit` command.
 
-    # git command structure template:
-    #   -> git submodule deinit -f [ group-name ]
+**Command template:**
+
+    git submodule deinit -f [ group-name ]
+
+**Example, remove entire intermediate-level:**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
 
     # example, removing all ugv submodules locally
     git submodule deinit -f ugv
+
+**Example, remove part of an intermediate-level:**
+
+    # go to the ugv, intermediate-level submodule
+    # -- you must be inside the intermediate-level directory:
+    cd ~/deploy_ws/src/ugv
+
+    # example, removing all ugv::hardware submodules locally
+    git submodule deinit -f hardware
