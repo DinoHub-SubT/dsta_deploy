@@ -35,3 +35,5 @@ todo-tmp.TODO
 reorganization-first-draft.txt
 scripts.TODO
 .vscode/
+
+operations/deploy/deploybooks/tmp/
