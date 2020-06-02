@@ -49,7 +49,7 @@ The common catkin workspace sets up default `cmake` options.
 The UAV simulation workspace requires manual code changes to thirdparty files.
 
         # go to px4 firmware repo
-        cd ~/deploy_ws/src/uav/sim/Firmware
+        cd ~/deploy_ws/src/uav/core/Firmware
 
         # remove cmake error flags
         gedit cmake/px4_add_common_flags.cmake
@@ -68,11 +68,10 @@ The UAV simulation workspace requires manual code changes to thirdparty files.
 
 The UAV simulation workspace requires building non-catkin dependencies.
 
-        # go to the uav:sim catkin workspace
-        cd ~/deploy_ws/src/uav/sim
+        # go to px4 firmware repo
+        cd ~/deploy_ws/src/uav/core/Firmware
 
         # build the px4 firmware
-        cd Firmware
         DONT_RUN=1 make px4_sitl_default gazebo
 
         # change to root user
@@ -85,14 +84,14 @@ The UAV simulation workspace requires building non-catkin dependencies.
         # exit root user
         exit
 
-### 4. Build UAV Simulation Catkin Workspace
+### 4. Build UAV Catkin Workspace
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
 The `uav` catkin workspaces sets up default `cmake` options.
 
-        # go to the uav:sim:darpa catkin workspace
-        cd ~/deploy_ws/src/uav/sim/darpa/catkin
+        # go to the uav catkin workspace
+        cd ~/deploy_ws/src/uav/
 
         # list the catkin profiles available
         catkin profile list
@@ -106,14 +105,54 @@ The `uav` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-        # go to the uav:sim catkin workspace
-        cd ~/deploy_ws/src/uav/sim
+### 5. Build Simulation Catkin Workspace
+
+The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
+
+The `uav` catkin workspaces sets up default `cmake` options.
+
+        # go to the simulation:darpa catkin workspace
+        cd ~/deploy_ws/src/simulation/darpa/catkin
 
         # list the catkin profiles available
         catkin profile list
 
         # set the catkin profile
-        catkin profile set sim
+        catkin profile set uav
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+        # go to the simulation catkin workspace
+        cd ~/deploy_ws/src/simulation
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set uav
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+### 6. Build SubT Launch Catkin Workspace
+
+The subt launch catkin workspace contains a centralized top-level launch.
+
+        # go to the `subt_launch` catkin workspace
+        cd ~/deploy_ws/src/subt_launch
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set uav-simulation
 
         # view catkin and cmake configuration
         catkin config

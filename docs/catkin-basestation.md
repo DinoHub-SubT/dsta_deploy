@@ -61,9 +61,9 @@ The basestation catkin workspace contains all repositories that are running duri
 
 ## 4. Build SubT Launch Catkin Workspace
 
-The basestation catkin workspace contains all repositories that are running during `SubT` on the basestation.
+The subt launch catkin workspace contains a centralized top-level launch.
 
-        # go to the `basestation` catkin workspace
+        # go to the `subt_launch` catkin workspace
         cd ~/deploy_ws/src/subt_launch
 
         # list the catkin profiles available
@@ -80,9 +80,6 @@ The basestation catkin workspace contains all repositories that are running duri
 
         # exit the container
         exit
-
-        # stop the running container
-        docker stop basestation-shell
 
 ## Cleanup (optional)
 
