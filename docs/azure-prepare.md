@@ -117,7 +117,7 @@ Example steps below show how to verify on the basestation VM:
 
         # verify docker-compose shows the help usage message
         docker-compose-wrapper --help
-        
+
         # verify deployer script shows the help usage message
         ./deployer --help
 

@@ -6,42 +6,48 @@
 
 Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
 
-**Perception Docker Image** 
+**Perception Docker Image**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # build the perception docker image
-        ./deployer -s azure.perception.docker.image
+        # build the gpu perception docker image
+        ./deployer -s azure.perception1.gpu.vm.docker.image
 
-**Access The Remote Perception VM** 
+        # build the cpu perception docker image
+        ./deployer -s azure.perception1.cpu.vm.docker.image
+
+**Access The Remote Perception VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh azure.perception
+        ssh azure.perception1
 
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
         #   - its okay to ignore error 'Error: No such container' and continue to the next step.
-        docker rm -f gui-shell
+        docker rm -f perception-cpu-shell ros-cpu-shell perception-gpu-shell ros-gpu-shell
 
         # cleanup dangling docker images
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
         docker rmi -f $(docker images -f "dangling=true" -q)
 
-**Verify Docker Images** 
+**Verify Docker Images**
 
         # View the docker images built (on the remote VM)
         docker images
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/perception:gui
-        #        subt/perception:ros
+        #       subt/perception-gpu:0.1
+        #       subt/perception-cpu:0.1
+        #       subt/perception-gpu:ros
+        #       subt/perception-cpu:ros
 
-**Return To Localhost** 
+
+**Return To Localhost**
 
         # exit the remote VM
         exit
@@ -59,13 +65,16 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # create the perception docker container
-        ./deployer -s azure.perception.docker.shell
+        # create the gpu perception docker container
+        ./deployer -s azure.perception1.gpu.vm.docker.shell
 
-**Access The Remote Perception VM** 
+        # create the cpu perception docker container
+        ./deployer -s azure.perception1.cpu.vm.docker.shell
+
+**Access The Remote Perception VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh azure.perception
+        ssh azure.perception1
 
 **Verify Docker Containers**
 
@@ -73,9 +82,13 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> perception-shell
+        #   ->
+        #       perception-cpu-shell
+        #       ros-cpu-shell
+        #       perception-gpu-shell
+        #       ros-gpu-shell
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit

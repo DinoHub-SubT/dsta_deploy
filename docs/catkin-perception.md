@@ -16,7 +16,11 @@ Assuming you have already setup all your perception docker containers, follow th
 
         # enter the docker shell container on your local laptop host or Azure VM host#
         #   -- its okay to ignore the error if you have not yet built the workspace: error is: 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
-        docker-join.bash --name perception-shell
+        docker-join.bash --name perception-gpu-shell
+
+Verify you have gpu passthrough in the docker container:
+
+        nvidia-smi
 
 ## 2. Build Common
 
@@ -31,7 +35,7 @@ The common catkin workspace sets up default `cmake` options.
         catkin profile list
 
         # set the catkin profile
-        catkin profile set perception
+        catkin profile set perception-x86
 
         # view catkin and cmake configuration
         catkin config
@@ -43,14 +47,48 @@ The common catkin workspace sets up default `cmake` options.
 
 The perception catkin workspace contains all repositories that are running during `SubT` on the perception.
 
-        # go to the `perception` catkin workspace
-        cd ~/deploy_ws/src/object_detection
+        # go to the `perception::deps` catkin workspace
+        cd ~/deploy_ws/src/perception/deps/catkin
 
         # list the catkin profiles available
         catkin profile list
 
         # set the catkin profile
-        catkin profile set perception
+        catkin profile set perception-x86
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+        # go to the `perception::deps` catkin workspace
+        cd ~/deploy_ws/src/perception/
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set perception-x86
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+## 4. Build SubT Launch Catkin Workspace
+
+The subt launch catkin workspace contains a centralized top-level launch.
+
+        # go to the `subt_launch` catkin workspace
+        cd ~/deploy_ws/src/subt_launch
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set perception-x86
 
         # view catkin and cmake configuration
         catkin config
@@ -61,19 +99,17 @@ The perception catkin workspace contains all repositories that are running durin
         # exit the container
         exit
 
-        # stop the running container
-        docker stop perception-shell
-
-
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
-        # stop the running container
-        docker stop perception-shell
+        # stop the running containers
+        docker stop perception-cpu-shell
+        docker stop perception-gpu-shell
 
-        # remove the container
-        docker rm perception-shell
+        # remove the containers
+        docker rm perception-cpu-shell
+        docker rm perception-gpu-shell
 
 - The above steps will remove the containers.
 

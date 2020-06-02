@@ -13,13 +13,13 @@ Please follow the below instructions **on your localhost** (not on the VMs).
         # Add the remote vm hosts.
         # The below is configured to match the Azure setup tutorial in azurebooks/subt, so please use these configurations.
         # If you have a different Azure VM setup, then you will need to change these values.
-        
+
         10.3.1.1        azure-basestation
 
         10.3.1.11       azure-ugv1
         10.3.1.12       azure-ugv2
         10.3.1.13       azure-ugv3
-	10.3.1.14       azure-perception
+	10.3.1.14       azure-perception1
 
         10.3.1.51       azure-uav1
         10.3.1.52       azure-uav2
@@ -53,16 +53,16 @@ Please setup the ssh config for all available Azure VMs.
         # Add all the remote vm ssh configuration.
         # The below is configured to match the Azure setup tutorial in azurebooks/subt, so please use these template configurations.
         # About the configuration template:
-        #       - The HostName must match what was configured in /etc/hosts 
+        #       - The HostName must match what was configured in /etc/hosts
         #       - The 'IdentityFile' is the path to the ssh key used to access the Azure VM (the azure tutorial sets key as the path ~/.ssh/azure_vpn)
         #       - The default user for all the Azure VM is `subt`       (the azure tutorial sets the username as `subt`)
-        
+
         Host azure.ugv1
           HostName azure-ugv1
           User subt
           IdentitiesOnly yes
           IdentityFile ~/.ssh/azure_vpn
-        
+
         Host azure.uav1
           HostName azure-uav1
           User subt
@@ -75,8 +75,8 @@ Please setup the ssh config for all available Azure VMs.
           IdentitiesOnly yes
           IdentityFile ~/.ssh/azure_vpn
 
-        Host azure.perception
-          HostName azure-perception
+        Host azure.perception1
+          HostName azure-perception1
           User subt
           IdentitiesOnly yes
           IdentityFile ~/.ssh/azure_vpn
