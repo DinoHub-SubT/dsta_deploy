@@ -19,7 +19,7 @@ Please follow the below instructions **on your localhost** (not on the VMs).
         10.3.1.11       azure-ugv1
         10.3.1.12       azure-ugv2
         10.3.1.13       azure-ugv3
-	10.3.1.14       azure-perception1
+        10.3.1.14       azure-perception1
 
         10.3.1.51       azure-uav1
         10.3.1.52       azure-uav2
@@ -40,7 +40,7 @@ You should be able now to ping the remote host using the above alias.
         ping azure-basestation
 
         # ping the azure perception VM
-        ping azure-perception
+        ping azure-perception1
 
 
 ## 2. Setup Remote Host SSH Config
