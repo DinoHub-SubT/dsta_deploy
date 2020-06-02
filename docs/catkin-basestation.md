@@ -14,7 +14,7 @@ Assuming you have already setup all your basestation docker containers, follow t
 
         # enter the docker shell container on your local laptop host or Azure VM host
         # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name gui-shell
+        docker-join.bash --name basestation-shell
 
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
@@ -32,7 +32,7 @@ The common catkin workspace sets up default `cmake` options.
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set basestation
 
         # view catkin and cmake configuration
         catkin config
@@ -51,7 +51,26 @@ The basestation catkin workspace contains all repositories that are running duri
         catkin profile list
 
         # set the catkin profile
-        catkin profile set system76-pc
+        catkin profile set basestation
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+## 4. Build SubT Launch Catkin Workspace
+
+The basestation catkin workspace contains all repositories that are running during `SubT` on the basestation.
+
+        # go to the `basestation` catkin workspace
+        cd ~/deploy_ws/src/subt_launch
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set basestation
 
         # view catkin and cmake configuration
         catkin config
@@ -63,17 +82,17 @@ The basestation catkin workspace contains all repositories that are running duri
         exit
 
         # stop the running container
-        docker stop gui-shell
+        docker stop basestation-shell
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
         # stop the running container
-        docker stop gui-shell
+        docker stop basestation-shell
 
         # remove the container
-        docker rm gui-shell
+        docker rm basestation-shell
 
 - The above steps will remove the containers.
 
