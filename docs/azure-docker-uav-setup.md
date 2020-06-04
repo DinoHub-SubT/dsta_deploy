@@ -12,11 +12,11 @@ You will need to download the software from the `SubT` Cluster `Perceptron`, to 
 
         # go to the docker opencl thirdparty software directory
         cd ~/deploy_ws/src/operations/deploy/docker/dockerfiles/thirdparty-software/opencl
-        
+
         # Download OpenCL runtime library from Perceptron
         # !! -- Please change `USERNAME` to your perceptron username
-        scp -vr -o IdentitiesOnly=yes USERNAME@perceptron.ri.cmu.edu:///project/subt/data/deploy-thirdparty-software/l_opencl_p_18.1.0.015.tgz .
-        
+        scp -vr -o IdentitiesOnly=yes USERNAME@perceptron.ri.cmu.edu:///project/subt/data/deploy-operations/thirdparty-software/l_opencl_p_18.1.0.015.tgz .
+
         # verify you have downloaded the package
         ls -all
 
@@ -54,7 +54,7 @@ Docker installs all the repository dependencies as *docker images*.
 
 - You will run the `deployer` tool on the localhost which creates the docker images on the remote Azure VM.
 
-**UAV Docker Image** 
+**UAV Docker Image**
 
 Follow this step, **on the localhost**, not on the Azure remote VM.
 
@@ -65,7 +65,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         # this deployer command will create the docker image on the remote Azure VM.
         ./deployer -s azure.uav1.docker.image
 
-**Access The Remote UAV VM** 
+**Access The Remote UAV VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.uav1
@@ -80,7 +80,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
         docker rmi -f $(docker images -f "dangling=true" -q)
 
-**Verify Docker Images** 
+**Verify Docker Images**
 
         # View the docker images built on the localhost
         docker images
@@ -90,7 +90,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         #        subt/uav:sim
         #        subt/uav:ros
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit
@@ -111,7 +111,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # create the UAV docker container
         ./deployer -s azure.uav1.docker.shell
 
-**Access The Remote UAV VM** 
+**Access The Remote UAV VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.uav1
@@ -124,7 +124,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # verify you see the following docker containers (in any order):
         #   -> uav-shell
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit

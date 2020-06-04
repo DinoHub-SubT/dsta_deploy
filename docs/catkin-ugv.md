@@ -12,13 +12,13 @@ Follow the instructions below to setup the UGV catkin workspace.
 
 ### 1. Access Docker Container (optional)
 
-        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
         ssh azure.ugv1
 
         # enter the docker shell container on your local laptop host or Azure VM host
         # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name sim-shell
+        docker-join.bash --name ugv-sim-shell
 
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
@@ -56,7 +56,7 @@ The UGV nuc catkin workspace contains all repositories that are running on the r
         catkin profile list
 
         # set the catkin profile
-        catkin profile set ugv-sim
+        catkin profile set sim
 
         # view catkin and cmake configuration
         catkin config
@@ -111,7 +111,7 @@ The subt launch catkin workspace contains a centralized top-level launch.
         catkin profile list
 
         # set the catkin profile
-        catkin profile set ugv-simulation
+        catkin profile set ugv-sim
 
         # view catkin and cmake configuration
         catkin config
@@ -139,10 +139,10 @@ You should remove containers when done with its development.
         docker rm nuc-shell
 
         # stop the running container
-        docker stop sim-shell
+        docker stop ugv-sim-shell
 
         # remove the container
-        docker rm sim-shell
+        docker rm ugv-sim-shell
 
 - The above steps will remove the containers.
 

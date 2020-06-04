@@ -31,7 +31,7 @@ Please verify you have setup the azure vm communication manager connection IPs
         gedit deploy_ws/src/common/communication_manager/config/USER_QOS_PROFILES.xml
 
         # make sure the IPs are added to every 'initial_peers' tag:
-        
+
         <element>10.3.1.1</element>
         <element>10.3.1.11</element>
         <element>10.3.1.12</element>

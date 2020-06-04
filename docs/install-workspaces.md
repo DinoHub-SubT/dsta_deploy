@@ -181,23 +181,25 @@ Please perform any of the following:
 
 **UGV (ground robots)**
 
-    # go to the ugv, intermediate-level submodule
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # shallow clone the ugv 'intermediate-level' submodule
+    git submodule update --init ugv
+
+    # go inside the ugv, 'intermediate-level' submodule
     cd ~/deploy_ws/src/ugv
 
-    # shallow clone the submodules
-    git submodule update --init .
-
-    # clone the core repositories
-    git submodule update --init planning-pc/
-    git submodule update --init nuc
+    # (required) clone the core repositories
+    git submodule update --init --recursive planning-pc/
+    git submodule update --init --recursive nuc/
 
     # (optional) clone the hardware repositories
-    # -- clone only on the ground robot
-    git submodule update --init hardware
+    git submodule update --init --recursive hardware
 
     # (optional) clone the slam repositories
     # -- user permission restrictions, only clone if you have permissions to do so.
-    git submodule update --init slam/laser_odometry
+    git submodule update --init --recursive slam/laser_odometry
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -205,23 +207,24 @@ Please perform any of the following:
 
 **UAV (drone robots)**
 
-    # go to the uav, intermediate-level submodule
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # shallow clone the uav 'intermediate-level' submodule
+    git submodule update --init uav
+
+    # go inside the ugv, 'intermediate-level' submodule
     cd ~/deploy_ws/src/uav
 
-    # clone the submodules
-    git submodule update --recursive --init .
-
-    # clone the core repositories
-    git submodule update --init core
+    # (required) clone the core repositories
+    git submodule update --init --recursive core
 
     # (optional) clone the hardware repositories
     # -- clone only on the ground robot
-    git submodule update --init hardware
+    git submodule update --init --recursive hardware
 
     # check the git status (please do this step and wait until command is completed)
     git status
-
-
 
 **Perception (object detection)**
 
@@ -229,7 +232,7 @@ Please perform any of the following:
     cd ~/deploy_ws/src/
 
     # clone the submodules
-    git submodule update --recursive --init object_detection
+    git submodule update --recursive --init perception
 
     # check the git status (please do this step and wait until command is completed)
     git status
@@ -252,13 +255,20 @@ Please perform any of the following:
 
 * * *
 
+## Fixing Submodules Issues
+
+**sync submodule with remote:**
+
+    git submodule synch [ submodule (either intermediate level or module level) ]
+
+
 ## Removing Submodules
 
 To remove a submodule-level, use the `deinit` command.
 
 **Command template:**
 
-    git submodule deinit -f [ group-name ]
+    git submodule deinit -f [ submodule (either intermediate level or module level) ]
 
 **Example, remove entire intermediate-level:**
 

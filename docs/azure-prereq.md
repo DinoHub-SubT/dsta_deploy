@@ -50,6 +50,11 @@ Please setup the ssh config for all available Azure VMs.
         # open local ssh config file
         vim ~/.ssh/config
 
+        # == Add the following below to the `~/.ssh/config` file (dont add the comments )==
+
+        # enable rsa keys to use on login
+        IdentityFile ~/.ssh/bitbucket
+
         # Add all the remote vm ssh configuration.
         # The below is configured to match the Azure setup tutorial in azurebooks/subt, so please use these template configurations.
         # About the configuration template:
@@ -96,4 +101,4 @@ You should be able now to ssh into the remote host using the above alias.
         ssh azure.basestation
 
         # ssh into the azure perception
-        ssh azure.perception
+        ssh azure.perception1

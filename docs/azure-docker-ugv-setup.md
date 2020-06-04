@@ -4,7 +4,7 @@
 
 Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
 
-**UGV Docker Image** 
+**UGV Docker Image**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -12,11 +12,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         cd ~/deploy_ws/src
 
         # build all the ugv docker images (this can take a long time)
-        ./deployer -s azure.ugv1.ppc.docker.image
-        ./deployer -s azure.ugv1.nuc.docker.image
-        ./deployer -s azure.ugv1.sim.docker.image
+        ./deployer -s azure.ugv1.image
 
-**Access The Remote UGV VM** 
+**Access The Remote UGV VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.ugv1
@@ -31,7 +29,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
         docker rmi -f $(docker images -f "dangling=true" -q)
 
-**Verify Docker Images** 
+**Verify Docker Images**
 
         # View the docker images built on the remote VM
         docker images
@@ -43,7 +41,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         #       subt/ugv:sim
         #       subt/ugv:ros
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit
@@ -62,11 +60,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         cd ~/deploy_ws/src
 
         # create all the ugv docker containers
-        ./deployer -s azure.ugv1.ppc.docker.shell
-        ./deployer -s azure.ugv1.nuc.docker.shell
-        ./deployer -s azure.ugv1.sim.docker.shell
+        ./deployer -s azure.ugv1.docker.shell
 
-**Access The Remote UGV VM** 
+**Access The Remote UGV VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.ugv1
@@ -77,12 +73,12 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> 
-        #       sim-shell
+        #   ->
+        #       ugv-sim-shell
         #       ppc-shell
         #       nuc-shell
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit

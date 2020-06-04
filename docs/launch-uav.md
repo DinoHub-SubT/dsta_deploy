@@ -34,7 +34,7 @@ Please verify you have setup the azure vm communication manager connection IPs
         gedit ~/deploy_ws/src/common/communication_manager/config/USER_QOS_PROFILES.xml
 
         # make sure the IPs are added to every 'initial_peers' tag:
-        
+
         <element>10.3.1.1</element>
         <element>10.3.1.11</element>
         <element>10.3.1.12</element>
@@ -76,13 +76,13 @@ Please verify all the launch scripts in the tmux sessions started.
 
 Select the left hand side "Open Config" that shows `gui_config.yaml`
 
-Select the config file: `uav/sim/rqt_behavior_tree_command/config/gui_config.yaml`
+Select the config file: `uav/core/rqt_behavior_tree_command/config/gui_config.yaml`
 
 **Load Trajectory Config**
 
 Select the right hand side "Open Config" that shows `fixed_trajectories.yaml`
 
-Select the config file: `uav/sim/core_trajectory_library/config/fixed_trajectories.yaml`
+Select the config file: `uav/core/core_trajectory_library/config/fixed_trajectories.yaml`
 
 **UAV Takeoff**
 

@@ -4,7 +4,7 @@
 
 Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
 
-**Basestation Docker Image** 
+**Basestation Docker Image**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -14,7 +14,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # build the basestation docker image
         ./deployer -s azure.basestation.docker.image
 
-**Access The Remote Basestation VM** 
+**Access The Remote Basestation VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.basestation
@@ -23,13 +23,13 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
         # Remove any previously created docker containers (optional).
         #   - its okay to ignore error 'Error: No such container' and continue to the next step.
-        docker rm -f gui-shell
+        docker rm -f basestation-shell
 
         # cleanup dangling docker images
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
         docker rmi -f $(docker images -f "dangling=true" -q)
 
-**Verify Docker Images** 
+**Verify Docker Images**
 
         # View the docker images built (on the remote VM)
         docker images
@@ -39,7 +39,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         #        subt/basestation:gui
         #        subt/basestation:ros
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit
@@ -60,7 +60,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # create the basestation docker container
         ./deployer -s azure.basestation.docker.shell
 
-**Access The Remote Basestation VM** 
+**Access The Remote Basestation VM**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
         ssh azure.basestation
@@ -71,9 +71,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> gui-shell
+        #   -> basestation-shell
 
-**Return To Localhost** 
+**Return To Localhost**
 
         # exit the remote VM
         exit

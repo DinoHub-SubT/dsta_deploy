@@ -49,7 +49,7 @@ Please verify you have setup the azure vm communication manager connection IPs
 
         # enter the docker shell container (if not already joined)
         # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name sim-shell
+        docker-join.bash --name ugv-sim-shell
 
 ### 4. Edit Launch Files
 
@@ -78,7 +78,7 @@ Edit Launch File: `~/deploy_ws/src/ugv/nuc/local_planner/launch/local_planner.la
 
         # enter the docker shell container on your local laptop host or Azure VM host
         # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name sim-shell
+        docker-join.bash --name ugv-sim-shell
 
         # Load the tmux session. Example launch `ugv1`
         tmuxp load operations/launch/tmuxp/sim/ugv1.yaml

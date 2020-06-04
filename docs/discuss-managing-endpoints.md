@@ -68,7 +68,7 @@ You can manage docker on the different endpoints using the tool `docker context`
         # You should see something like this (i.e. output from `docker context ls`):
         # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
         # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation         Azure basestation VM                      ssh://azure.basestation                                    
+        # basestation         Azure basestation VM                      ssh://azure.basestation
 
         # view all docker containers in your current context
         docker ps -a
@@ -90,7 +90,7 @@ You can manage docker on the different endpoints using the tool `docker context`
         # You should see something like this (i.e. output from `docker context ls`):
         # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
         # default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation *       Azure basestation VM                      ssh://azure.basestation                                    
+        # basestation *       Azure basestation VM                      ssh://azure.basestation
 
         # view all docker containers in the new context
         # -- you should see different containers from the previous context
@@ -112,7 +112,7 @@ You can manage docker on the different endpoints using the tool `docker context`
         # You should see something like this (i.e. output from `docker context ls`):
         # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
         # default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation *       Azure basestation VM                      ssh://azure.basestation                                    
+        # basestation *       Azure basestation VM                      ssh://azure.basestation
 
         # switch back to the default context
         docker context use default
@@ -229,7 +229,7 @@ An example `transfer` command will have the following template format:
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
-        
+
         # example: transfer to remote uav1 azure vm
         ./deployer -s azure.uav1.transfer.to
 

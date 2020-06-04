@@ -62,7 +62,7 @@ The perception catkin workspace contains all repositories that are running durin
         # build the catkin workspace
         catkin build
 
-        # go to the `perception::deps` catkin workspace
+        # go to the `perception` catkin workspace
         cd ~/deploy_ws/src/perception/
 
         # list the catkin profiles available

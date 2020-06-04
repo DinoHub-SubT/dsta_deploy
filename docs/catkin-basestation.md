@@ -8,7 +8,7 @@ Assuming you have already setup all your basestation docker containers, follow t
 
 ## 1. Access Docker Container
 
-        # ssh into the remote Azure VM (if not already logged in).Change `azure.basestation` to the correct VM name 
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.basestation` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
         ssh azure.basestation
 
