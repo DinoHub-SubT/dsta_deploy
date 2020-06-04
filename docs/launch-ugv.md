@@ -31,7 +31,7 @@ Please verify you have setup the azure vm communication manager connection IPs
         gedit ~/deploy_ws/src/common/communication_manager/config/USER_QOS_PROFILES.xml
 
         # make sure the IPs are added to every 'initial_peers' tag:
-        
+
         <element>10.3.1.1</element>
         <element>10.3.1.11</element>
         <element>10.3.1.12</element>
@@ -53,7 +53,7 @@ Please verify you have setup the azure vm communication manager connection IPs
 
 ### 4. Edit Launch Files
 
-Edit Launch File: `~/deploy_ws/src/ugv/sim/darpa/catkin/darpa_subt/x1_control/launch/control.launch`
+Edit Launch File: `~/deploy_ws/src/simulation/darpa/catkin/darpa_subt/x1_control/launch/control.launch`
 
         # Change
         #       <rosparam command="load" file="$(arg config_extras)" />
@@ -61,7 +61,7 @@ Edit Launch File: `~/deploy_ws/src/ugv/sim/darpa/catkin/darpa_subt/x1_control/la
         #       <!-- <rosparam command="load" file="$(arg config_extras)" /> -->
 
 
-Edit Launch File: `~/deploy_ws/src/ugv/sim/local_planner/launch/local_planner.launch`
+Edit Launch File: `~/deploy_ws/src/ugv/nuc/local_planner/launch/local_planner.launch`
 
         # Change
         #       <remap from="/X1/cmd_vel" to="/auton_twist"/>
@@ -86,9 +86,9 @@ Edit Launch File: `~/deploy_ws/src/ugv/sim/local_planner/launch/local_planner.la
         # (OPTIONAL) open a new tab/window and publish a waypoint
         rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'
 
-        # (OPTIONAL) Move the UGV using the Basestation Azure VM GUI. 
+        # (OPTIONAL) Move the UGV using the Basestation Azure VM GUI.
         # -- On the Basestation Azure VM (example, moving ugv1):
-        #       Select UGV1 on both control GUIs 
+        #       Select UGV1 on both control GUIs
         #       Select waypoints on rviz
 
 ### 6. Verify Launch

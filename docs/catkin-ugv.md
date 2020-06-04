@@ -49,14 +49,14 @@ The common catkin workspace sets up default `cmake` options.
 The UGV planning-pc catkin workspace contains all repositories that are running on the robot, on the planning-pc.
 The UGV nuc catkin workspace contains all repositories that are running on the robot, on the nuc.
 
-        # go to the `ppc` catkin workspace
+        # go to the `ugv` catkin workspace
         cd ~/deploy_ws/src/ugv/
 
         # list the catkin profiles available
         catkin profile list
 
         # set the catkin profile
-        catkin profile set ugv
+        catkin profile set ugv-sim
 
         # view catkin and cmake configuration
         catkin config
