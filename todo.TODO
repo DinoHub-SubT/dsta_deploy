@@ -8,6 +8,7 @@ ansible:
   ☐ add gpu ansible install scirpts (if not working, need to check)
   ☐ fix nvidia-docker, add to vars to list all computers allowed to install nvidia-docker
     - right now its just limited by hostnames...
+  ☐ change password setup in robothost, to match 'when' not on azure
 
 azure:
   ☐ add storage container to VM from another resource and see the files mounted
