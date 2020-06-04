@@ -37,7 +37,7 @@ The `ansible` scripts do not give realtime output.
         cd ~/deploy_ws/src/operations/deploy/robotbooks
 
         # verify the available hosts that are setup
-        ansible-playbook -v -i inventory/azure.ini robothost.yaml --list-hosts
+        ansible-playbook -v -i inventory/azure.ini install-azure.yaml --list-hosts
 
 ## 3. Install Basestation VM Dependencies
 
@@ -48,7 +48,7 @@ The `ansible` scripts do not give realtime output.
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-basestation
+        ansible-playbook -v -i inventory/azure.ini install-azure.yaml --limit azure-basestation
 
 ## 4. Install UGV VM Dependencies
 
@@ -59,7 +59,7 @@ The `ansible` scripts do not give realtime output.
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-ugv1
+        ansible-playbook -v -i inventory/azure.ini install-azure.yaml --limit azure-ugv1
 
 Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
@@ -72,7 +72,7 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-uav1
+        ansible-playbook -v -i inventory/azure.ini install-azure.yaml --limit azure-uav1
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
@@ -80,13 +80,13 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
 ## 6. Install Perception VM Dependencies
 
         # Verify VM Access
-        ping -c 3 azure-perception
+        ping -c 3 azure-perception1
 
         # == Perception VM Install ==
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        ansible-playbook -v -i inventory/azure.ini install-all.yaml --limit azure-perception
+        ansible-playbook -v -i inventory/azure.ini install-azure.yaml --limit azure-perception1
 
 
 ## 7. Verify Install

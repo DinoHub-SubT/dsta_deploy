@@ -8,134 +8,9 @@ Setting up the catkin workspace for the UGV workspaces requires using the `catki
 
 Follow the instructions below to setup the UGV catkin workspace.
 
-## UGV Planning-PC Catkin Workspace
+## UGV Simulation (Planning-PC, NUC) Catkin Workspace
 
 ### 1. Access Docker Container (optional)
-
-        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
-        # -- if you are not using Azure, you may skip this step.
-        ssh azure.ugv1
-
-        # enter the docker shell container on your local laptop host or Azure VM host
-        # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name ppc-shell
-
-        # its okay to ignore the following error if you have not yet built the workspace:
-        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
-
-### 2. Build Common
-
-The common catkin workspace sets up default `cmake` options.
-
-        # == Common Catkin Workspace ==
-
-        # go to the `common` catkin workspace inside the docker container
-        cd ~/deploy_ws/src/common
-
-        # list the catkin profiles available
-        catkin profile list
-
-        # set the catkin profile
-        catkin profile set ugv
-
-        # view catkin and cmake configuration
-        catkin config
-
-        # build the catkin workspace
-        catkin build
-
-### 3. Build UGV Planning-PC Catkin Workspace
-
-The UGV planning-pc catkin workspace contains all repositories that are running on the robot, on the planning-pc.
-
-The `ugv:planning-pc` catkin workspace sets up default `cmake` options.
-
-        # go to the `ppc` catkin workspace
-        cd ~/deploy_ws/src/ugv/planning-pc
-
-        # list the catkin profiles available
-        catkin profile list
-
-        # set the catkin profile
-        catkin profile set ugv
-
-        # view catkin and cmake configuration
-        catkin config
-
-        # build the catkin workspace
-        catkin build
-
-        # exit the container
-        exit
-
-## UGV NUC Catkin Workspace
-
-### 1. Access Docker Container (optional)
-
-        # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
-        # -- if you are not using Azure, you may skip this step.
-        ssh azure.ugv1
-
-        # enter the docker shell container on your local laptop host or Azure VM host
-        # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name nuc-shell
-        
-        # its okay to ignore the following error if you have not yet built the workspace:
-        # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
-
-### 2. Build Common
-
-The common catkin workspace sets up default `cmake` options.
-
-        # == Common Catkin Workspace ==
-
-        # go to the `common` catkin workspace inside the docker container
-        cd ~/deploy_ws/src/common
-
-        # list the catkin profiles available
-        catkin profile list
-
-        # set the catkin profile
-        catkin profile set ugv
-
-        # view catkin and cmake configuration
-        catkin config
-
-        # build the catkin workspace
-        catkin build
-
-### 3. Build UGV NUC Catkin Workspace
-
-The UGV nuc catkin workspace contains all repositories that are running on the robot, on the nuc.
-
-The `ugv:nuc` catkin workspace sets up default `cmake` options.
-
-        # go to the `nuc` catkin workspace
-        cd ~/deploy_ws/src/ugv/nuc
-
-        # list the catkin profiles available
-        catkin profile list
-
-        # set the catkin profile
-        catkin profile set ugv
-
-        # view catkin and cmake configuration
-        catkin config
-
-        # build the catkin workspace
-        catkin build
-
-        # exit the container
-        exit
-
-
-## UGV Simulation Catkin Workspace
-
-### 1. Access Docker Container (optional)
-
-**If you are not using docker containers, you may skip this step.**
-
-**If you are using an Azure VM, remember to ssh into the VM first.**
 
         # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name 
         # -- if you are not using Azure, you may skip this step.
@@ -147,11 +22,12 @@ The `ugv:nuc` catkin workspace sets up default `cmake` options.
 
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
-        
 
 ### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
+
+        # == Common Catkin Workspace ==
 
         # go to the `common` catkin workspace inside the docker container
         cd ~/deploy_ws/src/common
@@ -168,14 +44,13 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 3. Build UGV Simulation Catkin Workspace
+### 3. Build UGV Catkin Workspace
 
-The UGV simulation catkin workspace contains all repositories related in running the `ugv` in simulation.
+The UGV planning-pc catkin workspace contains all repositories that are running on the robot, on the planning-pc.
+The UGV nuc catkin workspace contains all repositories that are running on the robot, on the nuc.
 
-The `ugv:ugv` catkin workspace sets up default `cmake` options.
-
-        # go to the `sim:darpa` catkin workspace
-        cd ~/deploy_ws/src/ugv/sim/darpa/catkin/
+        # go to the `ppc` catkin workspace
+        cd ~/deploy_ws/src/ugv/
 
         # list the catkin profiles available
         catkin profile list
@@ -189,14 +64,54 @@ The `ugv:ugv` catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-        # go to the `sim` catkin workspace
-        cd ~/deploy_ws/src/ugv/sim
+### 4. Build Simulation Catkin Workspace
+
+The UGV simulation catkin workspace contains all repositories related in running the `ugv` in simulation.
+
+The `ugv` catkin workspaces sets up default `cmake` options.
+
+        # go to the simulation:darpa catkin workspace
+        cd ~/deploy_ws/src/simulation/darpa/catkin
 
         # list the catkin profiles available
         catkin profile list
 
         # set the catkin profile
         catkin profile set ugv
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+        # go to the simulation catkin workspace
+        cd ~/deploy_ws/src/simulation
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set ugv
+
+        # view catkin and cmake configuration
+        catkin config
+
+        # build the catkin workspace
+        catkin build
+
+### 5. Build SubT Launch Catkin Workspace
+
+The subt launch catkin workspace contains a centralized top-level launch.
+
+        # go to the `subt_launch` catkin workspace
+        cd ~/deploy_ws/src/subt_launch
+
+        # list the catkin profiles available
+        catkin profile list
+
+        # set the catkin profile
+        catkin profile set ugv-simulation
 
         # view catkin and cmake configuration
         catkin config
@@ -206,8 +121,6 @@ The `ugv:ugv` catkin workspace sets up default `cmake` options.
 
         # exit the container
         exit
-
-* * *
 
 ## Cleanup (optional)
 
