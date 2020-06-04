@@ -29,6 +29,15 @@ repo-reorganization:
     ☐ operations
     ☐ ... more to consider
 
+  - launch:
+    ☐ change the 'algorithms' to 'system/azure' and 'system/robot'
+    ☐ change the algorithms to have '.xml', they do not launch. remove the 'robot' or 'azure' from them
+    ☐ add in scenarios: azure_basestation_gui, azure_basestation_perception, etc.
+
+  - ugv catkin:
+    ☐ change the catkin to be inside the planning-pc, will override if switching...
+    ☐ move hardware per robot.
+
   Azure:
     ☐ test out new central launch example on Azure -- make sure all the sims are working
     ☐ update readme, with new launch setup
