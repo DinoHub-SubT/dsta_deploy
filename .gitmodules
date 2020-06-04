@@ -11,7 +11,7 @@
 	path = operations/deploy/scripts/deployer_scripts
 	url = git@bitbucket.org:cmusubt/ci_phase.git
 [submodule "operations/deploy/setup/ugv_setup"]
-	path = operations/scripts/ugv_setup
+	path = operations/utils/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
 [submodule "operations/launch"]
 	path = operations/launch
