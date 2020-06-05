@@ -80,8 +80,11 @@ Edit Launch File: `~/deploy_ws/src/ugv/nuc/local_planner/launch/local_planner.la
         # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name ugv-sim-shell
 
+        # go to the top-level deploy workspace
+        cd ~/deploy_ws/src
+
         # Load the tmux session. Example launch `ugv1`
-        tmuxp load operations/launch/tmuxp/sim/ugv1.yaml
+        ROBOT=ugv1 tmuxp load subt_launch/tmux/azure/ugv.yaml
 
         # (OPTIONAL) open a new tab/window and publish a waypoint
         rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'

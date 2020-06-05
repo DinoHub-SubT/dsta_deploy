@@ -52,8 +52,11 @@ If you are not using docker containers, you may skip this step.
 
 ### 4. Launch Basestation
 
+        # go to the top-level deploy workspace
+        cd ~/deploy_ws/src
+
         # load the tmux session
-        tmuxp load operations/launch/tmuxp/sim/basestation.yaml
+        ROBOT=basestation tmuxp load subt_launch/tmux/azure/basestation.yaml
 
 ### Summary
 
