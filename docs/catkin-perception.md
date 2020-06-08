@@ -1,7 +1,5 @@
 # Perception Catkin Workspace
 
-**Note:** Right now, there is no catkin setup available for perception. You cannot follow these steps right now. This will fixed in the soon future.
-
 Setting up the catkin workspace for the Perception workspaces requires using the `catkin` tool.
 
 - There are multiple catkin workspaces that get extended *or linked* in order to fully setup the perception catkin workspace.

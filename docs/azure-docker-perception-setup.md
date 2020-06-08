@@ -1,4 +1,4 @@
-# Azure Basestation Docker Setup
+# Azure Perception Docker Setup
 
 **Note:** Right now, there is no docker image available for perception. You cannot follow these steps right now. This will fixed in the soon future.
 

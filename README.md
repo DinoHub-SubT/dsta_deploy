@@ -414,6 +414,7 @@ These tutorials will setup the following:
   - Basestation: [`docs/catkin-basestation.md`](docs/catkin-basestation.md)
   - UGV: [`docs/catkin-ugv.md`](docs/catkin-ugv.md)
   - UAV: [`docs/catkin-uav.md`](docs/catkin-uav.md)
+  - Perception: [`docs/catkin-perception.md`](docs/catkin-perception.md)
 
 These tutorials will setup the following:
 
