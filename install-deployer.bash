@@ -38,9 +38,13 @@ remove_from_config() {
     return;
   fi
   # remove from path
+  sed -i '/Deploy Setup/d' /$homedir/.$1
+  sed -i '/cd-deploy/d' /$homedir/.$1
   sed -i '/SUBT_PATH/d' /$homedir/.$1
   sed -i '/SUBT_DOCKER_PATH/d' /$homedir/.$1
   sed -i '/\$SUBT_DOCKER_PATH/d' /$homedir/.$1
+  sed -i '/DEPLOY_UTILS_PATH/d' /$homedir/.$1
+  sed -i '/\$DEPLOY_UTILS_PATH/d' /$homedir/.$1
 }
 
 # add to config
@@ -50,9 +54,12 @@ add_to_config() {
     return;
   fi
   # remove from path
+  echo "# == Deploy Setup ==" >> /$homedir/.$1
+  echo "alias cd-deploy=\"cd $SRC_DIR/\"" >> /$homedir/.$1
   echo "export SUBT_PATH=$SRC_DIR/" >> /$homedir/.$1
   echo "export SUBT_DOCKER_PATH=$SRC_DIR/operations/deploy/docker/scripts/" >> /$homedir/.$1
-  echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH" >> /$homedir/.$1
+  echo "export DEPLOY_UTILS_PATH=$SRC_DIR/operations/utils/sysadmin/" >> /$homedir/.$1
+  echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH:\$DEPLOY_UTILS_PATH" >> /$homedir/.$1
 }
 
 # install deployer's python scripts
@@ -75,10 +82,10 @@ uninstall_deployer_py_scripts() {
   git clean -f -d
 }
 
-# install 
+# install
 install() {
   # update the submodules & install deployer python scripts
-  git submodule update --init --recursive $SRC_DIR/operations  
+  git submodule update --init --recursive $SRC_DIR/operations
   install_deployer_py_scripts
 
   # remove any previous alias
@@ -107,9 +114,9 @@ uninstall() {
 ### perform the install/uninstall ###
 if [ "$1" == "--install" ]; then
   install
-elif [ "$1" == "--uninstall" ]; then 
+elif [ "$1" == "--uninstall" ]; then
   uninstall
-elif [ "$1" == "--help" ]; then 
+elif [ "$1" == "--help" ]; then
   echo -e "$YELLOW$usage_msg$DEFCOL\n";
 else
   echo -e "$YELLOW$usage_msg$DEFCOL\n";
