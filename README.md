@@ -346,7 +346,7 @@ Verify you can run the deployer scripts installed correctly:
 
         # verify docker-compose shows the help usage message
         docker-compose-wrapper --help
-        
+
         # verify deployer script shows the help usage message
         ./deployer --help
 
@@ -425,7 +425,7 @@ These tutorials will setup the following:
 ### 5. Simulation Launch Setup (Required)
 
 **Tutorials at**:
-  
+
 - **Simple Launch Example:**
 
     - Basestation: [`docs/launch-basestation.md`](docs/launch-basestation.md)
@@ -459,6 +459,10 @@ These tutorials will setup the following:
 - Helpful thidparty tools
 - Common questions
 - Known issues
+
+### 9. More Tutorials (Optional)
+
+- [Submodule Getting Started Basics](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules)
 
 * * *
 

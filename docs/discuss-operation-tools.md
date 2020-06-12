@@ -1,21 +1,21 @@
 # Operational Tools Discussion and Issues
 
-## About Operation Tools
+## Operational Tools & Utilities
 
 There are a few operational tools available to use:
 
 `docker`
 
   - command interface to interact with `dockerfiles` found in `operations/deploy/docker/dockerfiles`
-  
+
 `docker-compose`
 
   - command interface to interact with `docker-compose.yml` files found in `operations/deploy/docker/dockerfiles/`
-  
+
 `docker-compose-wrapper`
 
   - command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/deploy/scenarios`
-  
+
 `docker context`
 
   - command interface to manage multiple docker endpoints *(example: docker engine running on Azure VMs)*.
@@ -29,6 +29,14 @@ There are a few operational tools available to use:
 
   - command interface to interact with `ansible playbooks` found in `operations/deploy/robotbooks/`
   - automates installing dependencies and setting up systems.
+
+
+`ssh-connect-check`
+
+  - tests ssh connection to hosts listed in the local `~/.ssh/config`
+
+![Alt text](images/ssh-config-example.png?raw=true "Title")
+
 
 ## Deployer Tool
 
@@ -98,12 +106,13 @@ To learn more what the command executes, use the `--verbose` or `-v` option with
         # preview and verbosely display all the commands that will be executed on the Azure VM
         ./deployer -s azure.ugv1 -p -v
 
-# Helpful Tools
+# Thirdparty Tools
 
 **Some Helpful Tools For Remote Development**
 
-- Manging remote VM desktops: `rdp`, `teamviewer`
-- Manging launch setups: `tmux`, `byobu`
+- Improving the shell experience: `zsh`, `oh-my-zsh`
+- Managing remote VM desktops: `rdp`, `teamviewer`
+- Managing launch setups: `tmux`, `byobu`
 - Remote desktop extensions on IDE, for example the [visual code plugin](https://code.visualstudio.com/docs/remote/remote-overview).
 - Managing docker endpoints tools: `docker context`, `docker machine`, `docker swarm`
 
