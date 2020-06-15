@@ -21,48 +21,48 @@ azure:
 
 repo-reorganization:
 
-  - create an initial repo reorganization
-    ☐ common
-    ☐ basestation
-    ☐ ugv
-    ☐ uav
-    ☐ operations
-    ☐ ... more to consider
+  ✔ create an initial repo reorganization @done(20-06-14 19:03)
+    ✔ common @done(20-06-14 19:03)
+    ✔ basestation @done(20-06-14 19:03)
+    ✔ ugv @done(20-06-14 19:03)
+    ✔ uav @done(20-06-14 19:03)
+    ✔ operations @done(20-06-14 19:03)
+    ✔ ... more to consider @done(20-06-14 19:03)
 
-  - launch:
-    ☐ change the 'algorithms' to 'system/azure' and 'system/robot'
-    ☐ change the algorithms to have '.xml', they do not launch. remove the 'robot' or 'azure' from them
-    ☐ add in scenarios: azure_basestation_gui, azure_basestation_perception, etc.
+  ✔ launch: @done(20-06-14 19:03)
+    ✘ change the 'algorithms' to 'system/azure' and 'system/robot' @cancelled(20-06-14 19:03)
+    ✔ change the algorithms to have '.xml', they do not launch. remove the 'robot' or 'azure' from them @done(20-06-14 19:03)
+    ✔ add in scenarios: azure_basestation_gui, azure_basestation_perception, etc. @done(20-06-14 19:03)
 
   - ugv catkin:
-    ☐ change the catkin to be inside the planning-pc, will override if switching...
-    ☐ move hardware per robot.
+    ✘ change the catkin to be inside the planning-pc, will override if switching... @cancelled(20-06-14 19:03)
+    ✔ move hardware per robot. @done(20-06-14 20:30)
 
   Azure:
-    ☐ test out new central launch example on Azure -- make sure all the sims are working
+    ✔ test out new central launch example on Azure -- make sure all the sims are working @done(20-06-14 20:30)
     ☐ update readme, with new launch setup
-    ☐ merge perception PR and make sure the perception docker image has all the dependencies to build objdet
+    ✔ merge perception PR and make sure the perception docker image has all the dependencies to build objdet @done(20-06-14 20:30)
     ☐ add a tmux for perception sim -- to verify it is running correctly
       - have not tested the perception launch before, need to make sure it is working
-    ☐ make the initial re-organization
+    ✔ make the initial re-organization @done(20-06-14 20:30)
     ☐ test: re-organization catkin build & new cenetral launch, making sure all the sims are working
-    ☐ @time: end of the week, with temporary re-organization structure & verify on everything on Azure
+    ✔ @time: end of the week, with temporary re-organization structure & verify on everything on Azure @done(20-06-14 20:30)
 
   Robot:
-    ☐ add ansible install for different robots
-    ☐ add deployer configs for transfering to robots
-    ☐ add deployer build yamls
-    ☐ build docker images on robots & start docker containers
+    ✔ add ansible install for different robots @done(20-06-14 20:33)
+    ✔ add deployer configs for transfering to robots @done(20-06-14 20:33)
+    ✔ add deployer build yamls @done(20-06-14 20:33)
+    ✔ build docker images on robots & start docker containers @done(20-06-14 20:33)
       - rename some containers
-    ☐ update tmux yamls, with new central launch for robot
-    ☐ test: re-organization catkin build (manually) & new cenetral launch
+    ✔ update tmux yamls, with new central launch for robot @done(20-06-14 20:33)
+    ✔ test: re-organization catkin build (manually) & new cenetral launch @done(20-06-14 20:34)
       - xavier will current run outside docker as before, until it is built on the Xavier
       - wont be exactly the same as the azure setup, will have hardware build and other repos
-    ☐ make sure all the robot paramas are correclty set.
-    ☐ go through old version of code params are correctly ported.
+    ✔ make sure all the robot paramas are correclty set. @done(20-06-14 20:34)
+    ✔ go through old version of code params are correctly ported. @done(20-06-14 20:34)
     ☐ have not tested the new perception docker code on uav.
       - have not committed to ugv perception docker. Will want to look into this in the future.
-    ☐ @time:
+    ✔ @time: @done(20-06-14 20:34)
       - at least 3 days to get all the ansible, docker, deploy configs & catkin builds (no launch) are tested for basestation, single ugv, single uav
       - at least one week for verifying the repo versions, params porting & launching on all the robots: uavs, ugvs, basestation and testing
         - might take a bit longer to make sure all the launch files, params and dependencies have correclty been added
