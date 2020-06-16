@@ -10,12 +10,10 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
 [TOC]
 
-
-
 # Prerequisites
 
 ## System Requirements
-  
+
 **1. Linux System: Ubuntu 18.04**
 
    - Not tested on other versions.
@@ -59,7 +57,7 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
         ssh-keygen
 
     - Answer the prompts from `ssh-keygen` as shown below:
-        
+
             Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
             Enter passphrase (empty for no passphrase):
 
@@ -147,9 +145,9 @@ Please have a basic understanding of the following the operational tools:
         docker -v
 
     - Do not run with `sudo docker`. Go back to Step 5 if you still cannot run as a non-root user.
-    
+
 7. Try running a sample container
-    
+
         sudo docker run hello-world
 
       - You should see the message *Hello from Docker!* confirming that your installation was successfully completed.
@@ -157,7 +155,7 @@ Please have a basic understanding of the following the operational tools:
 ### Docker Compose
 
 1. Download current stable release of *docker compose*
-   
+
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends curl
         sudo curl -L "https://github.com/docker/compose/releases/download/1.24.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -168,7 +166,7 @@ Please have a basic understanding of the following the operational tools:
         sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 3. Test docker compose install
-        
+
         docker-compose --version
 
 
@@ -212,7 +210,7 @@ The instructions below assumes you already [installed](https://askubuntu.com/a/1
 
     - The docker image `nvidia/cuda` requires a recent CUDA version. If you have an earlier CUDA version, then [find a tag](https://hub.docker.com/r/nvidia/cuda/tags) with an earlier version.
         - Example: `docker run --runtime=nvidia --rm nvidia/cuda:8.0-runtime nvidia-smi`
-        
+
     - This command should print your GPU information.
 
 
@@ -237,7 +235,6 @@ The instructions below assumes you already [installed](https://askubuntu.com/a/1
             sudo systemctl daemon-reload
             sudo systemctl restart docker
 
-        
     - Daemon configuration file
 
             sudo tee /etc/docker/daemon.json <<EOF
@@ -253,8 +250,8 @@ The instructions below assumes you already [installed](https://askubuntu.com/a/1
             sudo pkill -SIGHUP dockerd
 
     - Try NVIDIA runntime argument again:
-        
-            docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi        
+
+            docker run --runtime=nvidia --rm nvidia/cuda nvidia-smi
 
 ## Cloud Provisioning Tools
 
@@ -281,7 +278,7 @@ Install the following third-party cloud provisioning operational tools.
 
         # Dependencies
         sudo apt-get install unzip wget
-        
+
         # Terraform CLI package
         cd ~/Downloads/
         wget https://releases.hashicorp.com/terraform/0.12.24/terraform_0.12.24_linux_amd64.zip
@@ -295,7 +292,7 @@ Install the following third-party cloud provisioning operational tools.
         sudo apt update
         sudo apt install software-properties-common
         sudo apt-add-repository --yes --update ppa:ansible/ansible
-        
+
         # Install ansible
         sudo apt install ansible
 
@@ -380,15 +377,6 @@ This tutorial will setup the following:
 - Create the docker images, containers on the remote VMs.
 
 ### 3. Docker Engine Setup (Required)
-
-
-**Localhost tutorials at:**
-
-*(not available yet)*
-
-  - Basestation: [`docs/localhost-docker-basestation-setup.md`](localhost-docker-basestation-setup.md)
-  - UGV: [`docs/localhost-docker-ugv-setup.md`](localhost-docker-ugv-setup.md)
-  - UAV: [`docs/localhost-docker-uav-setup.md`](localhost-docker-uav-setup.md)
 
 **Azure tutorials at:**
 
