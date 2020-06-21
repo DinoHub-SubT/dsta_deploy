@@ -12,6 +12,9 @@ azure:
 
 deploy:
 
+  General:
+    ☐ deployer work from anywhere
+
   Azure:
     ☐ update readme, with new launch setup
     ☐ add a tmux for perception sim -- to verify it is running correctly
