@@ -8,11 +8,31 @@ Setting up the catkin workspace for the UAV workspaces requires using the `catki
 
 Follow the instructions below to setup the UAV catkin workspace.
 
-## UAV Simulation Workspace
+## UAV Simulation Catkin Workspaces
 
-### 1. Access Docker Container
+### Automated Catkin Build
 
-        # ssh into the remote Azure VM (if not already logged in).Change `azure.uav1` to the correct VM name 
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the docker shell on the remote host
+        ./deployer -r azure.uav1.docker.shell
+
+        # clean the previous built workspaces
+        ./deployer -r azure.uav1.caktin.clean
+
+        # catkin build the UGV workspaces
+        ./deployer -r azure.uav1.caktin.build
+
+- Please change the robot name `uav1` to whichever Azure robot VM you are building on.
+
+### Manual Catkin Build
+
+#### 1. Access Docker Container
+
+        # ssh into the remote Azure VM (if not already logged in).Change `azure.uav1` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
         ssh azure.uav1
 
@@ -23,7 +43,7 @@ Follow the instructions below to setup the UAV catkin workspace.
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
-### 2. Build Common
+#### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -44,7 +64,7 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 3. Build UAV Dependencies
+#### 3. Build UAV Dependencies
 
 The UAV simulation workspace requires manual code changes to thirdparty files.
 
@@ -84,7 +104,12 @@ The UAV simulation workspace requires building non-catkin dependencies.
         # exit root user
         exit
 
-### 4. Build UAV Catkin Workspace
+**Helpful Tip:** You can do these changes on your localhost and transfer the changes to the remote:
+
+        # uav transfer.to command
+        ./deployer -r azure.uav1.transfer.to
+
+#### 4. Build UAV Catkin Workspace
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
@@ -105,7 +130,7 @@ The `uav` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 5. Build Simulation Catkin Workspace
+#### 5. Build Simulation Catkin Workspace
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
@@ -141,7 +166,7 @@ The `uav` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 6. Build SubT Launch Catkin Workspace
+#### 6. Build SubT Launch Catkin Workspace
 
 The subt launch catkin workspace contains a centralized top-level launch.
 
@@ -186,3 +211,18 @@ You should remove containers when done with its development.
 You should now have a built `UAV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
+
+## Helpful Tips
+
+You can transfer changes on your localhost to the remote:
+
+        # uav transfer.to command
+        ./deployer -r azure.uav1.transfer.to
+
+If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
+
+        operations/deploy/scenarios/.uav.env
+
+You can edit the option: `deploy_rsync_opts`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.

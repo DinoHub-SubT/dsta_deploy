@@ -8,9 +8,29 @@ Setting up the catkin workspace for the UGV workspaces requires using the `catki
 
 Follow the instructions below to setup the UGV catkin workspace.
 
-## UGV Simulation (Planning-PC, NUC) Catkin Workspace
+## UGV Simulation (Planning-PC, NUC) Catkin Workspaces
 
-### 1. Access Docker Container (optional)
+### Automated Catkin Build
+
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the docker shell on the remote host
+        ./deployer -r azure.ugv1.docker.shell
+
+        # clean the previous built workspaces
+        ./deployer -r azure.ugv1.caktin.clean
+
+        # catkin build the UGV workspaces
+        ./deployer -r azure.ugv1.caktin.build
+
+- Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
+
+### Manual Catkin Build
+
+#### 1. Access Docker Container (optional)
 
         # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
@@ -23,7 +43,7 @@ Follow the instructions below to setup the UGV catkin workspace.
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
-### 2. Build Common
+#### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -44,7 +64,7 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 3. Build UGV Catkin Workspace
+#### 3. Build UGV Catkin Workspace
 
 The UGV planning-pc catkin workspace contains all repositories that are running on the robot, on the planning-pc.
 The UGV nuc catkin workspace contains all repositories that are running on the robot, on the nuc.
@@ -64,7 +84,7 @@ The UGV nuc catkin workspace contains all repositories that are running on the r
         # build the catkin workspace
         catkin build
 
-### 4. Build Simulation Catkin Workspace
+#### 4. Build Simulation Catkin Workspace
 
 The UGV simulation catkin workspace contains all repositories related in running the `ugv` in simulation.
 
@@ -100,7 +120,7 @@ The `ugv` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-### 5. Build SubT Launch Catkin Workspace
+#### 5. Build SubT Launch Catkin Workspace
 
 The subt launch catkin workspace contains a centralized top-level launch.
 
@@ -157,3 +177,18 @@ You should remove containers when done with its development.
 You should now have a built `UGV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
+
+## Helpful Tips
+
+You can transfer changes on your localhost to the remote:
+
+        # uav transfer.to command
+        ./deployer -r azure.ugv1.transfer.to
+
+If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
+
+        operations/deploy/scenarios/.ugv.env
+
+You can edit the option: `deploy_rsync_opts`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
