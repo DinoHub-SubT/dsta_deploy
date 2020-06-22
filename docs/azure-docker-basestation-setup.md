@@ -1,10 +1,16 @@
 # Azure Basestation Docker Setup
 
-## 1. Building Docker Images
+## Azure CPU VM
 
-Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
+If you **have not enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
 
-### Basestation Docker Image, Azure CPU VM
+### 1. Building Docker Images
+
+Docker install all the repository dependencies as *docker images*.
+
+- The docker images will be built on the remote Azure VM.
+
+**Create the Docker Image on Azure Host**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -36,15 +42,61 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/basestation:gui
-        #        subt/basestation:ros
+        #        subt/basestation-cpu:0.1
+        #        subt/basestation-cpu:ros
 
 **Return To Localhost**
 
         # exit the remote VM
         exit
 
-### Basestation Docker Image, Azure GPU VM
+### 2. Creating Docker Containers With Shell Access
+
+Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
+
+- You should be able to do anything inside the docker container that you would do normally do on the host.
+
+**Create the Docker Shell on Azure Host**
+
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the basestation docker container
+        ./deployer -s azure.basestation.cpu.docker.shell
+
+**Access The Remote Basestation VM**
+
+        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
+        ssh azure.basestation
+
+**Verify Docker Containers**
+
+        # View running docker containers (on the remote VM)
+        docker ps
+
+        # verify you see the following docker containers (in any order):
+        #   -> basestation-cpu-shell
+
+**Return To Localhost**
+
+        # exit the remote VM
+        exit
+
+* * *
+
+## Azure GPU VM
+
+If you **have enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
+
+### 1. Building Docker Images
+
+Docker install all the repository dependencies as *docker images*.
+
+- The docker images will be built on the remote Azure VM.
+
+**Create the Docker Images on Azure Host**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -77,50 +129,23 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/basestation:perception
-        #        subt/basestation:gui
-        #        subt/basestation:ros
+        #        subt/basestation-gpu:0.1
+        #        subt/basestation-gpu:ros
+        #        subt/basestation-cpu:0.1
+        #        subt/basestation-cpu:ros
 
 **Return To Localhost**
 
         # exit the remote VM
         exit
 
-## 2. Creating Docker Containers With Shell Access
+### 2. Creating Docker Containers With Shell Access
 
 Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
 
 - You should be able to do anything inside the docker container that you would do normally do on the host.
 
-### Basestation Docker Container Shell Access, Azure CPU VM
-
-Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the basestation docker container
-        ./deployer -s azure.basestation.cpu.docker.shell
-
-**Access The Remote Basestation VM**
-
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh azure.basestation
-
-**Verify Docker Containers**
-
-        # View running docker containers (on the remote VM)
-        docker ps
-
-        # verify you see the following docker containers (in any order):
-        #   -> basestation-cpu-shell
-
-**Return To Localhost**
-
-        # exit the remote VM
-        exit
-
-### Basestation Docker Container Shell Access, Azure GPU VM
+**Create the Docker Shell on Azure Host**
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 

@@ -6,9 +6,11 @@ Setting up the catkin workspace for the Basestation workspaces requires using th
 
 Assuming you have already setup all your basestation docker containers, follow the instructions below to setup the basestation catkin workspace.
 
-### Basestation Docker Image, Azure CPU VM
+## Azure CPU VM
 
-#### Automated Catkin Build
+If you **have not enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
+
+### Automated Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -24,9 +26,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # catkin build the basestation GUI workspaces
         ./deployer -r azure.basestation.cpu.catkin.gui.build
 
-#### Manual Catkin Build
+### Manual Catkin Build
 
-##### 1. Access Docker Container
+#### 1. Access Docker Container
 
         # ssh into the remote Azure VM (if not already logged in).Change `azure.basestation` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
@@ -39,7 +41,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
-##### 2. Build Common
+#### 2. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -60,7 +62,7 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-##### 3. Build Basestation Catkin Workspace
+#### 3. Build Basestation Catkin Workspace
 
 The basestation catkin workspace contains all repositories that are running during `SubT` on the basestation.
 
@@ -79,7 +81,7 @@ The basestation catkin workspace contains all repositories that are running duri
         # build the catkin workspace
         catkin build
 
-##### 4. Build SubT Launch Catkin Workspace
+#### 4. Build SubT Launch Catkin Workspace
 
 The subt launch catkin workspace contains a centralized top-level launch.
 
@@ -103,9 +105,11 @@ The subt launch catkin workspace contains a centralized top-level launch.
 
 * * *
 
-### Basestation Docker Image, Azure GPU VM
+## Azure GPU VM
 
-#### Automated Catkin Build
+If you **have enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
+
+### Automated Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -158,7 +162,7 @@ You should now have a built `basestation` workspace.
 
 You can transfer changes on your localhost to the remote:
 
-        # uav transfer.to command
+        # basestation transfer.to command
         ./deployer -r azure.basestation.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
@@ -168,3 +172,4 @@ If you find the `transfer.to` is too slow or missing files during a transfer, yo
 You can edit the option: `deploy_rsync_opts`
 
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

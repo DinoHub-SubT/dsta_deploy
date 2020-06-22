@@ -23,6 +23,7 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
+
 ### 2. Verify Communication Manager Connection
 
 Please verify you have setup the azure vm communication manager connection IPs
@@ -41,7 +42,7 @@ Please verify you have setup the azure vm communication manager connection IPs
         <element>10.3.1.53</element>
         <element>10.3.1.54</element>
 
-### 3. Access Docker Container
+### 4. Access Docker Container
 
         # ssh into the remote Azure VM (if not already logged in)
         # -- if you are not using Azure, you may skip this step.
@@ -67,8 +68,6 @@ Edit Launch File: `~/deploy_ws/src/ugv/nuc/local_planner/launch/local_planner.la
         #       <remap from="/X1/cmd_vel" to="/auton_twist"/>
         # To:
         #       <!--remap from="/X1/cmd_vel" to="/auton_twist"/-->
-
-
 
 ### 5. Launch UGV Simulation
 
@@ -100,7 +99,24 @@ Please verify all the launch scripts in the tmux sessions do not have any errors
 
 If you see any launch that failed to come up, please refer to the ugv's `operations/launch/tmuxp/sim/ugv[1-N].yaml` to see which failed and then relaunch manually.
 
+### 7. Transfer To Changes (optional)
+
+The changes, outlined in this tutorial can all be done on the localhost (so you dont need to do these changes on every robot manually).
+
+Once changed on the localhost, you can then `transfer.to` to transfer the changes from your localhost to the remote:
+
+        # ugv transfer.to command
+        ./deployer -r azure.ugv1.transfer.to
+
+If you find the `transfer.to` is too slow or not updating files during a transfer, you can change the the `transfer.to` options in the file:
+
+        operations/deploy/scenarios/.ugv.env
+
+You can edit the option: `deploy_rsync_opts`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
+
 ### Summary
 
 You should now be able to control the robot movement using the buttons in the basestation.
-

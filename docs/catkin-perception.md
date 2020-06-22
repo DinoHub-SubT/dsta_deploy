@@ -167,7 +167,7 @@ You should now have a built `perception` workspace.
 
 You can transfer changes on your localhost to the remote:
 
-        # uav transfer.to command
+        # perception transfer.to command
         ./deployer -r azure.perception1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
@@ -177,3 +177,4 @@ If you find the `transfer.to` is too slow or missing files during a transfer, yo
 You can edit the option: `deploy_rsync_opts`
 
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

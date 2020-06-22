@@ -26,6 +26,24 @@ You will need to download the software from the `SubT` Cluster `Perceptron`, to 
 
 **Copy the thirdparty software to the remote VM**
 
+*Option 1: Using Deployer Transfer To*
+
+You can transfer changes on your localhost to the remote:
+
+        # uav transfer.to command
+        ./deployer -r azure.uav1.transfer.to
+
+If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
+
+        operations/deploy/scenarios/.uav.env
+
+You can edit the option: `deploy_rsync_opts`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
+
+*Option 2: Using SCP*
+
         # go to the docker opencl thirdparty software directory
         cd ~/deploy_ws/src/operations/deploy/docker/dockerfiles/
 
@@ -48,11 +66,9 @@ You will need to download the software from the `SubT` Cluster `Perceptron`, to 
 
 ### 2. Building Docker Images
 
-Docker installs all the repository dependencies as *docker images*.
+Docker install all the repository dependencies as *docker images*.
 
 - The docker images will be built on the remote Azure VM.
-
-- You will run the `deployer` tool on the localhost which creates the docker images on the remote Azure VM.
 
 **UAV Docker Image**
 

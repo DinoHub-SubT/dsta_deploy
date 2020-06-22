@@ -16,6 +16,134 @@ If you have completed the full tutorial, you will end up with multiple endpoints
 - Catkin Workspaces
 - Remote Desktops
 
+# Maintaining Deploy Repo Endpoints
+
+## Option 1: Maintain deploy directly on the remote host
+
+Clone the deploy repository directly on the remote VM:
+
+- The user can go directly in the vm workspace and develop.
+- The user user can use a IDE remote desktop extension to develop.
+- The user can use the `ansible` scripts to re-clone the repo & to setup all the package dependencies.
+
+## Option 2: Deployer Transfer To (rsync)
+
+Transfer the local deploy repository to the remote host, using the `deployer -s ...transfer.to` command:
+
+- The `transfer.to` does a `rsync` between the localhost and remote host deploy workspaces.
+- The `transfer.to` is a custom command, that automates `rsync` for different workspaces.
+- The transfer uses the setup in the `/etc/hosts`, `~/.ssh/config` for remote access. Please have those setup correctly.
+
+**Example, `transfer.to` to a specific remote Azure VMs:**
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # example: transfer to remote basestation azure vm
+        ./deployer -s azure.basestation.transfer.to
+
+        # example: transfer to the remote ugv1 azure vm
+        ./deployer -s azure.ugv1.transfer.to
+
+        # example: transfer to remote uav1 azure vm
+        ./deployer -s azure.uav1.transfer.to
+
+        # example: transfer to remote perception1 azure vm
+        ./deployer -s azure.perception1.transfer.to
+
+#### `Transfer.To` Options
+
+If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in any of the setup files:
+
+        operations/deploy/scenarios/.basestation.env
+        operations/deploy/scenarios/.ugv.env
+        operations/deploy/scenarios/.uav.env
+        operations/deploy/scenarios/.perception.env
+
+You can edit the option: `deploy_rsync_opts`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+
+Example:
+
+- adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
+
+
+## Option 3: Mount a remote filesystem using SFTP
+
+This option will mount the deploy repo found on the localhost to a directory found on the remote VM.
+
+- This needs to be done only once when the VM starts up and the repositories will be kept in sync.
+
+- You will need to develop on the remote repository, not on the localhost deploy repository.
+
+Find your desktop's IP on the Azure VPN:
+
+- Go to Virtual network gateway
+- Go to Point-to-site configuration
+- See the Allocated IP addresses
+
+        # == ssh into your VM ==
+        ssh [VM username]@[private VM IP]
+
+        # Install sshfs
+        sudo apt-get install sshfs
+
+        # Create remote mount point on localhost
+        mkdir /vm1/mountpoint/path/
+
+        # Mount remote directory (desktop IP is found on Azure Portal VPN connections )
+        sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
+
+        # Setup a IDE on localhost with remote editing plugin
+        # Example: https://code.visualstudio.com/docs/remote/ssh
+
+        # Remove the remote mount on remote VM host
+        sudo umount /vm1/mountpoint/path/
+
+
+## Recommendation
+
+There is no good option to choose. Remote development will be difficult to manage.
+
+- A possible recommendation is to use Option 1 and if that becomes inconvenient then try out Option 2.
+
+### Advantages & Disadvantages
+
+**Option 1**
+
+This will require the user to manually manage the VMs, docker containers and to use git as a method of repo sharing.
+
+Use this option if you feel comfortable with git and if you are able to easily switch between the VMs.
+
+**Option 2**
+
+This option will have the user develop on the localhost:
+
+- The `transfer` command does a `rsync` between the localhost and remote host deploy repo. Therefore remotes are always in sync with local, uncommitted changes.
+- The user just needs to develop in one place, their localhost.
+- The user only needs to use git on the localhost since the remotes are synced.
+
+The issue are:
+
+- The user still has to manage remote docker containers for builds and launches.
+
+- A transfer for a small code change can be slow for the development workflow.
+
+    - Try using `--exclude=src/.git` to speed up the transfer.
+
+- The user might forget to do a `transfer` to the remote VM.
+
+- The `transfer` command can be limited by upload speed.
+
+**Option 3**
+
+This method seems to be very slow.
+
+You can try this option out for experimentation.
+
+* * *
+
 # Maintaining Docker Endpoints
 
 You now will have setup multiple docker images and containers on different endpoints.
@@ -164,106 +292,7 @@ You should now be able to run docker commands, for example `docker ps`.
 You should now be able to switch between the different docker endpoints using the docker context tool.
 
 **Things to keep in mind:**
+
 - The docker context commands are to be done on the localhost.
+
 - The docker context tool will switch the docker engine so that you do not have to ssh into the remote machine.
-
-**Example Use Cases**
-
-*Access a container on the remote Basestation Azure VM:*
-
--  Switch to the Azure Basestation docker context.
--  Then perform `docker-join`.
--  You will enter the container found on the remote Basestation Azure VM.
-
-# Remote Development Workflow Discussion
-
-You will want to setup development workflow on the remote VM. There are a few options available:
-
-**Option 1: Clone the repository directly on the remote host**
-
-This option will clone the deploy repository directly on the remote VM and develop as you would on the localhost. Then the user can use a remote desktop extension to develop or go directly in the vm and develop.
-
-- Use the `ansible` scripts to setup all the package dependencies and to clone the deploy repo on new VMs.
-
-**Option 2: Mount a remote filesystem using SFTP**
-
-This option will mount the deploy repo found on the localhost to a directory found on the remote VM.
-
-- This needs to be done only once when the VM starts up and the repositories will be kept in sync.
-
-- You will need to develop on the remote repository, not on the localhost deploy repository.
-
-Find your desktop's IP on the Azure VPN:
-
-- Go to Virtual network gateway
-- Go to Point-to-site configuration
-- See the Allocated IP addresses
-
-        # == ssh into your VM ==
-        ssh [VM username]@[private VM IP]
-
-        # Install sshfs
-        sudo apt-get install sshfs
-
-        # Create remote mount point on localhost
-        mkdir /vm1/mountpoint/path/
-
-        # Mount remote directory (desktop IP is found on Azure Portal VPN connections )
-        sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
-
-        # Setup a IDE on localhost with remote editing plugin
-        # Example: https://code.visualstudio.com/docs/remote/ssh
-
-        # Remove the remote mount on remote VM host
-        sudo umount /vm1/mountpoint/path/
-
-**Option 3: Deployer Transfer (manual rsync)**
-
-This option will copy the deploy repo to the remote VM directory.
-
-The transfer command does a `rsync` between the localhost and remote host deploy workspaces.
-
-- The transfer command references the setup in the `/etc/hosts` and in the `~/.ssh/config`. Please have those setup correctly.
-
-An example `transfer` command will have the following template format:
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # example: transfer to remote uav1 azure vm
-        ./deployer -s azure.uav1.transfer.to
-
-        # example: transfer to the remote ugv1 azure vm
-        ./deployer -s azure.ugv1.transfer.to
-
-        # example: transfer to remote basestation azure vm
-        ./deployer -s azure.basestation.transfer.to
-
-**Recommendation**
-
-There is no good option to choose. Remote development will be difficult to manage.
-
-- A possible recommendation is to use Option 1 and if that becomes inconvenient then try out Option 3.
-
-- The `transfer` command can be limited by upload range. On the initial VM setup, use Option 1 (since the deploy repo can be large).
-
-**Option 1:** Clone the repository directly on the remote host
-
-This will require the user to manually manage the VMs, docker containers and to use git as a method of repo sharing.
-Use this option if you feel comfortable with git and if you are able to easily switch between the VMs.
-
-**Option 2:** Mount a remote filesystem using SFTP
-
-This method seems to be very slow. You can try this out for experimentation.
-
-**Option 3:** Deployer Transfer (manual rsync)
-
-This option will have the user develop on the localhost. The `transfer` command does a `rsync` between the localhost and remote host deploy repo. So, the user only needs to use git on the localhost since the remotes are synced.
-
-The issue are:
-
-- The user still has to manage remote docker containers for builds and launches.
-
-- A transfer for a small code change can be slow for the development workflow.
-
-- The user might forget to do a `transfer` to the remote VM (there is the option available to transfer to a group of VMs, not just individual VM).

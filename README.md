@@ -144,7 +144,7 @@ This tutorial will setup the following:
   - Basestation: [`docs/azure-docker-basestation-setup.md`](docs/azure-docker-basestation-setup.md)
   - UGV: [`docs/azure-docker-ugv-setup.md`](docs/azure-docker-ugv-setup.md)
   - UAV: [`docs/azure-docker-uav-setup.md`](docs/azure-docker-uav-setup.md)
-  - Perception: [`docs/azure-docker-uav-setup.md`](docs/azure-docker-perception-setup.md)
+  - Perception: [`docs/azure-docker-perception-setup.md`](docs/azure-docker-perception-setup.md)
 
 These tutorials will setup the following:
 
@@ -186,34 +186,39 @@ These tutorials will setup the following:
 - Launch setups for different software stacks.
 - Launch setups for different scenarios (like simple localhost simulation, full Azure simulation, robot hardware, etc.).
 
-### 7. Updating Deploy Repos (Required)
-
-**Discussion at:** [`docs/tutorial-updating.md`](docs/tutorial-updating.md)
-
-- Discuss how to update a dockerfile
-- Discuss how to update submodules in deploy repo.
-
-### 8. Managing Endpoints (Optional)
+### 7. Managing Endpoints (Optional)
 
 **Discussion at:** [`docs/discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
 
 - Methods of managing multiple remote docker endpoints.
 - Remote development workflow.
 
-### 9. Tools and Issues (Optional)
+### 8. Updating Deploy Repos (Optional)
+
+**Discussion at:** [`docs/tutorial-updating.md`](docs/tutorial-updating.md)
+
+- Discuss how to update a dockerfile
+- Discuss how to update submodules in deploy repo.
+
+### 9. Operational Tools (Optional)
 
 **Discussion at:** [`docs/discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
 - Operational tools used in deploy, their function and their general syntax.
 - Helpful thidparty tools
-- Common questions
-- Known issues
 
 ### 10. More Tutorials (Optional)
 
 Some tutorials are not found on the readme, but on the deploy "wiki" page:
 
 - [Submodules: Getting Started Basics](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules)
+
+### 11. Common Questions and Issues (Optional)
+
+**Discussion at:** [`docs/discuss-questions-issues.md`](docs/discuss-questions-issues.md)
+
+- Common questions
+- Known issues
 
 * * *
 

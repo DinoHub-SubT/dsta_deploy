@@ -4,7 +4,9 @@
 
 ### 1. Building Docker Images
 
-Docker images install all the repository dependencies as *docker images*. The docker images will be built on the remote Azure VM.
+Docker install all the repository dependencies as *docker images*.
+
+- The docker images will be built on the remote Azure VM.
 
 **Perception Docker Image**
 

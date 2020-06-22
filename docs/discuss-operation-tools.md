@@ -1,6 +1,6 @@
-# Operational Tools Discussion and Issues
+# Operational Tools Discussion
 
-## Operational Tools & Utilities
+## About Operational Tools & Utilities
 
 There are a few operational tools available to use:
 
@@ -31,12 +31,33 @@ There are a few operational tools available to use:
   - automates installing dependencies and setting up systems.
 
 
-`ssh-connect-check`
+`check-ssh-connect`
 
   - tests ssh connection to hosts listed in the local `~/.ssh/config`
 
 ![Alt text](images/ssh-config-example.png?raw=true "Title")
 
+`check-teamviewer-connect`
+
+  - tests teamviewer connection to hosts listed in the local `~/.ssh/config`
+
+![Alt text](images/teamviewer-config-example.png?raw=true "Title")
+
+`cd-deploy`
+
+  - changes current directory to the top level deploy src path.
+
+## Thirdparty Tools
+
+**Some Helpful Tools For Remote Development**
+
+- Improving the shell experience: `zsh`, `oh-my-zsh`
+- Managing remote VM desktops: `rdp`, `teamviewer`
+- Managing launch setups: `tmux`, `byobu`
+- Remote desktop extensions on IDE, for example the [visual code plugin](https://code.visualstudio.com/docs/remote/remote-overview).
+- Managing docker endpoints tools: `docker context`, `docker machine`, `docker swarm`
+
+* * *
 
 ## Deployer Tool
 
@@ -105,27 +126,3 @@ To learn more what the command executes, use the `--verbose` or `-v` option with
 
         # preview and verbosely display all the commands that will be executed on the Azure VM
         ./deployer -s azure.ugv1 -p -v
-
-# Thirdparty Tools
-
-**Some Helpful Tools For Remote Development**
-
-- Improving the shell experience: `zsh`, `oh-my-zsh`
-- Managing remote VM desktops: `rdp`, `teamviewer`
-- Managing launch setups: `tmux`, `byobu`
-- Remote desktop extensions on IDE, for example the [visual code plugin](https://code.visualstudio.com/docs/remote/remote-overview).
-- Managing docker endpoints tools: `docker context`, `docker machine`, `docker swarm`
-
-# Common Questions
-
-- **When to re-build docker images?**
-
-    - When docker image does not exist on the host ( run `docker images` on the localhost or VM to verify)
-
-    - When new repository dependencies are added to dockerfiles (dockerfiles found in: `operations/deploy/docker/dockerfiles`)
-
-- **When to update dockerfiles?**
-
-    - You should make changes to dockerfiles when you want to need new to add dependencies for workspace repositories (example ros packages, linux packages, etc.). See the existing dockerfiles, found in: `operations/deploy/docker/dockerfiles`, for example dependencies.
-
-    - If you install a dependency in the container directly, remember to put it in the dockerfile and rebuild the docker image.

@@ -1,12 +1,8 @@
 # Deploy Workspaces
 
-The `deploy` workspace *maintains* all the `SubT` repositories as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
+The `deploy` workspace *maintains* all the `SubT` repositories as nested [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
 - Read the [deploy wiki page](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules) for a simple submodule tutorial review.
-
-## About Deploy Layout
-
-The deploy repos maintains all `SubT` repositories as nested submodules.
 
 Submodules has many advantages:
 
@@ -15,17 +11,8 @@ Submodules has many advantages:
 - intermediate submodule levels allow for easy, isolated group versioning.
 - submodules does not require learning a new toolset and provides user feedback from `git status`.
 
-**Commit Levels**
+## Layout
 
-The deploy repo is not flat hierarchy of submodules. It maintains a **3-commit level** groups of submodules as such:
-
-    deploy (meta-repo) [submodule]
-        intermediate-dir (meta-repo) [submodule]
-            module-dir  [submodule]
-
-**Layout**
-
-The full layout, with descriptions, is as such:
 
     deploy (meta-repo) [submodule]
 
@@ -73,7 +60,7 @@ The full layout, with descriptions, is as such:
                 laser_odometry (loam_velodyne_16, receive_xsens, velodyne_driver_16) will be outside docker
             hardware
                 *- should only be cloned when testing on robots
-                *- uses catkin profile to switch between hardware repositories to build
+                *- uses catkin profile to set which hardware repositories to build
 
         uav [submodule]
             * -- contains all repositories related to drone robots
@@ -89,22 +76,60 @@ The full layout, with descriptions, is as such:
             slam (example: camera, laser)
                 * - has user permission restrictions, cannot be cloned by everyone
 
+
+## Terminology
+
+**Commit Levels**
+
+The deploy repo maintains a **3-commit level** group of submodules:
+
+    deploy (meta-repo) [submodule]
+        intermediate-dir (meta-repo) [submodule]
+            module-dir  [submodule]
+
+**Meta-repo (submodule)**
+
+  - the top level is called a *meta-repo*
+  - the *meta-repo* is a submodule
+  - it will maintain a working version of the entire workspace
+  - the meta-repo level submodule repo will group working versions of **intermediate-repos**
+  - **an update to the meta-repo only requires one commit**: a commit is added at the *meta-repo* level.
+
+**Intermediate level directory (submodule)**
+
+  - the *intermediate-group-repo* is an intermediate level directory inside the *meta-repo*
+  - the intermediate level directory is a submodule
+  - the intermediate level submodule repo will group working versions of **module-repos**
+  - **an update to the intermediate level requires 2 commits:** a commit at the *intermediate level* and a commit at the *meta-repo* level.
+
+**Module-repo (submodule)**
+
+  - the *module-repo* is the lowest level directory repo, it is inside a *intermediate level*
+  - the *module-repo* are the actual algorithms being developed
+  - **an update to the module-repo level requires 3 commits:** a commit at the module-repo, a commit at the *intermediate level* and a commit at the *meta-repo* level.
+
+**Directory (non-submodule)**
+
+  - just a directory in any level
+  - an update to a directory commit depends on which `level` it is located in
+
 **Summary:**
 
 - The *deploy repository* is a 3-level commit layout
 - You will always need to do at least 3 commits, when making changes in the lowest level submodule.
-- Leverage the ability to create branches in intermediate-level submodules.
-    - git branches in the intermediate-levels will maintain independent development workflow and versioning.
+- Utilize the ability to create branches in intermediate-level submodules.
+    - git branches at the intermediate-levels will maintain independent development workflow and versioning.
 
 * * *
 
 ## Tutorial: Localhost Deploy Workspace Setup
 
-### About
 
 This tutorial will walk you through on how to manually clone all the submodules.
 
-- These steps can be automated, however it will be good practice to try it manually in order to become familiar with submodules and the deploy repository layout.
+- These steps can be automated, however it will be good practice to try it out manually once in order to become familiar with submodules and the deploy repository layout.
+
+If you have any errors cloning the submodules, notify the maintainer.
 
 **Basic Information**
 
@@ -112,23 +137,21 @@ This tutorial will walk you through on how to manually clone all the submodules.
 
     - You must manually clone the submodules.
 
-- You must decide which *submodule level groups* to clone.
+- You must decide which *submodule level* to clone.
 
-- Some submodule have user permission restrictions.
+- Some submodules have user permission restrictions.
     - You do not need to clone these repositories, unless you are doing active development on them.
-    - Please notifier the maintainer to give you permission to access the restricted repositories.
+    - **If you need these repos, please notifier the maintainer to give you permission to access the restricted repositories.**
 
 **List of restricted permission repositories:**
 
-    ugv/slam/laser_odometry
+- `ugv/slam/laser_odometry`
+- `ugv/slam/online_pose_graph`
 
-- If you have any errors cloning the submodules, notify the maintainer.
 
 ### Required submodules
 
 These are the required submodules that must be cloned by every user.
-
-Please perform the following:
 
 **Clone the operations submodules**
 
@@ -255,9 +278,17 @@ Please perform any of the following:
 
 * * *
 
-## Fixing Submodules Issues
+## Updating Submodules
 
-**sync submodule with remote:**
+**Re-clone submodules:**
+
+    # get the latest update
+    git pull origin [feature branch name]
+
+    # re-clone the submodules
+    git submodule update --recursive --init [ submodule name ]
+
+**Sync submodule with remote:**
 
     git submodule sync [ submodule name ]
 
@@ -277,7 +308,9 @@ To remove a submodule-level, use the `deinit` command.
     # example, removing all ugv submodules locally
     git submodule deinit -f ugv
 
-**Example, remove part of an intermediate-level:**
+**Example, partly remove modules in an intermediate-level:**
+
+To remove only the ugv hardware repos:
 
     # go to the ugv, intermediate-level submodule
     # -- you must be inside the intermediate-level directory:

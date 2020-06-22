@@ -226,3 +226,4 @@ If you find the `transfer.to` is too slow or missing files during a transfer, yo
 You can edit the option: `deploy_rsync_opts`
 
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
