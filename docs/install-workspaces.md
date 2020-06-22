@@ -1,19 +1,19 @@
-# Deploy Workspace
+# Deploy Workspaces
 
 The `deploy` workspace *maintains* all the `SubT` repositories as [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
-- Read the [deploy wiki page](https://docs.google.com/document/d/19dcKAV1WZBrLasjQ-4Nt33Ggk4_YhLD_ObwR3hpoXnA/edit?usp=sharing) for a simple submodule tutorial review.
+- Read the [deploy wiki page](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules) for a simple submodule tutorial review.
 
 ## About Deploy Layout
 
 The deploy repos maintains all `SubT` repositories as nested submodules.
 
-Submodules has many advantages and disadvantages. The reason for submodule selection includes the following:
+Submodules has many advantages:
 
 - submodules provide the ability to maintain a snapshot of repositories.
 - submodule allow for easy, isolate versioning.
 - intermediate submodule levels allow for easy, isolated group versioning.
-- submodules do not require new toolsets and provide user feedback from `git status`.
+- submodules does not require learning a new toolset and provides user feedback from `git status`.
 
 **Commit Levels**
 
@@ -259,8 +259,7 @@ Please perform any of the following:
 
 **sync submodule with remote:**
 
-    git submodule synch [ submodule (either intermediate level or module level) ]
-
+    git submodule sync [ submodule name ]
 
 ## Removing Submodules
 
@@ -268,7 +267,7 @@ To remove a submodule-level, use the `deinit` command.
 
 **Command template:**
 
-    git submodule deinit -f [ submodule (either intermediate level or module level) ]
+    git submodule deinit -f [ submodule name ]
 
 **Example, remove entire intermediate-level:**
 
