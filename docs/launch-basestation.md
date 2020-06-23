@@ -48,7 +48,7 @@ If you are using an Azure VM, remember to remote-desktop into the VM first.
 If you are not using docker containers, you may skip this step.
 
         # enter the docker shell container on your local laptop host or Azure VM host
-        docker-join.bash --name gui-shell
+        docker-join.bash --name basestation-cpu-shell
 
 ### 4. Launch Basestation
 

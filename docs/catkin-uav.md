@@ -214,7 +214,7 @@ You should now have a built `UAV` workspace.
 
 ## Helpful Tips
 
-You can transfer changes on your localhost to the remote:
+You can transfer changes from your localhost to the remote:
 
         # uav transfer.to command
         ./deployer -r azure.uav1.transfer.to

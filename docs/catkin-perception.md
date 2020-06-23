@@ -165,7 +165,7 @@ You should now have a built `perception` workspace.
 
 ## Helpful Tips
 
-You can transfer changes on your localhost to the remote:
+You can transfer changes from your localhost to the remote:
 
         # perception transfer.to command
         ./deployer -r azure.perception1.transfer.to

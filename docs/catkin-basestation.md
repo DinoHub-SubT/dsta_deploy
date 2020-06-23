@@ -160,7 +160,7 @@ You should now have a built `basestation` workspace.
 
 ## Helpful Tips
 
-You can transfer changes on your localhost to the remote:
+You can transfer changes from your localhost to the remote:
 
         # basestation transfer.to command
         ./deployer -r azure.basestation.transfer.to
