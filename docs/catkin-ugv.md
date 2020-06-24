@@ -21,10 +21,10 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         ./deployer -r azure.ugv1.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.ugv1.caktin.clean
+        ./deployer -r azure.ugv1.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.ugv1.caktin.build
+        ./deployer -r azure.ugv1.catkin.build
 
 - Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
 

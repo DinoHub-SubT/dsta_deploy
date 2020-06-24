@@ -1,4 +1,4 @@
-# About Managing Endpoints
+# Maintaining Endpoints
 
 If you have completed the full tutorial, you will end up with multiple endpoints and endpoint types.
 
@@ -144,24 +144,14 @@ You can try this option out for experimentation.
 
 * * *
 
-# Maintaining Docker Endpoints
+## Maintaining Docker Endpoints
 
-You now will have setup multiple docker images and containers on different endpoints.
-
-You can manage docker on the different endpoints using the tool `docker context`.
-
-**Endpoints are defined as:**
-
-- Localhost
-- Robot Computers
-- Azure VMs
-
-## Docker Context Tutorial
-
-**Things to keep in mind:**
+**Things to keep in mind**
 
 - All commands are to be performed on the localhost.
 - Requires Azure VM access for the below examples.
+
+### Docker Context Tutorial
 
 **1. View available docker context commands**
 
@@ -182,6 +172,7 @@ You can manage docker on the different endpoints using the tool `docker context`
         # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
 
 **Things to know:**
+
 - The default context is the docker engine found on the localhost.
 - When on the default docker context, you will see all the docker images and containers created on your localhost.
 
@@ -229,6 +220,7 @@ You can manage docker on the different endpoints using the tool `docker context`
         docker images
 
 **Things to know:**
+
 - You have now switched to use the docker engine on the remote Azure Basestation VM.
 - When on this example basestation docker context, you will see all the docker images and containers created on the remote Azure Basestation VM.
 
@@ -255,9 +247,9 @@ You can manage docker on the different endpoints using the tool `docker context`
         # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
         # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
 
-## Issues
+### Issues
 
-### Docker Commands Not Responding
+**Docker Commands Not Responding**
 
 If you leave the `docker context` pointing to a connection that is not accesible, then all docker commands will not respond.
 
@@ -287,11 +279,11 @@ Manual changes to docker config files are needed to get out of the error state:
 
 You should now be able to run docker commands, for example `docker ps`.
 
-## Summary
+### Summary
 
 You should now be able to switch between the different docker endpoints using the docker context tool.
 
-**Things to keep in mind:**
+**Things to keep in mind**
 
 - The docker context commands are to be done on the localhost.
 

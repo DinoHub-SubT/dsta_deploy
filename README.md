@@ -45,6 +45,10 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
   - If you plan on running on Azure, you will access to the `SubT` Azure resource.
       - Please notify the maintainer for creating user accounts.
 
+**7. Localhost disk space requirement**
+
+  - The deploy repo can become large in size. Please have at least 30 GB available on your localhost.
+
 ## SSH Keys
 
 **Bitbucket SSH Keys**
@@ -65,6 +69,19 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
     - Replace `<USER-NAME>` with your actual username
 
 - Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
+
+- Add the ssh bitbucket key to your localhost ssh config file:
+
+        # create (if not created) ssh config file
+        touch ~/.ssh/config
+
+        # open the ssh config file
+        gedit ~/.ssh/config
+
+        # Add the following to the top of the config file:
+        IdentityFile ~/.ssh/bitbucket
+
+        # exit the ssh config file
 
 ## Deploy Repository
 

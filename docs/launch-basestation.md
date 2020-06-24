@@ -5,7 +5,7 @@
 ### 1. Azure Access
 
         # ssh into the remote VM. Example:
-        ssh azure.ugv1
+        ssh azure.basestation
 
         # view teamviewer info
         sudo teamviewer info

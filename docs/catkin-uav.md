@@ -21,10 +21,10 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         ./deployer -r azure.uav1.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.uav1.caktin.clean
+        ./deployer -r azure.uav1.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.uav1.caktin.build
+        ./deployer -r azure.uav1.catkin.build
 
 - Please change the robot name `uav1` to whichever Azure robot VM you are building on.
 
