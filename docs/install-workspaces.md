@@ -272,7 +272,7 @@ Please perform any of the following:
     git status
 
     # checkout the git-lfs files
-    cd uav/sim/subt_gazebo
+    cd simulation/subt_gazebo
     git lfs fetch
     git lfs pull
 
