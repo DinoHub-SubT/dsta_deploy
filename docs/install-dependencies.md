@@ -189,6 +189,27 @@ Install the following third-party cloud provisioning operational tools.
         sudo apt-get update
         sudo apt-get install azure-cli
 
+### Azcopy
+
+        # download azcopy
+        # - the wget command should take only a few seconds to download.
+        # - if the wget command does not work or takes too long, put the https link in your browser and download it to your preferred path
+        cd /tmp/
+        wget -O azcopy_v10.tar.gz https://aka.ms/downloadazcopy-v10-linux && tar -xf azcopy_v10.tar.gz --strip-components=1
+
+        # remove any previous azcopy versions
+        # -- continue with the instructions, even if you see `rm: cannot remove '/usr/bin/azcopy': No such file or directory`
+        sudo rm /usr/bin/azcopy
+
+        # move azcopy to bin path
+        sudo cp azcopy /usr/bin/
+
+        # add execution permissions
+        sudo chmod +x /usr/bin/azcopy
+
+        # remove downloaded azcopy
+        rm azcopy azcopy_v10.tar.gz
+
 ### Terraform
 
         # Dependencies
@@ -247,6 +268,9 @@ Verify you have all the third-party operations tools installed correctly:
 
         # verify azure cli
         az --help
+
+        # verify azcopy
+        azcopy -v
 
         # teamviewer client for remote VM desktop access
         teamviewer --help
