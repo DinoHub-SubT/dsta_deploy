@@ -94,12 +94,16 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
 **2. Clone the deploy repo *(please follow these instructions exactly)* :**
 
+        # clone & install deploy
         mkdir ~/deploy_ws/
         cd ~/deploy_ws/
         git clone git@bitbucket.org:cmusubt/deploy.git src
         cd src
         git checkout feature/launch-restructure
         ./install-deployer.bash --install
+
+        # source your bashrc (or zhsrc, whichever shell you use)
+        source ~/.bashrc
 
 - Notify the maintainer if cloning or installing the deploy repository failed.
 

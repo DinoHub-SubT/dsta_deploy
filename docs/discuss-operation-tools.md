@@ -30,22 +30,75 @@ There are a few operational tools available to use:
   - command interface to interact with `ansible playbooks` found in `operations/deploy/robotbooks/`
   - automates installing dependencies and setting up systems.
 
-
 `check-ssh-connect`
 
   - tests ssh connection to hosts listed in the local `~/.ssh/config`
 
-![Alt text](images/ssh-config-example.png?raw=true "Title")
+  - **Example output**:
+
+          # //////////////////////////////////////////////////////////////////////////////
+          # == Testing SSH Connection ==
+          # //////////////////////////////////////////////////////////////////////////////
+
+          ugv1.ppc              FAIL
+          ugv1.nuc              FAIL
+          ugv1.xavier           FAIL
+          azure.basestation     OK.
+          azure.ugv1            OK.
+          azure.ugv2            FAIL
+          azure.ugv3            FAIL
+          azure.uav1            OK.
+          azure.uav2            FAIL
+          azure.uav3            FAIL
+          azure.uav4            FAIL
+          azure.perception1     FAIL
 
 `check-teamviewer-connect`
 
   - tests teamviewer connection to hosts listed in the local `~/.ssh/config`
 
-![Alt text](images/teamviewer-config-example.png?raw=true "Title")
+  - **Example output**:
 
-`cd-deploy`
+          # //////////////////////////////////////////////////////////////////////////////
+          # == Testing SSH Connection ==
+          # //////////////////////////////////////////////////////////////////////////////
+
+          ugv1.ppc              FAIL
+          ugv1.nuc              FAIL
+          ugv1.xavier           FAIL
+          azure.basestation     1713206669
+          azure.ugv1            1714515085
+          azure.ugv2            FAIL
+          azure.ugv3            FAIL
+          azure.uav1            1710017259
+          azure.uav2            FAIL
+          azure.uav3            FAIL
+          azure.uav4            FAIL
+          azure.perception1     FAIL
+
+`deploy-cd`
 
   - changes current directory to the top level deploy src path.
+
+`deploy-azure-limits-eastus`
+
+  - shows vCPUs limits for *East US* region
+
+  - **Example output**:
+
+          Total Regional vCPUs  995  1000
+
+`deploy-azure-limits-eastus2`
+
+  - shows vCPUs limits for *East US 2* region
+
+  - **Example output**:
+
+          Total Regional vCPUs  31  350
+
+`deploy-vpn-ca-cert`
+
+  - outputs the `caCert` with the following command: `openssl x509 -in caCert.pem -outform der | base64 -w0 ; echo`
 
 ## Thirdparty Tools
 
