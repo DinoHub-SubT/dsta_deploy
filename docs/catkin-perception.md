@@ -6,27 +6,11 @@ Setting up the catkin workspace for the Perception workspaces requires using the
 
 Assuming you have already setup all your perception docker containers, follow the instructions below to setup the perception catkin workspace.
 
-## UAV Perception Catkin Workspaces
+## Azure CPU VM
 
-### Automated Catkin Build, Azure GPU VM
+If you **have not enabled** the GPU on the remote perception Azure VM, then follow these instructions.
 
-Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        ./deployer -r azure.perception1.gpu.docker.shell
-
-        # clean the previous built workspaces
-        ./deployer -r azure.perception1.gpu.catkin.clean
-
-        # catkin build the UGV workspaces
-        ./deployer -r azure.perception1.gpu.catkin.build
-
-- Please change the robot name `perception1` to whichever Azure robot VM you are building on.
-
-### Automated Catkin Build, Azure CPU VM
+### Automated Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
@@ -47,8 +31,6 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 ### Manual Catkin Build
 
 #### 1. Access Docker Container (optional)
-
-**If you are not using docker containers, you may skip this step.**
 
 **If you are using an Azure VM, remember to ssh into the VM first.**
 
@@ -137,17 +119,36 @@ The subt launch catkin workspace contains a centralized top-level launch.
         # exit the container
         exit
 
+
+## Azure GPU VM
+
+### Automated Catkin Build
+
+Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the docker shell on the remote host
+        ./deployer -r azure.perception1.gpu.docker.shell
+
+        # clean the previous built workspaces
+        ./deployer -r azure.perception1.gpu.catkin.clean
+
+        # catkin build the UGV workspaces
+        ./deployer -r azure.perception1.gpu.catkin.build
+
+- Please change the robot name `perception1` to whichever Azure robot VM you are building on.
+
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
         # stop the running containers
-        docker stop perception-cpu-shell
-        docker stop perception-gpu-shell
+        docker stop perception-cpu-shell perception-gpu-shell
 
         # remove the containers
-        docker rm perception-cpu-shell
-        docker rm perception-gpu-shell
+        docker rm perception-cpu-shell perception-gpu-shell
 
 - The above steps will remove the containers.
 
