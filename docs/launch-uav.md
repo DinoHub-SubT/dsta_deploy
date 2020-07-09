@@ -23,27 +23,6 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
-### 2. Verify Communication Manager Connection
-
-Please verify you have setup the azure vm communication manager connection IPs
-
-        # ssh into the remote VM (if not already logged in)
-        ssh azure.uav1
-
-        # open the communication manager config
-        gedit ~/deploy_ws/src/common/communication_manager/config/USER_QOS_PROFILES.xml
-
-        # make sure the IPs are added to every 'initial_peers' tag:
-
-        <element>10.3.1.1</element>
-        <element>10.3.1.11</element>
-        <element>10.3.1.12</element>
-        <element>10.3.1.13</element>
-        <element>10.3.1.51</element>
-        <element>10.3.1.52</element>
-        <element>10.3.1.53</element>
-        <element>10.3.1.54</element>
-
 ### 3. Launch UAV Simulation
 
 If you are using an Azure VM, you need to run these commands using remote-desktop or teamviewer.
