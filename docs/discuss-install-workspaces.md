@@ -122,10 +122,10 @@ The deploy repo maintains a **3-commit level** group of submodules:
 
 * * *
 
-## Tutorial: Localhost Deploy Workspace Setup
+## Tutorial: Initial Localhost Deploy Clone
 
 
-This tutorial will walk you through on how to manually clone all the submodules.
+This tutorial will walk you through on how to manually clone the deploy repo and all its submodules.
 
 - These steps can be automated, however it will be good practice to try it out manually once in order to become familiar with submodules and the deploy repository layout.
 
@@ -278,12 +278,12 @@ Please perform any of the following:
 
 * * *
 
-## Updating Submodules
+## Useful Git Commands
 
 **Re-clone submodules:**
 
     # get the latest update
-    git pull origin [feature branch name]
+    git pull origin [ feature branch name ]
 
     # re-clone the submodules
     git submodule update --recursive --init [ submodule name ]
@@ -292,11 +292,9 @@ Please perform any of the following:
 
     git submodule sync [ submodule name ]
 
-## Removing Submodules
+**Removing Submodules**
 
 To remove a submodule-level, use the `deinit` command.
-
-**Command template:**
 
     git submodule deinit -f [ submodule name ]
 

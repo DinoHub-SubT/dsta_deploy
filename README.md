@@ -127,7 +127,6 @@ Please have a basic understanding of the following the operational tools:
 
 * * *
 
-
 # Getting Started: Tutorials
 
 The below instructions should get you started on a basic `SubT` setup locally or on Azure.
@@ -136,13 +135,13 @@ You will need to go through a few tutorials to have a working system.
 
 ### 1. Install Third-Party Tool (Required)
 
-**Tutorial at:** [`docs/install-dependencies.md`](docs/install-dependencies.md)
+**Tutorial at:** [`docs/discuss-install-dependencies.md`](docs/discuss-install-dependencies.md)
 
 - Installs thirdparty tools (`docker, ansible, terraform,` etc.) required to setup deploy.
 
 ### 2. Clone Workspaces (Required)
 
-**Tutorial at:** [`docs/install-workspaces.md`](docs/install-workspaces.md)
+**Tutorial at:** [`docs/discuss-install-workspaces.md`](docs/discuss-install-workspaces.md)
 
 - Installs the `SubT` repositories for all `catkin` workspaces.
 
@@ -216,7 +215,7 @@ These tutorials will setup the following:
 
 ### 8. Updating Deploy Repos (Optional)
 
-**Discussion at:** [`docs/tutorial-updating.md`](docs/tutorial-updating.md)
+**Discussion at:** [`docs/discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
