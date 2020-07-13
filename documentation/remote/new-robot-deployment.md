@@ -1,58 +1,76 @@
-# New System Deployment
+# New Robot Deployment
 
-## Robot
+**Table Of Contents**
 
-### Overview
+[TOC]
 
-During any remote deployment, **always remember to transfer the deploy workspace** from the basestation to the remote robot.
+## Overview
+
+During any remote deployment, **always remember** to **transfer the deploy workspace from the basestation to the robot**.
 
 - There are different robot & robot-computer configuration available.
 
-    Deploy       | Available
-    ------------- | -------------
-    robots | r1, r2
-    computers | planning-pc, nuc, xavier
+    Workspaces       | Computer | Robot
+    ------------- | -------------| -------------
+    planning | planning-pc, nuc | r1, r2
+    state estimation | nuc | r1, r2
+    perception | nuc, xavier | r1, r2
 
-#### Setup SSH Keys
 
-**Setup Bitbucket SSH Keys**
+## Install Docker on the Robot
 
-- Generate ssh keys
+Follow the [docker install](#markdown-header-install-docker) instructions:
 
-        mkdir -p ~/.ssh/
-        cd ~/.ssh/
-        ssh-keygen
+  - **Do not** follow the *Install Nvidia Docker*. Only follow the basic docker install instructions.
 
-    - Please answer the prompts from `ssh-keygen` as shown below:
-        
-            Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
-            Enter passphrase (empty for no passphrase):
+  - internet access required.
 
-    - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
-    - **Docker will not build successfully if you have a passphrase.**
-    - Please replace `<USER-NAME>` with your actual username
+Once installed once, you do not need to install again.
 
-- Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
+## SSH Keys
 
-**Setup Deploy SSH Keys**
+Robots require two types of keys for deployment:
 
-- Generate ssh keys
+1. **Deploy SSH Keys**
+   - Create a ssh key between the robot computers, to allow the deployer ssh password-less access. Call these keys `deploy`.
 
-        cd ~/.ssh/
-        ssh-keygen
+   - Generate ssh keys
 
-    - Please answer the prompts from `ssh-keygen` as shown below:
-        
-            Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/deploy
-            Enter passphrase (empty for no passphrase):
+           cd ~/.ssh/
+           ssh-keygen
 
-    - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
-    - **Deployer will not run successfully if you have a passphrase.**
-    - Please replace `<USER-NAME>` with your actual username
+       - Please answer the prompts from `ssh-keygen` as shown below:
+           
+               Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/deploy
+               Enter passphrase (empty for no passphrase):
 
-- Add the generated public key to robot's other computers to allow the deployer to have password-less ssh access.
+       - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
+       - **Deployer will not run successfully if you have a passphrase.**
+       - Please replace `<USER-NAME>` with your actual username
 
-### Choosing the Deployment
+   - Add the generated public key to robot's other computers' `~/.ssh/authorized_keys` to allow the deployer to have password-less ssh access.
+
+2. **Bitbucket SSH Keys**
+
+   - Generate ssh keys
+
+           mkdir -p ~/.ssh/
+           cd ~/.ssh/
+           ssh-keygen
+
+       - Please answer the prompts from `ssh-keygen` as shown below:
+           
+               Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
+               Enter passphrase (empty for no passphrase):
+
+       - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
+       - **Docker will not build successfully if you have a passphrase.**
+       - Please replace `<USER-NAME>` with your actual username
+
+   - Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
+
+
+## Choosing the Deployment
 
 **Follow the instructions:**
 
@@ -61,6 +79,8 @@ During any remote deployment, **always remember to transfer the deploy workspace
 
 - [remote deploy](#markdown-header-remote-deploy)
     - if you are deploying *over the basestation*.
+
+Please do not do local deployment on robot, except **only if necessary**. Please see *update-robot-deployment* to do deployment over the basestation instead.
 
 ### Local Deploy
 
@@ -198,7 +218,7 @@ These instructions assume that you have already build the basestation deploy wor
 
         ./deployer -s [robot].[computer].transfer.to
 
-    - if no remote configuration yaml is setup, notify the [maintainer](#markdown-header-who-do-i-talk-to)
+    - if no remote configuration yaml is setup, notify the [maintainer](../maintainer.md)
 
 - Build the subt docker images on the robot:
 
@@ -227,58 +247,57 @@ These instructions assume that you have already build the basestation deploy wor
 
 - Start launch:
 
-    - Desktop launch icons available **on the basestation**:
+  - Desktop launch icons available **on the basestation**:
 
-            # start the tmux session, for corresponding robot-computer
-            [robot]_[computer]_start.desktop
+          # start the tmux session, for corresponding robot-computer
+          [robot]_[computer]_start.desktop
 
-        - If not available notify the [maintainer](#who-do-i-talk-to).
+      - If not available notify the [maintainer](#who-do-i-talk-to).
 
-    - Manual launch:
+  - Manual launch:
 
-            # start the tmux session, for corresponding robot-computer
-            ./deployer -s [robot].[computer].launch.start
+          # start the tmux session, for corresponding robot-computer
+          ./deployer -s [robot].[computer].launch.start
 
 - Verify launch:
 
-      - Desktop icon launch:
-      
-        - a tmux session should be started.
+    - Desktop icon launch:
+    
+      - a tmux session should be started.
 
-    - Manual launch:
+  - Manual launch:
 
-            # enter the docker container on the robot-computer
-            docker-join
+          # enter the docker container on the robot-computer
+          docker-join
 
-            # list the available tmux sessions
-            tmux list-sessions
+          # list the available tmux sessions
+          tmux list-sessions
 
-            # enter the specified tmux session
-            tmux a -t [name-of-session]
+          # enter the specified tmux session
+          tmux a -t [name-of-session]
 
 - Stop launch:
+  - Desktop icon launch:
 
-    - Desktop icon launch:
+          # stop the tmux session, for corresponding robot-computer
+          [robot]_[computer]_stop.desktop
 
-            # stop the tmux session, for corresponding robot-computer
-            [robot]_[computer]_stop.desktop
+      - If not available notify the [maintainer](#who-do-i-talk-to).
 
-        - If not available notify the [maintainer](#who-do-i-talk-to).
+  - Manual launch:
 
-    - Manual launch:
-
-            # start the tmux session, for corresponding robot-computer
-            ./deployer -s [robot].[computer].launch.stop --local
+          # start the tmux session, for corresponding robot-computer
+          ./deployer -s [robot].[computer].launch.stop --local
 
 #### Cleanup
 
 - Stop the docker container when turning off the robot:
 
-    - Desktop icon launch:
+  - Desktop icon launch:
 
-            # stop the tmux session, for corresponding robot-computer
-            [robot]_[computer]_stop.desktop
+          # stop the tmux session, for corresponding robot-computer
+          [robot]_[computer]_stop.desktop
 
-    - Manual launch:
+  - Manual launch:
 
-            ./deployer -s [robot].[computer].docker.stop
+          ./deployer -s [robot].[computer].docker.stop
