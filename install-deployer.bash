@@ -23,7 +23,7 @@ exit_success() { exit 0; }
 exit_failure() { exit 1; }
 print_error() { echo -e "$RED$1 $DEFCOL\n"; }
 validate() { if [ $? -ne 0 ]; then print_error "$1"; exit_failure; fi; }
-DEPLOYER_SCRIPTS_PATH="/operations/deploy/scripts/deployer_scripts/"
+DEPLOYER_SCRIPTS_PATH="/operations/deploy/deployer/"
 
 # //////////////////////////////////////////////////////////////////////////////
 SRC_DIR=$(pwd)

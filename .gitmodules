@@ -8,7 +8,7 @@
 	path = operations/deploy/docker
 	url = git@bitbucket.org:cmusubt/deploy_docker.git
 [submodule "operations/deploy/scripts/deployer_scripts"]
-	path = operations/deploy/scripts/deployer_scripts
+	path = operations/deploy/deployer
 	url = git@bitbucket.org:cmusubt/ci_phase.git
 [submodule "operations/deploy/setup/ugv_setup"]
 	path = operations/utils/ugv_setup
