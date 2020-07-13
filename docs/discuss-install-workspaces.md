@@ -18,6 +18,28 @@ Submodules has many advantages:
 
         operations [submodule]
             * -- contains all operations configurations such as: azure, docker, ansible installs, deployment scripts, etc.
+            deploy/
+                azurebooks
+                    * -- contains terraform configurations files for Azure resources setup.
+                deployerbooks
+                    * -- contains deployer yaml configuration files for automating system deployment
+                deployer
+                    * -- deployer execution scripts
+                docker
+                    * -- contains dockerfiles, docker-compose for setting docker images & containers on different systems
+                robotbooks
+                    * -- contains ansible scripts for automating system package & configuration installs on different systems
+                scenarios
+                    * -- environment files for exporting environment variables used for configuring docker-compose & deployer scripts
+            field_testing
+                *-- snapshot logfiles created during field testing
+            utils
+                sysadmin
+                    *-- helpful all-purpose utility scripts. Scripts are automatically sourced so that they used from any path.
+                robot-configurations
+                    *-- passive configuration reference files
+                ugv_setup
+                    *-- robot configuration scripts (ugv specific)
 
         common [submodule]
             * -- contains repositories that are common between basestation, ugv, uav repos
@@ -76,7 +98,6 @@ Submodules has many advantages:
             slam (example: camera, laser)
                 * - has user permission restrictions, cannot be cloned by everyone
 
-
 ## Terminology
 
 **Commit Levels**
@@ -131,7 +152,7 @@ This tutorial will walk you through on how to manually clone the deploy repo and
 
 If you have any errors cloning the submodules, notify the maintainer.
 
-**Basic Information**
+**Pre-Requisite Information**
 
 - When you clone the deploy repository, the submodules will not be cloned by default.
 
@@ -148,10 +169,36 @@ If you have any errors cloning the submodules, notify the maintainer.
 - `ugv/slam/laser_odometry`
 - `ugv/slam/online_pose_graph`
 
-
 ### Required submodules
 
 These are the required submodules that must be cloned by every user.
+
+There are two ways to clone the deploy submodules:
+
+- Manually clone uses the `git submodule` api. There are more steps the users must perform.
+- Automated clone uses the `deployer` api. There are fewer steps the user does, but deployer api hides all details on how to clone.
+
+#### Automated Clone
+
+**Clone the operations submodules**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+    ./deployer -s local.git.head.operations
+
+**Clone the common submodules**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+    ./deployer -s local.git.head.common
+
+**Clone the central launch submodule**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+    ./deployer -s local.git.head.subt_launch
+
+#### Manual Clone
 
 **Clone the operations submodules**
 
@@ -189,7 +236,82 @@ These are the required submodules that must be cloned by every user.
 
 These are optional submodules, that are to be cloned depending on the user's development.
 
-Please perform any of the following:
+There are two ways to clone the deploy submodules:
+
+- Manually clone uses the `git submodule` api. There are more steps the users must perform.
+- Automated clone uses the `deployer` api. There are fewer steps the user does, but deployer api hides all details on how to clone.
+
+#### Automated Clone
+
+**Basestation**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+    ./deployer -s local.git.head.basestation
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/basestation
+    git status
+
+**UGV (ground robots)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories (planning-pc, nuc)
+    ./deployer -s local.git.head.ugv.ppc
+    ./deployer -s local.git.head.ugv.nuc
+
+    # (optional) clone the hardware repositories
+    ./deployer -s local.git.head.ugv.hardware
+
+    # (optional) clone the slam repositories (slam development repos)
+    ./deployer -s local.git.head.ugv.slam.dev
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/ugv
+    git status
+
+**UAV (drone robots)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories (core)
+    ./deployer -s local.git.head.uav.core
+
+    # (optional) clone the hardware repositories
+    ./deployer -s local.git.head.uav.hardware
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/uav
+    git status
+
+**Perception (object detection)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories
+    ./deployer -s local.git.head.perception
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/perception
+    git status
+
+**Simulation (gazebo, ignition)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories
+    ./deployer -s local.git.head.simulation
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/simulation
+    git status
+
+#### Manual Clone
 
 **Basestation**
 
@@ -226,7 +348,6 @@ Please perform any of the following:
 
     # check the git status (please do this step and wait until command is completed)
     git status
-
 
 **UAV (drone robots)**
 
@@ -279,6 +400,60 @@ Please perform any of the following:
 * * *
 
 ## Useful Git Commands
+
+#### Automated Clone
+
+There are a few automated git submodule options using the deployer api.
+
+**Update Submodules (example, simulation)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/simulation
+
+    # checkout a different branch
+    git checkout [simulation's branch name]
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # updates the intermediate-level submodule (simulations) with the branch's submodules
+    ./deployer -s local.git.update.simulation
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/simulation
+    git status
+
+- Update clones the submodules that correspond to the checked-out branch in the intermediate-level repos.
+
+**Initialize Submodules (example, simulation)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories
+    ./deployer -s local.git.init.simulation
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/simulation
+    git status
+
+- Initialize does not clone the submodules, it just initializes the intermediate-level repos.
+
+**Deinitialize Submodules (example, simulation)**
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # (required) clone the core repositories
+    ./deployer -s local.git.deinit.simulation
+
+    # check the git status (please do this step and wait until command is completed)
+    cd ~/deploy_ws/src/simulation
+    git status
+
+- Deinitialize removes all local clones of deploy's submodule on the intermediate-level repos
+
+#### Manual Clone
 
 **Re-clone submodules:**
 
