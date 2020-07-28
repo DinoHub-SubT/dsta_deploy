@@ -10,9 +10,25 @@ Follow the instructions below to setup the UAV catkin workspace.
 
 ## UAV Simulation Catkin Workspaces
 
+### Apply UAV Firmware Patch
+
+Follow this step, **on the localhost**, not on the Azure remote VM.
+
+You only need to apply the firmware patch once, on a fresh clone:
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # apply firmware patch
+        ./deployer -s local.uav.patch
+
+- This will apply an update to the `cmake` files found in `~/deploy_ws/src/uav/core/Firmware`
+
+This is a temporary fix, a permanent solution will be investigated.
+
 ### Automated Catkin Build
 
-Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
+Follow this step, **on the localhost**, not on the Azure remote VM.
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -22,6 +38,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
         # clean the previous built workspaces
         ./deployer -r azure.uav1.catkin.clean
+
+        # build the PX4 firmware
+        ./deployer -r azure.uav1.px4_firmware
 
         # catkin build the UGV workspaces
         ./deployer -r azure.uav1.catkin.build
@@ -66,48 +85,13 @@ The common catkin workspace sets up default `cmake` options.
 
 #### 3. Build UAV Dependencies
 
-The UAV simulation workspace requires manual code changes to thirdparty files.
-
-        # go to px4 firmware repo
-        cd ~/deploy_ws/src/uav/core/Firmware
-
-        # remove cmake error flags
-        gedit cmake/px4_add_common_flags.cmake
-
-        # remove line 72:
-        # -Werror       <--- remove this line
-
-        # change invalid define boolean value
-        gedit Tools/sitl_gazebo/include/gazebo_opticalflow_plugin.h
-
-        # change line 43: with uppercase 'TRUE'
-        #define HAS_GYRO TRUE <--- original line
-
-        # To: with lowercase 'true'
-        #define HAS_GYRO true <--- modified line
-
-The UAV simulation workspace requires building non-catkin dependencies.
+The UAV simulation workspace requires building non-catkin thirdparty dependencies.
 
         # go to px4 firmware repo
         cd ~/deploy_ws/src/uav/core/Firmware
 
         # build the px4 firmware
         DONT_RUN=1 make px4_sitl_default gazebo
-
-        # change to root user
-        sudo su
-
-        # build mavros
-        cd ../mavros/mavros/scripts
-        ./install_geographiclib_datasets.sh
-
-        # exit root user
-        exit
-
-**Helpful Tip:** You can do these changes on your localhost and transfer the changes to the remote:
-
-        # uav transfer.to command
-        ./deployer -r azure.uav1.transfer.to
 
 #### 4. Build UAV Catkin Workspace
 
@@ -122,7 +106,7 @@ The `uav` catkin workspaces sets up default `cmake` options.
         catkin profile list
 
         # set the catkin profile
-        catkin profile set uav
+        catkin profile set uav-sim
 
         # view catkin and cmake configuration
         catkin config
