@@ -159,12 +159,14 @@ This tutorial will setup the following:
 
 ### 4. Docker Engine Setup (Required)
 
-**Azure tutorials at:**
+If you do not know which tutorial to choose, select the *Azure or Localhost Automated Setup*.
 
-  - Basestation: [`docs/azure-docker-basestation-setup.md`](docs/azure-docker-basestation-setup.md)
-  - UGV: [`docs/azure-docker-ugv-setup.md`](docs/azure-docker-ugv-setup.md)
-  - UAV: [`docs/azure-docker-uav-setup.md`](docs/azure-docker-uav-setup.md)
-  - Perception: [`docs/azure-docker-perception-setup.md`](docs/azure-docker-perception-setup.md)
+Build Type | Localhost Automated Setup | Azure Automated Setup |
+--- | --- |--- |
+**Basestation**  | [`docs/local-docker-basestation-setup.md`](docs/local-docker-basestation-setup.md)  | [`docs/azure-docker-basestation-setup.md`](docs/azure-docker-basestation-setup.md)
+**UGV** |  | [`docs/azure-docker-ugv-setup.md`](docs/azure-docker-ugv-setup.md)
+**UAV** |  | [`docs/azure-docker-uav-setup.md`](docs/azure-docker-uav-setup.md)
+**Perception** | | [`docs/azure-docker-perception-setup.md`](docs/azure-docker-perception-setup.md)
 
 These tutorials will setup the following:
 
@@ -178,12 +180,14 @@ These tutorials will setup the following:
 
 ### 5. Catkin Workspaces Setup (Required)
 
-**Tutorials at**:
+If you do not know which tutorial to choose, select the Azure or Localhost *Automated Setup*.
 
-  - Basestation: [`docs/catkin-basestation.md`](docs/catkin-basestation.md)
-  - UGV: [`docs/catkin-ugv.md`](docs/catkin-ugv.md)
-  - UAV: [`docs/catkin-uav.md`](docs/catkin-uav.md)
-  - Perception: [`docs/catkin-perception.md`](docs/catkin-perception.md)
+Build Type | Manual Setup | Azure Automated Setup |
+--- | --- | --- |--- |
+**Basestation** |  [`docs/manual-catkin-basestation.md`](docs/manual-catkin-basestation.md) | [`docs/azure-catkin-basestation.md`](docs/azure-catkin-basestation.md)
+**UGV** | [`docs/manual-catkin-ugv.md`](docs/manual-catkin-ugv.md) | [`docs/azure-catkin-ugv.md`](docs/azure-catkin-ugv.md)
+**UAV** | [`docs/manual-catkin-uav.md`](docs/manual-catkin-uav.md) | [`docs/azure-catkin-uav.md`](docs/azure-catkin-uav.md)
+**Perception** | | [`docs/azure-catkin-perception.md`](docs/azure-catkin-perception.md)
 
 These tutorials will setup the following:
 
@@ -191,15 +195,14 @@ These tutorials will setup the following:
 - Pre-defines the explicit catkin extend paths.
 - Pre-defines some cmake and catkin flags (such as using the release flags).
 
+
 ### 6. Simulation Launch Setup (Required)
 
-**Tutorials at**:
-
-- **Simple Launch Example:**
-
-    - Basestation: [`docs/launch-basestation.md`](docs/launch-basestation.md)
-    - UGV: [`docs/launch-ugv.md`](docs/launch-ugv.md)
-    - UAV: [`docs/launch-ugv.md`](docs/launch-uav.md)
+Build Type | Azure Tmux Launch |
+--- | --- | --- |--- |
+**Basestation** | [`docs/launch-basestation.md`](docs/launch-basestation.md)
+**UGV** | [`docs/launch-ugv.md`](docs/launch-ugv.md)
+**UAV** | [`docs/launch-ugv.md`](docs/launch-uav.md)
 
 These tutorials will setup the following:
 

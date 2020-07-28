@@ -10,7 +10,7 @@ Follow the instructions below to setup the UAV catkin workspace.
 
 ## UAV Simulation Catkin Workspaces
 
-### Apply UAV Firmware Patch
+### 1. Apply UAV Firmware Patch
 
 Follow this step, **on the localhost**, not on the Azure remote VM.
 
@@ -26,30 +26,7 @@ You only need to apply the firmware patch once, on a fresh clone:
 
 This is a temporary fix, a permanent solution will be investigated.
 
-### Automated Catkin Build
-
-Follow this step, **on the localhost**, not on the Azure remote VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        ./deployer -r azure.uav1.docker.shell
-
-        # clean the previous built workspaces
-        ./deployer -r azure.uav1.catkin.clean
-
-        # build the PX4 firmware
-        ./deployer -r azure.uav1.px4_firmware
-
-        # catkin build the UGV workspaces
-        ./deployer -r azure.uav1.catkin.build
-
-- Please change the robot name `uav1` to whichever Azure robot VM you are building on.
-
-### Manual Catkin Build
-
-#### 1. Access Docker Container
+### 2. Access Docker Container
 
         # ssh into the remote Azure VM (if not already logged in).Change `azure.uav1` to the correct VM name
         # -- if you are not using Azure, you may skip this step.
@@ -62,7 +39,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         # its okay to ignore the following error if you have not yet built the workspace:
         # -> 'bash: /home/developer/deploy_ws/devel/...: No such file or directory'
 
-#### 2. Build Common
+### 3. Build Common
 
 The common catkin workspace sets up default `cmake` options.
 
@@ -83,7 +60,7 @@ The common catkin workspace sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-#### 3. Build UAV Dependencies
+### 4. Build UAV Dependencies
 
 The UAV simulation workspace requires building non-catkin thirdparty dependencies.
 
@@ -93,7 +70,7 @@ The UAV simulation workspace requires building non-catkin thirdparty dependencie
         # build the px4 firmware
         DONT_RUN=1 make px4_sitl_default gazebo
 
-#### 4. Build UAV Catkin Workspace
+### 5. Build UAV Catkin Workspace
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
@@ -114,7 +91,7 @@ The `uav` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-#### 5. Build Simulation Catkin Workspace
+### 6. Build Simulation Catkin Workspace
 
 The UAV simulation catkin workspace contains all repositories related in running the `uav` in simulation.
 
@@ -150,7 +127,7 @@ The `uav` catkin workspaces sets up default `cmake` options.
         # build the catkin workspace
         catkin build
 
-#### 6. Build SubT Launch Catkin Workspace
+### 7. Build SubT Launch Catkin Workspace
 
 The subt launch catkin workspace contains a centralized top-level launch.
 
@@ -190,24 +167,3 @@ You should remove containers when done with its development.
 
 - The `docker-join.bash [container-name]` command will enter a stopped container.
 
-## Summary
-
-You should now have a built `UAV` workspace.
-
-- Please notify the maintainer if any of the tutorial steps did not succeed.
-
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # uav transfer.to command
-        ./deployer -r azure.uav1.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.uav.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

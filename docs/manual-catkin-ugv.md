@@ -10,26 +10,6 @@ Follow the instructions below to setup the UGV catkin workspace.
 
 ## UGV Simulation (Planning-PC, NUC) Catkin Workspaces
 
-### Automated Catkin Build
-
-Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        ./deployer -r azure.ugv1.docker.shell
-
-        # clean the previous built workspaces
-        ./deployer -r azure.ugv1.catkin.clean
-
-        # catkin build the UGV workspaces
-        ./deployer -r azure.ugv1.catkin.build
-
-- Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
-
-### Manual Catkin Build
-
 #### 1. Access Docker Container (optional)
 
         # ssh into the remote Azure VM (if not already logged in).Change `azure.ugv1` to the correct VM name
@@ -66,8 +46,8 @@ The common catkin workspace sets up default `cmake` options.
 
 #### 3. Build UGV Catkin Workspace
 
-The UGV planning-pc catkin workspace contains all repositories that are running on the robot, on the planning-pc.
-The UGV nuc catkin workspace contains all repositories that are running on the robot, on the nuc.
+The UGV planning-pc catkin workspace contains all repositories that are running on the robot planning-pc computer.
+The UGV nuc catkin workspace contains all repositories that are running on the robot nuc computer.
 
         # go to the `ugv` catkin workspace
         cd ~/deploy_ws/src/ugv/
@@ -177,19 +157,3 @@ You should remove containers when done with its development.
 You should now have a built `UGV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # ugv transfer.to command
-        ./deployer -r azure.ugv1.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.ugv.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
