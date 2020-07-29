@@ -51,6 +51,7 @@ remove_from_config() {
   sed -i '/\$SUBT_DOCKER_PATH/d' /$homedir/.$1
   sed -i '/DEPLOY_UTILS_PATH/d' /$homedir/.$1
   sed -i '/TERRAFORM_UTILS_PATH/d' /$homedir/.$1
+  sed -i '/PLAYBOOKS_UTILS_PATH/d' /$homedir/.$1
   sed -i '/\$DEPLOY_UTILS_PATH/d' /$homedir/.$1
 }
 
@@ -73,7 +74,8 @@ add_to_config() {
   echo "export SUBT_DOCKER_PATH=$SRC_DIR/operations/deploy/docker/scripts/" >> /$homedir/.$1
   echo "export DEPLOY_UTILS_PATH=$SRC_DIR/operations/utils/sysadmin/" >> /$homedir/.$1
   echo "export TERRAFORM_UTILS_PATH=$SRC_DIR/operations/deploy/azurebooks/scripts" >> /$homedir/.$1
-  echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH:\$DEPLOY_UTILS_PATH:\$TERRAFORM_UTILS_PATH" >> /$homedir/.$1
+  echo "export PLAYBOOKS_UTILS_PATH=$SRC_DIR/operations/deploy/robotbooks/scripts" >> /$homedir/.$1
+  echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH:\$DEPLOY_UTILS_PATH:\$TERRAFORM_UTILS_PATH:\$PLAYBOOKS_UTILS_PATH" >> /$homedir/.$1
 }
 
 # install deployer's python scripts
