@@ -20,11 +20,6 @@ These steps will create the docker image on the localhost.
         # build the basestation docker image
         ./deployer -s local.basestation.cpu.docker.image
 
-**Access The Remote Basestation VM**
-
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh local.basestation
-
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
@@ -45,10 +40,6 @@ These steps will create the docker image on the localhost.
         #        subt/basestation-cpu:0.1
         #        subt/basestation-cpu:ros
 
-**Return To Localhost**
-
-        # exit the remote VM
-        exit
 
 ### 2. Creating Docker Containers With Shell Access
 
@@ -66,11 +57,6 @@ These steps will create the docker container on the localhost.
         # create the basestation docker container
         ./deployer -s local.basestation.cpu.docker.shell
 
-**Access The Remote Basestation VM**
-
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh local.basestation
-
 **Verify Docker Containers**
 
         # View running docker containers (on the remote VM)
@@ -78,11 +64,6 @@ These steps will create the docker container on the localhost.
 
         # verify you see the following docker containers (in any order):
         #   -> basestation-cpu-shell
-
-**Return To Localhost**
-
-        # exit the remote VM
-        exit
 
 * * *
 
@@ -107,11 +88,6 @@ These steps will create the docker image on the localhost.
         ./deployer -s local.basestation.cpu.docker.image
         ./deployer -s local.basestation.gpu.docker.image
 
-**Access The Remote Basestation VM**
-
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh local.basestation
-
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
@@ -134,11 +110,6 @@ These steps will create the docker image on the localhost.
         #        subt/basestation-cpu:0.1
         #        subt/basestation-cpu:ros
 
-**Return To Localhost**
-
-        # exit the remote VM
-        exit
-
 ### 2. Creating Docker Containers With Shell Access
 
 Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
@@ -156,11 +127,6 @@ These steps will create the docker container on the localhost.
         ./deployer -s local.basestation.cpu.docker.shell
         ./deployer -s local.basestation.gpu.docker.shell
 
-**Access The Remote Basestation VM**
-
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh local.basestation
-
 **Verify Docker Containers**
 
         # View running docker containers (on the remote VM)
@@ -168,8 +134,3 @@ These steps will create the docker container on the localhost.
 
         # verify you see the following docker containers (in any order):
         #   -> basestation-cpu-shell, basestation-gpu-shell
-
-**Return To Localhost**
-
-        # exit the remote VM
-        exit
