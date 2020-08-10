@@ -1,8 +1,6 @@
 # UAV Launch
 
-## UAV Catkin Workspace
-
-### 1. Azure Access
+## 1. Azure Access
 
         # ssh into the remote VM. Example:
         ssh azure.uav1
@@ -23,7 +21,7 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
-### 3. Launch UAV Simulation
+## 2. Launch UAV Simulation
 
 If you are using an Azure VM, you need to run these commands using remote-desktop or teamviewer.
 
@@ -35,21 +33,18 @@ If you are using an Azure VM, you need to run these commands using remote-deskto
         # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name uav-sim-shell
 
-        # go to the deploy repo
-        cd ~/deploy_ws/src/
-
         # load the tmux session. Example launch `uav1`
-        tmuxp load operations/launch/tmuxp/sim/uav1.yaml
+        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/launch/tmuxp/azure/uav1.yaml
 
-### 4. Verify Launch
+## 3. Verify Launch
 
 Please verify all the launch scripts in the tmux sessions started.
 
 - Node error might be okay, but if a launch faile to come up that is not okay.
 
-- If you see any launch that failed to come up, please refer to the uav's `operations/launch/tmuxp/sim/uav[1-N].yaml` to see which launch failed and then relaunch manually.
+- If you see any launch that failed to come up, please refer to the uav's `subt_launch/launch/tmuxp/sim/uav[1-N].yaml` to see which launch failed and then relaunch manually.
 
-### 5. UAV Simulation Commands
+## 4. UAV Simulation Commands
 
 **Load GUI Config**
 
@@ -75,7 +70,7 @@ Select the "Explore" or "Autonomously Explore" GUI button for the drone to explo
 
 Or go to the Basestation VM and give the drone a waypoint.
 
-### 6. Transfer To Changes (optional)
+## 5. Transfer To Changes (optional)
 
 The changes, outlined in this tutorial can all be done on the localhost (so you dont need to do these changes on every robot manually).
 
@@ -93,7 +88,7 @@ You can edit the option: `deploy_rsync_opts`
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
 - **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
 
-### Summary
+## Summary
 
 You should now be able to control the robot movement using the buttons in the basestation.
 
