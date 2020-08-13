@@ -198,10 +198,6 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     cd ~/deploy_ws/src/
     ./deployer -s git.submodule.reset.basestation
 
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/basestation
-    git status
-
 **UGV (ground robots) (optional)**
 
     # go to the deploy, top-level submodule
@@ -213,13 +209,6 @@ This tutorial will walk you through on how to automated clone the deploy repo an
 
     # (optional) clone the hardware repositories
     ./deployer -s git.submodule.reset.ugv.hardware
-
-    # (optional) clone the slam repositories -- only if you have user permissions
-    ./deployer -s git.submodule.reset.ugv.slam.dev
-
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/ugv
-    git status
 
 **UAV (drone robots) (optional)**
 
@@ -235,10 +224,6 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     # (optional) clone the slam repositories -- only if you have user permissions
     ./deployer -s git.submodule.reset.uav.slam
 
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/uav
-    git status
-
 **Perception (object detection) (optional)**
 
     # go to the deploy, top-level submodule
@@ -247,9 +232,6 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     # (required) clone the core repositories
     ./deployer -s git.submodule.reset.perception
 
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/perception
-    git status
 
 **Simulation (gazebo, ignition) (optional)**
 
@@ -258,10 +240,6 @@ This tutorial will walk you through on how to automated clone the deploy repo an
 
     # (required) clone the core repositories
     ./deployer -s git.submodule.reset.simulation
-
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/simulation
-    git status
 
 ### Manual: Clone Deploy Workspace
 
