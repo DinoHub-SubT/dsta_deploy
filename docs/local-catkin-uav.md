@@ -8,9 +8,9 @@ Setting up the catkin workspace for the UAV workspaces requires using the `catki
 
 Follow the instructions below to setup the UAV catkin workspace.
 
-## UAV Simulation Catkin Workspaces
+## Local CPU VM
 
-## 1. Catkin Build
+### 1. Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM.
 
@@ -18,16 +18,39 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r local.uav.docker.shell
+        ./deployer -r local.uav.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r local.uav.catkin.clean
+        ./deployer -r local.uav.cpu.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -r local.uav.px4
+        ./deployer -r local.uav.cpu.px4
 
         # catkin build the UGV workspaces
-        ./deployer -r local.uav.catkin.build
+        ./deployer -r local.uav.cpu.catkin.build
+
+- Please change the robot name `uav` to whichever Azure robot VM you are building on.
+
+## Local GPU VM
+
+### 1. Catkin Build
+
+Follow this step, **on the localhost**, not on the Azure remote VM.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the docker shell on the remote host
+        ./deployer -r local.uav.gpu.docker.shell
+
+        # clean the previous built workspaces
+        ./deployer -r local.uav.gpu.catkin.clean
+
+        # build the PX4 firmware
+        ./deployer -r local.uav.gpu.px4
+
+        # catkin build the UGV workspaces
+        ./deployer -r local.uav.gpu.catkin.build
 
 - Please change the robot name `uav` to whichever Azure robot VM you are building on.
 
@@ -49,10 +72,10 @@ Automated remove the docker containers:
 Or manually remove the docker containers:
 
         # stop the running container
-        docker stop uav-sim-shell
+        docker stop uav-cpu-shell uav-gpu-shell
 
         # remove the running container
-        docker rm uav-sim-shell
+        docker rm -f uav-cpu-shell uav-gpu-shell
 
 - The above steps will remove the containers.
 

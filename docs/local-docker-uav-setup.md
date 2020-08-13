@@ -24,7 +24,11 @@ You will need to download the software from the `SubT` Cluster `Perceptron`, to 
         # -rw-r--r-- 1 ... ... 132125861 l_opencl_p_18.1.0.015.tgz
         # -rw-rw-r-- 1 ... ...      2989 silent-install.cfg
 
-## 2. Building Docker Images
+## Local CPU VM
+
+If you do not have a GPU on your localhost, then follow these instructions.
+
+## 1. Building Docker Images
 
 Docker install all the repository dependencies as *docker images*.
 
@@ -38,13 +42,13 @@ These steps will create the docker image on the localhost.
         cd ~/deploy_ws/src
 
         # build the uav docker image
-        ./deployer -s local.uav.docker.image
+        ./deployer -s local.uav.cpu.docker.image
 
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
         #   - its okay to ignore error 'Error: No such container' and continue to the next step.
-        docker rm -f uav-sim-shell
+        docker rm -f uav-cpu-shell
 
         # cleanup dangling docker images
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
@@ -57,7 +61,7 @@ These steps will create the docker image on the localhost.
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/uav:sim
+        #        subt/uav-cpu:uav
         #        subt/uav:ros
 
 ## 2. Creating Docker Containers With Shell Access
@@ -74,7 +78,7 @@ These steps will create the docker container on the localhost.
         cd ~/deploy_ws/src
 
         # create the uav docker container
-        ./deployer -s local.uav.docker.shell
+        ./deployer -s local.uav.cpu.docker.shell
 
 **Verify Docker Containers**
 
@@ -82,5 +86,68 @@ These steps will create the docker container on the localhost.
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> uav-sim-shell
+        #   -> uav-cpu-shell
 
+## Localhost GPU VM
+
+If you do have a GPU on your localhost, then follow these instructions.
+
+## 1. Building Docker Images
+
+Docker install all the repository dependencies as *docker images*.
+
+- The docker images will be built on the remote localhost.
+
+**Create the Docker Image on LocalHost**
+
+These steps will create the docker image on the localhost.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # build the uav docker image
+        ./deployer -s local.uav.gpu.docker.image
+
+**Cleanup (Required)**
+
+        # Remove any previously created docker containers (optional).
+        #   - its okay to ignore error 'Error: No such container' and continue to the next step.
+        docker rm -f uav-gpu-shell
+
+        # cleanup dangling docker images
+        #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
+        docker rmi -f $(docker images -f "dangling=true" -q)
+
+**Verify Docker Images**
+
+        # View the docker images built (on the remote VM)
+        docker images
+
+        # verify you see the following docker images (in any order):
+        #     ->
+        #        subt/uav-gpu:uav
+        #        subt/uav:ros
+
+## 2. Creating Docker Containers With Shell Access
+
+Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
+
+- You should be able to do anything inside the docker container that you would do normally do on the host.
+
+**Create the Docker Shell on LocalHost**
+
+These steps will create the docker container on the localhost.
+
+        # go to the deploy top level path
+        cd ~/deploy_ws/src
+
+        # create the uav docker container
+        ./deployer -s local.uav.gpu.docker.shell
+
+**Verify Docker Containers**
+
+        # View running docker containers (on the remote VM)
+        docker ps
+
+        # verify you see the following docker containers (in any order):
+        #   -> uav-gpu-shell
