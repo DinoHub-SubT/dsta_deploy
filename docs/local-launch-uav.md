@@ -9,7 +9,7 @@ If you are using an Azure VM, you need to run these commands using remote-deskto
         docker-join.bash --name uav-sim-shell
 
         # load the tmux session. Example launch `uav1`
-        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/launch/tmuxp/localhost/uav.yaml
+        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmuxp/localhost/uav.yaml
 
 ## 2. Verify Launch
 

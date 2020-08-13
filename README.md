@@ -198,11 +198,11 @@ These tutorials will setup the following:
 
 ### 6. Simulation Launch Setup (Required)
 
--- | Azure Tmux Launch | Localhost Tmux Launch | Robot Tmux Launch |
+-- | Localhost Tmux Launch | Azure Tmux Launch  | Robot Tmux Launch |
 --- | --- | --- | --- | --- |
-**Basestation** | [`docs/azure-launch-basestation.md`](docs/azure-launch-basestation.md)| [`docs/local-launch-basestation.md`](docs/local-launch-basestation.md)| |
-**UGV** | [`docs/azure-launch-ugv.md`](docs/azure-launch-ugv.md) | [`docs/local-launch-ugv.md`](docs/local-launch-ugv.md) | |
-**UAV** | [`docs/azure-launch-uav.md`](docs/azure-launch-uav.md) | [`docs/local-launch-uav.md`](docs/local-launch-uav.md) | |
+**Basestation** | [`docs/local-launch-basestation.md`](docs/local-launch-basestation.md)| [`docs/azure-launch-basestation.md`](docs/azure-launch-basestation.md)| |
+**UGV** | [`docs/local-launch-ugv.md`](docs/local-launch-ugv.md) | [`docs/azure-launch-ugv.md`](docs/azure-launch-ugv.md) | |
+**UAV** | [`docs/local-launch-uav.md`](docs/local-launch-uav.md) | [`docs/azure-launch-uav.md`](docs/azure-launch-uav.md) | |
 
 These tutorials will setup the following:
 

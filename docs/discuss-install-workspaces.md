@@ -178,25 +178,25 @@ This tutorial will walk you through on how to automated clone the deploy repo an
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
-    ./deployer -s git.submodule.reset.operations
+    ./deployer -s local.git.submodule.reset.operations
 
 **Common (required)**
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
-    ./deployer -s git.submodule.reset.common
+    ./deployer -s local.git.submodule.reset.common
 
 **Central Launch (required)**
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
-    ./deployer -s git.submodule.reset.subt_launch
+    ./deployer -s local.git.submodule.reset.subt_launch
 
 **Basestation (optional)**
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
-    ./deployer -s git.submodule.reset.basestation
+    ./deployer -s local.git.submodule.reset.basestation
 
 **UGV (ground robots) (optional)**
 
@@ -204,11 +204,11 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories (planning-pc, nuc)
-    ./deployer -s git.submodule.reset.ugv.ppc
-    ./deployer -s git.submodule.reset.ugv.nuc
+    ./deployer -s local.git.submodule.reset.ugv.ppc
+    ./deployer -s local.git.submodule.reset.ugv.nuc
 
     # (optional) clone the hardware repositories
-    ./deployer -s git.submodule.reset.ugv.hardware
+    ./deployer -s local.git.submodule.reset.ugv.hardware
 
 **UAV (drone robots) (optional)**
 
@@ -216,13 +216,13 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories (core)
-    ./deployer -s git.submodule.reset.uav.core
+    ./deployer -s local.git.submodule.reset.uav.core
 
     # (optional) clone the hardware repositories
-    ./deployer -s git.submodule.reset.uav.hardware
+    ./deployer -s local.git.submodule.reset.uav.hardware
 
     # (optional) clone the slam repositories -- only if you have user permissions
-    ./deployer -s git.submodule.reset.uav.slam
+    ./deployer -s local.git.submodule.reset.uav.slam
 
 **Perception (object detection) (optional)**
 
@@ -230,7 +230,7 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.reset.perception
+    ./deployer -s local.git.submodule.reset.perception
 
 
 **Simulation (gazebo, ignition) (optional)**
@@ -239,7 +239,7 @@ This tutorial will walk you through on how to automated clone the deploy repo an
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.reset.simulation
+    ./deployer -s local.git.submodule.reset.simulation
 
 ### Manual: Clone Deploy Workspace
 
@@ -383,7 +383,7 @@ There are a automated git submodule options available using the deployer api.
     cd ~/deploy_ws/src/
 
     # updates the intermediate-level submodule (simulations) with the branch's submodules
-    ./deployer -s  git.submodule.update.simulation
+    ./deployer -s  local.git.submodule.update.simulation
 
     # check the git status (please do this step and wait until command is completed)
     cd ~/deploy_ws/src/simulation
@@ -397,7 +397,7 @@ There are a automated git submodule options available using the deployer api.
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.init.simulation
+    ./deployer -s local.git.submodule.init.simulation
 
     # check the git status (please do this step and wait until command is completed)
     cd ~/deploy_ws/src/simulation
@@ -411,7 +411,7 @@ There are a automated git submodule options available using the deployer api.
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.deinit.simulation
+    ./deployer -s local.git.submodule.deinit.simulation
 
     # check the git status (please do this step and wait until command is completed)
     cd ~/deploy_ws/src/simulation
@@ -425,7 +425,7 @@ There are a automated git submodule options available using the deployer api.
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.branch.create.simulation -e branch=develop
+    ./deployer -s local.git.submodule.branch.create.simulation -e branch=develop
 
     # check the git status (please do this step and wait until command is completed)
     cd ~/deploy_ws/src/simulation
@@ -437,7 +437,7 @@ There are a automated git submodule options available using the deployer api.
     cd ~/deploy_ws/src/
 
     # (required) clone the core repositories
-    ./deployer -s git.submodule.branch.co.simulation -e branch=develop
+    ./deployer -s local.git.submodule.branch.co.simulation -e branch=develop
 
     # check the git status (please do this step and wait until command is completed)
     cd ~/deploy_ws/src/simulation
