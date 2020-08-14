@@ -34,16 +34,16 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r azure.uav1.docker.shell
+        ./deployer -s azure.uav1.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.uav1.catkin.clean
+        ./deployer -s azure.uav1.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -r azure.uav1.px4_firmware
+        ./deployer -s azure.uav1.px4_firmware
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.uav1.catkin.build
+        ./deployer -s azure.uav1.catkin.build
 
 - Please change the robot name `uav1` to whichever Azure robot VM you are building on.
 
@@ -57,10 +57,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r azure.uav1.docker.stop
+        ./deployer -s azure.uav1.docker.stop
 
         # remove the docker container
-        ./deployer -r azure.uav1.docker.remove
+        ./deployer -s azure.uav1.docker.remove
 
 Or manually remove the docker containers:
 
@@ -89,7 +89,7 @@ You should now have a built `UAV` workspace.
 You can transfer changes from your localhost to the remote:
 
         # uav transfer.to command
-        ./deployer -r azure.uav1.transfer.to
+        ./deployer -s azure.uav1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 

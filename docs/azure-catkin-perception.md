@@ -18,13 +18,13 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r azure.perception1.cpu.docker.shell
+        ./deployer -s azure.perception1.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.perception1.cpu.catkin.clean
+        ./deployer -s azure.perception1.cpu.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.perception1.cpu.catkin.build
+        ./deployer -s azure.perception1.cpu.catkin.build
 
 - Please change the robot name `perception1` to whichever Azure robot VM you are building on.
 
@@ -40,13 +40,13 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r azure.perception1.gpu.docker.shell
+        ./deployer -s azure.perception1.gpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.perception1.gpu.catkin.clean
+        ./deployer -s azure.perception1.gpu.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.perception1.gpu.catkin.build
+        ./deployer -s azure.perception1.gpu.catkin.build
 
 - Please change the robot name `perception1` to whichever Azure robot VM you are building on.
 
@@ -60,10 +60,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r azure.perception.docker.stop
+        ./deployer -s azure.perception.docker.stop
 
         # remove the docker container
-        ./deployer -r azure.perception.docker.remove
+        ./deployer -s azure.perception.docker.remove
 
 Or manually remove the docker containers:
 
@@ -92,7 +92,7 @@ You should now have a built `perception` workspace.
 You can transfer changes from your localhost to the remote:
 
         # perception transfer.to command
-        ./deployer -r azure.perception1.transfer.to
+        ./deployer -s azure.perception1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 

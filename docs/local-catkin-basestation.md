@@ -16,13 +16,13 @@ If you **have not enabled** the GPU on the remote basestation Azure VM, then fol
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r local.basestation.cpu.docker.shell
+        ./deployer -s local.basestation.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r local.basestation.cpu.catkin.gui.clean
+        ./deployer -s local.basestation.cpu.catkin.gui.clean
 
         # catkin build the basestation GUI workspaces
-        ./deployer -r local.basestation.cpu.catkin.gui.build
+        ./deployer -s local.basestation.cpu.catkin.gui.build
 
 ## Azure GPU VM
 
@@ -36,18 +36,18 @@ You want to build both the `cpu` and `gpu` catkin workspaces on the GPU VM.
         cd ~/deploy_ws/src
 
         # clean the previous built workspaces
-        ./deployer -r local.basestation.cpu.catkin.gui.clean
-        ./deployer -r local.basestation.gpu.catkin.perception.clean
+        ./deployer -s local.basestation.cpu.catkin.gui.clean
+        ./deployer -s local.basestation.gpu.catkin.perception.clean
 
         # create the docker shell on the remote host
-        ./deployer -r local.basestation.cpu.docker.shell
-        ./deployer -r local.basestation.gpu.docker.shell
+        ./deployer -s local.basestation.cpu.docker.shell
+        ./deployer -s local.basestation.gpu.docker.shell
 
         # catkin build the basestation GUI workspaces
-        ./deployer -r local.basestation.cpu.catkin.gui.build
+        ./deployer -s local.basestation.cpu.catkin.gui.build
 
         # catkin build the basestation perception workspaces
-        ./deployer -r local.basestation.gpu.catkin.perception.build
+        ./deployer -s local.basestation.gpu.catkin.perception.build
 
 ## Cleanup (optional)
 
@@ -59,10 +59,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r local.basestation.docker.stop
+        ./deployer -s local.basestation.docker.stop
 
         # remove the docker container
-        ./deployer -r local.basestation.docker.remove
+        ./deployer -s local.basestation.docker.remove
 
 Or manually remove the docker containers:
 

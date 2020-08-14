@@ -18,13 +18,13 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r azure.ugv1.docker.shell
+        ./deployer -s azure.ugv1.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.ugv1.catkin.clean
+        ./deployer -s azure.ugv1.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r azure.ugv1.catkin.build
+        ./deployer -s azure.ugv1.catkin.build
 
 - Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
 
@@ -38,10 +38,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r azure.ugv1.docker.stop
+        ./deployer -s azure.ugv1.docker.stop
 
         # remove the docker container
-        ./deployer -r azure.ugv1.docker.remove
+        ./deployer -s azure.ugv1.docker.remove
 
 Or manually remove the docker containers (for those that are available):
 
@@ -82,7 +82,7 @@ You should now have a built `UGV` workspace.
 You can transfer changes from your localhost to the remote:
 
         # ugv transfer.to command
-        ./deployer -r azure.ugv1.transfer.to
+        ./deployer -s azure.ugv1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 

@@ -16,13 +16,13 @@ Follow the instructions below to setup the UGV catkin workspace.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r local.ugv.docker.shell.sim
+        ./deployer -s local.ugv.docker.shell.sim
 
         # clean the previous built workspaces
-        ./deployer -r local.ugv.catkin.clean
+        ./deployer -s local.ugv.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -r local.ugv.catkin.build
+        ./deployer -s local.ugv.catkin.build
 
 - Please change the robot name `ugv` to whichever Azure robot VM you are building on.
 
@@ -36,10 +36,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r local.ugv.docker.stop
+        ./deployer -s local.ugv.docker.stop
 
         # remove the docker container
-        ./deployer -r local.ugv.docker.remove
+        ./deployer -s local.ugv.docker.remove
 
 Or manually remove the docker containers:
 

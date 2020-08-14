@@ -42,7 +42,7 @@ The changes, outlined in this tutorial can all be done on the localhost (so you 
 Once changed on the localhost, you can then `transfer.to` to transfer the changes from your localhost to the remote:
 
         # basestation transfer.to command
-        ./deployer -r azure.basestation.transfer.to
+        ./deployer -s azure.basestation.transfer.to
 
 If you find the `transfer.to` is too slow or not updating files during a transfer, you can change the the `transfer.to` options in the file:
 

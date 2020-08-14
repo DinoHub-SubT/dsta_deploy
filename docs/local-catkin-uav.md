@@ -18,16 +18,16 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r local.uav.cpu.docker.shell
+        ./deployer -s local.uav.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r local.uav.cpu.catkin.clean
+        ./deployer -s local.uav.cpu.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -r local.uav.cpu.px4
+        ./deployer -s local.uav.cpu.px4
 
         # catkin build the UGV workspaces
-        ./deployer -r local.uav.cpu.catkin.build
+        ./deployer -s local.uav.cpu.catkin.build
 
 - Please change the robot name `uav` to whichever Azure robot VM you are building on.
 
@@ -41,16 +41,16 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r local.uav.gpu.docker.shell
+        ./deployer -s local.uav.gpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r local.uav.gpu.catkin.clean
+        ./deployer -s local.uav.gpu.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -r local.uav.gpu.px4
+        ./deployer -s local.uav.gpu.px4
 
         # catkin build the UGV workspaces
-        ./deployer -r local.uav.gpu.catkin.build
+        ./deployer -s local.uav.gpu.catkin.build
 
 - Please change the robot name `uav` to whichever Azure robot VM you are building on.
 
@@ -64,10 +64,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r local.uav.docker.stop
+        ./deployer -s local.uav.docker.stop
 
         # remove the docker container
-        ./deployer -r local.uav.docker.remove
+        ./deployer -s local.uav.docker.remove
 
 Or manually remove the docker containers:
 

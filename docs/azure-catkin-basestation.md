@@ -18,13 +18,13 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -r azure.basestation.cpu.docker.shell
+        ./deployer -s azure.basestation.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -r azure.basestation.cpu.catkin.gui.clean
+        ./deployer -s azure.basestation.cpu.catkin.gui.clean
 
         # catkin build the basestation GUI workspaces
-        ./deployer -r azure.basestation.cpu.catkin.gui.build
+        ./deployer -s azure.basestation.cpu.catkin.gui.build
 
 
 ## Azure GPU VM
@@ -41,18 +41,18 @@ You want to build both the `cpu` and `gpu` catkin workspaces on the GPU VM.
         cd ~/deploy_ws/src
 
         # clean the previous built workspaces
-        ./deployer -r azure.basestation.cpu.catkin.gui.clean
-        ./deployer -r azure.basestation.gpu.catkin.perception.clean
+        ./deployer -s azure.basestation.cpu.catkin.gui.clean
+        ./deployer -s azure.basestation.gpu.catkin.perception.clean
 
         # create the docker shell on the remote host
-        ./deployer -r azure.basestation.cpu.docker.shell
-        ./deployer -r azure.basestation.gpu.docker.shell
+        ./deployer -s azure.basestation.cpu.docker.shell
+        ./deployer -s azure.basestation.gpu.docker.shell
 
         # catkin build the basestation GUI workspaces
-        ./deployer -r azure.basestation.cpu.catkin.gui.build
+        ./deployer -s azure.basestation.cpu.catkin.gui.build
 
         # catkin build the basestation perception workspaces
-        ./deployer -r azure.basestation.gpu.catkin.perception.build
+        ./deployer -s azure.basestation.gpu.catkin.perception.build
 
 
 ## Cleanup (optional)
@@ -65,10 +65,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -r azure.basestation.docker.stop
+        ./deployer -s azure.basestation.docker.stop
 
         # remove the docker container
-        ./deployer -r azure.basestation.docker.remove
+        ./deployer -s azure.basestation.docker.remove
 
 Or manually remove the docker containers:
 
@@ -97,7 +97,7 @@ You should now have a built `basestation` workspace.
 You can transfer changes from your localhost to the remote:
 
         # basestation transfer.to command
-        ./deployer -r azure.basestation.transfer.to
+        ./deployer -s azure.basestation.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 
