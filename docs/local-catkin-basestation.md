@@ -10,28 +10,23 @@ Assuming you have already setup all your basestation docker containers, follow t
 
 If you **have not enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
 
-Follow these steps, **on the localhost**, not on the Azure remote VM.
-
 ### 1. Catkin Build
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
         # create the docker shell on the remote host
-        ./deployer -s azure.basestation.cpu.docker.shell
+        ./deployer -s local.basestation.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.clean
+        ./deployer -s local.basestation.cpu.catkin.gui.clean
 
         # catkin build the basestation GUI workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.build
-
+        ./deployer -s local.basestation.cpu.catkin.gui.build
 
 ## Azure GPU VM
 
 If you **have enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
-
-Follow these steps, **on the localhost**, not on the Azure remote VM.
 
 ### 1. Catkin Build
 
@@ -41,19 +36,18 @@ You want to build both the `cpu` and `gpu` catkin workspaces on the GPU VM.
         cd ~/deploy_ws/src
 
         # clean the previous built workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.clean
-        ./deployer -s azure.basestation.gpu.catkin.perception.clean
+        ./deployer -s local.basestation.cpu.catkin.gui.clean
+        ./deployer -s local.basestation.gpu.catkin.perception.clean
 
         # create the docker shell on the remote host
-        ./deployer -s azure.basestation.cpu.docker.shell
-        ./deployer -s azure.basestation.gpu.docker.shell
+        ./deployer -s local.basestation.cpu.docker.shell
+        ./deployer -s local.basestation.gpu.docker.shell
 
         # catkin build the basestation GUI workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.build
+        ./deployer -s local.basestation.cpu.catkin.gui.build
 
         # catkin build the basestation perception workspaces
-        ./deployer -s azure.basestation.gpu.catkin.perception.build
-
+        ./deployer -s local.basestation.gpu.catkin.perception.build
 
 ## Cleanup (optional)
 
@@ -65,10 +59,10 @@ Automated remove the docker containers:
         cd ~/deploy_ws/src
 
         # stop the docker container
-        ./deployer -s azure.basestation.docker.stop
+        ./deployer -s local.basestation.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.basestation.docker.remove
+        ./deployer -s local.basestation.docker.remove
 
 Or manually remove the docker containers:
 
@@ -92,18 +86,3 @@ You should now have a built `basestation` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
 
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # basestation transfer.to command
-        ./deployer -s azure.basestation.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.basestation.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

@@ -31,7 +31,7 @@ You will need to download the software from the `SubT` Cluster `Perceptron`, to 
 You can transfer changes on your localhost to the remote:
 
         # uav transfer.to command
-        ./deployer -r azure.uav1.transfer.to
+        ./deployer -s azure.uav1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 

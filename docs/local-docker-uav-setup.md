@@ -1,10 +1,34 @@
-# Local Basestation Docker Setup
+# Local UAV Docker Setup
+
+## 1. Downloading Thirdparty Software
+
+The UAV docker images requires installing thirdparty software, not found using `apt-get`.
+
+You will need to download the software from the `SubT` Cluster `Perceptron`, to your deploy repo's docker folder on your localhost.
+
+- Please make sure you have a `Perceptron` account. If not, ask the maintainer to create you a user account.
+
+**Download OpenCL Runtime Library**
+
+        # go to the docker opencl thirdparty software directory
+        cd ~/deploy_ws/src/operations/deploy/docker/dockerfiles/thirdparty-software/opencl
+
+        # Download OpenCL runtime library from Perceptron
+        # !! -- Please change `USERNAME` to your perceptron username
+        scp -vr -o IdentitiesOnly=yes USERNAME@perceptron.ri.cmu.edu:///project/subt/data/deploy-operations/thirdparty-software/l_opencl_p_18.1.0.015.tgz .
+
+        # verify you have downloaded the package
+        ls -all
+
+        # you should see something like this:
+        # -rw-r--r-- 1 ... ... 132125861 l_opencl_p_18.1.0.015.tgz
+        # -rw-rw-r-- 1 ... ...      2989 silent-install.cfg
 
 ## Local CPU VM
 
 If you do not have a GPU on your localhost, then follow these instructions.
 
-### 1. Building Docker Images
+## 1. Building Docker Images
 
 Docker install all the repository dependencies as *docker images*.
 
@@ -17,14 +41,14 @@ These steps will create the docker image on the localhost.
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # build the basestation docker image
-        ./deployer -s local.basestation.cpu.docker.image
+        # build the uav docker image
+        ./deployer -s local.uav.cpu.docker.image
 
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
         #   - its okay to ignore error 'Error: No such container' and continue to the next step.
-        docker rm -f basestation-cpu-shell
+        docker rm -f uav-cpu-shell
 
         # cleanup dangling docker images
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
@@ -37,11 +61,10 @@ These steps will create the docker image on the localhost.
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/basestation-cpu:0.1
-        #        subt/basestation-cpu:ros
+        #        subt/uav-cpu:uav
+        #        subt/uav:ros
 
-
-### 2. Creating Docker Containers With Shell Access
+## 2. Creating Docker Containers With Shell Access
 
 Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
 
@@ -54,8 +77,8 @@ These steps will create the docker container on the localhost.
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # create the basestation docker container
-        ./deployer -s local.basestation.cpu.docker.shell
+        # create the uav docker container
+        ./deployer -s local.uav.cpu.docker.shell
 
 **Verify Docker Containers**
 
@@ -63,36 +86,33 @@ These steps will create the docker container on the localhost.
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> basestation-cpu-shell
-
-* * *
+        #   -> uav-cpu-shell
 
 ## Localhost GPU VM
 
 If you do have a GPU on your localhost, then follow these instructions.
 
-### 1. Building Docker Images
+## 1. Building Docker Images
 
 Docker install all the repository dependencies as *docker images*.
 
-- The docker images will be built on the localhost.
+- The docker images will be built on the remote localhost.
 
-**Create the Docker Images on Localhost**
+**Create the Docker Image on LocalHost**
 
 These steps will create the docker image on the localhost.
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # build the basestation docker images
-        ./deployer -s local.basestation.cpu.docker.image
-        ./deployer -s local.basestation.gpu.docker.image
+        # build the uav docker image
+        ./deployer -s local.uav.gpu.docker.image
 
 **Cleanup (Required)**
 
         # Remove any previously created docker containers (optional).
         #   - its okay to ignore error 'Error: No such container' and continue to the next step.
-        docker rm -f basestation-cpu-shell basestation-gpu-shell
+        docker rm -f uav-gpu-shell
 
         # cleanup dangling docker images
         #   - its okay to ignore error ' "docker rmi" requires at least 1 argument. '
@@ -105,12 +125,10 @@ These steps will create the docker image on the localhost.
 
         # verify you see the following docker images (in any order):
         #     ->
-        #        subt/basestation-gpu:0.1
-        #        subt/basestation-gpu:ros
-        #        subt/basestation-cpu:0.1
-        #        subt/basestation-cpu:ros
+        #        subt/uav-gpu:uav
+        #        subt/uav:ros
 
-### 2. Creating Docker Containers With Shell Access
+## 2. Creating Docker Containers With Shell Access
 
 Docker shell containers will give the user access to the entire deploy workspace inside a docker container.
 
@@ -123,9 +141,8 @@ These steps will create the docker container on the localhost.
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # create the basestation docker container
-        ./deployer -s local.basestation.cpu.docker.shell
-        ./deployer -s local.basestation.gpu.docker.shell
+        # create the uav docker container
+        ./deployer -s local.uav.gpu.docker.shell
 
 **Verify Docker Containers**
 
@@ -133,4 +150,4 @@ These steps will create the docker container on the localhost.
         docker ps
 
         # verify you see the following docker containers (in any order):
-        #   -> basestation-cpu-shell, basestation-gpu-shell
+        #   -> uav-gpu-shell
