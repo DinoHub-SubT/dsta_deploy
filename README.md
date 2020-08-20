@@ -135,19 +135,19 @@ You will need to go through a few tutorials to have a working system.
 
 ### 1. Install Third-Party Tool (Required)
 
-**Tutorial at:** [`docs/discuss-install-dependencies.md`](docs/discuss-install-dependencies.md)
+**Tutorial at:** [`discuss-install-dependencies.md`](docs/discuss-install-dependencies.md)
 
 - Installs thirdparty tools (`docker, ansible, terraform,` etc.) required to setup deploy.
 
 ### 2. Clone Workspaces (Required)
 
-**Tutorial at:** [`docs/discuss-install-workspaces.md`](docs/discuss-install-workspaces.md)
+**Tutorial at:** [`discuss-install-workspaces.md`](docs/discuss-install-workspaces.md)
 
 - Installs the `SubT` repositories for all `catkin` workspaces.
 
 ### 3. Azure Cloud Infrastructure Setup (Optional)
 
-**Tutorial at:** [`docs/azure-setup.md`](docs/azure-setup.md)
+**Tutorial at:** [`azure-setup.md`](docs/azure-setup.md)
 
 - Follow this tutorial only if you are planning on using the Azure Cloud resource.
 
@@ -163,10 +163,10 @@ If you do not know which tutorial to choose, select the *Azure or Localhost Auto
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | ---  |--- | --- |
-**Basestation**  | [`docs/local-docker-basestation-setup.md`](docs/local-docker-basestation-setup.md) | [`docs/azure-docker-basestation-setup.md`](docs/azure-docker-basestation-setup.md) | |
-**UGV** | [`docs/local-docker-ugv-setup.md`](docs/local-docker-ugv-setup.md) | [`docs/azure-docker-ugv-setup.md`](docs/azure-docker-ugv-setup.md)| |
-**UAV** | [`docs/local-docker-uav-setup.md`](docs/local-docker-uav-setup.md) | [`docs/azure-docker-uav-setup.md`](docs/azure-docker-uav-setup.md)| |
-**Perception** | | [`docs/azure-docker-perception-setup.md`](docs/azure-docker-perception-setup.md)| |
+**Basestation**  | [`local-docker-basestation.md`](docs/docker/local-docker-basestation.md) | [`azure-docker-basestation.md`](docs/docker/azure-docker-basestation.md) | [`robots-docker-basestation.md`](docs/docker/robots-docker-basestation.md) |
+**UGV** | [`local-docker-ugv.md`](docs/docker/local-docker-ugv.md) | [`azure-docker-ugv.md`](docs/docker/azure-docker-ugv.md)| [`robots-docker-ugv.md`](docs/docker/robots-docker-ugv.md) |
+**UAV** | [`local-docker-uav.md`](docs/docker/local-docker-uav.md) | [`azure-docker-uav.md`](docs/docker/azure-docker-uav.md)| [`robots-docker-uav-setup.md`](docs/docker/robots-docker-uav.md) |
+**Perception** | [`local-docker-perception.md`](docs/docker/local-docker-perception.md) | [`azure-docker-perception-setup.md`](docs/docker/azure-docker-perception.md)| |
 
 These tutorials will setup the following:
 
@@ -182,12 +182,12 @@ These tutorials will setup the following:
 
 If you do not know which tutorial to choose, select the Azure or Localhost *Automated Setup*.
 
--- | Azure or Localhost Manual Setup | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
---- | --- | --- |--- |--- |
-**Basestation** |  [`docs/manual-catkin-basestation.md`](docs/manual-catkin-basestation.md) | [`docs/local-catkin-basestation.md`](docs/local-catkin-basestation.md) | [`docs/azure-catkin-basestation.md`](docs/azure-catkin-basestation.md)| |
-**UGV** | [`docs/manual-catkin-ugv.md`](docs/manual-catkin-ugv.md) | [`docs/local-catkin-ugv.md`](docs/local-catkin-ugv.md) | [`docs/azure-catkin-ugv.md`](docs/azure-catkin-ugv.md)| |
-**UAV** | [`docs/manual-catkin-uav.md`](docs/manual-catkin-uav.md) | [`docs/local-catkin-uav.md`](docs/local-catkin-uav.md) | [`docs/azure-catkin-uav.md`](docs/azure-catkin-uav.md)| |
-**Perception** | |  | [`docs/azure-catkin-perception.md`](docs/azure-catkin-perception.md)| |
+-- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
+--- | --- |--- |--- |
+**Basestation** |  [`local-catkin-basestation.md`](docs/catkin/local-catkin-basestation.md) | [`azure-catkin-basestation.md`](docs/catkin/azure-catkin-basestation.md) | [`robots-catkin-basestation.md`](docs/catkin/robots-catkin-basestation.md)| |
+**UGV** | [`local-catkin-ugv.md`](docs/catkin/local-catkin-ugv.md) | [`azure-catkin-ugv.md`](docs/catkin/azure-catkin-ugv.md) | [`robots-catkin-ugv.md`](docs/catkin/robots-catkin-ugv.md)| |
+**UAV** | [`local-catkin-uav.md`](docs/catkin/local-catkin-uav.md) | [`azure-catkin-uav.md`](docs/catkin/azure-catkin-uav.md) | [`robots-catkin-uav.md`](docs/catkin/robots-catkin-uav.md)| |
+**Perception** | [`local-catkin-perception.md`](docs/catkin/local-catkin-perception.md) | [`azure-catkin-perception.md`](docs/catkin/azure-catkin-perception.md) | [`robots-catkin-perception.md`](docs/catkin/robots-catkin-perception.md) | |
 
 These tutorials will setup the following:
 
@@ -195,14 +195,13 @@ These tutorials will setup the following:
 - Pre-defines the explicit catkin extend paths.
 - Pre-defines some cmake and catkin flags (such as using the release flags).
 
-
 ### 6. Simulation Launch Setup (Required)
 
--- | Localhost Tmux Launch | Azure Tmux Launch  | Robot Tmux Launch |
+-- | Localhost Tmux Launch | Azure Tmux Launch  |
 --- | --- | --- | --- | --- |
-**Basestation** | [`docs/local-launch-basestation.md`](docs/local-launch-basestation.md)| [`docs/azure-launch-basestation.md`](docs/azure-launch-basestation.md)| |
-**UGV** | [`docs/local-launch-ugv.md`](docs/local-launch-ugv.md) | [`docs/azure-launch-ugv.md`](docs/azure-launch-ugv.md) | |
-**UAV** | [`docs/local-launch-uav.md`](docs/local-launch-uav.md) | [`docs/azure-launch-uav.md`](docs/azure-launch-uav.md) | |
+**Basestation** | [`local-launch-basestation.md`](docs/launch/local-launch-basestation.md)| [`azure-launch-basestation.md`](docs/launch/azure-launch-basestation.md)|
+**UGV** | [`local-launch-ugv.md`](docs/launch/local-launch-ugv.md) | [`azure-launch-ugv.md`](docs/launch/azure-launch-ugv.md) |
+**UAV** | [`local-launch-uav.md`](docs/launch/local-launch-uav.md) | [`azure-launch-uav.md`](docs/launch/azure-launch-uav.md) |
 
 These tutorials will setup the following:
 
@@ -211,21 +210,21 @@ These tutorials will setup the following:
 
 ### 7. Managing Endpoints (Optional)
 
-**Discussion at:** [`docs/discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
+**Discussion at:** [`discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
 
 - Methods of managing multiple remote docker endpoints.
 - Remote development workflow.
 
 ### 8. Updating Deploy Repos (Optional)
 
-**Discussion at:** [`docs/discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
+**Discussion at:** [`discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
 
 ### 9. Operational Tools (Optional)
 
-**Discussion at:** [`docs/discuss-operation-tools.md`](docs/discuss-operation-tools.md)
+**Discussion at:** [`discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
 - Operational tools used in deploy, their function and their general syntax.
 - Helpful thidparty tools
@@ -238,7 +237,7 @@ Some tutorials are not found on the readme, but on the deploy "wiki" page:
 
 ### 11. Common Questions and Issues (Optional)
 
-**Discussion at:** [`docs/discuss-questions-issues.md`](docs/discuss-questions-issues.md)
+**Discussion at:** [`discuss-questions-issues.md`](docs/discuss-questions-issues.md)
 
 - Common questions
 - Known issues

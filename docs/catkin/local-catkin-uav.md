@@ -4,21 +4,23 @@ Setting up the catkin workspace for the UAV workspaces requires using the `catki
 
 - There are multiple catkin workspaces that get extended *or linked* in order to fully setup the UAV catkin workspace.
 
-- There are different docker containers for the different catkin workspaces.
+Assuming you have already setup all your docker containers, follow the instructions below to setup the catkin workspace.
 
-Follow the instructions below to setup the UAV catkin workspace.
-
-## Local CPU VM
-
-### 1. Catkin Build
-
-Follow this step, **on the localhost**, not on the Azure remote VM.
+## Catkin Build
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
+        # PLEASE NOTICE
+        #   - user either the cpu or gpu deployer commands. NOT BOTH!
+        #   - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
+        #   - each of the below commands has a cpu or gpu commands, please choose the one for your setup.
+
         # create the docker shell on the remote host
+        # cpu
         ./deployer -s local.uav.cpu.docker.shell
+        # gpu
+        ./deployer -s local.uav.gpu.docker.shell
 
         # clean the previous built workspaces
         ./deployer -s local.uav.cpu.catkin.clean
@@ -29,36 +31,9 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         # catkin build the UGV workspaces
         ./deployer -s local.uav.cpu.catkin.build
 
-- Please change the robot name `uav` to whichever Azure robot VM you are building on.
-
-## Local GPU VM
-
-### 1. Catkin Build
-
-Follow this step, **on the localhost**, not on the Azure remote VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        ./deployer -s local.uav.gpu.docker.shell
-
-        # clean the previous built workspaces
-        ./deployer -s local.uav.gpu.catkin.clean
-
-        # build the PX4 firmware
-        ./deployer -s local.uav.gpu.px4
-
-        # catkin build the UGV workspaces
-        ./deployer -s local.uav.gpu.catkin.build
-
-- Please change the robot name `uav` to whichever Azure robot VM you are building on.
-
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
-
-Automated remove the docker containers:
 
         # go to the deploy top level path
         cd ~/deploy_ws/src
@@ -67,17 +42,7 @@ Automated remove the docker containers:
         ./deployer -s local.uav.docker.stop
 
         # remove the docker container
-        ./deployer -s local.uav.docker.remove
-
-Or manually remove the docker containers:
-
-        # stop the running container
-        docker stop uav-cpu-shell uav-gpu-shell
-
-        # remove the running container
-        docker rm -f uav-cpu-shell uav-gpu-shell
-
-- The above steps will remove the containers.
+        ./deployer -s local.uav.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
