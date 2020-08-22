@@ -159,8 +159,6 @@ This tutorial will setup the following:
 
 ### 4. Docker Engine Setup (Required)
 
-If you do not know which tutorial to choose, select the *Azure or Localhost Automated Setup*.
-
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | ---  |--- | --- |
 **Basestation**  | [`local-docker-basestation.md`](docs/docker/local-docker-basestation.md) | [`azure-docker-basestation.md`](docs/docker/azure-docker-basestation.md) | [`robots-docker-basestation.md`](docs/docker/robots-docker-basestation.md) |
@@ -179,8 +177,6 @@ These tutorials will setup the following:
     - *A docker container is the environment where you will be building & running the code*
 
 ### 5. Catkin Workspaces Setup (Required)
-
-If you do not know which tutorial to choose, select the Azure or Localhost *Automated Setup*.
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | --- |--- |--- |

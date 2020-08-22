@@ -7,9 +7,35 @@ The `deploy` workspace *maintains* all the `SubT` repositories as nested [git su
 Submodules has many advantages:
 
 - submodules provide the ability to maintain a snapshot of repositories.
-- submodule allow for easy, isolate versioning.
-- intermediate submodule levels allow for easy, isolated group versioning.
+- submodule allow for isolated versioning.
+- intermediate submodule levels allow for isolated group versioning.
 - submodules does not require learning a new toolset and provides user feedback from `git status`.
+
+**When you clone the deploy repository, the submodules will not be cloned by default**.
+
+- You must also clone the submodules.
+
+- You must decide which *submodule level* to clone.
+
+Some submodules have user permission restrictions.
+
+  - You do not need to clone these repositories, unless you are doing active development on them.
+  - If you need these repos, then please notify the maintainer to give you permission to access the restricted repositories.
+
+**List of repositories with permission restrictions:**
+
+- `ugv/slam/devel/loam_velodyne_16`
+- `ugv/slam/devel/online_pose_graph`
+- `ugv/slam/devel/velodyne_driver_16_32`
+- `uav/slam/loam_velodyne_16`
+- `uav/slam/online_pose_graph`
+- `uav/slam/velodyne_driver_16_32`
+
+**List of repositories with more restricted permission:**
+
+- `ugv/slam/robot/laser_odometry`
+
+Please notify the maintainer if you need to be making changes to the robot's `LOAM` package.
 
 ## Layout
 
@@ -34,7 +60,8 @@ Submodules has many advantages:
                 *-- snapshot logfiles created during field testing
             utils
                 sysadmin
-                    *-- helpful all-purpose utility scripts. Scripts are automatically sourced so that they used from any path.
+                    *-- helpful all-purpose utility scripts.
+                    *-- Scripts added here can be used from anywhere.
                 robot-configurations
                     *-- passive configuration reference files
                 ugv_setup
@@ -142,342 +169,114 @@ The deploy repo maintains a **3-commit level** group of submodules:
 
 * * *
 
-## Deploy Workspace
+## Base Clone Deploy Workspace
 
-**When you clone the deploy repository, the submodules will not be cloned by default**.
+This tutorial will show you how to interact with deploy's git and submodules setup.
 
-- You must also clone the submodules.
+- You will be using the `deployer` command line interface tool to automate cloning the submodules.
+- Alternatively, you can manually clone the submodules.
+- If you are missing packages with the base clone, then you should clone the specific projects.
 
-- You must decide which *submodule level* to clone.
+### Clone the submodules
 
-Some submodules have user permission restrictions.
+This will clone all the base submodules. Submodules clone as `DETACHED HEAD`. Make sure to always checkout to a branch after its cloned.
 
-  - You do not need to clone these repositories, unless you are doing active development on them.
-  - If you need these repos, please notifier the maintainer to give you permission to access the restricted repositories.
-
-**List of repositories with permission restrictions:**
-
-- `ugv/slam/laser_odometry`
-- `ugv/slam/online_pose_graph`
-- `uav/slam/loam_velodyne_16`
-- `uav/slam/online_pose_graph`
-- `uav/slam/velodyne_driver_16_32`
-
-**You have two methods on how to clone the submodules: automated or manual**.
-
-- For your initial setup, please select the automated steps. Then continue with the method you prefer.
-- It will be good practice to try it out the manual method once in order to become familiar with submodules and the deploy repository layout.
-
-### Automated: Clone Deploy Workspace
-
-This tutorial will walk you through on how to automated clone the deploy repo and all its submodules.
-
-- You will be using the `deployer` tool to automate cloning the submodules
-
-**Operations (required)**
-
-    # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
-    ./deployer -s local.git.submodule.reset.operations
+    ./deployer -s git.clone.base
 
-**Common (required)**
+If you wish to clone a specific project only:
 
-    # go to the deploy, top-level submodule
+    # preview all the available projects available to clone.
+    ./deployer -s git.clone -p
+
+    # example, clone common project
+    ./deployer -s git.clone.common
+
+### Pull the submodules
+
+This will pull all the base submodules updates, when your submodules are already on a branch.
+
     cd ~/deploy_ws/src/
-    ./deployer -s local.git.submodule.reset.common
+    ./deployer -s git.pull.base
 
-**Central Launch (required)**
+If you wish to pull a specific project only:
 
-    # go to the deploy, top-level submodule
+    # preview all the available projects available to pull.
+    ./deployer -s git.pull -p
+
+    # example, pull common project
+    ./deployer -s git.pull.common
+
+### Clean the submodules
+
+This cleans all the submodules from any uncommitted changes.
+
     cd ~/deploy_ws/src/
-    ./deployer -s local.git.submodule.reset.subt_launch
+    ./deployer -s git.clean
 
-**Basestation (optional)**
+If you wish to clean a specific project only:
 
-    # go to the deploy, top-level submodule
+    # preview all the available projects available to clean.
+    ./deployer -s git.clean -p
+
+    # example, clean common project
+    ./deployer -s git.clean.common
+
+### Remove the submodules
+
     cd ~/deploy_ws/src/
-    ./deployer -s local.git.submodule.reset.basestation
+    ./deployer -s git.rm.base
 
-**UGV (ground robots) (optional)**
+If you wish to remove a specific project only:
 
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
+    # preview all the available projects available to remove.
+    ./deployer -s git.rm -p
 
-    # (required) clone the core repositories (planning-pc, nuc)
-    ./deployer -s local.git.submodule.reset.ugv.ppc
-    ./deployer -s local.git.submodule.reset.ugv.nuc
-
-    # (optional) clone the hardware repositories
-    ./deployer -s local.git.submodule.reset.ugv.hardware
-
-**UAV (drone robots) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # (required) clone the core repositories (core)
-    ./deployer -s local.git.submodule.reset.uav.core
-
-    # (optional) clone the hardware repositories
-    ./deployer -s local.git.submodule.reset.uav.hardware
-
-    # (optional) clone the slam repositories -- only if you have user permissions
-    ./deployer -s local.git.submodule.reset.uav.slam
-
-**Perception (object detection) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.reset.perception
-
-
-**Simulation (gazebo, ignition) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.reset.simulation
-
-### Manual: Clone Deploy Workspace
-
-This tutorial will walk you through on how to manually clone the deploy repo and all its submodules.
-
-If you have any errors cloning the submodules, notify the maintainer.
-
-**Operations (required)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init operations
-
-**Common (required)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init common
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-    # checkout the git-lfs files
-    cd common/communication_manager
-    git lfs fetch
-    git lfs pull
-
-**Central Launch (required)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init subt_launch
-
-**Basestation (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init basestation
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-**UGV (ground robots) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # shallow clone the ugv 'intermediate-level' submodule
-    git submodule update --init ugv
-
-    # go inside the ugv, 'intermediate-level' submodule
-    cd ~/deploy_ws/src/ugv
-
-    # (required) clone the core repositories
-    git submodule update --init --recursive planning-pc/
-    git submodule update --init --recursive nuc/
-
-    # (optional) clone the hardware repositories
-    git submodule update --init --recursive hardware
-
-    # (optional) clone the slam repositories
-    # -- user permission restrictions, only clone if you have permissions to do so.
-    git submodule update --init --recursive slam/laser_odometry
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-**UAV (drone robots) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # shallow clone the uav 'intermediate-level' submodule
-    git submodule update --init uav
-
-    # go inside the ugv, 'intermediate-level' submodule
-    cd ~/deploy_ws/src/uav
-
-    # (required) clone the core repositories
-    git submodule update --init --recursive core
-
-    # (optional) clone the hardware repositories
-    # -- clone only on the ground robot
-    git submodule update --init --recursive hardware
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-**Perception (object detection) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init perception
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-**Simulation (gazebo, ignition) (optional)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # clone the submodules
-    git submodule update --recursive --init simulation
-
-    # check the git status (please do this step and wait until command is completed)
-    git status
-
-    # checkout the git-lfs files
-    cd simulation/subt_gazebo
-    git lfs fetch
-    git lfs pull
+    # example, clean common project
+    ./deployer -s git.rm.common
 
 * * *
 
-## Useful Git Commands
+## Extra
 
-### Automated Git
-
-There are a automated git submodule options available using the deployer api.
-
-**Update Submodules (example, simulation)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/simulation
-
-    # checkout a different branch
-    git checkout [simulation's branch name]
+### Checkout New Submodule Branch
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
 
-    # updates the intermediate-level submodule (simulations) with the branch's submodules
-    ./deployer -s  local.git.submodule.update.simulation
+    # create a new branch in all submodules
+    ./deployer -s git.create -e branch=myuserid/feature-a
 
-    # check the git status (please do this step and wait until command is completed)
+    # (example) verify the git status in simulation
     cd ~/deploy_ws/src/simulation
     git status
 
-- Update clones the submodules that correspond to the checked-out branch in the intermediate-level repos.
-
-**Initialize Submodules (example, simulation)**
+### Checkout An Existing Submodule Branch (example, simulation)
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
 
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.init.simulation
+    # checkout the develop branch in all submodules
+    ./deployer -s git.co -e branch=develop
 
-    # check the git status (please do this step and wait until command is completed)
+    # (example) verify the git status in simulation
     cd ~/deploy_ws/src/simulation
     git status
 
-- Initialize does not clone the submodules, it just initializes the intermediate-level repos.
+### Regex Matcher, Auto-Completion
 
-**Deinitialize Submodules (example, simulation)**
+The `deployer` does a `regex` match, autocompletion for arguments.
 
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.deinit.simulation
-
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/simulation
-    git status
-
-- Deinitialize removes all local clones of deploy's submodule on the intermediate-level repos
-
-**Checkout An New Submodule Branch (example, simulation)**
+So you do not need to give the full deployer arguments, you can just give a partial argument.
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
 
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.branch.create.simulation -e branch=develop
+    # Full command: clone the core repositories
+    ./deployer -s local.git.submodule.clone.base.basestation
 
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/simulation
-    git status
+    # regex match of the above command
+    ./deployer -s git.clone.basestation
 
-**Checkout An Existing Submodule Branch (example, simulation)**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # (required) clone the core repositories
-    ./deployer -s local.git.submodule.branch.co.simulation -e branch=develop
-
-    # check the git status (please do this step and wait until command is completed)
-    cd ~/deploy_ws/src/simulation
-    git status
-
-### Manual Git
-
-**Re-clone submodules:**
-
-    # get the latest update
-    git pull origin [ feature branch name ]
-
-    # re-clone the submodules
-    git submodule update --recursive --init [ submodule name ]
-
-**Sync submodule with remote:**
-
-    git submodule sync [ submodule name ]
-
-**Removing Submodules**
-
-To remove a submodule-level, use the `deinit` command.
-
-    git submodule deinit -f [ submodule name ]
-
-**Example, remove entire intermediate-level:**
-
-    # go to the deploy, top-level submodule
-    cd ~/deploy_ws/src/
-
-    # example, removing all ugv submodules locally
-    git submodule deinit -f ugv
-
-**Example, partly remove modules in an intermediate-level:**
-
-To remove only the ugv hardware repos:
-
-    # go to the ugv, intermediate-level submodule
-    # -- you must be inside the intermediate-level directory:
-    cd ~/deploy_ws/src/ugv
-
-    # example, removing all ugv::hardware submodules locally
-    git submodule deinit -f hardware
+- Both commands perform the same.
+- Use the preview `-p` option to see what deployer arguments are available.
