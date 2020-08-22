@@ -22,7 +22,7 @@ Follow these steps, **on the localhost**.
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.uav.docker.registry.pull
 
-        # Remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s local.uav.docker.rm
 
 **Verify Docker Images**

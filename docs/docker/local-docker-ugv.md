@@ -22,7 +22,7 @@ Follow these steps, **on the localhost**.
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.ugv.docker.registry.pull
 
-        # Remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s local.ugv.docker.rm
 
 **Verify Docker Images**

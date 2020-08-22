@@ -20,15 +20,15 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         cd ~/deploy_ws/src
 
         # change the docker context to the perception1 azure docker daemon
-        docker context set azure-uav1
+        docker context use azure-uav1
 
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.uav1.docker.registry.pull
 
         # change the docker context back to the default docker daemon
-        docker context set default
+        docker context use default
 
-        # remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s azure.uav1.docker.rm
 
 **Verify Docker Images**

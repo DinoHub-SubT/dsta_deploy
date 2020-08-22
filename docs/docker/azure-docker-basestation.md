@@ -20,15 +20,15 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         cd ~/deploy_ws/src
 
         # change the docker context to the basestation azure docker daemon
-        docker context set azure-basestation
+        docker context use azure-basestation
 
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.basestation.docker.registry.pull
+        ./deployer -s azure.basestation.registry.pull
 
         # change the docker context back to the default docker daemon
-        docker context set default
+        docker context use default
 
-        # remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s azure.basestation.docker.rm
 
 **Verify Docker Images**
@@ -56,6 +56,7 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 **Verify Docker Containers**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
+        # -- you can switch your docker context instead of ssh
         ssh azure.basestation
 
         # view running docker containers

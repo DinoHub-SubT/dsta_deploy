@@ -2,20 +2,20 @@
 
 The `deploy` workspace *maintains* all the `SubT` repositories as nested [git submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules).
 
-- Read the [deploy wiki page](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules) for a simple submodule tutorial review.
+**Submodules have many advantages:**
 
-Submodules has many advantages:
-
-- submodules provide the ability to maintain a snapshot of repositories.
-- submodule allow for isolated versioning.
+- provides the ability to maintain a snapshot of repositories.
+- allows for isolated versioning.
 - intermediate submodule levels allow for isolated group versioning.
-- submodules does not require learning a new toolset and provides user feedback from `git status`.
+- submodules status is knowing using `git status`.
 
 **When you clone the deploy repository, the submodules will not be cloned by default**.
 
 - You must also clone the submodules.
 
-- You must decide which *submodule level* to clone.
+- You must decide which *submodule levels* to clone.
+
+## Repository Permissions
 
 Some submodules have user permission restrictions.
 
@@ -251,12 +251,12 @@ If you wish to remove a specific project only:
     cd ~/deploy_ws/src/simulation
     git status
 
-### Checkout An Existing Submodule Branch (example, simulation)
+### Checkout An Existing Submodule Branch
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
 
-    # checkout the develop branch in all submodules
+    # checkout the existing develop branch in all submodules
     ./deployer -s git.co -e branch=develop
 
     # (example) verify the git status in simulation
@@ -280,3 +280,20 @@ So you do not need to give the full deployer arguments, you can just give a part
 
 - Both commands perform the same.
 - Use the preview `-p` option to see what deployer arguments are available.
+
+### Preview and Verbose
+
+The `deployer` has a preview & verbose option.
+
+    # go to the deploy, top-level submodule
+    cd ~/deploy_ws/src/
+
+    # preview all available clone projects
+    ./deployer -s git.clone -p
+
+    # preview & verbose all available clone projects
+    ./deployer -s git.clone.basestation -p -v
+
+- The preview options just shows (does not execute) what are all the available deployer commands, from a certain prefix.
+
+- The verbose options shows exactly what bash commands are to be run.

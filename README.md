@@ -135,13 +135,13 @@ You will need to go through a few tutorials to have a working system.
 
 ### 1. Install Third-Party Tool (Required)
 
-**Tutorial at:** [`discuss-install-dependencies.md`](docs/discuss-install-dependencies.md)
+**Tutorial at:** [`deploy-dependencies.md`](docs/deploy-dependencies.md)
 
 - Installs thirdparty tools (`docker, ansible, terraform,` etc.) required to setup deploy.
 
 ### 2. Clone Workspaces (Required)
 
-**Tutorial at:** [`discuss-install-workspaces.md`](docs/discuss-install-workspaces.md)
+**Tutorial at:** [`deploy-clone.md`](docs/deploy-clone.md)
 
 - Installs the `SubT` repositories for all `catkin` workspaces.
 

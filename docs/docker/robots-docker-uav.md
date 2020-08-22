@@ -29,7 +29,7 @@ Follow these steps, **on the basestation**.
         # push all the localhost docker images to the robot docker
         ./deployer -s robots.ds1.docker.registry.push
 
-        # Remove any previously created docker containers (example, on ds1 robot)
+        # (optional) remove any previously created docker containers (example, on ds1 robot)
         ./deployer -s robots.ds1.docker.rm
 
 **Verify Docker Images**

@@ -20,15 +20,15 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         cd ~/deploy_ws/src
 
         # change the docker context to the ugv1 azure docker daemon
-        docker context set azure-ugv1
+        docker context use azure-ugv1
 
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.ugv.docker.registry.pull
 
         # change the docker context back to the default docker daemon
-        docker context set default
+        docker context use default
 
-        # Remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s azure.ugv1.docker.rm
 
 **Verify Docker Images**

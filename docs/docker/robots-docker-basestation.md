@@ -25,7 +25,7 @@ Follow these steps, **on the basestation**.
         # push all the azure docker images to the localhost docker registry
         ./deployer -s local.basestation.docker.registry.push
 
-        # remove any previously created docker containers
+        # (optional) remove any previously created docker containers
         ./deployer -s local.basestation.docker.rm
 
 **Verify Docker Images**
