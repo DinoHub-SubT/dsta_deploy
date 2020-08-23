@@ -19,14 +19,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # change the docker context to the basestation azure docker daemon
-        docker context use azure-basestation
+        # login to azure docker registry
+        az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.basestation.registry.pull
-
-        # change the docker context back to the default docker daemon
-        docker context use default
 
         # (optional) remove any previously created docker containers
         ./deployer -s azure.basestation.docker.rm
