@@ -25,10 +25,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         # pull all the docker images from the azure docker registry
         ./deployer -s azure.basestation.registry.pull
 
-        # (optional) remove any previously created docker containers
-        ./deployer -s azure.basestation.docker.rm
-
 **Verify Docker Images**
+
+        # ssh into your VM, change the below command to match your VM ssh access
+        # -- you can switch your docker context instead of ssh
+        ssh azure.basestation
 
         # View the docker images built (on the remote VM)
         docker images
@@ -37,6 +38,11 @@ Verify you see the following docker images (in any order):
 
         subt/basestation-cpu:0.1
         subt/basestation-cpu:ros
+
+Return To Localhost
+
+        # exit the remote VM
+        exit
 
 ## 2. Docker Containers
 
@@ -47,12 +53,15 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
+        # (optional) remove any previously created docker containers
+        ./deployer -s azure.basestation.docker.rm
+
         # create the basestation docker container
         ./deployer -s azure.basestation.cpu.docker.shell
 
 **Verify Docker Containers**
 
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
+        # ssh into your VM, change the below command to match your VM ssh access
         # -- you can switch your docker context instead of ssh
         ssh azure.basestation
 
