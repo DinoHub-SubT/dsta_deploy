@@ -23,13 +23,14 @@
     # ignore any error messages (in case there are no dangling images)
     - docker rmi -f $(docker images -f "dangling=true" -q) 2&1> /dev/null
 
-  # == creating docker access containers ==
-  - shell:
-    - docker-compose-wrapper $scenario -p perception-$deploy_system_type-shell up --force-recreate -d perception-$deploy_system_type-shell
-
-  # == creating docker run containers ==
-  - container.run:
-    - docker-compose-wrapper $scenario -p ${deploybook_run}-start up --force-recreate -d sim-commander-run
-  # any compose command -- user can add '-e arg="launch build-gui"' to specify command
-  - container.exec:
-    - docker-compose-wrapper $scenario -p ${deploybook_run}-run up --force-recreate -d sim-commander-run-any
+  # ////////////////////////////////////////////////////////////////////////////
+  - container:
+  # ////////////////////////////////////////////////////////////////////////////
+    - shell:
+      - docker-compose-wrapper $scenario -p perception-$deploy_system_type-shell up --force-recreate -d perception-$deploy_system_type-shell
+    # stopping containers
+    - stop:
+      - docker stop $(docker ps -a -q)
+    # removing containers
+    - rm:
+      - docker rm -f $(docker ps -a -q)

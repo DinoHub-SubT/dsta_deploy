@@ -42,7 +42,6 @@ You should be able now to ping the remote host using the above alias.
         # ping the azure perception VM
         ping azure-perception1
 
-
 ## 2. Setup Remote Host SSH Config
 
 Please setup the ssh config for all available Azure VMs.
@@ -102,3 +101,24 @@ You should be able now to ssh into the remote host using the above alias.
 
         # ssh into the azure perception
         ssh azure.perception1
+
+## 3. Setup Azure Docker Context
+
+You should need to setup the remote docker daemons connections.
+
+        # create the basestation docker context
+        docker context create azure-basestation --description "azure basestation" --docker "host=ssh://azure.basestation"
+
+        # create the ugv docker context
+        docker context create azure-ugv1 --description "azure ugv1" --docker "host=ssh://azure.ugv1"
+        docker context create azure-ugv2 --description "azure ugv2" --docker "host=ssh://azure.ugv2"
+        docker context create azure-ugv3 --description "azure ugv3" --docker "host=ssh://azure.ugv3"
+
+        # create the uav docker context
+        docker context create azure-uav1 --description "azure uav1" --docker "host=ssh://azure.uav1"
+        docker context create azure-uav2 --description "azure uav2" --docker "host=ssh://azure.uav2"
+        docker context create azure-uav3 --description "azure uav3" --docker "host=ssh://azure.uav3"
+        docker context create azure-uav4 --description "azure uav4" --docker "host=ssh://azure.uav4"
+
+        # verify the docker context setup
+        docker context ls
