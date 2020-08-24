@@ -15,15 +15,19 @@ The `ansible` scripts do not give realtime output.
 - You will only see the success of the commands after it has completed.
 - Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so wait until `ansible` returns a fail or pass status.
 
+Feel free to explore the ansible install script:
+
+        subtani_install.sh --help
+
+
 **Things to be keep in mind:**
 
 - If a command takes longer than 30 minutes, check your VM or VPN connection.
-- If you see an error status for any task, please notify the maintainer.
+- If you see an error status for any task (and it stops the install), **please notify the maintainer**.
 - The `ansible` scripts will connect to the remote VMs and run the installs. Verify you have `ssh` access to the VMs.
 - You can run the `basestation`, `ugv`, `uav` install steps in parallel of each other (meaning steps 3, 4, 5 can be run in parallel of each other).
 
 **Please, run the following instructions from your localhost.**
-
 
 ## 1. Verify Localhost Setup: Bitbucket SSH Keys
 
@@ -37,29 +41,37 @@ The `ansible` scripts do not give realtime output.
         cd ~/deploy_ws/src/operations/deploy/robotbooks
 
         # view the available azure ansible hosts
-        subtp_install.sh -az
+        subtani_install.sh -az
 
 ## 3. Install Basestation VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-basestation
 
+        # Add azure-basestation to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+        ssh azure.basestation
+        exit
+
         # == Basestation VM Install ==
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtp_install.sh azure-basestation install-azure.yaml
+        subtani_install.sh azure-basestation install-azure.yaml
 
 ## 4. Install UGV VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-ugv1
 
+        # Add azure-ugv1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+        ssh azure.ugv1
+        exit
+
         # == UGV1 VM Install ==
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtp_install.sh azure-ugv1 install-azure.yaml
+        subtani_install.sh azure-ugv1 install-azure.yaml
 
 Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
@@ -68,11 +80,15 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
         # Verify VM Access
         ping -c 3 azure-uav1
 
+        # Add azure-uav1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+        ssh azure.uav1
+        exit
+
         # == UAV VM Install ==
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtp_install.sh azure-uav1 install-azure.yaml
+        subtani_install.sh azure-uav1 install-azure.yaml
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
@@ -81,11 +97,15 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
         # Verify VM Access
         ping -c 3 azure-perception1
 
+        # Add azure-perception1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+        ssh azure.perception1
+        exit
+
         # == Perception VM Install ==
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtp_install.sh azure-perception1 install-azure.yaml
+        subtani_install.sh azure-perception1 install-azure.yaml
 
 ## 7. Verify Install
 
