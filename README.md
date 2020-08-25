@@ -23,11 +23,10 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
    - You will not be able to continue with the below readme until you have fixed all the broken packages.
 
 
-**3. python2 (some operational tools do not work with python3 yet)**
+**3. Python2**
 
-        # installing python 2.7 and pip
-        sudo apt update
-        sudo apt install python2.7 python-pip
+  - Some operational tools do not work with python3 yet
+
 
 **4. ROS Melodic (optional)**
 
@@ -49,9 +48,28 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
   - The deploy repo can become large in size. Please have at least 30 GB available on your localhost.
 
-## SSH Keys
 
-**Bitbucket SSH Keys**
+## Operations Resources
+
+Please have a basic understanding of the following the operational tools:
+
+- [Git](https://git-scm.com/about)
+- [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
+- [ROS Melodic](http://wiki.ros.org/melodic)
+- [Catkin](https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html)
+- [Docker](https://docs.docker.com/get-started/)
+- [Docker Compose (optional)](https://docs.docker.com/compose/)
+- [Docker Context (optional)](https://docs.docker.com/engine/context/working-with-contexts/)
+- [Azure (optional)](https://docs.microsoft.com/en-us/azure/?product=featured)
+- [Azure CLI (optional)](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
+- [Terraform (optional)](https://www.terraform.io/)
+- [Ansible (optional)](https://www.ansible.com/)
+- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
+
+
+## Deploy Repository
+
+**1. Bitbucket SSH Keys**
 
 - Generate ssh keys for subt bitbucket:
 
@@ -83,16 +101,21 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
         # exit the ssh config file
 
-## Deploy Repository
+**2. Install deploy dependencies**
 
-**1. Install deploy dependencies**
-
+        # deployer dependencies
         sudo apt-get update
-        sudo apt install -y --no-install-recommends python python-setuptools python-pip
+        sudo apt install -y --no-install-recommends python2.7 python-setuptools python-pip
         pip2 install wheel --user
         pip2 install setuptools PyYAML pexpect --user
 
-**2. Clone the deploy repo *(please follow these instructions exactly)* :**
+        # install ansible
+        sudo apt update
+        sudo apt install software-properties-common
+        sudo apt-add-repository --yes --update ppa:ansible/ansible
+        sudo apt install ansible
+
+**3. Clone the deploy repo *(please follow these instructions exactly)* :**
 
         # clone & install deploy
         mkdir ~/deploy_ws/
@@ -100,52 +123,73 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
         git clone git@bitbucket.org:cmusubt/deploy.git src
         cd src
         git checkout develop
+
+        # run the deployer operations install
         ./install-deployer.bash --install
 
         # source your bashrc (or zhsrc, whichever shell you use)
         source ~/.bashrc
 
+        # (if on your laptop) run the system dependencies install
+        subtani_install.sh localhost install-localhost.yaml
+
+        # (if on basestation) run the system dependencies install
+        subtani_install.sh basestation install-localhost.yaml
+
+
+**4. Verify Installations**
+
+Verify you have all the operations tools installed correctly:
+
+        # verify docker
+        docker --version
+
+        # verify docker-compose
+        docker-compose -v
+
+        # verify nvidia-docker
+        nvidia-docker -v
+
+        # verify ansible configuration management tools
+        ansible --version
+
+        # verify terraform cloud provisioning tool
+        terraform --version
+
+        # verify azure cli
+        az --help
+
+        # verify azcopy
+        azcopy -v
+
+        # (optional) teamviewer client for remote VM desktop access
+        teamviewer --help
+
+        # verify docker-compose shows the help usage message
+        docker-compose-wrapper --help
+
+        # verify deployer script shows the help usage message
+        ./deployer --help
+
+Notify the maintainer if any of the `help` usage messages do not show up.
+
 - Notify the maintainer if cloning or installing the deploy repository failed.
-
-## Operations Resources
-
-Please have a basic understanding of the following the operational tools:
-
-- [Git](https://git-scm.com/about)
-- [Git Submodules](https://www.atlassian.com/git/tutorials/git-submodule)
-- [ROS Melodic](http://wiki.ros.org/melodic)
-- [Catkin](https://catkin-tools.readthedocs.io/en/latest/verbs/catkin_build.html)
-- [Docker](https://docs.docker.com/get-started/)
-- [Docker Compose (optional)](https://docs.docker.com/compose/)
-- [Docker Context (optional)](https://docs.docker.com/engine/context/working-with-contexts/)
-- [Azure (optional)](https://docs.microsoft.com/en-us/azure/?product=featured)
-- [Azure CLI (optional)](https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest)
-- [Terraform (optional)](https://www.terraform.io/)
-- [Ansible (optional)](https://www.ansible.com/)
-- [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
-- [SubT Deployer Tool (optional) ](./docs/discuss-operation-tools.md)
 
 * * *
 
-# Getting Started: Tutorials
+# Getting Started
 
 The below instructions should get you started on a basic `SubT` setup locally or on Azure.
 
 You will need to go through a few tutorials to have a working system.
 
-### 1. Install Third-Party Tool (Required)
-
-**Tutorial at:** [`deploy-dependencies.md`](docs/deploy-dependencies.md)
-
-- Installs thirdparty tools (`docker, ansible, terraform,` etc.) required to setup deploy.
-
-### 2. Clone Workspaces (Required)
+### 1. Clone Workspaces (Required)
 
 **Tutorial at:** [`deploy-clone.md`](docs/deploy-clone.md)
 
 - Installs the `SubT` repositories for all `catkin` workspaces.
 
-### 3. Azure Cloud Infrastructure Setup (Optional)
+### 2. Azure Cloud Infrastructure Setup (Optional)
 
 **Tutorial at:** [`azure-setup.md`](docs/azure-setup.md)
 
@@ -157,7 +201,7 @@ This tutorial will setup the following:
 - Sets up remote desktop access.
 - Create the docker images, containers on the remote VMs.
 
-### 4. Docker Engine Setup (Required)
+### 3. Docker Engine Setup (Required)
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | ---  |--- | --- |
@@ -166,17 +210,7 @@ This tutorial will setup the following:
 **UAV** | [`local-docker-uav.md`](docs/docker/local-docker-uav.md) | [`azure-docker-uav.md`](docs/docker/azure-docker-uav.md)| [`robots-docker-uav-setup.md`](docs/docker/robots-docker-uav.md) |
 **Perception** | [`local-docker-perception.md`](docs/docker/local-docker-perception.md) | [`azure-docker-perception-setup.md`](docs/docker/azure-docker-perception.md)| |
 
-These tutorials will setup the following:
-
-- Assumes you have already setup the docker engine on the localhost.
-
-- Install all docker images on the remote machines
-    - *Docker images setup the all the submodules' package dependencies*
-
-- Create all docker containers on the remote machines
-    - *A docker container is the environment where you will be building & running the code*
-
-### 5. Catkin Workspaces Setup (Required)
+### 4. Catkin Workspaces Setup (Required)
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | --- |--- |--- |
@@ -185,13 +219,7 @@ These tutorials will setup the following:
 **UAV** | [`local-catkin-uav.md`](docs/catkin/local-catkin-uav.md) | [`azure-catkin-uav.md`](docs/catkin/azure-catkin-uav.md) | [`robots-catkin-uav.md`](docs/catkin/robots-catkin-uav.md)| |
 **Perception** | [`local-catkin-perception.md`](docs/catkin/local-catkin-perception.md) | [`azure-catkin-perception.md`](docs/catkin/azure-catkin-perception.md) | [`robots-catkin-perception.md`](docs/catkin/robots-catkin-perception.md) | |
 
-These tutorials will setup the following:
-
-- Build all the catkin workspaces for the different software stacks.
-- Pre-defines the explicit catkin extend paths.
-- Pre-defines some cmake and catkin flags (such as using the release flags).
-
-### 6. Simulation Launch Setup (Required)
+### 5. Simulation Launch Setup (Required)
 
 -- | Localhost Tmux Launch | Azure Tmux Launch  |
 --- | --- | --- | --- | --- |
@@ -199,39 +227,38 @@ These tutorials will setup the following:
 **UGV** | [`local-launch-ugv.md`](docs/launch/local-launch-ugv.md) | [`azure-launch-ugv.md`](docs/launch/azure-launch-ugv.md) |
 **UAV** | [`local-launch-uav.md`](docs/launch/local-launch-uav.md) | [`azure-launch-uav.md`](docs/launch/azure-launch-uav.md) |
 
-These tutorials will setup the following:
+* * *
 
-- Launch setups for different software stacks.
-- Launch setups for different scenarios (like simple localhost simulation, full Azure simulation, robot hardware, etc.).
+## More References
 
-### 7. Managing Endpoints (Optional)
+### Managing Endpoints
 
 **Discussion at:** [`discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
 
 - Methods of managing multiple remote docker endpoints.
 - Remote development workflow.
 
-### 8. Updating Deploy Repos (Optional)
+### Updating Deploy Repos
 
 **Discussion at:** [`discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
 
-### 9. Operational Tools (Optional)
+### Operational Tools
 
 **Discussion at:** [`discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
 - Operational tools used in deploy, their function and their general syntax.
 - Helpful thidparty tools
 
-### 10. More Tutorials (Optional)
+### More Tutorials
 
-Some tutorials are not found on the readme, but on the deploy "wiki" page:
+Some tutorials can be found on the deploy "wiki" page:
 
 - [Submodules: Getting Started Basics](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules)
 
-### 11. Common Questions and Issues (Optional)
+### Common Questions and Issues
 
 **Discussion at:** [`discuss-questions-issues.md`](docs/discuss-questions-issues.md)
 

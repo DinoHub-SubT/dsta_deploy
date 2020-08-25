@@ -16,21 +16,18 @@ All deployer commands should be done on the **basestation**.
 
 Follow these steps, **on the basestation**.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.uav.docker.registry.pull
+        ./deployer -s robots.ds1.docker.pull
 
-        # TODO: try to remove, add to deployer
-        # push all the azure docker images to the localhost docker registry
-        ./deployer -s local.uav.docker.registry.push
-
-        # push all the localhost docker images to the robot docker
-        ./deployer -s robots.ds1.docker.registry.push
-
-        # (optional) remove any previously created docker containers (example, on ds1 robot)
-        ./deployer -s robots.ds1.docker.rm
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s robots.ds1.docker.stop.all
+        ./deployer -s robots.ds1.docker.rm.all
 
 **Verify Docker Images**
 

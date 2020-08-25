@@ -16,20 +16,18 @@ All deployer commands should be done on the **localhost**.
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # change the docker context to the perception1 azure docker daemon
-        docker context use azure-perception1
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.perception.docker.registry.pull
+        ./deployer -s azure.perception1.docker.pull
 
-        # change the docker context back to the default docker daemon
-        docker context use default
-
-        # (optional) remove any previously created docker containers
-        ./deployer -s azure.perception.docker.rm
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s azure.perception1.docker.stop.all
+        ./deployer -s azure.perception1.docker.rm.all
 
 **Verify Docker Images**
 

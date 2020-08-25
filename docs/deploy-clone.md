@@ -169,7 +169,7 @@ The deploy repo maintains a **3-commit level** group of submodules:
 
 * * *
 
-## Base Clone Deploy Workspace
+## Deploy Submodules
 
 This tutorial will show you how to interact with deploy's git and submodules setup.
 
@@ -184,13 +184,16 @@ This will clone all the base submodules. Submodules clone as `DETACHED HEAD`. Ma
     cd ~/deploy_ws/src/
     ./deployer -s git.clone.base
 
-If you wish to clone a specific project only:
+If you wish to clone specific projects:
 
     # preview all the available projects available to clone.
     ./deployer -s git.clone -p
 
     # example, clone common project
     ./deployer -s git.clone.common
+
+    # example, base, simulation common project
+    ./deployer -s git.clone.base git.clone.simulation
 
 ### Pull the submodules
 
@@ -199,13 +202,34 @@ This will pull all the base submodules updates, when your submodules are already
     cd ~/deploy_ws/src/
     ./deployer -s git.pull.base
 
-If you wish to pull a specific project only:
+If you wish to pull specific projects:
 
     # preview all the available projects available to pull.
     ./deployer -s git.pull -p
 
     # example, pull common project
     ./deployer -s git.pull.common
+
+    # example, common, simulation projects
+    ./deployer -s git.pull.base git.pull.simulation
+
+### Reset the submodules
+
+This will reset all the base submodules, to their `DETACHED HEAD` at the top level branch.
+
+    cd ~/deploy_ws/src/
+    ./deployer -s git.reset.base
+
+If you wish to reset specific projects:
+
+    # preview all the available projects available to pull.
+    ./deployer -s git.reset -p
+
+    # example, pull common project
+    ./deployer -s git.reset.common
+
+    # example, common, simulation projects
+    ./deployer -s git.reset.common git.reset.simulation
 
 ### Clean the submodules
 
@@ -214,7 +238,7 @@ This cleans all the submodules from any uncommitted changes.
     cd ~/deploy_ws/src/
     ./deployer -s git.clean
 
-If you wish to clean a specific project only:
+If you wish to clean specific projects:
 
     # preview all the available projects available to clean.
     ./deployer -s git.clean -p
@@ -222,12 +246,15 @@ If you wish to clean a specific project only:
     # example, clean common project
     ./deployer -s git.clean.common
 
+    # example, common, simulation projects
+    ./deployer -s git.clean.common git.clean.simulation
+
 ### Remove the submodules
 
     cd ~/deploy_ws/src/
     ./deployer -s git.rm.base
 
-If you wish to remove a specific project only:
+If you wish to remove specific projects:
 
     # preview all the available projects available to remove.
     ./deployer -s git.rm -p
@@ -235,9 +262,12 @@ If you wish to remove a specific project only:
     # example, clean common project
     ./deployer -s git.rm.common
 
+    # example, common, simulation projects
+    ./deployer -s git.rm.common git.rm.simulation
+
 * * *
 
-## Extra
+## More References
 
 ### Checkout New Submodule Branch
 

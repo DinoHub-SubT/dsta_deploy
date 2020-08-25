@@ -16,20 +16,18 @@ All deployer commands should be done on the **localhost**.
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker image on the Azure remote VM.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
-        # change the docker context to the ugv1 azure docker daemon
-        docker context use azure-ugv1
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.ugv.docker.registry.pull
+        ./deployer -s azure.ugv1.docker.pull
 
-        # change the docker context back to the default docker daemon
-        docker context use default
-
-        # (optional) remove any previously created docker containers
-        ./deployer -s azure.ugv1.docker.rm
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s azure.ugv1.docker.stop.all
+        ./deployer -s azure.ugv1.docker.rm.all
 
 **Verify Docker Images**
 

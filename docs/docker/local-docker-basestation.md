@@ -16,13 +16,17 @@ All deployer commands should be done on the **localhost**.
 
 Follow these steps, **on the localhost**.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.basestation.docker.registry.pull
+        ./deployer -s azure.basestation.docker.pull
 
-        # (optional) remove any previously created docker containers
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s local.basestation.docker.stop
         ./deployer -s local.basestation.docker.rm
 
 **Verify Docker Images**
