@@ -26,8 +26,8 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         ./deployer -s azure.basestation.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s azure.basestation.docker.stop.all
-        ./deployer -s azure.basestation.docker.rm.all
+        ./deployer -s azure.basestation.docker.stop
+        ./deployer -s azure.basestation.docker.rm
 
 **Verify Docker Images**
 

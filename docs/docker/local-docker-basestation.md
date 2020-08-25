@@ -26,8 +26,8 @@ Follow these steps, **on the localhost**.
         ./deployer -s azure.basestation.docker.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s local.basestation.docker.stop.all
-        ./deployer -s local.basestation.docker.rm.all
+        ./deployer -s local.basestation.docker.stop
+        ./deployer -s local.basestation.docker.rm
 
 **Verify Docker Images**
 
