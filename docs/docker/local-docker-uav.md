@@ -16,14 +16,18 @@ All deployer commands should be done on the **localhost**.
 
 Follow these steps, **on the localhost**.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.uav.docker.registry.pull
+        ./deployer -s azure.uav.docker.pull
 
-        # (optional) remove any previously created docker containers
-        ./deployer -s local.uav.docker.rm
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s local.uav.docker.stop.all
+        ./deployer -s local.uav.docker.rm.all
 
 **Verify Docker Images**
 

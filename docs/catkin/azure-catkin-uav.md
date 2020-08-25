@@ -12,21 +12,7 @@ Follow the instructions below to setup the UAV catkin workspace.
 
 Follow these steps, **on the localhost**, not on the Azure remote VM.
 
-### 1. Apply UAV Firmware Patch
-
-You only need to apply the firmware patch once, on a fresh clone:
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # apply firmware patch
-        ./deployer -s local.uav.patch
-
-- This will apply an update to the `cmake` files found in `~/deploy_ws/src/uav/core/Firmware`
-
-This is a temporary fix, a permanent solution will be investigated.
-
-### 2. Catkin Build
+### 1. Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM.
 

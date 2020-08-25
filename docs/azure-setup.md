@@ -29,14 +29,7 @@ You have the option of building the workspaces directly on the VM or in the dock
 - In the `SubT` resource group, search for the `resource_name_prefix` you put in `operations/deploy/azurebooks/subt/main.tf`
 - Verify you see your resources created (like Virtual Machines, networking, etc) with your prefix.
 
-
-## 3. Virtual Machine Prerequisites
-
-**Tutorial at:** [`docs/azure-prereq.md`](azure-prereq.md)
-
-- Follow this tutorial for setting up the prerequisites needed for using the Azure VMs.
-
-## 4. Prepare The Virtual Machines
+## 3. Prepare The Virtual Machines
 
 **Tutorial at:** [`docs/azure-prepare.md`](azure-prepare.md)
 
@@ -45,7 +38,7 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 If there are any dependencies missing, please notify the maintainer.
 
-## 5. Summary
+## 4. Summary
 
 You should now have the Azure infrastructure setup and be able to access (ssh, rdp, teamviewer) the remote Azure VMs.
 

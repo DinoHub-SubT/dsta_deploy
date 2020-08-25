@@ -15,11 +15,6 @@ The `ansible` scripts do not give realtime output.
 - You will only see the success of the commands after it has completed.
 - Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so wait until `ansible` returns a fail or pass status.
 
-Feel free to explore the ansible install script:
-
-        subtani_install.sh --help
-
-
 **Things to be keep in mind:**
 
 - If a command takes longer than 30 minutes, check your VM or VPN connection.
@@ -35,15 +30,7 @@ Feel free to explore the ansible install script:
         ls ~/.ssh/bitbucket
         ls ~/.ssh/bitbucket.pub
 
-## 2. Ansible Workspace
-
-        # go to the ansible workspace
-        cd ~/deploy_ws/src/operations/deploy/robotbooks
-
-        # view the available azure ansible hosts
-        subtani_install.sh -az
-
-## 3. Install Basestation VM Dependencies
+## 2. Install Basestation VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-basestation
@@ -58,7 +45,7 @@ Feel free to explore the ansible install script:
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         subtani_install.sh azure-basestation install-azure.yaml
 
-## 4. Install UGV VM Dependencies
+## 3. Install UGV VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-ugv1
@@ -75,7 +62,7 @@ Feel free to explore the ansible install script:
 
 Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
-## 5. Install UAV VM Dependencies
+## 4. Install UAV VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-uav1
@@ -92,7 +79,7 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
-## 6. Install Perception VM Dependencies
+## 5. Install Perception VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-perception1
@@ -107,7 +94,7 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
         subtani_install.sh azure-perception1 install-azure.yaml
 
-## 7. Verify Install
+## 6. Verify Install
 
 Verify everything was installed correctly on all the VMs.
 
@@ -141,3 +128,15 @@ Example steps below show how to verify on the basestation VM:
 
         # exit the Basestation VM
         exit
+
+## 7. Remote Desktop
+
+The SubT Azure VMs has remote desktop port enabled.
+
+**Run the RDP client script (localhost)**
+
+        # template
+        azure-rdp --title [window title] --host [ VM HOST ] --user subt --pass Password1234! --res 1920x1080
+
+        # example
+        azure-rdp --title basestation --host azure-basestation --user subt --pass Password1234! --res 1920x1080

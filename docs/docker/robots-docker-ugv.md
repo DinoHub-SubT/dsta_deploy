@@ -16,21 +16,19 @@ All deployer commands should be done on the **basestation**.
 
 Follow these steps, **on the basestation**.
 
+        # azure registry login
+        az acr login --name subtexplore
+
         # go to the deploy top level path
         cd ~/deploy_ws/src
 
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.ugv.docker.registry.pull
+        ./deployer -s azure.ugv1.ppc.docker.pull
+        ./deployer -s azure.ugv1.nuc.docker.pull
 
-        # TODO: try to remove, add to deployer
-        # push all the azure docker images to the localhost docker registry
-        ./deployer -s local.ugv.docker.registry.push
-
-        # push all the localhost docker images to the robot docker
-        ./deployer -s robots.ugv1.docker.registry.push
-
-        # (optional) remove any previously created docker containers (example, on ugv1 robot)
-        ./deployer -s robots.ugv1.docker.rm
+        # (optional) stop & remove any previously created docker containers
+        ./deployer -s robots.ugv1.docker.stop.all
+        ./deployer -s robots.ugv1.docker.rm.all
 
 **Verify Docker Images**
 
