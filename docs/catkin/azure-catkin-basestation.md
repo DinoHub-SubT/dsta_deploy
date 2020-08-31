@@ -42,18 +42,12 @@ You want to build both the `cpu` and `gpu` catkin workspaces on the GPU VM.
 
         # clean the previous built workspaces
         ./deployer -s azure.basestation.cpu.catkin.gui.clean
-        ./deployer -s azure.basestation.gpu.catkin.perception.clean
 
         # create the docker shell on the remote host
         ./deployer -s azure.basestation.cpu.docker.shell
-        ./deployer -s azure.basestation.gpu.docker.shell
 
         # catkin build the basestation GUI workspaces
         ./deployer -s azure.basestation.cpu.catkin.gui.build
-
-        # catkin build the basestation perception workspaces
-        ./deployer -s azure.basestation.gpu.catkin.perception.build
-
 
 ## Cleanup (optional)
 

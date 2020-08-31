@@ -21,9 +21,6 @@ Assuming you have already setup all your docker containers, follow the instructi
         # catkin build the basestation GUI workspaces
         ./deployer -s robots.basestation.cpu.catkin.gui.build
 
-        # catkin build the basestation perception workspaces
-        ./deployer -s robots.basestation.cpu.catkin.perception.build
-
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).

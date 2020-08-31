@@ -21,8 +21,6 @@ Assuming you have already setup all your docker containers, follow the instructi
         # catkin build the basestation GUI workspaces
         ./deployer -s local.basestation.cpu.catkin.gui.build
 
-        # catkin build the basestation perception workspaces
-        ./deployer -s local.basestation.cpu.catkin.perception.build
 
 ## Cleanup (optional)
 
