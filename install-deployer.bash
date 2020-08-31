@@ -40,8 +40,8 @@ remove_from_config() {
   # remove title
   sed -i '/Deploy Setup/d' /$homedir/.$1
   # remove alias
-  sed -i '/deploy-cd/d' /$homedir/.$1
-  sed -i '/deploy-cd-azure/d' /$homedir/.$1
+  sed -i '/dcd/d' /$homedir/.$1
+  sed -i '/dcd-azure/d' /$homedir/.$1
   sed -i '/deploy-azure-limits-eastus2/d' /$homedir/.$1
   sed -i '/deploy-azure-limits-eastus/d' /$homedir/.$1
   sed -i '/deploy-vpn-ca-cert/d' /$homedir/.$1
@@ -64,8 +64,8 @@ add_to_config() {
   # add title
   echo "# == Deploy Setup ==" >> /$homedir/.$1
   # add alias
-  echo "alias deploy-cd=\"cd $SRC_DIR/\"" >> /$homedir/.$1
-  echo "alias deploy-cd-azure=\"cd $SRC_DIR/operations/deploy/azurebooks/subt/\"" >> /$homedir/.$1
+  echo "alias dcd=\"cd $SRC_DIR/\"" >> /$homedir/.$1
+  echo "alias dcd-azure=\"cd $SRC_DIR/operations/deploy/azurebooks/subt/\"" >> /$homedir/.$1
   echo "alias deploy-azure-limits-eastus='az vm list-usage --location \"East US\" -o table | grep \"Total Regional vCPUs\"'" >> /$homedir/.$1
   echo "alias deploy-azure-limits-eastus2='az vm list-usage --location \"East US 2\" -o table | grep \"Total Regional vCPUs\"'" >> /$homedir/.$1
   echo "alias deploy-vpn-ca-cert='openssl x509 -in caCert.pem -outform der | base64 -w0 ; echo'" >> /$homedir/.$1
