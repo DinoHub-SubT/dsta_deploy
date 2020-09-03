@@ -17,6 +17,7 @@ if chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@; then
   text_color  "Flags:"
   text_color "      -i, --install     : installs the deployer."
   text_color "      -u, --uninstall   : uninstalls the deployer."
+  text_color "      -rg               : remove git hooks."
   text_color "      -h, --help, help  : shows usage message."
   text_color "Installs or uninstalls the builder script."
   text_color "For more help, please see the README.md or wiki."
@@ -34,8 +35,8 @@ create_subtrc() {
   # remove deployer title
   echo "# == SubT Deployer ==" >> $GL_RC
   # add deployer alias commands
-  echo "alias dcd=\"cd $GL_SRC_DIR/\"" >> $GL_RC
-  echo "alias dcd-azure=\"cd $GL_SRC_DIR/operations/deploy/azurebooks/subt/\"" >> $GL_RC
+  echo "alias cdd=\"cd $GL_SRC_DIR/\"" >> $GL_RC
+  echo "alias cdd-azure=\"cd $GL_SRC_DIR/operations/deploy/azurebooks/subt/\"" >> $GL_RC
   echo "alias subtu-azure-limits-eastus='az vm list-usage --location \"East US\" -o table | grep \"Total Regional vCPUs\"'" >> $GL_RC
   echo "alias subtu-azure-limits-eastus2='az vm list-usage --location \"East US 2\" -o table | grep \"Total Regional vCPUs\"'" >> $GL_RC
   echo "alias subtu-vpn-ca-cert='openssl x509 -in caCert.pem -outform der | base64 -w0 ; echo'" >> $GL_RC
@@ -49,8 +50,36 @@ create_subtrc() {
   echo "export PATH=\$PATH:\$SUBT_PATH:\$SUBT_DOCKER_PATH:\$DEPLOY_BIN_PATH:\$TERRAFORM_UTILS_PATH:\$PLAYBOOKS_UTILS_PATH:\$DEPLOY_LAUNCH_PATH" >> $GL_RC
 }
 
+# remove git hooks
+rm_git_hooks() {
+  # exit, if zshrc or bashrc does not exist
+  if ! file_exists $GL_RC; then
+    warning "cannot remove git hooks, $GL_RC does not exist"
+    return;
+  fi
+
+  # remove source from rc
+  sed -i '/git_status.bash/d' $GL_RC
+}
+
+# add git hooks
+add_git_hooks() {
+  # exit, if zshrc or bashrc does not exist
+  if ! file_exists $GL_RC; then
+    warning "cannot add git hooks, $GL_RC does not exist"
+    return;
+  fi
+
+  # remove any previous git hooks
+  rm_git_hooks
+
+  # add git status hook
+  echo >> $GL_RC
+  echo "source $GL_SRC_DIR/operations/bin/git_hooks/git_status.bash" >> $GL_RC
+}
+
 # remove zsh/bashrc installs
-remove_from_rc() {
+rm_from_rc() {
   local rc=/$HOME/.$1
   # exit, if zshrc or bashrc does not exist
   if ! file_exists $rc; then
@@ -75,7 +104,6 @@ add_to_rc() {
 install_deployer_py_scripts() {
   # install python scripts
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  pwd
   python setup.py install --user
   validate "builder install failed."
   git clean -f -d
@@ -84,7 +112,6 @@ install_deployer_py_scripts() {
 # uninstall deployer's python scripts
 uninstall_deployer_py_scripts() {
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  pwd
   python setup.py install --record egg-files.txt --user
   validate "builder uninstall failed."
   cat egg-files.txt | xargs rm -rf
@@ -103,12 +130,15 @@ install() {
   create_subtrc
 
   # remove any previous deployer env setup
-  remove_from_rc "zshrc"
-  remove_from_rc "bashrc"
+  rm_from_rc "zshrc"
+  rm_from_rc "bashrc"
 
   # add deployer env setup
   add_to_rc "zshrc"
   add_to_rc "bashrc"
+
+  # add git hooks to subtrc
+  add_git_hooks
 
   echo "SubT scripts installed."
 }
@@ -124,8 +154,8 @@ uninstall() {
   fi
 
   # remove any previous deployer env setup
-  remove_from_rc "zshrc"
-  remove_from_rc "bashrc"
+  rm_from_rc "zshrc"
+  rm_from_rc "bashrc"
 
   echo "SubT scripts uninstalled."
 }
@@ -146,6 +176,8 @@ if chk_flag -i $@ || chk_flag --install $@; then
 elif chk_flag -u $@ || chk_flag --uninstall $@; then
   uninstall
   echo "uninstall"
+elif chk_flag -rg $@; then
+  rm_git_hooks
 else
   error "Invalid argument. Please use --help to see available arguments."
 fi
