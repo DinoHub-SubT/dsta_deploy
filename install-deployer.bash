@@ -51,7 +51,7 @@ create_subtrc() {
 }
 
 # remove git hooks
-rm_git_hooks() {
+rm_hooks() {
   # exit, if zshrc or bashrc does not exist
   if ! file_exists $GL_RC; then
     warning "cannot remove git hooks, $GL_RC does not exist"
@@ -63,7 +63,7 @@ rm_git_hooks() {
 }
 
 # add git hooks
-add_git_hooks() {
+add_hooks() {
   # exit, if zshrc or bashrc does not exist
   if ! file_exists $GL_RC; then
     warning "cannot add git hooks, $GL_RC does not exist"
@@ -71,11 +71,11 @@ add_git_hooks() {
   fi
 
   # remove any previous git hooks
-  rm_git_hooks
+  rm_hooks
 
   # add git status hook
   echo >> $GL_RC
-  echo "source $GL_SRC_DIR/operations/bin/git_hooks/git_status.bash" >> $GL_RC
+  echo "source $GL_SRC_DIR/operations/bin/hooks/git_status.bash" >> $GL_RC
 }
 
 # remove zsh/bashrc installs
@@ -138,7 +138,7 @@ install() {
   add_to_rc "bashrc"
 
   # add git hooks to subtrc
-  add_git_hooks
+  add_hooks
 
   echo "SubT scripts installed."
 }
@@ -177,7 +177,7 @@ elif chk_flag -u $@ || chk_flag --uninstall $@; then
   uninstall
   echo "uninstall"
 elif chk_flag -rg $@; then
-  rm_git_hooks
+  rm_hooks
 else
   error "Invalid argument. Please use --help to see available arguments."
 fi
