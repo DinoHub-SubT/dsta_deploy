@@ -59,7 +59,7 @@ rm_hooks() {
   fi
 
   # remove source from rc
-  sed -i '/git_status.bash/d' $GL_RC
+  sed -i '/hooks\/subt/d' $GL_RC
 }
 
 # add git hooks
@@ -75,7 +75,7 @@ add_hooks() {
 
   # add git status hook
   echo >> $GL_RC
-  echo "source $GL_SRC_DIR/operations/bin/hooks/git_status.bash" >> $GL_RC
+  echo "source $GL_SRC_DIR/operations/bin/hooks/subt" >> $GL_RC
 }
 
 # remove zsh/bashrc installs
