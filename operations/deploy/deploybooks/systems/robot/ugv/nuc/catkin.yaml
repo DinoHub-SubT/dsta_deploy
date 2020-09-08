@@ -83,3 +83,47 @@
         - catkin profile set ugv-slam
         - catkin config
         - catkin build --force-cmake
+
+  # ////////////////////////////////////////////////////////////////////////////
+  - nuc.perception:
+  # ////////////////////////////////////////////////////////////////////////////
+    - cd $SUBT_PATH/
+    - pwd
+    - whoami
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - clean:
+    # ////////////////////////////////////////////////////////////////////////////
+      - rm -rf ~/deploy_ws/devel/perception
+      - rm -rf ~/deploy_ws/build/perception
+      - rm -rf ~/deploy_ws/install/perception
+      - rm -rf ~/deploy_ws/logs/perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - build:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      - common:
+        - cd ~/deploy_ws/src/common
+        - rm -f .catkin_tools/profiles/profiles.yaml
+        - catkin profile list
+        - catkin profile set ugv-nuc-perception
+        - catkin config
+        - catkin build --force-cmake
+
+      - perception:
+        - cd ~/deploy_ws/src/perception
+        - rm -f .catkin_tools/profiles/profiles.yaml
+        # ignore slam/devel repos
+        - catkin profile list
+        - catkin profile set nuc
+        - catkin config
+        - catkin build --force-cmake
+
+      - subt_launch:
+        - cd ~/deploy_ws/src/subt_launch
+        - rm -f .catkin_tools/profiles/profiles.yaml
+        - catkin profile list
+        - catkin profile set ugv-nuc-perception
+        - catkin config
+        - catkin build --force-cmake
