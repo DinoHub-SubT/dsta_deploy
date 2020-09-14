@@ -121,8 +121,8 @@ uninstall_deployer_py_scripts() {
 # install
 install() {
   # update the submodules & install deployer python scripts
-  # git submodule update --init --recursive $GL_SRC_DIR/operations
-  # install_deployer_py_scripts
+  git submodule update --init --recursive $GL_SRC_DIR/operations
+  install_deployer_py_scripts
 
   # create the subt environment config file
   mkdir -p $GL_SUBT_ENV_DIR
@@ -146,7 +146,7 @@ install() {
 # uninstall
 uninstall() {
   # remove deployer python scripts
-  # uninstall_deployer_py_scripts
+  uninstall_deployer_py_scripts
 
   # remove subt rc file
   if file_exists $GL_RC; then
