@@ -1,0 +1,115 @@
+#!/usr/bin/env bash
+
+# load header helper functions
+. "$SUBT_PATH/operations/bin/.header.bash"
+. "$SUBT_PATH/operations/bin/automate/.header.bash"
+. "$SUBT_PATH/operations/bin/automate/.auto_completion.bash"
+
+# globals
+GL_GIT_AUTOMATE_DIR=$SUBT_PATH/operations/bin/automate/
+
+# @brief evaluate which subcommand to switch and execute
+__subt_git_execute() {
+  if chk_flag status $@ || chk_flag sync $@ || chk_flag clone $@ \
+    || chk_flag reset $@ || chk_flag clean $@  || chk_flag rm || chk_flag add $@; then
+    shift 1 # shift the 'git' token
+    ($GL_GIT_AUTOMATE_DIR/git.bash $@)
+  elif chk_flag help $@; then
+    __git_help
+  fi
+}
+
+# @brief evaluate which subcommand to switch and execute
+__subt_cloud_execute() {
+  # ansible azure install
+  if chk_flag ansible $@; then
+    shift 2 # shift the 'git', 'info' tokens
+    (subtani_install.sh $@)
+  # terraform azure setup
+  elif chk_flag terraform $@; then
+    shift 2 # shift the 'cloud terraform' tokens
+    if chk_flag init $@; then
+      shift # shift the subcommand
+      (subtf_init.sh $@)
+    elif chk_flag cert $@; then
+      shift # shift the subcommand
+      (subtf_cert.sh $@)
+    elif chk_flag plan $@; then
+      shift # shift the subcommand
+      (subtf_plan.sh $@)
+    elif chk_flag apply $@; then
+      shift # shift the subcommand
+      (subtf_apply.sh $@)
+    elif chk_flag mkvpn $@; then
+      shift # shift the subcommand
+      (subtf_mkvpn.sh $@)
+    elif chk_flag rmvpn $@; then
+      shift # shift the subcommand
+      (subtf_rmvpn.sh $@)
+    elif chk_flag start $@; then
+      shift # shift the subcommand
+      (subtf_start.sh $@)
+    elif chk_flag stop $@; then
+      shift # shift the subcommand
+      (subtf_stop.sh $@)
+    fi
+  fi
+}
+
+# @brief evaluate which subcommand to switch and execute
+__subt_tools_execute() {
+
+  if chk_flag ssh $@; then
+    shift 2 # shift the 'tools', 'ssh' tokens
+    (subtu_avail_ssh $@)
+
+  elif chk_flag teamviewer $@; then
+    shift 2 # shift the 'tools', 'teamviewer' tokens
+    (subtu_avail_teamviewer $@)
+
+  elif chk_flag rdp $@; then
+    shift 2 # shift the 'tools', 'teamviewer' tokens
+    (subtu_azure_rdp $@)
+
+  elif chk_flag snapshot $@; then
+    shift 2 # shift the 'tools', 'snapshot' tokens
+    (subtu_snapshot $@)
+
+  fi
+}
+
+# //////////////////////////////////////////////////////////////////////////////
+# @brief 'git subt' wrapper entrypoint
+# //////////////////////////////////////////////////////////////////////////////
+subt() {
+  # execute actual git command (filter any 'git subt' subcommands)
+  if chk_nth_flag 1 "git" "$@"; then
+    # execute git subt main entrypoint
+    __subt_git_execute $@
+    # command git "$@"
+
+  # execute 'git subt' subcommand
+  elif chk_nth_flag 1 "deployer" "$@"; then
+    shift 1 # shift 'deployer'
+    ($GL_GIT_AUTOMATE_DIR/deployer.bash $@)
+
+  elif chk_nth_flag 1 "cloud" "$@"; then
+    __subt_cloud_execute $@
+
+  elif chk_nth_flag 1 "tools" "$@"; then
+    __subt_tools_execute $@
+
+  elif chk_nth_flag 1 "update" "$@"; then
+    cd $SUBT_PATH
+    ./install-deployer.bash --uninstall
+    ./install-deployer.bash --install
+    text "Please source your bash or zsh rc: 'source ~/.bashrc'"
+
+  elif chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@; then
+    __subt_help $@
+    return 0
+  fi
+}
+
+# enable tab autocompletion
+complete -F _ac_subt_completion subt

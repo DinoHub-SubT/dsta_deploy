@@ -10,8 +10,8 @@
 [submodule "operations/deploy/deployer"]
 	path = operations/deploy/deployer
 	url = git@bitbucket.org:cmusubt/ci_phase.git
-[submodule "operations/deploy/setup/ugv_setup"]
-	path = operations/utils/ugv_setup
+[submodule "operations/robot_snapshot/ugv_setup"]
+	path = operations/robot_snapshot/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
 [submodule "basestation"]
 	path = basestation
