@@ -184,6 +184,9 @@ Verify you have all the operations tools installed correctly:
         # verify deployer script shows the help usage message
         ./deployer --help
 
+        # verify SubT autocompleter
+        subt help
+
 Notify the maintainer if any of the `help` usage messages do not show up.
 
 - Notify the maintainer if cloning or installing the deploy repository failed.
@@ -200,7 +203,9 @@ You will need to go through a few tutorials to have a working system.
 
 **Tutorial at:** [`deploy-clone.md`](docs/deploy-clone.md)
 
-- Installs the `SubT` repositories for all `catkin` workspaces.
+- Installs the `SubT` submodule repositories.
+
+- **If you are DARPA members, then you can skip this step if you already have the code.**
 
 ### 2. Azure Cloud Infrastructure Setup (Optional)
 
