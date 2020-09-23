@@ -194,23 +194,19 @@ If you wish to clone specific projects:
     # example, multi repo clone
     subt git clone common simulation
 
-### Pull the submodules
+### Sync the submodules
 
-This will pull all the base submodules updates, when your submodules are already on a branch.
+This will sync all the submodules local branches with their remotes.
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.pull.base
+    subt git sync
 
-If you wish to pull specific projects:
-
-    # preview all the available projects available to pull.
-    ./deployer -s git.pull -p
+If you wish to sync specific projects:
 
     # example, pull common project
-    ./deployer -s git.pull.common
+    subt git sync common
 
     # example, multi repo pull
-    ./deployer -s git.pull.base git.pull.simulation
+    subt git sync common simulation
 
 ### Reset the submodules
 
@@ -260,6 +256,23 @@ If you wish to remove specific projects:
 
     # example, multi repo remove
     subt git rm simulation common
+
+### Submodule Status
+
+This will show the status of all the submodules.
+
+    subt git status
+
+If you wish to sync specific projects:
+
+    # example, pull common project
+    subt git status common
+
+    # example, pull common project, as a table format
+    subt git status common -table
+
+    # example, multi repo pull
+    subt git status common simulation -table
 
 * * *
 
