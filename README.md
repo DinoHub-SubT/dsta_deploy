@@ -48,6 +48,17 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
   - The deploy repo can become large in size. Please have at least 30 GB available on your localhost.
 
+**8. Localhost User ID**
+
+  - Please make sure your localhost user is id `1000`.
+    - i.e. Use the first user you created on your localhost.
+    - To check, please run `id`
+    - There is a current bug in the docker images that requires this restriction. This will be fixed on next iteration.
+
+**9. Use Standard Bash Terminal (optional)**
+
+  - The SubT deployer autocomplete tab commands do not work on [`terminator`](https://github.com/gnome-terminator/terminator)
+  - If you wish to use the tab autocomplete, then you can use standard `bash` or `zsh` terminal for best experience.
 
 ## Operations Resources
 
@@ -131,10 +142,12 @@ Please have a basic understanding of the following the operational tools:
         source ~/.bashrc
 
         # (if on your laptop) run the system dependencies install
-        subtani_install.sh localhost install-localhost.yaml
+        # - please enter your localhost password when prompted
+        subtani_install.sh localhost install-localhost.yaml -p
 
         # (if on basestation) run the system dependencies install
-        subtani_install.sh basestation install-localhost.yaml
+        # - please enter the basestation password when prompted
+        subtani_install.sh basestation install-localhost.yaml -p
 
 
 **4. Verify Installations**
