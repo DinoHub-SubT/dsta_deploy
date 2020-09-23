@@ -185,8 +185,8 @@ This will clone all the base submodules. Submodules clone as `DETACHED HEAD`. Ma
 
 If you wish to clone specific projects:
 
-    # preview all the available projects available to clone.
-    subt git clone common -p
+    # preview which submodules will be cloned
+    subt git clone base -p
 
     # example, clone common project
     subt git clone common
@@ -216,8 +216,8 @@ This will reset all the base submodules, to their `DETACHED HEAD` at the top lev
 
 If you wish to reset specific projects:
 
-    # preview all the available projects available to pull.
-    subt git reset common -p
+    # preview which submodules will be reset
+    subt git reset base -p
 
     # example, pull common project
     subt git reset common
@@ -248,7 +248,7 @@ If you wish to clean specific projects:
 
 If you wish to remove specific projects:
 
-    # preview all the available projects available to remove.
+    # preview which submodules will be removed
     subt git rm base -p
 
     # example, clean common project
