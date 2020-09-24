@@ -2,10 +2,7 @@
 
 ## 1. Launch UAV Simulation
 
-If you are using an Azure VM, you need to run these commands using remote-desktop or teamviewer.
-
         # enter the docker shell container (if not already joined)
-        # -- if you are not using Docker, you may skip this step.
         docker-join.bash --name uav-cpu-shell
 
         # load the tmux session. Example launch `uav1`
@@ -30,3 +27,5 @@ Select the config file: `uav/core/rqt_behavior_tree_command/config/gui_config.ya
 Wait for both Gazebo & RViz to start.
 
 Select the "Autonomously Explore" GUI button for the drone to explore.
+
+On RViz, press "G" on the keyboard to give it a different waypoint for the drone to follow.

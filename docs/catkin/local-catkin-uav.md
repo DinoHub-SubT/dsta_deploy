@@ -24,8 +24,11 @@ Assuming you have already setup all your docker containers, follow the instructi
         # build the PX4 firmware
         subt deployer local.uav.cpu.catkin.px4
 
-        # catkin build the UGV workspaces
-        subt deployer local.uav.cpu.catkin.build
+        # catkin build the 'core' UGV workspaces
+        subt deployer local.uav.cpu.catkin.core.build
+
+        # (optional) catkin build 'perception' the UGV workspaces
+        subt deployer local.uav.cpu.catkin.perception.build
 
 ## Cleanup (optional)
 
