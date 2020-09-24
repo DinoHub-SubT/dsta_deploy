@@ -34,10 +34,8 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
 **5. Perception Cluster Account (optional)**
 
-  - If you plan on running the UAV or Perception software stacks, you will need access to the `SubT` internal cluster resource (*called Perceptron*)
-      - Please notify the maintainer for creating user accounts.
+  - Please notify the maintainer for creating user accounts.
   - Perceptron maintains all the `SubT` rosbag datasets (not all the datasets are found on Azure)
-  - Perceptron maintains thirdparty software libraries needed for *some* docker images.
 
 **6. Azure Account (optional)**
 
@@ -57,8 +55,9 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
 **9. Use Standard Bash Terminal (optional)**
 
-  - The SubT deployer autocomplete tab commands do not work on [`terminator`](https://github.com/gnome-terminator/terminator)
-  - If you wish to use the tab autocomplete, then you can use standard `bash` or `zsh` terminal for best experience.
+  - The SubT deployer autocomplete tab commands do not autocomplete on [`terminator`](https://github.com/gnome-terminator/terminator)
+  - If you wish to use the tab autocomplete function, then you can use standard `bash` or `zsh` terminal for best experience.
+  - You can still use the deployer commands in `terminator`, you just wont be able to autocomplete.
 
 ## Operations Resources
 
