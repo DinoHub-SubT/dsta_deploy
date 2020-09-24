@@ -43,7 +43,7 @@ The `ansible` scripts do not give realtime output.
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtani_install.sh azure-basestation install-azure.yaml
+        subt cloud ansible azure-basestation install-azure.yaml
 
 ## 3. Install UGV VM Dependencies
 
@@ -58,7 +58,8 @@ The `ansible` scripts do not give realtime output.
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtani_install.sh azure-ugv1 install-azure.yaml
+        # subtani_install.sh azure-ugv1 install-azure.yaml
+        subt cloud ansible azure-ugv1 install-azure.yaml
 
 Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
 
@@ -75,7 +76,8 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtani_install.sh azure-uav1 install-azure.yaml
+        # subtani_install.sh azure-uav1 install-azure.yaml
+        subt cloud ansible azure-uav1 install-azure.yaml
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
@@ -92,7 +94,8 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
         # Install basic dependencies on the remote VM (system, docker, docker tools)
         # Clones the deploy repo on the remote VM (can take 30 minutes)
         # You do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subtani_install.sh azure-perception1 install-azure.yaml
+        # subtani_install.sh azure-perception1 install-azure.yaml
+        subt cloud ansible azure-perception1 install-azure.yaml
 
 ## 6. Verify Install
 
