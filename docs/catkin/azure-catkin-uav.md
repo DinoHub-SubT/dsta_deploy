@@ -6,30 +6,42 @@ Setting up the catkin workspace for the UAV workspaces requires using the `catki
 
 - There are different docker containers for the different catkin workspaces.
 
-Follow the instructions below to setup the UAV catkin workspace.
+Follow these instructions below, **on the localhost**, not on the Azure remote VM, to setup the UAV catkin workspace.
 
-## UAV Simulation Catkin Workspaces
+## Transfer
 
-Follow these steps, **on the localhost**, not on the Azure remote VM.
+You can transfer changes from your localhost to the remote:
 
-### 1. Catkin Build
+        # uav transfer.to command
+        subt deployer azure.uav1.transfer.to
+
+If you find the `transfer.to` is too slow. then try this command:
+
+        subt deployer azure.ugv1.skel_t.to
+
+You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.uav.env`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
+
+## Catkin Build
 
 Follow this step, **on the localhost**, not on the Azure remote VM.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        ./deployer -s azure.uav1.docker.shell
+        # start the container
+        subt deployer azure.uav1.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.uav1.catkin.clean
+        subt deployer azure.uav1.cpu.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -s azure.uav1.px4_firmware
+        subt deployer azure.uav1.cpu.catkin.px4
 
-        # catkin build the UGV workspaces
-        ./deployer -s azure.uav1.catkin.build
+        # catkin build the 'core' UGV workspaces
+        subt deployer azure.uav1.cpu.catkin.core.build
+
+        # (optional) catkin build 'perception' the UGV workspaces
+        subt deployer azure.uav1.cpu.catkin.perception.build
 
 - Please change the robot name `uav1` to whichever Azure robot VM you are building on.
 
@@ -39,14 +51,11 @@ You should remove containers when done with its development.
 
 Automated remove the docker containers:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s azure.uav1.docker.stop
+        subt deployer azure.uav1.cpu.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.uav1.docker.remove
+        subt deployer azure.uav1.cpu.docker.rm
 
 Or manually remove the docker containers:
 
@@ -69,19 +78,3 @@ Or manually remove the docker containers:
 You should now have a built `UAV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # uav transfer.to command
-        ./deployer -s azure.uav1.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.uav.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

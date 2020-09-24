@@ -2,11 +2,7 @@
 
 ## 1. Access Docker Container
 
-If you are using an Azure VM, remember to remote-desktop into the VM first.
-
-If you are not using docker containers, you may skip this step.
-
-        # enter the docker shell container on your local laptop host or Azure VM host
+        # enter the docker shell container (if not already joined)
         docker-join.bash --name basestation-cpu-shell
 
 ## 2. Launch Basestation

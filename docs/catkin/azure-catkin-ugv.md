@@ -6,25 +6,34 @@ Setting up the catkin workspace for the UGV workspaces requires using the `catki
 
 - There are different docker containers for the different catkin workspaces.
 
-Follow the instructions below to setup the UGV catkin workspace.
+Follow these instructions below, **on the localhost**, not on the Azure remote VM, to setup the UGV catkin workspace.
 
-## UGV Simulation (Planning-PC, NUC) Catkin Workspaces
+## Transfer
 
-Follow these steps, **on the localhost**, not on the Azure remote VM.
+You can transfer changes from your localhost to the remote:
 
-### 1. Catkin Build
+        # ugv transfer.to command
+        subt deployer azure.ugv1.transfer.to
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+If you find the `transfer.to` is too slow. then try this command:
+
+        subt deployer azure.ugv1.skel_t.to
+
+You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.ugv.env`
+
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
+
+## Catkin Build
 
         # create the docker shell on the remote host
-        ./deployer -s azure.ugv1.docker.shell
+        subt deployer azure.ugv1.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.ugv1.catkin.clean
+        subt deployer azure.ugv1.catkin.clean
 
-        # catkin build the UGV workspaces
-        ./deployer -s azure.ugv1.catkin.build
+        # catkin build the UGV simulation workspaces
+        subt deployer azure.ugv1.catkin.build
 
 - Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
 
@@ -34,16 +43,15 @@ You should remove containers when done with its development.
 
 Automated remove the docker containers:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s azure.ugv1.docker.stop
+        subt deployer azure.ugv1.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.ugv1.docker.remove
+        subt deployer azure.ugv1.docker.rm
 
 Or manually remove the docker containers (for those that are available):
+
+        ssh azure.ugv1
 
         # stop the running container
         docker stop ppc-shell
@@ -76,19 +84,3 @@ Or manually remove the docker containers (for those that are available):
 You should now have a built `UGV` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # ugv transfer.to command
-        ./deployer -s azure.ugv1.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.ugv.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
