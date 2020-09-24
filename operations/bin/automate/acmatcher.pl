@@ -12,15 +12,15 @@ my @_git_sync     = ( "deploy", "basestation", "common", "perception", "simulati
 
 my @_git_add      = ( "basestation", "common", "perception", "simulation", "ugv", "uav", "help" );
 
-my @_git_clone    = ( "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
+my @_git_clone    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
                       "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
 
-my @_git_reset    = ( "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
+my @_git_reset    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
                       "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
 
-my @_git_clean    = ( "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "uav", "help" );
+my @_git_clean    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "uav", "help" );
 
-my @_git_rm       = ( "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
+my @_git_rm       = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
                       "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
 
 my @_cloud        = ( "terraform", "ansible", "help" );
@@ -37,20 +37,36 @@ my @_deployer     = (
 
   # ////////////////////////////////////////////////////////////////////////////
   # Local
+
+  # ugv
   "local.ugv.catkin.build",
   "local.ugv.catkin.clean",
   "local.ugv.docker.shell",
+  "local.ugv.docker.shell.sim",
+  "local.ugv.docker.shell.ppc",
+  "local.ugv.docker.shell.nuc",
   "local.ugv.docker.rm",
   "local.ugv.docker.stop",
   "local.ugv.docker.registry.pull",
 
-  "local.uav.catkin.build",
-  "local.uav.catkin.clean",
-  "local.uav.docker.shell",
-  "local.uav.docker.rm",
-  "local.uav.docker.stop",
-  "local.uav.docker.registry.pull",
+  # uav
+  "local.uav.cpu.catkin.build.core",
+  "local.uav.cpu.catkin.build.perception",
+  "local.uav.cpu.catkin.clean",
+  "local.uav.cpu.docker.shell",
+  "local.uav.cpu.docker.rm",
+  "local.uav.cpu.docker.stop",
+  "local.uav.docker.registry.pull.cpu",
 
+  "local.uav.gpu.catkin.build.core",
+  "local.uav.gpu.catkin.build.perception",
+  "local.uav.gpu.catkin.clean",
+  "local.uav.gpu.docker.shell",
+  "local.uav.gpu.docker.rm",
+  "local.uav.gpu.docker.stop",
+  "local.uav.docker.registry.pull.gpu",
+
+  # perception
   "local.perception.catkin.build",
   "local.perception.catkin.clean",
   "local.perception.docker.shell",
@@ -58,6 +74,7 @@ my @_deployer     = (
   "local.perception.docker.stop",
   "local.perception.docker.registry.pull",
 
+  # basestation
   "local.basestation.catkin.build",
   "local.basestation.catkin.clean",
   "local.basestation.docker.shell",

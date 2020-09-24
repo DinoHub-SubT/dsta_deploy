@@ -41,6 +41,7 @@ GL_STATUS_HASH=false
 GL_STATUS_URL=false
 GL_SYNC_DELETE_BRANCH=false
 GL_SYNC_IGNORE_CURR=true
+GL_OPTS=""
 
 # //////////////////////////////////////////////////////////////////////////////
 # @brief git status
@@ -103,6 +104,11 @@ _status_traverse_table() {
 
     # status  all recursive submodule repos
     _traverse_submodules _status
+
+    # display the intermediate repo git status
+    printf "%-10s \n" "...git status"
+    git status                  # perform a git status, to speed up top level deploy indexing
+
     popd
   done
 }
@@ -282,7 +288,8 @@ _add_traverse() {
 # @brief cleans all the submodules & intermediate repos
 _clean_traverse() {
   for _inter in "$@"; do
-    ./deployer -s git.clean.$_inter
+    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
+    ./deployer -s git.clean.$_inter $GL_OPTS
   done
 }
 
@@ -290,23 +297,26 @@ _clean_traverse() {
 _reset_traverse() {
   # go through all given intermediate repo arguments
   for _inter in "$@"; do
-    ./deployer -s git.rm.$_inter
-    ./deployer -s git.init.$_inter
-    ./deployer -s git.clone.$_inter
+    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
+    ./deployer -s git.rm.$_inter $GL_OPTS
+    ./deployer -s git.init.$_inter $GL_OPTS
+    ./deployer -s git.clone.$_inter $GL_OPTS
   done
 }
 
 # @brief removes all git submodules in the intermediate repo
 _rm_traverse() {
   for _inter in "$@"; do
-    ./deployer -s git.rm.$_inter
+    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
+    ./deployer -s git.rm.$_inter $GL_OPTS
   done
 }
 
 # @brief clones all git submodules in the intermediate repo
 _clone_traverse() {
   for _inter in "$@"; do
-    ./deployer -s git.clone.$_inter
+    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
+    ./deployer -s git.clone.$_inter $GL_OPTS
   done
 }
 
@@ -314,6 +324,10 @@ _clone_traverse() {
 # @brief: main entrypoint
 # //////////////////////////////////////////////////////////////////////////////
 pushd $SUBT_PATH
+
+# enable
+chk_flag -p $@ && GL_OPTS="$GL_OPTS -p"
+chk_flag -v $@ && GL_OPTS="$GL_OPTS -v"
 
 if chk_flag status $@ ; then
   shift
@@ -332,6 +346,9 @@ if chk_flag status $@ ; then
     [[ $GL_STATUS_URL == true ]]  && printf " | %-30s" "--git url--"  && ((_nargs--))
     printf "\n"
     _status # show the status
+    # display the intermediate repo git status
+    printf "%-10s \n" "...git status"
+    git status                  # perform a git status, to speed up top level deploy indexing
 
     # show git status for all the given intermediate level repos
     [ $_nargs -eq 0 ] && _status_traverse_table basestation common perception ugv uav simulation subt_launch || _status_traverse_table $@

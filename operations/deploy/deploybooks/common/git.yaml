@@ -62,10 +62,6 @@
         - git submodule update --init uav
         - cd uav
         - git clean -d -f -f
-        - hardware:
-          - git submodule update --recursive --init hardware
-          - cd hardware
-          - git clean -d -f -f
         - slam:
           - git submodule update --recursive --init slam
           - cd slam
@@ -139,6 +135,10 @@
           - git submodule update --recursive --init core
           - cd core
           - git clean -d -f -f
+        - hardware:
+          - git submodule update --recursive --init hardware
+          - cd hardware
+          - git clean -d -f -f
 
       - ugv:
         - git submodule update --init ugv
@@ -176,10 +176,6 @@
 
       - uav:
         - cd uav
-        - hardware:
-          - cd hardware
-          - git submodule update --init --recursive .
-          - git clean -d -f -f
         - slam:
           - cd slam
           - git submodule update --init --recursive .
@@ -253,6 +249,10 @@
           - cd core
           - git submodule update --init --recursive .
           - git clean -d -f -f
+        - hardware:
+          - cd hardware
+          - git submodule update --init --recursive .
+          - git clean -d -f -f
 
     # show the git status in the intermediate-repo
     - pwd
@@ -277,13 +277,6 @@
 
       - uav:
         - cd uav
-        - hardware:
-          # remove
-          - git submodule deinit -f hardware
-          # re-clone
-          - cd hardware
-          - git submodule update --init --recursive .
-          - git clean -d -f -f
         - slam:
           # remove
           - git submodule deinit -f slam
@@ -393,6 +386,14 @@
           - cd core
           - git submodule update --init --recursive .
           - git clean -d -f -f
+        - hardware:
+          # remove
+          - git submodule deinit -f hardware
+          # re-clone
+          - cd hardware
+          - git submodule update --init --recursive .
+          - git clean -d -f -f
+
     # prompt git status
     - pwd
     - git status
@@ -400,49 +401,57 @@
   # ////////////////////////////////////////////////////////////////////////
   - init:
   # ////////////////////////////////////////////////////////////////////////
-    - basestation:
-      - git submodule update --init basestation
+    - extras:
+      - simulation:
+        - git submodule update --init simulation
+      - ugv:
+        - git submodule update --init ugv
+        - cd ugv
+        - slam:
+          - devel:
+            - git submodule update --init slam/devel
+          - robot:
+            - git submodule update --init slam/robot
+        - hardware:
+          - git submodule update --init hardware
+      - uav:
+        - git submodule update --init uav
+        - cd uav
+        - slam:
+          - git submodule update --init slam
 
-    - common:
-      - git submodule update --init common
+    - base:
+      - basestation:
+        - git submodule update --init basestation
 
-    - operations:
-      - docker:
-        - git submodule update --init operations/deploy/docker
+      - common:
+        - git submodule update --init common
 
-    - perception:
-      - git submodule update --init perception
+      - operations:
+        - docker:
+          - git submodule update --init operations/deploy/docker
 
-    - simulation:
-      - git submodule update --init simulation
+      - perception:
+        - git submodule update --init perception
 
-    - subt_launch:
-      - git submodule update --init subt_launch
+      - subt_launch:
+        - git submodule update --init subt_launch
 
-    - ugv:
-      - git submodule update --init ugv
-      - cd ugv
-      - ppc:
-        - git submodule update --init planning-pc/
-      - nuc:
-        - git submodule update --init nuc/
-      - slam:
-        - devel:
-          - git submodule update --init slam/devel
-        - robot:
-          - git submodule update --init slam/robot
-      - hardware:
-        - git submodule update --init hardware
+      - ugv:
+        - git submodule update --init ugv
+        - cd ugv
+        - ppc:
+          - git submodule update --init planning-pc/
+        - nuc:
+          - git submodule update --init nuc/
 
-    - uav:
-      - git submodule update --init uav
-      - cd uav
-      - core:
-        - git submodule update --init core
-      - hardware:
-        - git submodule update --init hardware
-      - slam:
-        - git submodule update --init slam
+      - uav:
+        - git submodule update --init uav
+        - cd uav
+        - core:
+          - git submodule update --init core
+        - hardware:
+          - git submodule update --init hardware
 
   # //////////////////////////////////////////////////////////////////////////////
   - rm:
@@ -452,8 +461,6 @@
         -  git submodule deinit -f simulation
       - uav:
         - cd uav
-        - hardware:
-          -  git submodule deinit -f hardware
         - slam:
           -  git submodule deinit -f slam
       - ugv:
@@ -487,6 +494,8 @@
         - cd uav
         - core:
           - git submodule deinit -f core
+        - hardware:
+          -  git submodule deinit -f hardware
 
       - ugv:
         - cd ugv

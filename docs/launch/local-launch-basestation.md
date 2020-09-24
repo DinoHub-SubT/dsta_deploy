@@ -12,7 +12,7 @@ If you are not using docker containers, you may skip this step.
 ## 2. Launch Basestation
 
         # load the tmux session
-        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/basestation.yaml
+        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/basestation.yaml
 
 ## Summary
 

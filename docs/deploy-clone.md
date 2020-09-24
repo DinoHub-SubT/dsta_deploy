@@ -181,89 +181,98 @@ This tutorial will show you how to interact with deploy's git and submodules set
 
 This will clone all the base submodules. Submodules clone as `DETACHED HEAD`. Make sure to always checkout to a branch after its cloned.
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.clone.base
+    subt git clone base
 
 If you wish to clone specific projects:
 
-    # preview all the available projects available to clone.
-    ./deployer -s git.clone -p
+    # preview which submodules will be cloned
+    subt git clone base -p
 
     # example, clone common project
-    ./deployer -s git.clone.common
+    subt git clone common
 
-    # example, base, simulation common project
-    ./deployer -s git.clone.base git.clone.simulation
+    # example, multi repo clone
+    subt git clone common simulation
 
-### Pull the submodules
+### Sync the submodules
 
-This will pull all the base submodules updates, when your submodules are already on a branch.
+This will sync all the submodules local branches with their remotes.
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.pull.base
+    subt git sync
 
-If you wish to pull specific projects:
-
-    # preview all the available projects available to pull.
-    ./deployer -s git.pull -p
+If you wish to sync specific projects:
 
     # example, pull common project
-    ./deployer -s git.pull.common
+    subt git sync common
 
-    # example, common, simulation projects
-    ./deployer -s git.pull.base git.pull.simulation
+    # example, multi repo pull
+    subt git sync common simulation
 
 ### Reset the submodules
 
 This will reset all the base submodules, to their `DETACHED HEAD` at the top level branch.
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.reset.base
+    subt git reset base
 
 If you wish to reset specific projects:
 
-    # preview all the available projects available to pull.
-    ./deployer -s git.reset -p
+    # preview which submodules will be reset
+    subt git reset base -p
 
     # example, pull common project
-    ./deployer -s git.reset.common
+    subt git reset common
 
-    # example, common, simulation projects
-    ./deployer -s git.reset.common git.reset.simulation
+    # example, multi repo reset
+    subt git reset simulation common
 
 ### Clean the submodules
 
-This cleans all the submodules from any uncommitted changes.
+This cleans all the base submodules from any uncommitted changes.
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.clean
+    subt git clean base
 
 If you wish to clean specific projects:
 
     # preview all the available projects available to clean.
-    ./deployer -s git.clean -p
+    subt git clean base -p
 
     # example, clean common project
-    ./deployer -s git.clean.common
+    subt git clean common
 
-    # example, common, simulation projects
-    ./deployer -s git.clean.common git.clean.simulation
+    # example, multi repo clean
+    subt git clean simulation common
 
 ### Remove the submodules
 
-    cd ~/deploy_ws/src/
-    ./deployer -s git.rm.base
+    subt git rm base
 
 If you wish to remove specific projects:
 
-    # preview all the available projects available to remove.
-    ./deployer -s git.rm -p
+    # preview which submodules will be removed
+    subt git rm base -p
 
     # example, clean common project
-    ./deployer -s git.rm.common
+    subt git rm common
 
-    # example, common, simulation projects
-    ./deployer -s git.rm.common git.rm.simulation
+    # example, multi repo remove
+    subt git rm simulation common
+
+### Submodule Status
+
+This will show the status of all the submodules.
+
+    subt git status
+
+If you wish to sync specific projects:
+
+    # example, pull common project
+    subt git status common
+
+    # example, pull common project, as a table format
+    subt git status common -table
+
+    # example, multi repo pull
+    subt git status common simulation -table
 
 * * *
 

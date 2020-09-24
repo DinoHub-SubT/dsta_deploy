@@ -19,15 +19,12 @@ Follow these steps, **on the localhost**.
         # azure registry login
         az acr login --name subtexplore
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # pull all the docker images from the azure docker registry
-        ./deployer -s azure.uav.docker.pull
+        # pull the docker images
+        subt deployer local.uav.docker.registry.pull.cpu
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s local.uav.docker.stop.all
-        ./deployer -s local.uav.docker.rm.all
+        subt deployer local.uav.cpu.docker.stop
+        subt deployer local.uav.cpu.docker.rm
 
 **Verify Docker Images**
 
@@ -36,10 +33,13 @@ Follow these steps, **on the localhost**.
 
 Verify you see the following docker images (in any order):
 
+        # core
         subt/uav-cpu:uav
         subt/uav-cpu:ros
-        subt/uav-gpu:uav
-        subt/uav-gpu:ros
+
+        # perception
+        subt/perception-cpu:0.1
+        subt/perception-cpu:ros
 
 ## 2. Docker Containers
 
@@ -47,16 +47,12 @@ Verify you see the following docker images (in any order):
 
 Follow these steps, **on the localhost**.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the uav docker container
         # - please user either the cpu or gpu shell. NOT BOTH.
         # - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
+
         # cpu shell
-        ./deployer -s local.uav.cpu.docker.shell
-        # gpu shell
-        ./deployer -s local.uav.gpu.docker.shell
+        subt deployer local.uav.cpu.docker.shell
 
 **Verify Docker Containers**
 
@@ -65,4 +61,5 @@ Follow these steps, **on the localhost**.
 
 Verify you see the following docker containers (in any order):
 
+        # cpu
         uav-cpu-shell
