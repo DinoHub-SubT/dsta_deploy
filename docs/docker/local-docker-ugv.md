@@ -19,15 +19,12 @@ Follow these steps, **on the localhost**.
         # azure registry login
         az acr login --name subtexplore
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.ugv.docker.pull
+        subt deployer local.ugv.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s local.ugv.docker.stop.all
-        ./deployer -s local.ugv.docker.rm.all
+        subt deployer local.ugv.docker.stop
+        subt deployer local.ugv.docker.rm
 
 **Verify Docker Images**
 
@@ -36,6 +33,8 @@ Follow these steps, **on the localhost**.
 
 Verify you see the following docker images (in any order):
 
+        subt/ugv:ppc
+        subt/ugv:nuc
         subt/ugv:sim
         subt/ugv:ros
 
@@ -45,11 +44,7 @@ Verify you see the following docker images (in any order):
 
 Follow these steps, **on the localhost**:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the ugv docker container
-        ./deployer -s local.ugv.docker.shell
+        subt deployer local.ugv.docker.shell.sim
 
 **Verify Docker Containers**
 
