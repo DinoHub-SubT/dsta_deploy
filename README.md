@@ -37,7 +37,7 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
   - Please notify the maintainer for creating user accounts.
   - Perceptron maintains all the `SubT` rosbag datasets (not all the datasets are found on Azure)
 
-**6. Azure Account (optional)**
+**6. Azure Account (required)**
 
   - If you plan on running on Azure, you will access to the `SubT` Azure resource.
       - Please notify the maintainer for creating user accounts.
@@ -206,7 +206,17 @@ You will need to go through a few tutorials to have a working system.
 
 - **If you are DARPA members, then you can skip this step if you already have the code.**
 
-### 2. Azure Cloud Infrastructure Setup (Optional)
+### 2. Docker Registry (Required)
+
+You will need to have an Azure account to access the azure docker registry of where we store docker images.
+
+        # az login will prompt a browser window. Enter your user credentials to login.
+        az login
+
+        # login to the subt docker registry
+        az acr login --name subtexplore
+
+### 3. Azure Cloud Infrastructure Setup (Optional)
 
 **Tutorial at:** [`azure-setup.md`](docs/azure-setup.md)
 
@@ -218,7 +228,7 @@ This tutorial will setup the following:
 - Sets up remote desktop access.
 - Create the docker images, containers on the remote VMs.
 
-### 3. Docker Engine Setup (Required)
+### 4. Docker Engine Setup (Required)
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | ---  |--- | --- |
@@ -227,7 +237,7 @@ This tutorial will setup the following:
 **UAV** | [`local-docker-uav.md`](docs/docker/local-docker-uav.md) | [`azure-docker-uav.md`](docs/docker/azure-docker-uav.md)| [`robots-docker-uav-setup.md`](docs/docker/robots-docker-uav.md) |
 **Perception** | [`local-docker-perception.md`](docs/docker/local-docker-perception.md) | [`azure-docker-perception-setup.md`](docs/docker/azure-docker-perception.md)| |
 
-### 4. Catkin Workspaces Setup (Required)
+### 5. Catkin Workspaces Setup (Required)
 
 -- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
 --- | --- |--- |--- |
@@ -236,7 +246,7 @@ This tutorial will setup the following:
 **UAV** | [`local-catkin-uav.md`](docs/catkin/local-catkin-uav.md) | [`azure-catkin-uav.md`](docs/catkin/azure-catkin-uav.md) | [`robots-catkin-uav.md`](docs/catkin/robots-catkin-uav.md)| |
 **Perception** | [`local-catkin-perception.md`](docs/catkin/local-catkin-perception.md) | [`azure-catkin-perception.md`](docs/catkin/azure-catkin-perception.md) | [`robots-catkin-perception.md`](docs/catkin/robots-catkin-perception.md) | |
 
-### 5. Simulation Launch Setup (Required)
+### 6. Simulation Launch Setup (Required)
 
 -- | Localhost Tmux Launch | Azure Tmux Launch  |
 --- | --- | --- | --- | --- |
