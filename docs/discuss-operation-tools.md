@@ -30,7 +30,7 @@ There are a few operational tools available to use:
   - command interface to interact with `ansible playbooks` found in `operations/deploy/robotbooks/`
   - automates installing dependencies and setting up systems.
 
-`check-ssh-connect`
+`subt tools ssh`
 
   - tests ssh connection to hosts listed in the local `~/.ssh/config`
 
@@ -53,7 +53,7 @@ There are a few operational tools available to use:
           azure.uav4            FAIL
           azure.perception1     FAIL
 
-`check-teamviewer-connect`
+`subt tools teamveiwer`
 
   - tests teamviewer connection to hosts listed in the local `~/.ssh/config`
 
@@ -76,7 +76,7 @@ There are a few operational tools available to use:
           azure.uav4            FAIL
           azure.perception1     FAIL
 
-`deploy-cd`
+`ccd`
 
   - changes current directory to the top level deploy src path.
 
