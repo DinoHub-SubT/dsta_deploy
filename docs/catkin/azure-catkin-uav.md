@@ -32,7 +32,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM.
         subt deployer azure.uav.uav1.docker.shell
 
         # clean the previous built workspaces
-        subt deployer azure.uav.uav1.catkin.clean
+        subt deployer azure.uav.uav1.catkin.core.clean
 
         # build the PX4 firmware
         subt deployer azure.uav.uav1.catkin.px4
