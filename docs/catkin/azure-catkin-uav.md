@@ -13,11 +13,11 @@ Follow these instructions below, **on the localhost**, not on the Azure remote V
 You can transfer changes from your localhost to the remote:
 
         # uav transfer.to command
-        subt deployer azure.uav1.transfer.to
+        subt deployer azure.uav.uav1.transfer.to
 
 If you find the `transfer.to` is too slow. then try this command:
 
-        subt deployer azure.ugv1.skel_t.to
+        subt deployer azure.uav.uav1.skel_t.to
 
 You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.uav.env`
 
@@ -29,19 +29,16 @@ You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/sce
 Follow this step, **on the localhost**, not on the Azure remote VM.
 
         # start the container
-        subt deployer azure.uav1.cpu.docker.shell
+        subt deployer azure.uav.uav1.docker.shell
 
         # clean the previous built workspaces
-        subt deployer azure.uav1.cpu.catkin.clean
+        subt deployer azure.uav.uav1.catkin.clean
 
         # build the PX4 firmware
-        subt deployer azure.uav1.cpu.catkin.px4
+        subt deployer azure.uav.uav1.catkin.px4
 
         # catkin build the 'core' UGV workspaces
-        subt deployer azure.uav1.cpu.catkin.core.build
-
-        # (optional) catkin build 'perception' the UGV workspaces
-        subt deployer azure.uav1.cpu.catkin.perception.build
+        subt deployer azure.uav.uav1.catkin.core.build
 
 - Please change the robot name `uav1` to whichever Azure robot VM you are building on.
 
@@ -52,10 +49,10 @@ You should remove containers when done with its development.
 Automated remove the docker containers:
 
         # stop the docker container
-        subt deployer azure.uav1.cpu.docker.stop
+        subt deployer azure.uav.uav1.docker.stop
 
         # remove the docker container
-        subt deployer azure.uav1.cpu.docker.rm
+        subt deployer azure.uav.uav1.docker.rm
 
 Or manually remove the docker containers:
 

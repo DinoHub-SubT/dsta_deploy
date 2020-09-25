@@ -51,10 +51,10 @@ Or manually remove the docker containers:
         ssh azure.basestation
 
         # stop the running container
-        docker stop basestation-cpu-shell basestation-gpu-shell
+        docker stop basestation-cpu-shell basestation-cpu-shell
 
         # remove the container
-        docker rm basestation-cpu-shell basestation-gpu-shell
+        docker rm basestation-cpu-shell basestation-cpu-shell
 
 - The above steps will remove the containers.
 

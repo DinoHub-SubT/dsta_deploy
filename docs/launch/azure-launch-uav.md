@@ -2,6 +2,8 @@
 
 ## 1. Azure Access
 
+### Teamviewer
+
         # ssh into the remote VM. Example:
         ssh azure.uav1
 
@@ -19,24 +21,26 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 - Azure VM user `subt` password is: `Password1234!`
 
+### RDP
+
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
-## 2. Launch UAV Simulation
+        subt tools rdp -t azure-uav1-window -h azure-uav1 -u subt -p Password1234!
 
-If you are using an Azure VM, you need to run these commands using remote-desktop or teamviewer.
+## 2. Access Docker Container
 
-        # ssh into the remote Azure VM (if not already logged in)
-        # -- if you are not using Azure, you may skip this step.
+        # ssh into the remote Azure VM
         ssh azure.uav1
 
-        # enter the docker shell container (if not already joined)
-        # -- if you are not using Docker, you may skip this step.
+        # enter the docker shell container
         docker-join.bash --name uav-cpu-shell
+
+## 3. Launch UAV Simulation
 
         # load the tmux session. Example launch `uav1`
         ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
 
-## 3. Verify Launch
+## 4. Verify Launch
 
 Please verify all the launch scripts in the tmux sessions started.
 

@@ -20,11 +20,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer local.uav.docker.registry.pull.cpu
+        subt deployer azure.uav.uav1.docker.registry.pull.cpu
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer local.uav.cpu.docker.stop
-        subt deployer local.uav.cpu.docker.rm
+        subt deployer azure.uav.uav1.docker.stop
+        subt deployer azure.uav.uav1.docker.rm
 
 **Verify Docker Images**
 
@@ -59,7 +59,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
         cd ~/deploy_ws/src
 
         # create the UAV docker container
-        subt deployer azure.uav1.cpu.docker.shell
+        subt deployer azure.uav1.docker.shell
 
 **Verify Docker Containers**
 
@@ -71,7 +71,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
 Verify you see the following docker containers (in any order):
 
-        uav-shell
+        uav-cpu-shell
 
 Return To Localhost
 
