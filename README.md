@@ -145,9 +145,11 @@ Please have a basic understanding of the following the operational tools:
         subtani_install.sh localhost install-localhost.yaml -p
 
         # (if on basestation) run the system dependencies install
+        # ONLY RUN THIS IF YOU ARE SETTING UP THE BASESTATION FOR CMU ROBOTS. NOT FOR LOCALHOST LAPTOP SETUP.
         # - please enter the basestation password when prompted
         subtani_install.sh basestation install-localhost.yaml -p
 
+- If there are any errors, **please notify the maintainer** and see *Common Ansible Script Errors* below.
 
 **4. Verify Installations**
 
@@ -186,9 +188,45 @@ Verify you have all the operations tools installed correctly:
         # verify SubT autocompleter
         subt help
 
-Notify the maintainer if any of the `help` usage messages do not show up.
+- Notify the maintainer if any of the `help` usage messages do not show up.
 
-- Notify the maintainer if cloning or installing the deploy repository failed.
+**5. Common Ansible Script Errors (optional):**
+
+**Error: apt-get failed:**
+
+*Solution:*
+
+Check `apt-get update` shows NO ERRORS. If so, fix your `apt` sources, before re-running the ansible script.
+
+**Error: permission denied:**
+
+Your password input did not correctly get used.
+
+*Solution:*
+
+        sudo visudo
+
+        # Allow user to perform sudo on certain commands, where 'katarina' is my username
+        YOUR-USER-NAME ALL=NOPASSWD: ALL
+
+This is a security risk, **please remember** to remove once done with the ansible script.
+
+**Error: ansible fails on `docker hello world`**
+
+Docker still needs to use `sudo` (it should work without `sudo`) because the docker group did not correctly reset in the ansible script.
+
+*Solution:*
+
+        # reset your user group
+        Log out and back in (or restart your computer)
+
+        # retry & confirm docker runs without `sudo`
+        docker ps
+
+        # re-run the ansible script
+        subtani_install.sh ...
+
+**Notify the maintainer if any of the above deploy setup steps failed.**
 
 * * *
 

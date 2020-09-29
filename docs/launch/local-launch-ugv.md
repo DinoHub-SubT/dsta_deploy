@@ -21,15 +21,20 @@
 
 You will need to change some ROS params in both the ugv & basestation containers:
 
+Assuming ROS MASTER will be on the UGV docker container.
+
 Step 1:
 
         # unset the ROS params in the UGV docker container
         docker-join.bash --name ugv-sim-shell
-        unset ROS_MASTER_IP
-        unset ROS_MASTER_URI
-        unset ROS_HOSTNAME
 
-        # exit the container
+        # set the hostname, ignore error message 'sudo: unable to resolve host ...'
+        sudo hostname ugv
+
+        # set the ROS MASTER URI to the ugv
+        export ROS_MASTER_URI=http://ugv:11311
+
+        # exit the container (to apply the changed)
         exit
 
 Step 2:
@@ -37,19 +42,27 @@ Step 2:
         # assuming you have already built the basestation GUI
         # unset the ROS params in the UGV docker container
         docker-join.bash --name basestation-cpu-shell
-        unset ROS_MASTER_IP
-        unset ROS_MASTER_URI
-        unset ROS_HOSTNAME
 
-        # exit the container
+        # set the hostname, ignore error message 'sudo: unable to resolve host ...'
+        sudo hostname basestation
+
+        # set the ROS MASTER URI to the ugv
+        export ROS_MASTER_URI=http://ugv:11311
+
+        # exit the container (to apply the changed)
         exit
 
-Now you can launch the UGV and Basestation.
+Enter the containers again and launch the UGV and Basestation.
 
-- If you *delete* the docker containers you must reset these ROS param options.
-- If you stop the container, you do not need to reset these ROS param options.
+Comments:
 
-This will be automated in the next iteration of docker cleanup. For now, you must manually do these steps.
+- Please **run the UGV launch first**, before the basestation.
+
+- If you sometimes do not see the tree, then stop the container and reset the above configs.
+
+- When you stop the container, you must reset the everything again.
+
+Unfortunately for now, you must manually do these steps. This **will be fixed & automated** in the next iteration of docker cleanup.
 
 ## 3. Verify Launch
 
@@ -59,4 +72,4 @@ Please verify all the launch scripts in the tmux sessions do not have any errors
 
 You should now be able to control the robot movement using the buttons in the basestation GUI.
 
-    - Please build the localhost basestation setup to control via basestation GUI.
+- Please build the localhost basestation setup to control via basestation GUI.
