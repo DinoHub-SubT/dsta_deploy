@@ -144,42 +144,50 @@ my @_deployer     = (
   # uav1
   "azure.uav.uav1.transfer.to",
   "azure.uav.uav1.skel_t.to",
-  "azure.uav.uav1.catkin.build",
-  "azure.uav.uav1.catkin.clean",
+  "azure.uav.uav1.catkin.px4",
+  "azure.uav.uav1.catkin.core.build",
+  "azure.uav.uav1.catkin.core.clean",
   "azure.uav.uav1.docker.shell",
   "azure.uav.uav1.docker.rm",
   "azure.uav.uav1.docker.stop",
-  "azure.uav.uav1.docker.registry.pull",
+  "azure.uav.uav1.docker.registry.pull.cpu",
+  "azure.uav.uav1.docker.registry.pull.gpu",
 
   # uav2
   "azure.uav.uav2.transfer.to",
   "azure.uav.uav2.skel_t.to",
-  "azure.uav.uav2.catkin.build",
-  "azure.uav.uav2.catkin.clean",
+  "azure.uav.uav2.catkin.px4",
+  "azure.uav.uav2.catkin.core.build",
+  "azure.uav.uav2.catkin.core.clean",
   "azure.uav.uav2.docker.shell",
   "azure.uav.uav2.docker.rm",
   "azure.uav.uav2.docker.stop",
-  "azure.uav.uav2.docker.registry.pull",
+  "azure.uav.uav2.docker.registry.pull.cpu",
+  "azure.uav.uav2.docker.registry.pull.gpu",
 
   # uav3
   "azure.uav.uav3.transfer.to",
   "azure.uav.uav3.skel_t.to",
-  "azure.uav.uav3.catkin.build",
-  "azure.uav.uav3.catkin.clean",
+  "azure.uav.uav3.catkin.px4",
+  "azure.uav.uav3.catkin.core.build",
+  "azure.uav.uav3.catkin.core.clean",
   "azure.uav.uav3.docker.shell",
   "azure.uav.uav3.docker.rm",
   "azure.uav.uav3.docker.stop",
-  "azure.uav.uav3.docker.registry.pull",
+  "azure.uav.uav3.docker.registry.pull.cpu",
+  "azure.uav.uav3.docker.registry.pull.gpu",
 
   # uav4
   "azure.uav.uav4.transfer.to",
   "azure.uav.uav4.skel_t.to",
-  "azure.uav.uav4.catkin.build",
-  "azure.uav.uav4.catkin.clean",
+  "azure.uav.uav4.catkin.px4",
+  "azure.uav.uav4.catkin.core.build",
+  "azure.uav.uav4.catkin.core.clean",
   "azure.uav.uav4.docker.shell",
   "azure.uav.uav4.docker.rm",
   "azure.uav.uav4.docker.stop",
-  "azure.uav.uav4.docker.registry.pull",
+  "azure.uav.uav4.docker.registry.pull.cpu",
+  "azure.uav.uav4.docker.registry.pull.gpu",
 
   ### perception ###
   "azure.perception.perception1.transfer.to",
@@ -190,6 +198,16 @@ my @_deployer     = (
   "azure.perception.perception1.docker.rm",
   "azure.perception.perception1.docker.stop",
   "azure.perception.perception1.docker.registry.pull",
+
+  # basestation
+  "azure.basestation.transfer.to",
+  "azure.basestation.skel_t.to",
+  "azure.basestation.catkin.build",
+  "azure.basestation.catkin.clean",
+  "azure.basestation.docker.shell",
+  "azure.basestation.docker.rm",
+  "azure.basestation.docker.stop",
+  "azure.basestation.docker.registry.pull",
 
   # ////////////////////////////////////////////////////////////////////////////
   # Robots

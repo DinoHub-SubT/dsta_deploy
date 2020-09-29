@@ -20,11 +20,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.ugv1.docker.registry.pull
+        subt deployer azure.ugv.ugv1.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer azure.ugv1.docker.stop
-        subt deployer azure.ugv1.docker.rm
+        subt deployer azure.ugv.ugv1.docker.stop
+        subt deployer azure.ugv.ugv1.docker.rm
 
 **Verify Docker Images**
 

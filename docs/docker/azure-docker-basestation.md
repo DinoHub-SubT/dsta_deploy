@@ -52,10 +52,10 @@ Return To Localhost
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
         # (optional) remove any previously created docker containers
-        subt deployer local.basestation.docker.rm
+        subt deployer azure.basestation.docker.rm
 
         # create the basestation docker container
-        subt deployer local.basestation.docker.shell
+        subt deployer azure.basestation.docker.shell
 
 **Verify Docker Containers**
 

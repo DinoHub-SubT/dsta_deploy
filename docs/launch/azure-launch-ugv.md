@@ -2,6 +2,8 @@
 
 ## 1. Azure Access
 
+### Teamviewer
+
         # ssh into the remote VM. Example:
         ssh azure.ugv1
 
@@ -19,29 +21,23 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 - Azure VM user `subt` password is: `Password1234!`
 
+### RDP
+
 If you do not prefer to use Teamveiwer, you can use RDP instead.
+
+        subt tools rdp -t azure-ugv1-window -h azure-ugv1 -u subt -p Password1234!
 
 ## 2. Access Docker Container
 
-        # ssh into the remote Azure VM (if not already logged in)
-        # -- if you are not using Azure, you may skip this step.
+        # ssh into the remote Azure VM
         ssh azure.ugv1
 
-        # enter the docker shell container (if not already joined)
-        # -- if you are not using Docker, you may skip this step.
+        # enter the docker shell container
         docker-join.bash --name ugv-sim-shell
 
 ## 3. Launch UGV Simulation
 
-        # ssh into the remote Azure VM (if not already logged in)
-        # -- if you are not using Azure, you may skip this step.
-        ssh azure.ugv1
-
-        # enter the docker shell container on your local laptop host or Azure VM host
-        # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name ugv-sim-shell
-
-        # Load the tmux session. Example launch `ugv1`
+        # load the tmux session. Example launch `ugv1`
         ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/ugv.yaml
 
         # (OPTIONAL) open a new tab/window and publish a waypoint

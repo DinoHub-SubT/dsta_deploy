@@ -13,11 +13,14 @@ Follow these instructions below, **on the localhost**, not on the Azure remote V
 You can transfer changes from your localhost to the remote:
 
         # ugv transfer.to command
-        subt deployer azure.ugv1.transfer.to
+        subt deployer azure.ugv.ugv1.transfer.to
 
 If you find the `transfer.to` is too slow. then try this command:
 
-        subt deployer azure.ugv1.skel_t.to
+        subt deployer azure.ugv.ugv1.skel_t.to
+
+- `skel_t.to` will not copy your `.git` so your VM's git status will not be synchronized.
+- A suggested practice would be to just use `git` on your localhost and just transfer code to VMs.
 
 You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.ugv.env`
 
@@ -27,13 +30,13 @@ You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/sce
 ## Catkin Build
 
         # create the docker shell on the remote host
-        subt deployer azure.ugv1.docker.shell
+        subt deployer azure.ugv.ugv1.docker.shell.sim
 
         # clean the previous built workspaces
-        subt deployer azure.ugv1.catkin.clean
+        subt deployer azure.ugv.ugv1.catkin.clean
 
         # catkin build the UGV simulation workspaces
-        subt deployer azure.ugv1.catkin.build
+        subt deployer azure.ugv.ugv1.catkin.build
 
 - Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
 
@@ -44,10 +47,10 @@ You should remove containers when done with its development.
 Automated remove the docker containers:
 
         # stop the docker container
-        subt deployer azure.ugv1.docker.stop
+        subt deployer azure.ugv.ugv1.docker.stop
 
         # remove the docker container
-        subt deployer azure.ugv1.docker.rm
+        subt deployer azure.ugv.ugv1.docker.rm
 
 Or manually remove the docker containers (for those that are available):
 
