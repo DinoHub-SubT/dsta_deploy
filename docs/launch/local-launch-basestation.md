@@ -2,17 +2,16 @@
 
 ## 1. Access Docker Container
 
-If you are using an Azure VM, remember to remote-desktop into the VM first.
-
-If you are not using docker containers, you may skip this step.
-
-        # enter the docker shell container on your local laptop host or Azure VM host
+        # enter the docker shell container (if not already joined)
         docker-join.bash --name basestation-cpu-shell
+
+        # Load the tmux session. Example launch `ugv1`
+        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/basestation.yaml
 
 ## 2. Launch Basestation
 
         # load the tmux session
-        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/basestation.yaml
+        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/basestation.yaml
 
 ## Summary
 

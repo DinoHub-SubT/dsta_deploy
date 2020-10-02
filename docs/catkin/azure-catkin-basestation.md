@@ -6,48 +6,32 @@ Setting up the catkin workspace for the Basestation workspaces requires using th
 
 Assuming you have already setup all your basestation docker containers, follow the instructions below to setup the basestation catkin workspace.
 
-## Azure CPU VM
+## Transfer
 
-If you **have not enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
+You can transfer changes from your localhost to the remote:
 
-Follow these steps, **on the localhost**, not on the Azure remote VM.
+        subt deployer azure.basestation.transfer.to
 
-### 1. Catkin Build
+If you find the `transfer.to` is too slow. then try this command:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+        subt deployer azure.basestation.skel_t.to
 
-        # create the docker shell on the remote host
-        ./deployer -s azure.basestation.cpu.docker.shell
+You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.basestation.env`
 
-        # clean the previous built workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.clean
+- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
+- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
 
-        # catkin build the basestation GUI workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.build
-
-
-## Azure GPU VM
-
-If you **have enabled** the GPU on the remote basestation Azure VM, then follow these instructions.
-
-Follow these steps, **on the localhost**, not on the Azure remote VM.
-
-### 1. Catkin Build
-
-You want to build both the `cpu` and `gpu` catkin workspaces on the GPU VM.
-
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # clean the previous built workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.clean
+## Catkin Build
 
         # create the docker shell on the remote host
-        ./deployer -s azure.basestation.cpu.docker.shell
+        #   - you need to make sure the container is started before building
+        subt deployer azure.basestation.docker.shell
+
+        # clean the previously built workspaces
+        subt deployer azure.basestation.catkin.clean
 
         # catkin build the basestation GUI workspaces
-        ./deployer -s azure.basestation.cpu.catkin.gui.build
+        subt deployer azure.basestation.catkin.build
 
 ## Cleanup (optional)
 
@@ -55,22 +39,22 @@ You should remove containers when done with its development (for those that are 
 
 Automated remove the docker containers:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s azure.basestation.docker.stop
+        subt deployer local.basestation.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.basestation.docker.remove
+        subt deployer local.basestation.docker.rm
 
 Or manually remove the docker containers:
 
+        # connect to the remove azure basestation host
+        ssh azure.basestation
+
         # stop the running container
-        docker stop basestation-cpu-shell basestation-gpu-shell
+        docker stop basestation-cpu-shell basestation-cpu-shell
 
         # remove the container
-        docker rm basestation-cpu-shell basestation-gpu-shell
+        docker rm basestation-cpu-shell basestation-cpu-shell
 
 - The above steps will remove the containers.
 
@@ -85,19 +69,3 @@ Or manually remove the docker containers:
 You should now have a built `basestation` workspace.
 
 - Please notify the maintainer if any of the tutorial steps did not succeed.
-
-## Helpful Tips
-
-You can transfer changes from your localhost to the remote:
-
-        # basestation transfer.to command
-        ./deployer -s azure.basestation.transfer.to
-
-If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
-
-        operations/deploy/scenarios/.basestation.env
-
-You can edit the option: `deploy_rsync_opts`
-
-- This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
-- **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.

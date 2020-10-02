@@ -8,41 +8,37 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # PLEASE NOTICE
         #   - user either the cpu or gpu deployer commands. NOT BOTH!
         #   - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
         #   - each of the below commands has a cpu or gpu commands, please choose the one for your setup.
 
-        # create the docker shell on the remote host
-        # cpu
-        ./deployer -s local.uav.cpu.docker.shell
-        # gpu
-        ./deployer -s local.uav.gpu.docker.shell
+        # cpu shell
+
+        # start the container
+        subt deployer local.uav.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s local.uav.cpu.catkin.clean
+        subt deployer local.uav.cpu.catkin.clean
 
         # build the PX4 firmware
-        ./deployer -s local.uav.cpu.px4
+        subt deployer local.uav.cpu.catkin.px4
 
-        # catkin build the UGV workspaces
-        ./deployer -s local.uav.cpu.catkin.build
+        # catkin build the 'core' UGV workspaces
+        subt deployer local.uav.cpu.catkin.core.build
+
+        # (optional) catkin build 'perception' the UGV workspaces
+        subt deployer local.uav.cpu.catkin.perception.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s local.uav.docker.stop
+        subt deployer local.uav.cpu.docker.stop
 
         # remove the docker container
-        ./deployer -s local.uav.docker.rm
+        subt deployer local.uav.cpu.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 

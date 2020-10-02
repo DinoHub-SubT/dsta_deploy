@@ -19,15 +19,12 @@ Follow these steps, **on the localhost**.
         # azure registry login
         az acr login --name subtexplore
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.basestation.docker.pull
+        subt deployer local.basestation.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s local.basestation.docker.stop
-        ./deployer -s local.basestation.docker.rm
+        subt deployer local.basestation.docker.stop
+        subt deployer local.basestation.docker.rm
 
 **Verify Docker Images**
 
@@ -45,11 +42,7 @@ Verify you see the following docker images (in any order):
 
 Follow these steps, **on the localhost**:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create all the basestation docker containers
-        ./deployer -s local.basestation.docker.shell
+        subt deployer local.basestation.docker.shell
 
 **Verify Docker Containers**
 

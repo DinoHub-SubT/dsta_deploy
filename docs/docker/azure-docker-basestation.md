@@ -19,15 +19,12 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         # azure registry login
         az acr login --name subtexplore
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.basestation.pull
+        subt deployer azure.basestation.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s azure.basestation.docker.stop
-        ./deployer -s azure.basestation.docker.rm
+        subt deployer azure.basestation.docker.stop
+        subt deployer azure.basestation.docker.rm
 
 **Verify Docker Images**
 
@@ -54,14 +51,11 @@ Return To Localhost
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # (optional) remove any previously created docker containers
-        ./deployer -s azure.basestation.docker.rm
+        subt deployer azure.basestation.docker.rm
 
         # create the basestation docker container
-        ./deployer -s azure.basestation.cpu.docker.shell
+        subt deployer azure.basestation.docker.shell
 
 **Verify Docker Containers**
 

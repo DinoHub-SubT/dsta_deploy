@@ -58,6 +58,9 @@ __subt_cloud_execute() {
     elif chk_flag monitor $@; then
       shift # shift the subcommand
       (subtf_monitor.sh $@)
+    elif chk_flag env $@; then
+      shift # shift the subcommand
+      (install-terraform-current.sh $@)
     fi
   fi
 }
@@ -112,7 +115,7 @@ subt() {
     text "Please source your bash or zsh rc: 'source ~/.bashrc'"
 
   elif chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@; then
-    __subt_help $@
+    __subt_help
     return 0
   fi
 }
