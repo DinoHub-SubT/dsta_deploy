@@ -220,6 +220,23 @@ If you wish to reset specific projects:
 
 - The `reset` is very similar to clone. Use `reset` when the submodules are already cloned and `clone` when the submodules are empty.
 
+### Pull the submodules
+
+This will pull the submodule's updates, when the submodules are checked-out at a specific branch.
+
+    subt git pull localhost
+
+If you wish to pull specific projects:
+
+    # preview all the available projects available to clean.
+    subt git pull localhost -p
+
+    # pull only a specific group
+    subt git pull localhost.common
+
+    # pull multiple groups
+    subt git pull localhost.common localhost.basestation
+
 ### Clean the submodules
 
 This cleans all the base submodules from any uncommitted changes.
