@@ -6,10 +6,6 @@
   - source operations/deploy/scenarios/.base.env
   - source operations/deploy/scenarios/systems/local/.local.env
 
-  # ////////////////////////////////////////////////////////////////////////////
-  - uav:
-  # ////////////////////////////////////////////////////////////////////////////
-    - +extend: systems/local/uav/vm/registry
 
   # ////////////////////////////////////////////////////////////////////////////
   - uav.cpu:
@@ -20,11 +16,13 @@
     - source operations/deploy/scenarios/$filename.env
     - export scenario=" --scenario $filename"
 
+    - registry:
+      - +extend: systems/local/uav/vm/registry
     - compose:
       - +extend: systems/local/uav/vm/compose
     - catkin:
       - core:
-        - +docker:uav-cpu-shell
+        - +docker:uav-superodometry-cpu-shell
         - +extend: systems/local/uav/vm/catkin-core
       - perception:
         - +docker:uav-perception-cpu-shell
@@ -40,6 +38,8 @@
     - source operations/deploy/scenarios/$filename.env
     - export scenario=" --scenario $filename"
 
+    - registry:
+      - +extend: systems/local/uav/vm/registry
     - compose:
       - +extend: systems/local/uav/vm/compose
     - catkin:

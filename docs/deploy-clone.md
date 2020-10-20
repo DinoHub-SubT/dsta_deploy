@@ -169,30 +169,107 @@ The deploy repo maintains a **3-commit level** group of submodules:
 
 * * *
 
-## Deploy Submodules
+## Deploy Submodules on Localhost
 
-This tutorial will show you how to interact with deploy's git and submodules setup.
+This tutorial will show you how to interact with deployer's git tools.
 
-- You will be using the `deployer` command line interface tool to automate cloning the submodules.
-- Alternatively, you can manually clone the submodules.
-- If you are missing packages with the base clone, then you should clone the specific projects.
+- Please use `TAB` as autocompletion to `subt git [TAB]`, to see more help information about the deployer git commands.
+- Alternatively, you can manually clone the submodules if you do not want to use the deployer.
 
 ### Clone the submodules
 
-This will clone all the base submodules. Submodules clone as `DETACHED HEAD`. Make sure to always checkout to a branch after its cloned.
+This will clone all the base submodules, for running the system on localhost.
 
-    subt git clone base
+    subt git clone localhost
 
 If you wish to clone specific projects:
 
     # preview which submodules will be cloned
-    subt git clone base -p
+    subt git clone localhost -p
 
-    # example, clone common project
-    subt git clone common
+    # clone only a specific group
+    subt git clone localhost.common
 
-    # example, multi repo clone
-    subt git clone common simulation
+    # clone multiple groups
+    subt git clone localhost.common localhost.basestation
+
+- Submodules clone as `DETACHED HEAD`. Make sure to always checkout to a branch after its cloned.
+
+- The `clone`, will **RESET** your submodule's checked-out branch to the origin commit HASH.
+
+### Reset the submodules
+
+This will reset all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
+
+    subt git reset localhost
+
+If you wish to reset specific projects:
+
+    # preview which submodules will be reset
+    subt git reset localhost -p
+
+    # reset only a specific group
+    subt git reset localhost.common
+
+    # reset multiple groups
+    subt git reset localhost.common localhost.basestation
+
+- Submodules reset as `DETACHED HEAD`. Make sure to always checkout to a branch after its cloned.
+
+- The `reset`, will **RESET** your submodule's checked-out branch to the origin commit HASH.
+
+- The `reset` is very similar to clone. Use `reset` when the submodules are already cloned and `clone` when the submodules are empty.
+
+### Pull the submodules
+
+This will pull the submodule's updates, when the submodules are checked-out at a specific branch.
+
+    subt git pull localhost
+
+If you wish to pull specific projects:
+
+    # preview all the available projects available to clean.
+    subt git pull localhost -p
+
+    # pull only a specific group
+    subt git pull localhost.common
+
+    # pull multiple groups
+    subt git pull localhost.common localhost.basestation
+
+### Clean the submodules
+
+This cleans all the base submodules from any uncommitted changes.
+
+    subt git clean localhost
+
+If you wish to clean specific projects:
+
+    # preview all the available projects available to clean.
+    subt git clean localhost -p
+
+    # clean only a specific group
+    subt git clean localhost.common
+
+    # clean multiple groups
+    subt git clean localhost.common localhost.basestation
+
+### Remove the submodules
+
+Remove the submodules locally. It is equivalent to `git submodule --deinit /path/to/submodule`
+
+    subt git rm localhost
+
+If you wish to remove specific projects:
+
+    # preview which submodules will be removed
+    subt git rm localhost -p
+
+    # removes only a specific group
+    subt git rm localhost.common
+
+    # removes multiple groups
+    subt git rm localhost.common localhost.basestation
 
 ### Sync the submodules
 
@@ -208,56 +285,11 @@ If you wish to sync specific projects:
     # example, multi repo pull
     subt git sync common simulation
 
-### Reset the submodules
+- The `sync` does a `fetch --all` and `reset --hard origin` for all submodules, recursively.
+- The `reset --hard` makes sure the local branch is up-to-date with its respective remote branch.
+- Use `sync` when you want to keep your submodules up-to-date with origin's changes.
 
-This will reset all the base submodules, to their `DETACHED HEAD` at the top level branch.
-
-    subt git reset base
-
-If you wish to reset specific projects:
-
-    # preview which submodules will be reset
-    subt git reset base -p
-
-    # example, pull common project
-    subt git reset common
-
-    # example, multi repo reset
-    subt git reset simulation common
-
-### Clean the submodules
-
-This cleans all the base submodules from any uncommitted changes.
-
-    subt git clean base
-
-If you wish to clean specific projects:
-
-    # preview all the available projects available to clean.
-    subt git clean base -p
-
-    # example, clean common project
-    subt git clean common
-
-    # example, multi repo clean
-    subt git clean simulation common
-
-### Remove the submodules
-
-    subt git rm base
-
-If you wish to remove specific projects:
-
-    # preview which submodules will be removed
-    subt git rm base -p
-
-    # example, clean common project
-    subt git rm common
-
-    # example, multi repo remove
-    subt git rm simulation common
-
-### Submodule Status
+### Show the status of the submodules
 
 This will show the status of all the submodules.
 
@@ -278,7 +310,7 @@ If you wish to sync specific projects:
 
 ## More References
 
-### Checkout New Submodule Branch
+### Checkout New Submodule Branch (experimental)
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/
@@ -290,7 +322,7 @@ If you wish to sync specific projects:
     cd ~/deploy_ws/src/simulation
     git status
 
-### Checkout An Existing Submodule Branch
+### Checkout An Existing Submodule Branch (experimental)
 
     # go to the deploy, top-level submodule
     cd ~/deploy_ws/src/

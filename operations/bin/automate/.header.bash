@@ -35,6 +35,10 @@ DISABLE_WARNING=0
 
 GL_TEXT_COLOR=${FG_DEFAULT}
 
+# globals
+GL_BIN_AUTOMATE_DIR=$SUBT_PATH/operations/bin/automate/
+GL_CMPL_DIR=$SUBT_PATH/operations/bin/automate/cmpl
+
 # @source: operations/deploy/azurebooks/scripts/header.sh
 # @brief Checks arguments to make sure they exist and are equal
 # @params $1  flag to check for arguments to contain
@@ -123,4 +127,14 @@ _git_branches(){
 
 chk_eq() {
   [ "$1" = "$2" ] && return 0 || return 1
+}
+
+_run_deployer() {
+  local _dir=$(pwd)
+  local _cmd=$1
+  local _opts=$2
+  cd "$SUBT_PATH/"
+  local deployer_cmd="./deployer "$_opts" -s $_cmd"
+  eval $deployer_cmd
+  cd $__dir
 }

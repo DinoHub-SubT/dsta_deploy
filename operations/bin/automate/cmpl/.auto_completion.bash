@@ -5,19 +5,17 @@
 . "$SUBT_PATH/operations/bin/automate/.header.bash"
 . "$SUBT_PATH/operations/bin/automate/.help.bash"
 
-# globals
-GL_GIT_AUTOMATE_DIR=$SUBT_PATH/operations/bin/automate/
-
 # @brief find the the current auto-complete token matches
 __matcher() {
   local _matcher_t=$1 _curr=$2
   [[ "$_curr" == "" ]] && return 1  # if not given a current token, then show the help usage message
   # evaluate the matcher
-  local _result=$(perl $GL_GIT_AUTOMATE_DIR/acmatcher.pl "$_matcher_t" "$_curr")
-  local _term_t=$(ps -p$$ -ocmd=)
+  local _result=$(perl $GL_CMPL_DIR/cmpl.pl "$_matcher_t" "$_curr")
+  # local _term_t=$(ps -p$$ -ocmd=)
   if [ ! -z "$_result" ]; then
-    [ "$_term_t" = "bash" ] && COMPREPLY=( $( compgen -W "$_result" -- "$_str" ) ) && compopt -o nospace && return 0
-    [ "$_term_t" = "zsh" ]  && COMPREPLY=( $( compgen -W "$_result" -- "$_str" ) ) && return 0
+    # [ "$_term_t" = "bash" ] && COMPREPLY=( $( compgen -W "$_result" -- "$_str" ) ) && compopt -o nospace && return 0
+    # [ "$_term_t" = "zsh" ]  && COMPREPLY=( $( compgen -W "$_result" -- "$_str" ) ) && return 0
+    COMPREPLY=( $( compgen -W "$_result" -- "$_str" ) ) && return 0
   fi
   return 1
 }
@@ -33,6 +31,14 @@ _ac_subt_completion() {
   # Retrieve the current command-line token, i.e., the one on which completion is being invoked.
   local _curr=${COMP_WORDS[COMP_CWORD]}
   local _prev=${COMP_WORDS[COMP_CWORD-1]}
+
+  # a finished subcommand argument does not have a trailing '.'
+  #   - if so, then reset prev to the subcommand name.
+  if [ $COMP_CWORD -gt 1 ]; then
+    if [ ! ${_prev: -1} == "." ]; then
+      local _prev=${COMP_WORDS[2]}
+    fi
+  fi
 
   # first level menu: 'subt'
   if [ $COMP_CWORD = 1 ]; then
@@ -73,13 +79,15 @@ _ac_subt_completion() {
       elif chk_flag add "${COMP_WORDS[@]}"; then
         ! __matcher "git_add" "$_curr" && __ac_git_add_help
       elif chk_flag clone "${COMP_WORDS[@]}"; then
-        ! __matcher "git_clone" "$_curr" && __ac_git_clone_help
+        ! __matcher "git_clone" "$_curr" && __ac_git_clone_submenu_help $_prev
       elif chk_flag reset "${COMP_WORDS[@]}"; then
-        ! __matcher "git_reset" "$_curr" && __ac_git_reset_help
+        ! __matcher "git_reset" "$_curr" && __ac_git_reset_submenu_help $_prev
+      elif chk_flag pull "${COMP_WORDS[@]}"; then
+        ! __matcher "git_pull" "$_curr" && __ac_git_pull_submenu_help $_prev
       elif chk_flag clean "${COMP_WORDS[@]}"; then
-        ! __matcher "git_clean" "$_curr" && __ac_git_clean_help
+        ! __matcher "git_clean" "$_curr" && __ac_git_clean_submenu_help $_prev
       elif chk_flag rm "${COMP_WORDS[@]}"; then
-        ! __matcher "git_rm" "$_curr" && __ac_git_rm_help
+        ! __matcher "git_rm" "$_curr" && __ac_git_rm_submenu_help $_prev
       fi
 
     # second level 'subt cloud'
@@ -96,6 +104,5 @@ _ac_subt_completion() {
       ! __matcher "deployer" $_curr && __ac_deploy_submenu_help $_prev
 
     fi
-
   fi
 }

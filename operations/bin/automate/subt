@@ -3,17 +3,67 @@
 # load header helper functions
 . "$SUBT_PATH/operations/bin/.header.bash"
 . "$SUBT_PATH/operations/bin/automate/.header.bash"
-. "$SUBT_PATH/operations/bin/automate/.auto_completion.bash"
+. "$SUBT_PATH/operations/bin/automate/cmpl/.auto_completion.bash"
 
-# globals
-GL_GIT_AUTOMATE_DIR=$SUBT_PATH/operations/bin/automate/
+if [ ! -z "$ZSH_NAME" ]; then
+  # bash-completion under zsh
+  autoload bashcompinit
+  bashcompinit
+
+  autoload -Uz compinit
+  compinit
+
+  # remove fuzzy search in zsh-completion
+  zstyle ":completion:*" matcher-list ''
+fi
 
 # @brief evaluate which subcommand to switch and execute
 __subt_git_execute() {
-  if chk_flag status $@ || chk_flag sync $@ || chk_flag clone $@ \
-    || chk_flag reset $@ || chk_flag clean $@  || chk_flag rm $@ || chk_flag add $@; then
-    shift 1 # shift the 'git' token
-    ($GL_GIT_AUTOMATE_DIR/git.bash $@)
+  # TODO: check if has -p or -v for preview and verbose
+  local _opts=""
+  chk_flag -p $@ && _opts="$_opts -p"
+  chk_flag -v $@ && _opts="$_opts -v"
+
+  if chk_flag clone $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "clone.$cmd" "$_opts"
+    done
+
+  elif chk_flag reset $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "rm.$cmd" "$_opts"
+      _run_deployer "clone.$cmd" "$_opts"
+    done
+
+  elif chk_flag rm $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "rm.$cmd" "$_opts"
+    done
+
+  elif chk_flag clean $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "clean.$cmd" "$_opts"
+    done
+
+  elif chk_flag pull $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "pull.$cmd" "$_opts"
+    done
+
+  elif chk_flag status $@ || chk_flag sync $@  || chk_flag add $@; then
+    shift 1
+    ($GL_BIN_AUTOMATE_DIR/cmpl/git.bash $@)
+
   elif chk_flag help $@; then
     __git_help
   fi
@@ -83,7 +133,6 @@ __subt_tools_execute() {
   elif chk_flag snapshot $@; then
     shift 2 # shift the 'tools', 'snapshot' tokens
     (subtu_snapshot $@)
-
   fi
 }
 
@@ -100,7 +149,7 @@ subt() {
   # execute 'git subt' subcommand
   elif chk_nth_flag 1 "deployer" "$@"; then
     shift 1 # shift 'deployer'
-    ($GL_GIT_AUTOMATE_DIR/deployer.bash $@)
+     _run_deployer "$@"
 
   elif chk_nth_flag 1 "cloud" "$@"; then
     __subt_cloud_execute $@
@@ -121,4 +170,5 @@ subt() {
 }
 
 # enable tab autocompletion
-complete -F _ac_subt_completion subt
+# 'nosort' option does not work with bash <= 4.4.20 (https://lists.defectivebydesign.org/archive/html/bug-bash/2017-05/msg00034.html)
+complete -o nospace -o nosort -F _ac_subt_completion subt

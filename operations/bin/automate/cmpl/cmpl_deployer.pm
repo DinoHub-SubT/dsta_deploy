@@ -1,39 +1,72 @@
 #!/usr/local/bin/perl
 
-my @_subt         = ( "cloud", "deployer", "git", "tools", "update", "help" );
+package cmpl_deployer;
+use Exporter;
 
-my @_git          = ( "status", "sync", "add", "clone", "rm", "reset", "clean", "pr", "help" );
+# //////////////////////////////////////////////////////////////////////////////
+# @brief export modules
+# //////////////////////////////////////////////////////////////////////////////
 
-my @_git_status   = ( "basestation", "common", "perception", "simulation", "subt_launch",
-                      "ugv", "uav", "help" );
+our @ISA= qw( Exporter );
 
-my @_git_sync     = ( "deploy", "basestation", "common", "perception", "simulation", "subt_launch",
-                      "ugv", "uav", "help" );
+# these CAN be exported.
+our @EXPORT_OK = qw(
+  @_deployer
+  $_deployer_local_help
+  $_deployer_azure_help
+  $_deployer_azure_ugv_help
+  $_deployer_azure_uav_help
+  $_deployer_robots_help
+  $_deployer_robots_ugv_help
+  $_deployer_robots_uav_help
+  $_deployer_robots_ugv_computer_help
+  $_deployer_commands_help
+  $_deployer_commands_docker_help
+  $_deployer_commands_catkin_help
+  $_deployer_localhost_commands_help
+  @_deployer_help_array
+);
 
-my @_git_add      = ( "basestation", "common", "perception", "simulation", "ugv", "uav", "help" );
+# these are exported by default.
+our @EXPORT = qw(
+  @_deployer
+  $_deployer_local_help
+  $_deployer_azure_help
+  $_deployer_azure_ugv_help
+  $_deployer_azure_uav_help
+  $_deployer_robots_help
+  $_deployer_robots_ugv_help
+  $_deployer_robots_uav_help
+  $_deployer_robots_ugv_computer_help
+  $_deployer_commands_help
+  $_deployer_commands_docker_help
+  $_deployer_commands_catkin_help
+  $_deployer_localhost_commands_help
+  @_deployer_help_array
+);
 
-my @_git_clone    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
-                      "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
+our (
+  @_deployer,
+  $_deployer_local_help,
+  $_deployer_azure_help,
+  $_deployer_azure_ugv_help,
+  $_deployer_azure_uav_help,
+  $_deployer_robots_help,
+  $_deployer_robots_ugv_help,
+  $_deployer_robots_uav_help,
+  $_deployer_robots_ugv_computer_help,
+  $_deployer_commands_help,
+  $_deployer_commands_docker_help,
+  $_deployer_commands_catkin_help,
+  $_deployer_localhost_commands_help,
+  @_deployer_help_array
+);
 
-my @_git_reset    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
-                      "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
+# //////////////////////////////////////////////////////////////////////////////
+# @brief deployer (general deployer) alias as arrays & associated helps
+# //////////////////////////////////////////////////////////////////////////////
 
-my @_git_clean    = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "uav", "help" );
-
-my @_git_rm       = ( "base", "basestation", "common", "perception", "simulation", "subt_launch", "ugv", "ugv.base",
-                      "ugv.hardware", "ugv.slam", "uav", "uav.core", "uav.slam", "uav.hardware", "help");
-
-my @_cloud        = ( "terraform", "ansible", "help" );
-
-my @_cloud_terra  = ( "init", "cert", "plan", "apply", "mkvpn", "rmvpn", "start", "stop" , "destroy", 
-                      "env", "monitor" );
-
-my @_cloud_ani    = ( "-az", "-r", "-l", "-b", "-p" );
-
-my @_tools        = ( "ssh", "teamviewer", "rdp", "snapshot" );
-
-# TODO: eventually get this from the py deployer...
-my @_deployer     = (
+@_deployer     = (
 
   # ////////////////////////////////////////////////////////////////////////////
   # Local
@@ -41,6 +74,7 @@ my @_deployer     = (
   # ugv
   "local.ugv.catkin.build",
   "local.ugv.catkin.clean",
+  "local.ugv.docker.image",
   "local.ugv.docker.shell",
   "local.ugv.docker.shell.sim",
   "local.ugv.docker.shell.ppc",
@@ -48,41 +82,66 @@ my @_deployer     = (
   "local.ugv.docker.rm",
   "local.ugv.docker.stop",
   "local.ugv.docker.registry.pull",
+  "local.ugv.docker.registry.push",
 
   # uav
   "local.uav.cpu.catkin.px4",
   "local.uav.cpu.catkin.core.build",
+  "local.uav.cpu.catkin.core.clean",
   "local.uav.cpu.catkin.perception.build",
   "local.uav.cpu.catkin.clean",
-  "local.uav.cpu.docker.shell",
+  "local.uav.cpu.docker.image.core",
+  "local.uav.cpu.docker.image.perception",
+  "local.uav.cpu.docker.image.super",
+  "local.uav.cpu.docker.shell.core",
+  "local.uav.cpu.docker.shell.perception",
+  "local.uav.cpu.docker.shell.super",
   "local.uav.cpu.docker.rm",
   "local.uav.cpu.docker.stop",
-  "local.uav.docker.registry.pull.cpu",
+  "local.uav.cpu.docker.registry.pull.core",
+  "local.uav.cpu.docker.registry.pull.perception",
+  "local.uav.cpu.docker.registry.pull.super",
+  "local.uav.cpu.docker.registry.push.core",
+  "local.uav.cpu.docker.registry.push.perception",
+  "local.uav.cpu.docker.registry.push.super",
 
   "local.uav.gpu.catkin.px4",
   "local.uav.gpu.catkin.core.build",
+  "local.uav.gpu.catkin.core.clean",
   "local.uav.gpu.catkin.perception.build",
   "local.uav.gpu.catkin.clean",
+  "local.uav.gpu.docker.image.core",
+  "local.uav.gpu.docker.image.perception",
+  "local.uav.gpu.docker.image.super",
   "local.uav.gpu.docker.shell",
   "local.uav.gpu.docker.rm",
   "local.uav.gpu.docker.stop",
-  "local.uav.docker.registry.pull.gpu",
+  "local.uav.gpu.docker.registry.pull.core",
+  "local.uav.gpu.docker.registry.pull.perception",
+  "local.uav.gpu.docker.registry.pull.super",
+  "local.uav.gpu.docker.registry.push.core",
+  "local.uav.gpu.docker.registry.push.perception",
+  "local.uav.gpu.docker.registry.push.super",
 
   # perception
   "local.perception.catkin.build",
   "local.perception.catkin.clean",
+  "local.perception.docker.image",
   "local.perception.docker.shell",
   "local.perception.docker.rm",
   "local.perception.docker.stop",
   "local.perception.docker.registry.pull",
+  "local.perception.docker.registry.push",
 
   # basestation
   "local.basestation.catkin.build",
   "local.basestation.catkin.clean",
+  "local.basestation.docker.image",
   "local.basestation.docker.shell",
   "local.basestation.docker.rm",
   "local.basestation.docker.stop",
   "local.basestation.docker.registry.pull",
+  "local.basestation.docker.registry.push",
 
   # ////////////////////////////////////////////////////////////////////////////
   # Azure
@@ -95,6 +154,7 @@ my @_deployer     = (
   "azure.ugv.catkin.build",
   "azure.ugv.catkin.clean",
   "azure.ugv.docker.shell",
+  "azure.ugv.docker.image",
   "azure.ugv.docker.rm",
   "azure.ugv.docker.stop",
   "azure.ugv.docker.registry.pull",
@@ -104,6 +164,7 @@ my @_deployer     = (
   "azure.ugv.ugv1.skel_t.to",
   "azure.ugv.ugv1.catkin.build",
   "azure.ugv.ugv1.catkin.clean",
+  "azure.ugv.ugv1.docker.image",
   "azure.ugv.ugv1.docker.shell",
   "azure.ugv.ugv1.docker.rm",
   "azure.ugv.ugv1.docker.stop",
@@ -115,6 +176,7 @@ my @_deployer     = (
   "azure.ugv.ugv2.catkin.build",
   "azure.ugv.ugv2.catkin.clean",
   "azure.ugv.ugv2.docker.shell",
+  "azure.ugv.ugv2.docker.image",
   "azure.ugv.ugv2.docker.rm",
   "azure.ugv.ugv2.docker.stop",
   "azure.ugv.ugv2.docker.registry.pull",
@@ -125,6 +187,7 @@ my @_deployer     = (
   "azure.ugv.ugv3.catkin.build",
   "azure.ugv.ugv3.catkin.clean",
   "azure.ugv.ugv3.docker.shell",
+  "azure.ugv.ugv3.docker.image",
   "azure.ugv.ugv3.docker.rm",
   "azure.ugv.ugv3.docker.stop",
   "azure.ugv.ugv3.docker.registry.pull",
@@ -136,10 +199,17 @@ my @_deployer     = (
   "azure.uav.skel_t.to",
   "azure.uav.catkin.build",
   "azure.uav.catkin.clean",
-  "azure.uav.docker.shell",
+  "azure.uav.docker.shell.core",
+  "azure.uav.docker.shell.perception",
+  "azure.uav.docker.shell.super",
+  "azure.uav.docker.image.core",
+  "azure.uav.docker.image.perception",
+  "azure.uav.docker.image.super",
   "azure.uav.docker.rm",
   "azure.uav.docker.stop",
-  "azure.uav.docker.registry.pull",
+  "azure.uav.docker.registry.pull.core",
+  "azure.uav.docker.registry.pull.perception",
+  "azure.uav.docker.registry.pull.super",
 
   # uav1
   "azure.uav.uav1.transfer.to",
@@ -147,11 +217,17 @@ my @_deployer     = (
   "azure.uav.uav1.catkin.px4",
   "azure.uav.uav1.catkin.core.build",
   "azure.uav.uav1.catkin.core.clean",
-  "azure.uav.uav1.docker.shell",
+  "azure.uav.uav1.docker.shell.core",
+  "azure.uav.uav1.docker.shell.perception",
+  "azure.uav.uav1.docker.shell.super",
+  "azure.uav.uav1.docker.image.core",
+  "azure.uav.uav1.docker.image.perception",
+  "azure.uav.uav1.docker.image.super",
   "azure.uav.uav1.docker.rm",
   "azure.uav.uav1.docker.stop",
-  "azure.uav.uav1.docker.registry.pull.cpu",
-  "azure.uav.uav1.docker.registry.pull.gpu",
+  "azure.uav.uav1.docker.registry.pull.core",
+  "azure.uav.uav1.docker.registry.pull.perception",
+  "azure.uav.uav1.docker.registry.pull.super",
 
   # uav2
   "azure.uav.uav2.transfer.to",
@@ -159,11 +235,17 @@ my @_deployer     = (
   "azure.uav.uav2.catkin.px4",
   "azure.uav.uav2.catkin.core.build",
   "azure.uav.uav2.catkin.core.clean",
-  "azure.uav.uav2.docker.shell",
+  "azure.uav.uav2.docker.shell.core",
+  "azure.uav.uav2.docker.shell.perception",
+  "azure.uav.uav2.docker.shell.super",
+  "azure.uav.uav2.docker.image.core",
+  "azure.uav.uav2.docker.image.perception",
+  "azure.uav.uav2.docker.image.super",
   "azure.uav.uav2.docker.rm",
   "azure.uav.uav2.docker.stop",
-  "azure.uav.uav2.docker.registry.pull.cpu",
-  "azure.uav.uav2.docker.registry.pull.gpu",
+  "azure.uav.uav2.docker.registry.pull.core",
+  "azure.uav.uav2.docker.registry.pull.perception",
+  "azure.uav.uav2.docker.registry.pull.super",
 
   # uav3
   "azure.uav.uav3.transfer.to",
@@ -171,11 +253,17 @@ my @_deployer     = (
   "azure.uav.uav3.catkin.px4",
   "azure.uav.uav3.catkin.core.build",
   "azure.uav.uav3.catkin.core.clean",
-  "azure.uav.uav3.docker.shell",
+  "azure.uav.uav3.docker.shell.core",
+  "azure.uav.uav3.docker.shell.perception",
+  "azure.uav.uav3.docker.shell.super",
+  "azure.uav.uav3.docker.image.core",
+  "azure.uav.uav3.docker.image.perception",
+  "azure.uav.uav3.docker.image.super",
   "azure.uav.uav3.docker.rm",
   "azure.uav.uav3.docker.stop",
-  "azure.uav.uav3.docker.registry.pull.cpu",
-  "azure.uav.uav3.docker.registry.pull.gpu",
+  "azure.uav.uav3.docker.registry.pull.core",
+  "azure.uav.uav3.docker.registry.pull.perception",
+  "azure.uav.uav3.docker.registry.pull.super",
 
   # uav4
   "azure.uav.uav4.transfer.to",
@@ -183,11 +271,17 @@ my @_deployer     = (
   "azure.uav.uav4.catkin.px4",
   "azure.uav.uav4.catkin.core.build",
   "azure.uav.uav4.catkin.core.clean",
-  "azure.uav.uav4.docker.shell",
+  "azure.uav.uav4.docker.shell.core",
+  "azure.uav.uav4.docker.shell.perception",
+  "azure.uav.uav4.docker.shell.super",
+  "azure.uav.uav4.docker.image.core",
+  "azure.uav.uav4.docker.image.perception",
+  "azure.uav.uav4.docker.image.super",
   "azure.uav.uav4.docker.rm",
   "azure.uav.uav4.docker.stop",
-  "azure.uav.uav4.docker.registry.pull.cpu",
-  "azure.uav.uav4.docker.registry.pull.gpu",
+  "azure.uav.uav4.docker.registry.pull.core",
+  "azure.uav.uav4.docker.registry.pull.perception",
+  "azure.uav.uav4.docker.registry.pull.super",
 
   ### perception ###
   "azure.perception.perception1.transfer.to",
@@ -195,6 +289,7 @@ my @_deployer     = (
   "azure.perception.perception1.catkin.build",
   "azure.perception.perception1.catkin.clean",
   "azure.perception.perception1.docker.shell",
+  "azure.perception.perception1.docker.image",
   "azure.perception.perception1.docker.rm",
   "azure.perception.perception1.docker.stop",
   "azure.perception.perception1.docker.registry.pull",
@@ -205,6 +300,7 @@ my @_deployer     = (
   "azure.basestation.catkin.build",
   "azure.basestation.catkin.clean",
   "azure.basestation.docker.shell",
+  "azure.basestation.docker.image",
   "azure.basestation.docker.rm",
   "azure.basestation.docker.stop",
   "azure.basestation.docker.registry.pull",
@@ -220,6 +316,7 @@ my @_deployer     = (
   "robots.ugv.catkin.build",
   "robots.ugv.catkin.clean",
   "robots.ugv.docker.shell",
+  "robots.ugv.docker.image",
   "robots.ugv.docker.rm",
   "robots.ugv.docker.stop",
   "robots.ugv.docker.registry.azure.pull",
@@ -231,6 +328,7 @@ my @_deployer     = (
   "robots.ugv.ugv1.catkin.build",
   "robots.ugv.ugv1.catkin.clean",
   "robots.ugv.ugv1.docker.shell",
+  "robots.ugv.ugv1.docker.image",
   "robots.ugv.ugv1.docker.rm",
   "robots.ugv.ugv1.docker.stop",
   "robots.ugv.ugv1.docker.registry.azure.pull",
@@ -242,6 +340,7 @@ my @_deployer     = (
   "robots.ugv.ugv1.ppc.catkin.build",
   "robots.ugv.ugv1.ppc.catkin.clean",
   "robots.ugv.ugv1.ppc.docker.shell",
+  "robots.ugv.ugv1.ppc.docker.image",
   "robots.ugv.ugv1.ppc.docker.rm",
   "robots.ugv.ugv1.ppc.docker.stop",
   "robots.ugv.ugv1.ppc.docker.registry.azure.pull",
@@ -253,6 +352,7 @@ my @_deployer     = (
   "robots.ugv.ugv1.nuc.catkin.build",
   "robots.ugv.ugv1.nuc.catkin.clean",
   "robots.ugv.ugv1.nuc.docker.shell",
+  "robots.ugv.ugv1.nuc.docker.image",
   "robots.ugv.ugv1.nuc.docker.rm",
   "robots.ugv.ugv1.nuc.docker.stop",
   "robots.ugv.ugv1.nuc.docker.registry.azure.pull",
@@ -264,6 +364,7 @@ my @_deployer     = (
   "robots.ugv.ugv1.xavier.catkin.build",
   "robots.ugv.ugv1.xavier.catkin.clean",
   "robots.ugv.ugv1.xavier.docker.shell",
+  "robots.ugv.ugv1.xavier.docker.image",
   "robots.ugv.ugv1.xavier.docker.rm",
   "robots.ugv.ugv1.xavier.docker.stop",
   "robots.ugv.ugv1.xavier.docker.registry.azure.pull",
@@ -275,6 +376,7 @@ my @_deployer     = (
   "robots.ugv.ugv2.catkin.build",
   "robots.ugv.ugv2.catkin.clean",
   "robots.ugv.ugv2.docker.shell",
+  "robots.ugv.ugv2.docker.image",
   "robots.ugv.ugv2.docker.rm",
   "robots.ugv.ugv2.docker.stop",
   "robots.ugv.ugv2.docker.registry.azure.pull",
@@ -286,6 +388,7 @@ my @_deployer     = (
   "robots.ugv.ugv2.ppc.catkin.build",
   "robots.ugv.ugv2.ppc.catkin.clean",
   "robots.ugv.ugv2.ppc.docker.shell",
+  "robots.ugv.ugv2.ppc.docker.image",
   "robots.ugv.ugv2.ppc.docker.rm",
   "robots.ugv.ugv2.ppc.docker.stop",
   "robots.ugv.ugv2.ppc.docker.registry.azure.pull",
@@ -297,6 +400,7 @@ my @_deployer     = (
   "robots.ugv.ugv2.nuc.catkin.build",
   "robots.ugv.ugv2.nuc.catkin.clean",
   "robots.ugv.ugv2.nuc.docker.shell",
+  "robots.ugv.ugv2.nuc.docker.image",
   "robots.ugv.ugv2.nuc.docker.rm",
   "robots.ugv.ugv2.nuc.docker.stop",
   "robots.ugv.ugv2.nuc.docker.registry.azure.pull",
@@ -308,6 +412,7 @@ my @_deployer     = (
   "robots.ugv.ugv2.xavier.catkin.build",
   "robots.ugv.ugv2.xavier.catkin.clean",
   "robots.ugv.ugv2.xavier.docker.shell",
+  "robots.ugv.ugv2.xavier.docker.image",
   "robots.ugv.ugv2.xavier.docker.rm",
   "robots.ugv.ugv2.xavier.docker.stop",
   "robots.ugv.ugv2.xavier.docker.registry.azure.pull",
@@ -319,6 +424,7 @@ my @_deployer     = (
   "robots.ugv.ugv3.catkin.build",
   "robots.ugv.ugv3.catkin.clean",
   "robots.ugv.ugv3.docker.shell",
+  "robots.ugv.ugv3.docker.image",
   "robots.ugv.ugv3.docker.rm",
   "robots.ugv.ugv3.docker.stop",
   "robots.ugv.ugv3.docker.registry.azure.pull",
@@ -330,6 +436,7 @@ my @_deployer     = (
   "robots.ugv.ugv3.ppc.catkin.build",
   "robots.ugv.ugv3.ppc.catkin.clean",
   "robots.ugv.ugv3.ppc.docker.shell",
+  "robots.ugv.ugv3.ppc.docker.image",
   "robots.ugv.ugv3.ppc.docker.rm",
   "robots.ugv.ugv3.ppc.docker.stop",
   "robots.ugv.ugv3.ppc.docker.registry.azure.pull",
@@ -341,6 +448,7 @@ my @_deployer     = (
   "robots.ugv.ugv3.nuc.catkin.build",
   "robots.ugv.ugv3.nuc.catkin.clean",
   "robots.ugv.ugv3.nuc.docker.shell",
+  "robots.ugv.ugv3.nuc.docker.image",
   "robots.ugv.ugv3.nuc.docker.rm",
   "robots.ugv.ugv3.nuc.docker.stop",
   "robots.ugv.ugv3.nuc.docker.registry.azure.pull",
@@ -352,6 +460,7 @@ my @_deployer     = (
   "robots.ugv.ugv3.xavier.catkin.build",
   "robots.ugv.ugv3.xavier.catkin.clean",
   "robots.ugv.ugv3.xavier.docker.shell",
+  "robots.ugv.ugv3.xavier.docker.image",
   "robots.ugv.ugv3.xavier.docker.rm",
   "robots.ugv.ugv3.xavier.docker.stop",
   "robots.ugv.ugv3.xavier.docker.registry.azure.pull",
@@ -360,130 +469,186 @@ my @_deployer     = (
   ### uavs ###
 
   # uav1
-  "robots.uav.ds1.transfer.to",
-  "robots.uav.ds1.skel_t.to",
-  "robots.uav.ds1.catkin.build",
-  "robots.uav.ds1.catkin.clean",
-  "robots.uav.ds1.docker.shell",
-  "robots.uav.ds1.docker.rm",
-  "robots.uav.ds1.docker.stop",
-  "robots.uav.ds1.docker.registry.azure.pull",
-  "robots.uav.ds1.docker.registry.basestation.pull",
+  "robots.ds.ds1.transfer.to",
+  "robots.ds.ds1.skel_t.to",
+  "robots.ds.ds1.catkin.px4",
+  "robots.ds.ds1.catkin.build.core",
+  "robots.ds.ds1.catkin.build.perception",
+  "robots.ds.ds1.catkin.build.wifi",
+  "robots.ds.ds1.catkin.clean.core",
+  "robots.ds.ds1.catkin.clean.perception",
+  "robots.ds.ds1.catkin.clean.wifi",
+  "robots.ds.ds1.docker.shell.core",
+  "robots.ds.ds1.docker.shell.perception",
+  "robots.ds.ds1.docker.shell.super",
+  "robots.ds.ds1.docker.image.core",
+  "robots.ds.ds1.docker.image.perception",
+  "robots.ds.ds1.docker.image.super",
+  "robots.ds.ds1.docker.rm",
+  "robots.ds.ds1.docker.stop",
+  "robots.ds.ds1.docker.registry.azure.pull.core",
+  "robots.ds.ds1.docker.registry.azure.pull.perception",
+  "robots.ds.ds1.docker.registry.azure.pull.super",
+  "robots.ds.ds1.docker.registry.basestation.pull.core",
+  "robots.ds.ds1.docker.registry.basestation.pull.perception",
+  "robots.ds.ds1.docker.registry.basestation.pull.super",
 
   # uav2
-  "robots.uav.ds2.transfer.to",
-  "robots.uav.ds2.skel_t.to",
-  "robots.uav.ds2.catkin.build",
-  "robots.uav.ds2.catkin.clean",
-  "robots.uav.ds2.docker.shell",
-  "robots.uav.ds2.docker.rm",
-  "robots.uav.ds2.docker.stop",
-  "robots.uav.ds2.docker.registry.azure.pull",
-  "robots.uav.ds2.docker.registry.basestation.pull",
+  "robots.ds.ds2.transfer.to",
+  "robots.ds.ds2.skel_t.to",
+  "robots.ds.ds2.catkin.px4",
+  "robots.ds.ds2.catkin.build.core",
+  "robots.ds.ds2.catkin.build.perception",
+  "robots.ds.ds2.catkin.build.wifi",
+  "robots.ds.ds2.catkin.clean.core",
+  "robots.ds.ds2.catkin.clean.perception",
+  "robots.ds.ds2.catkin.clean.wifi",
+  "robots.ds.ds2.docker.shell.core",
+  "robots.ds.ds2.docker.shell.perception",
+  "robots.ds.ds2.docker.shell.super",
+  "robots.ds.ds2.docker.image.core",
+  "robots.ds.ds2.docker.image.perception",
+  "robots.ds.ds2.docker.image.super",
+  "robots.ds.ds2.docker.rm",
+  "robots.ds.ds2.docker.stop",
+  "robots.ds.ds2.docker.registry.azure.pull.core",
+  "robots.ds.ds2.docker.registry.azure.pull.perception",
+  "robots.ds.ds2.docker.registry.azure.pull.super",
+  "robots.ds.ds2.docker.registry.basestation.pull.core",
+  "robots.ds.ds2.docker.registry.basestation.pull.perception",
+  "robots.ds.ds2.docker.registry.basestation.pull.super",
 
   # uav3
-  "robots.uav.ds3.transfer.to",
-  "robots.uav.ds3.skel_t.to",
-  "robots.uav.ds3.catkin.build",
-  "robots.uav.ds3.catkin.clean",
-  "robots.uav.ds3.docker.shell",
-  "robots.uav.ds3.docker.rm",
-  "robots.uav.ds3.docker.stop",
-  "robots.uav.ds3.docker.registry.azure.pull",
-  "robots.uav.ds3.docker.registry.basestation.pull",
+  "robots.ds.ds3.transfer.to",
+  "robots.ds.ds3.skel_t.to",
+  "robots.ds.ds3.catkin.px4",
+  "robots.ds.ds3.catkin.build.core",
+  "robots.ds.ds3.catkin.build.perception",
+  "robots.ds.ds3.catkin.build.wifi",
+  "robots.ds.ds3.catkin.clean.core",
+  "robots.ds.ds3.catkin.clean.perception",
+  "robots.ds.ds3.catkin.clean.wifi",
+  "robots.ds.ds3.docker.shell.core",
+  "robots.ds.ds3.docker.shell.perception",
+  "robots.ds.ds3.docker.shell.super",
+  "robots.ds.ds3.docker.image.core",
+  "robots.ds.ds3.docker.image.perception",
+  "robots.ds.ds3.docker.image.super",
+  "robots.ds.ds3.docker.rm",
+  "robots.ds.ds3.docker.stop",
+  "robots.ds.ds3.docker.registry.azure.pull.core",
+  "robots.ds.ds3.docker.registry.azure.pull.perception",
+  "robots.ds.ds3.docker.registry.azure.pull.super",
+  "robots.ds.ds3.docker.registry.basestation.pull.core",
+  "robots.ds.ds3.docker.registry.basestation.pull.perception",
+  "robots.ds.ds3.docker.registry.basestation.pull.super",
 
   # uav4
-  "robots.uav.ds4.transfer.to",
-  "robots.uav.ds4.skel_t.to",
-  "robots.uav.ds4.catkin.build",
-  "robots.uav.ds4.catkin.clean",
-  "robots.uav.ds4.docker.shell",
-  "robots.uav.ds4.docker.rm",
-  "robots.uav.ds4.docker.stop",
-  "robots.uav.ds4.docker.registry.azure.pull",
-  "robots.uav.ds4.docker.registry.basestation.pull"
+  "robots.ds.ds4.transfer.to",
+  "robots.ds.ds4.skel_t.to",
+  "robots.ds.ds4.catkin.px4",
+  "robots.ds.ds4.catkin.build.core",
+  "robots.ds.ds4.catkin.build.perception",
+  "robots.ds.ds4.catkin.build.wifi",
+  "robots.ds.ds4.catkin.clean.core",
+  "robots.ds.ds4.catkin.clean.perception",
+  "robots.ds.ds4.catkin.clean.wifi",
+  "robots.ds.ds4.docker.shell.core",
+  "robots.ds.ds4.docker.shell.perception",
+  "robots.ds.ds4.docker.shell.super",
+  "robots.ds.ds4.docker.image.core",
+  "robots.ds.ds4.docker.image.perception",
+  "robots.ds.ds4.docker.image.super",
+  "robots.ds.ds4.docker.rm",
+  "robots.ds.ds4.docker.stop",
+  "robots.ds.ds4.docker.registry.azure.pull.core",
+  "robots.ds.ds4.docker.registry.azure.pull.perception",
+  "robots.ds.ds4.docker.registry.azure.pull.super",
+  "robots.ds.ds4.docker.registry.basestation.pull.core",
+  "robots.ds.ds4.docker.registry.basestation.pull.perception",
+  "robots.ds.ds4.docker.registry.basestation.pull.super",
 );
 
 # //////////////////////////////////////////////////////////////////////////////
 # @brief various help messages
 # //////////////////////////////////////////////////////////////////////////////
 # local
-my $_deployer_local_help = ("
+$_deployer_local_help = ("
 About: 1... deploys subt to localhost.
 About: 2... your localhost runs the different parts of the system, in their own containers.
 About: 4... this includes ugv (ground robot), uav (drone), basestation (gui) and perception (objdet).
 About: 6... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 7... == You Options Are ==
+About: 7... == Your Options Are ==
 ugv          : deployment subt ugv on azure VMs.
 uav          : deployment subt uav on azure VMs.
 basestation  : deployment subt basestation on azure VMs.
 perception   : deployment subt perception on azure VMs"
 );
 # azure
-my $_deployer_azure_help = ("
+$_deployer_azure_help = ("
 About: 1... deploys subt to Azure Virtual Machines (VMs).
 About: 2... different VMs run different parts of the system.
 About: 4... this includes ugv (ground robot), uav (drone), basestation (gui) and perception (objdet).
 About: 5... the different systems run their own gazebo, rviz, etc, but can all communication with each other.
 About: 6... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 7... == You Options Are ==
+About: 7... == Your Options Are ==
 ugv          : deployment subt ugv on azure VMs.
 uav          : deployment subt uav on azure VMs.
 basestation  : deployment subt basestation on azure VMs.
 perception   : deployment subt perception on azure VMs"
 );
-my $_deployer_azure_ugv_help = ("
+$_deployer_azure_ugv_help = ("
 About: 1... deploys subt to any one of the remote 'ground robot' Azure VMs.
 About: 2... the same deploy is installed on all ground robot VMs.
 About: 3... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 4... == You Options Are ==
+About: 4... == Your Options Are ==
 Options:
 ugv1       : deployment subt on ugv1 Azure VM.
 ugv2       : deployment subt on ugv2 Azure VM.
 ugv3       : deployment subt on ugv3 Azure VM."
 );
-my $_deployer_azure_uav_help = ("
+$_deployer_azure_uav_help = ("
 About: 1... deploys subt to any one of the remote 'drone' Azure VMs.
 About: 2... the same deploy is installed on all drone VMs.
 About: 3... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 4... == You Options Are ==
+About: 4... == Your Options Are ==
 uav1       : deployment subt on uav1 Azure VM.
 uav2       : deployment subt on uav2 Azure VM.
 uav3       : deployment subt on uav3 Azure VM.
 uav4       : deployment subt on uav4 Azure VM."
 );
 # robots
-my $_deployer_robots_help = ("
+$_deployer_robots_help = ("
 About: 1... deploys subt to one of the remote hardware robots or laptop basestation.
 About: 2... different types of robots (and basestation) run different parts of the code.
 About: 3... the same deploy is installed on all systems.
 About: 4... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 5... == You Options Are ==
+About: 5... == Your Options Are ==
 basestation  : deployment subt on basestation.
 ugv          : deployment subt on ugv hardware robots.
 uav          : deployment subt on uav hardware robots."
 );
-my $_deployer_robots_ugv_help = ("
+$_deployer_robots_ugv_help = ("
 About: 1... deploys subt to any one of the remote hardware ground robots.
 About: 2... the ugvs have 3 different computers, to run different parts of the system.
 About: 3... the same deploy is installed on all ground robots.
 About: 4... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 5... == You Options Are ==
+About: 5... == Your Options Are ==
 ugv1       : deployment subt on ugv1 robot.
 ugv2       : deployment subt on ugv2 robot.
 ugv3       : deployment subt on ugv3 robot."
 );
-my $_deployer_robots_uav_help = ("
+$_deployer_robots_uav_help = ("
 About: 1... deploys subt to any one of the remote hardware drones.
 About: 2... the same deploy is installed on all drone robots.
 About: 3... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 4... == You Options Are ==
+About: 4... == Your Options Are ==
 ds1       : deployment subt on ds1 robot.
 ds2       : deployment subt on ds2 robot.
 ds3       : deployment subt on ds3 robot.
 ds4       : deployment subt on ds4 robot."
 );
-my $_deployer_robots_ugv_computer_help = ("
+$_deployer_robots_ugv_computer_help = ("
 About: 1... deploys subt to any one of the remote hardware ground robots, to their specific computers.
 About: 2... the ugvs have 3 different computers, to run different parts of the system.
 About: 3... planning pc (ppc) runs the hardware, planning & comms stack.
@@ -491,51 +656,70 @@ About: 4... nuc runs state estimation stack.
 About: 5... xavier runs perception stack.
 About: 6... all three computers can communication with each other and can reach the basestation.
 About: 7... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 8... == You Options Are ==
+About: 8... == Your Options Are ==
 ppc       : ppc ugv robot computer (hardware, planning, comms).
 nuc       : nuc ugv robot computer (state estimation).
 xavier    : xavier ugv robot computer (perception)."
 );
 # general commands
-my $_deployer_commands_help = ("
+$_deployer_commands_help = ("
 About: 1... general deployment operations commands.
 About: 2... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 3... == You Options Are ==
+About: 3... == Your Options Are ==
 transfer.to  : transfers code from localhost to remote system (just an rsync).
 skel_t.to    : transfers code (slim & faster -- no .git transfer) from localhost to remote system.
 docker       : automated docker setup such as containers, images, registry pull.
 catkin       : automated catkin build & clean for all catkin profiled workspaces."
 );
-my $_deployer_commands_docker_help = ("
+$_deployer_commands_docker_help = ("
 About: 1... general docker operation commands.
 About: 2... you can add -p (preview) to show which deployment commands that will run.
 About: 3... you can add -v (verbose) to show the exact shell commands that will be run.
 About: 4... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 5... == You Options Are ==
+About: 5... == Your Options Are ==
+shell                     : builds the docker image directly on the system.
 shell                     : starts the docker container on the remote or local system.
 rm                        : removes the docker container on the remote or local system.
 stop                      : stops the docker container on the remote or local system.
 registry.azure.pull       : pulls docker images from the azure registry to the remote or local system (needs internet).
 registry.basestation.pull : pulls docker images from the basestation registry to the remote or local system (images need to already exist on the basestation)."
 );
-my $_deployer_commands_catkin_help = ("
+$_deployer_commands_catkin_help = ("
 About: 1... general catkin operation commands.
 About: 2... you can add -p (preview) to show which deployment commands that will run.
 About: 3... you can add -v (verbose) to show the exact shell commands that will be run.
 About: 4... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 5... == You Options Are ==
+About: 5... == Your Options Are ==
 build                     : catkin build (catkin profile workspace already pre-configured).
 clean                     : catkin clean (catkin profile workspace already pre-configured)."
 );
-my $_deployer_localhost_commands_help = ("
+$_deployer_localhost_commands_help = ("
 About: 1... general deployment operations commands.
 About: 2... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
-About: 3... == You Options Are ==
+About: 3... == Your Options Are ==
 docker       : automated docker setup such as containers, images, registry pull.
 catkin       : automated catkin build & clean for all catkin profiled workspaces."
 );
+$_deployer_type_commands_help = ("
+About: 1... deploys the specific type of system dependencies (docker container enabled).
+About: 2... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
+About: 3... == Your Options Are ==
+cpu         : deploys subt using only the dependencies available for a CPU only system.
+gpu         : deploys subt with dependencies optimized for a NVIDIA GPU available system."
+);
+
+$_deployer_uav_catkin_commands_help = ("
+About: 1... general catkin commands, for difference types of catkin workspaces.
+About: 2... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
+About: 3... == Your Options Are ==
+clean         : cleans all the workspaces.
+core          : builds or cleans the uav core workspace.
+perception    : builds or cleans the uav perception workspace.
+px4           : builds the px4 dependencies.
+");
+
 # @brief assign help keys to usage messages as hashmap -- hack: convert array to hashmap
-my @_help_array = ({
+@_deployer_help_array = ({
   id      => "local",
   help    => $_deployer_local_help,
 },{
@@ -543,7 +727,7 @@ my @_help_array = ({
   help    => $_deployer_localhost_commands_help,
 },{
   id      => "local.uav",
-  help    => $_deployer_localhost_commands_help,
+  help    => $_deployer_type_commands_help,
 },{
   id      => "local.basestation",
   help    => $_deployer_localhost_commands_help,
@@ -621,194 +805,17 @@ my @_help_array = ({
   help    => $_deployer_commands_docker_help
 },{
   id      => "catkin",
+  help    => $_deployer_uav_catkin_commands_help
+},{
+  id      => "catkin.core",
+  help    => $ _deployer_commands_catkin_help
+},{
+  id      => "catkin.perception",
   help    => $_deployer_commands_catkin_help
+},{
+  id      => "cpu",
+  help    => $_deployer_localhost_commands_help
+},{
+  id      => "gpu",
+  help    => $_deployer_localhost_commands_help
 });
-# @brief covert the array to hashmap
-my %_help_hash = map {
-  $_->{id} => { help => $_->{help} }
-} @_help_array;
-
-# //////////////////////////////////////////////////////////////////////////////
-# @brief general tools
-# //////////////////////////////////////////////////////////////////////////////
-
-# @brief check string equalities
-sub chk_flag {
-  my ($_flag, $_args) = @_;
-  $_args =~ m/$_flag/ ? return 1 : return 0;
-}
-
-# @brief filter unique strings from array
-# @reference: https://perldoc.perl.org/perlfaq4.html#How-can-I-remove-duplicate-elements-from-a-list-or-array%3f
-sub uniq {
-  my %seen;
-  my @unique = grep { ! $seen{ $_ }++ } @_;
-  return @unique
-}
-
-sub remove_trail_dot {
-  $_[0]=~ s/\.+$//;
-}
-sub remove_lead_dot {
-  $_[0]=~ s/^\.+//;
-}
-
-# //////////////////////////////////////////////////////////////////////////////
-# @brief regex functionality
-# //////////////////////////////////////////////////////////////////////////////
-# @brief match the suffix of the target token (for deployer help tab-complete)
-sub help_sregex {
-  my ($_target, $_i) = @_;
-  $_target =~ qr/(\.[^.]+){$_i}$/;
-  return $&;
-}
-# @brief match the prefix of the target token (for deployer help tab-complete)
-sub help_pregex {
-  my ($_target, $_i) = @_;
-  $_target =~ qr/^([^.].*\.)/;
-  return $&;
-}
-
-# @brief match the suffix of the target token (for deployer tab-complete)
-sub sregex {
-  my ($_target,  $_suffix) = @_;
-  my $_regex="(?<=^$_target).*";
-  $_suffix =~ m/$_regex/;
-  return $&;
-}
-
-# @brief match the prefix of the target token (for deployer tab-complete)
-sub pregex {
-  my ($_prefix) = @_;
-  my $_regex='^([^\.]+)';
-  $_prefix =~ qr/$_regex/;
-  return $&;
-}
-
-# @brief deployer regex matcher, main entrypoint
-sub deploy_matcher {
-  my ($_target) = @_, $_result;
-  foreach my $_deploy (@_deployer) {
-    my $_smatch = sregex($_target, $_deploy);
-    if (! $_smatch eq "") {
-      my $_pmatch = pregex($_smatch);
-      # result:
-      # -- given target is partial match, append target to result
-      # -- add trailing '.' unless last token -- last token is when suffix & prefix match
-      # $_result = $_smatch eq $_pmatch ? "$_result $_target$_pmatch" : "$_result $_target$_pmatch.";
-      $_match = $_smatch eq $_pmatch ? "$_target$_pmatch" : "$_target$_pmatch.";
-      $_result = "$_result $_match"
-    }
-  }
-  return $_result;
-}
-
-# @brief match the deployer help message id with its usage string message
-sub find_deployer_help_usage {
-  my ($_str) = @_, $_result;
-  foreach my $_help (keys %_help_hash) {
-    if ( $_help eq $_str ) {
-      my $_usage = $_help_hash{$_help}->{help};
-      if (! $_usage eq "") { return $_usage; }
-    }
-  }
-  return;
-}
-
-# @brief match the deployer help usage message
-sub deployer_help_matcher {
-  my ($_target) = @_, $_match;
-  my $_prefix = help_pregex($_target);  # get the largest prefix (i.e. all tokens before the last '.')
-  remove_trail_dot($_prefix);           # remove trailing '.'
-  # find the first suffix of given tab-completed token
-  my $_dot_counter=1;
-  my $_suffix = help_sregex($_prefix, $_dot_counter);
-  while ( ! $_suffix eq "" ) {  # get the next suffix, increasing the token by the next suffix
-    remove_lead_dot($_suffix);  # remove leading '.'
-    # find the help associated with the suffix
-    my $_usage = find_deployer_help_usage($_suffix);
-    # return help usage message -- if usage message was matched
-    if (! $_usage eq "") { return $_usage; }
-    # set the next suffix
-    $_suffix = help_sregex($_prefix, ++$_dot_counter);
-  }
-  if ($_prefix eq "") { $_prefix = $_target; }
-  return find_deployer_help_usage($_prefix);
-}
-
-# @brief match the suffix of the target token
-sub gregex {
-  my ($_target,  $_str) = @_;
-  my $_regex="^$_target.*.*?";
-  $_str =~ m/$_regex/;
-  return $&;
-}
-
-# @brief general matcher (i.e. non deployer commands)
-sub general_matcher {
-  my ($_target, @_subcommands) = @_, $_result;
-  foreach my $_check (@_subcommands) {
-    my $_match = gregex($_target, $_check);
-    if (! $_match eq "") {
-      $_result="$_result $_match";
-    }
-  }
-  return $_result
-}
-
-# //////////////////////////////////////////////////////////////////////////////
-# @brief main entrypoint
-# //////////////////////////////////////////////////////////////////////////////
-my ($_func, $_target) = @ARGV;
-
-# match subcommands for each top command type
-if (chk_flag($_func, "subt")  ) {
-  print general_matcher($_target, @_subt);
-
-} elsif (chk_flag($_func, "git")  ) {
-  print general_matcher($_target, @_git);
-
-} elsif (chk_flag($_func, "git_status")  ) {
-  print general_matcher($_target, @_git_status);
-
-} elsif (chk_flag($_func, "git_sync")  ) {
-  print general_matcher($_target, @_git_sync);
-
-} elsif (chk_flag($_func, "git_add")  ) {
-  print general_matcher($_target, @_git_add);
-
-} elsif (chk_flag($_func, "git_clone")  ) {
-  print general_matcher($_target, @_git_clone);
-
-} elsif (chk_flag($_func, "git_reset")  ) {
-  print general_matcher($_target, @_git_reset);
-
-} elsif (chk_flag($_func, "git_clean")  ) {
-  print general_matcher($_target, @_git_clean);
-
-} elsif (chk_flag($_func, "git_rm")  ) {
-  print general_matcher($_target, @_git_rm);
-
-} elsif (chk_flag($_func, "cloud")  ) {
-  print general_matcher($_target, @_cloud);
-
-} elsif (chk_flag($_func, "cloud_terra")  ) {
-  print general_matcher($_target, @_cloud_terra);
-
-} elsif (chk_flag($_func, "cloud_ani")  ) {
-  print general_matcher($_target, @_cloud_ani);
-
-} elsif (chk_flag($_func, "tools")  ) {
-  print general_matcher($_target, @_tools);
-
-} elsif (chk_flag($_func, "deployer") ) {
-  my $_match = deploy_matcher($_target);
-  # print $_, "\n" for split ' ', "$_match";
-  print deploy_matcher($_target);
-
-} elsif (chk_flag($_func, "deployer_help") ) {
-  print deployer_help_matcher($_target);
-} else {
-  print "";  # return empy string on failure
-}
-

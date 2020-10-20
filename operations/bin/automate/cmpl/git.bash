@@ -20,14 +20,6 @@ if chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@; then
     __sync_help
   elif chk_flag add $@; then
     __add_help
-  elif chk_flag clone $@; then
-    __clone_help
-  elif chk_flag reset $@; then
-    __reset_help
-  elif chk_flag clean $@; then
-    __clean_help
-  elif chk_flag rm $@; then
-    __rm_help
   fi
 
   text_color "For more help, please see the README.md or wiki."
@@ -282,45 +274,6 @@ _add_traverse() {
 }
 
 # //////////////////////////////////////////////////////////////////////////////
-# @brief git subcommands using deployer
-# //////////////////////////////////////////////////////////////////////////////
-
-# @brief cleans all the submodules & intermediate repos
-_clean_traverse() {
-  for _inter in "$@"; do
-    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
-    ./deployer -s git.clean.$_inter $GL_OPTS
-  done
-}
-
-# @brief reset all the submodules to their DETACHED HEAD -- using deployer yamls (please see yamls for more info)
-_reset_traverse() {
-  # go through all given intermediate repo arguments
-  for _inter in "$@"; do
-    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
-    ./deployer -s git.rm.$_inter $GL_OPTS
-    ./deployer -s git.init.$_inter $GL_OPTS
-    ./deployer -s git.clone.$_inter $GL_OPTS
-  done
-}
-
-# @brief removes all git submodules in the intermediate repo
-_rm_traverse() {
-  for _inter in "$@"; do
-    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
-    ./deployer -s git.rm.$_inter $GL_OPTS
-  done
-}
-
-# @brief clones all git submodules in the intermediate repo
-_clone_traverse() {
-  for _inter in "$@"; do
-    [ "$_inter" == "-p" ] || [ "$_inter" == "-v" ] && continue
-    ./deployer -s git.clone.$_inter $GL_OPTS
-  done
-}
-
-# //////////////////////////////////////////////////////////////////////////////
 # @brief: main entrypoint
 # //////////////////////////////////////////////////////////////////////////////
 pushd $SUBT_PATH
@@ -367,35 +320,11 @@ elif chk_flag sync $@ ; then
   # show git status for all the given intermediate level repos
   [ $_nargs -eq 0 ] && _sync_traverse basestation common perception ugv uav simulation subt_launch || _sync_traverse $@
 
-elif chk_flag clone $@ ; then
-  shift
-  _nargs=$#
-  # reset the submodules for all the given intermediate level repos
-  [ $_nargs -eq 0 ] && _clone_traverse basestation common perception ugv uav simulation subt_launch || _clone_traverse $@
-
 elif chk_flag add $@ ; then
   shift
   _nargs=$#
   # reset the submodules for all the given intermediate level repos
   [ $_nargs -eq 0 ] && _add_traverse basestation common perception ugv uav simulation subt_launch || _add_traverse $@
-
-elif chk_flag reset $@ ; then
-  shift
-  _nargs=$#
-  # reset the submodules for all the given intermediate level repos
-  [ $_nargs -eq 0 ] && _reset_traverse basestation common perception ugv uav simulation subt_launch || _reset_traverse $@
-
-elif chk_flag clean $@ ; then
-  shift
-  _nargs=$#
-  # reset the submodules for all the given intermediate level repos
-  [ $_nargs -eq 0 ] && _clean_traverse basestation common perception ugv uav simulation subt_launch || _clean_traverse $@
-
-elif chk_flag rm $@ ; then
-  shift
-  _nargs=$#
-  # reset the submodules for all the given intermediate level repos
-  [ $_nargs -eq 0 ] && _rm_traverse basestation common perception ugv uav simulation subt_launch || _rm_traverse $@
 
 fi
 
