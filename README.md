@@ -77,9 +77,11 @@ Please have a basic understanding of the following the operational tools:
 - [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
 
 
-## Deploy Repository
+* * *
 
-**1. Bitbucket SSH Keys**
+# Deploy Repository Setup
+
+### 1. Bitbucket SSH Keys
 
 - Generate ssh keys for subt bitbucket:
 
@@ -111,7 +113,16 @@ Please have a basic understanding of the following the operational tools:
 
         # exit the ssh config file
 
-**2. Install deploy dependencies**
+
+### 2. Clone the deploy repo
+
+        mkdir ~/deploy_ws/
+        cd ~/deploy_ws/
+        git clone git@bitbucket.org:cmusubt/deploy.git src
+        cd src
+        git checkout develop
+
+### 3. Install ansible (automated installer script)
 
         # deployer dependencies
         sudo apt-get update
@@ -125,33 +136,35 @@ Please have a basic understanding of the following the operational tools:
         sudo apt-add-repository --yes --update ppa:ansible/ansible
         sudo apt install ansible
 
-**3. Clone the deploy repo *(please follow these instructions exactly)* :**
+### 4. Personalize dependency install
 
-        # clone & install deploy
-        mkdir ~/deploy_ws/
-        cd ~/deploy_ws/
-        git clone git@bitbucket.org:cmusubt/deploy.git src
-        cd src
-        git checkout develop
+Open `operations/deploy/robotbooks/vars/user-inputs.yaml`
+
+- If you have an nvidia card, change from `install_nvidia_docker: false` to `install_nvidia_docker: true`.
+- If you want to install ROS melodic, change from `install_ros: false` to `install_ros: true`.
+
+Feel free to change any of the other options.
+
+### 5. Install system dependencies
 
         # run the deployer operations install
+        # - you only need to run this command when there are changes to operations
+        # - the maintainer will notify everyone when to re-run this command
+        cd ~/deploy_ws/src
         ./install-deployer.bash --install
 
-        # source your bashrc (or zhsrc, whichever shell you use)
+        # source your bashrc (or zsh or whichever shell you are using)
+        # - or open up a new terminal
         source ~/.bashrc
 
-        # (if on your laptop) run the system dependencies install
-        # - please enter your localhost password when prompted
+        # run the system dependencies install
+        # - please enter your LOCALHOST PASSWORD when prompted
         subtani_install.sh localhost install-localhost.yaml -p
 
-        # (if on basestation) run the system dependencies install
-        # ONLY RUN THIS IF YOU ARE SETTING UP THE BASESTATION FOR CMU ROBOTS. NOT FOR LOCALHOST LAPTOP SETUP.
-        # - please enter the basestation password when prompted
-        subtani_install.sh basestation install-localhost.yaml -p
+- The ansible installer *might fail* for some users, since everyone has a slightly different system.
+- If there are any errors, **please notify the maintainer** and see *Common Ansible Install Errors* below to solve them.
 
-- If there are any errors, **please notify the maintainer** and see *Common Ansible Script Errors* below.
-
-**4. Verify Installations**
+### 6. Verify Installations
 
 Verify you have all the operations tools installed correctly:
 
@@ -190,32 +203,32 @@ Verify you have all the operations tools installed correctly:
 
 - Notify the maintainer if any of the `help` usage messages do not show up.
 
-**5. Common Ansible Script Errors (optional):**
+### 7. Common Ansible Install Errors (optional):
 
-**Error: apt-get failed:**
+**Error: apt-get failed**
 
-*Solution:*
+- Check `apt-get update` shows NO ERRORS. If so, fix your `apt` sources, before re-running the ansible script.
 
-Check `apt-get update` shows NO ERRORS. If so, fix your `apt` sources, before re-running the ansible script.
+**Error: permission denied**
 
-**Error: permission denied:**
+- *Solution:*
 
-Your password input did not correctly get used.
+    - Double check the password you entered. Make sure its the same password you use to login to your user.
 
-*Solution:*
+- *Solution:*
 
         sudo visudo
 
         # Allow user to perform sudo on certain commands, where 'katarina' is my username
         YOUR-USER-NAME ALL=NOPASSWD: ALL
 
-This is a security risk, **please remember** to remove once done with the ansible script.
+    - This is a security risk, **please remember** to remove once done with the ansible script.
 
 **Error: ansible fails on `docker hello world`**
 
-Docker still needs to use `sudo` (it should work without `sudo`) because the docker group did not correctly reset in the ansible script.
+- Docker still needs to use `sudo` (it should work without `sudo`) because the docker group did not correctly reset in the ansible script.
 
-*Solution:*
+- *Solution:*
 
         # reset your user group
         Log out and back in (or restart your computer)
@@ -230,9 +243,9 @@ Docker still needs to use `sudo` (it should work without `sudo`) because the doc
 
 * * *
 
-# Getting Started
+# SubT Getting Started
 
-The below instructions should get you started on a basic `SubT` setup locally or on Azure.
+The below instructions should get you started on a basic `SubT` setup locally, on Azure or on Robots.
 
 You will need to go through a few tutorials to have a working system.
 
