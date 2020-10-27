@@ -20,7 +20,7 @@ Follow these steps, **on the localhost**.
         az acr login --name subtexplore
 
         # pull the docker images
-        subt deployer local.uav.docker.registry.pull.cpu
+        subt deployer local.uav.cpu.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
         subt deployer local.uav.cpu.docker.stop
