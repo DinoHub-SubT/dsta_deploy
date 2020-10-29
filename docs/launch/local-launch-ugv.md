@@ -19,57 +19,27 @@
 
 ## 2. Control UGV Using Basestation GUI (optional)
 
-You will need to change some ROS params in both the ugv & basestation containers:
+Please setup the localhost basestation, to control the ugvs using the basestation GUI.
 
-Assuming ROS MASTER will be on the UGV docker container.
-
-Step 1:
-
-        # unset the ROS params in the UGV docker container
-        docker-join.bash --name ugv-sim-shell
-
-        # set the hostname, ignore error message 'sudo: unable to resolve host ...'
-        sudo hostname ugv
-
-        # set the ROS MASTER URI to the ugv
-        export ROS_MASTER_URI=http://ugv:11311
-
-        # exit the container (to apply the changed)
-        exit
-
-Step 2:
-
-        # assuming you have already built the basestation GUI
-        # unset the ROS params in the UGV docker container
-        docker-join.bash --name basestation-cpu-shell
-
-        # set the hostname, ignore error message 'sudo: unable to resolve host ...'
-        sudo hostname basestation
-
-        # set the ROS MASTER URI to the ugv
-        export ROS_MASTER_URI=http://ugv:11311
-
-        # exit the container (to apply the changed)
-        exit
-
-Enter the containers again and launch the UGV and Basestation.
+- [`docker`](../docker/local-docker-basestation.md) basestation localhost tutorial
+- [`catkin`](../catkin/local-catkin-basestation.md) basestation localhost tutorial
+- [`launch`](local-launch-basestation.md) basestation localhost tutorial
 
 Comments:
 
-- Please **run the UGV launch first**, before the basestation.
-
-- If you sometimes do not see the tree, then stop the container and reset the above configs.
-
-- When you stop the container, you must reset the everything again.
-
-Unfortunately for now, you must manually do these steps. This **will be fixed & automated** in the next iteration of docker cleanup.
+- If you do not see the tree, then restart the container. Otherwise, notify the maintainer.
 
 ## 3. Verify Launch
 
-Please verify all the launch scripts in the tmux sessions do not have any errors.
+Please verify all the launch scripts in the tmux sessions started.
 
-## Summary
+- Node error might be okay, but if a launch failed to come up that is not okay.
 
-You should now be able to control the robot movement using the buttons in the basestation GUI.
+## 4. UGV Simulation Commands
 
-- Please build the localhost basestation setup to control via basestation GUI.
+Select the ugv name on the control panel.
+
+Select the waypoint button on the RVIZ panel, then place a waypoint in RVIZ.
+
+- You should now be able to control the robot movement using the buttons in the basestation GUI.
+
