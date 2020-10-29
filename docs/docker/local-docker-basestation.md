@@ -52,3 +52,9 @@ Follow these steps, **on the localhost**:
 Verify you see the following docker containers (in any order):
 
         basestation-cpu-shell
+
+## 3. Comments
+
+When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
+
+If you cannot connect to the docker shell, please notify the maintainer.

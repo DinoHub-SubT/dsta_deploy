@@ -73,3 +73,9 @@ Your multi robot options are:
 Each container will have a different IP. You should be able to ping each container (from inside the containers).
 
 When building the catkin workspaces, please just use one of the containers. You do not need to `catkin` build in all containers (the deploy workspace is mounted, so all containers will use the same `code`, `devel`, `build` paths).
+
+## 4. Comments
+
+When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
+
+If you cannot connect to the docker shell, please notify the maintainer.
