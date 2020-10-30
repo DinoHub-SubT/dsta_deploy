@@ -9,23 +9,23 @@ Assuming you have already setup all your docker containers, follow the instructi
 ## Catkin Build
 
         # create the docker shell on the remote host
-        subt deployer local.ugv.docker.shell.sim
+        subt deployer local.ugv.ugv1.docker.shell.sim
 
         # clean the previous built workspaces
-        subt deployer local.ugv.catkin.clean
+        subt deployer local.ugv.ugv1.catkin.clean
 
         # catkin build the UGV workspaces
-        subt deployer local.ugv.catkin.build
+        subt deployer local.ugv.ugv1.catkin.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
         # stop the docker container
-        subt deployer local.ugv.docker.stop
+        subt deployer local.ugv1.ugv.docker.stop
 
         # remove the docker container
-        subt deployer local.ugv.docker.rm
+        subt deployer local.ugv1.ugv.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 

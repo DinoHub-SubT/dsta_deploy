@@ -62,13 +62,13 @@ If you wish to run multiple robot simulation on your localhost, you will need to
 Your multi robot options are:
 
         # create the ugv1 container
-        subt deployer local.ugv.ugv1.docker.shell
+        subt deployer local.ugv.ugv1.docker.shell.sim
 
         # create the ugv2 container
-        subt deployer local.ugv.ugv2.docker.shell
+        subt deployer local.ugv.ugv2.docker.shell.sim
 
         # create the ugv3 container
-        subt deployer local.ugv.ugv3.docker.shell
+        subt deployer local.ugv.ugv3.docker.shell.sim
 
 Each container will have a different IP. You should be able to ping each container (from inside the containers).
 

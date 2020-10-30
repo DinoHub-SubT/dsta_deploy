@@ -3,7 +3,7 @@
 ## 1. Launch UAV Simulation
 
         # enter the docker shell container (if not already joined)
-        docker-join.bash --name uav-cpu-shell
+        docker-join.bash --name uav1-cpu-shell
 
         # load the tmux session. Example launch `uav1`
         ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/uav.yaml

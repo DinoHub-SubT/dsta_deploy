@@ -59,7 +59,7 @@ Follow these steps, **on the localhost**.
         # - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
 
         # cpu shell
-        subt deployer local.uav.uav1.cpu.docker.shell
+        subt deployer local.uav.uav1.cpu.docker.shell.core
 
 **Verify Docker Containers**
 
@@ -78,16 +78,16 @@ If you wish to run multiple robot simulation on your localhost, you will need to
 Your multi robot options are:
 
         # create the uav1 container
-        subt deployer local.uav.uav1.cpu.docker.shell
+        subt deployer local.uav.uav1.cpu.docker.shell.core
 
         # create the uav2 container
-        subt deployer local.uav.uav2.cpu.docker.shell
+        subt deployer local.uav.uav2.cpu.docker.shell.core
 
         # create the uav3 container
-        subt deployer local.uav.uav3.cpu.docker.shell
+        subt deployer local.uav.uav3.cpu.docker.shell.core
 
         # create the uav4 container
-        subt deployer local.uav.uav4.cpu.docker.shell
+        subt deployer local.uav.uav4.cpu.docker.shell.core
 
 Each container will have a different IP. You should be able to ping each container (from inside the containers).
 

@@ -4,7 +4,7 @@
 
         # enter the docker shell container on your local laptop host
         # -- if you are not using Docker, you may skip this step.
-        docker-join.bash --name ugv-sim-shell
+        docker-join.bash --name ugv1-sim-shell
 
         # Load the tmux session. Example launch `ugv1`
         ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/ugv.yaml

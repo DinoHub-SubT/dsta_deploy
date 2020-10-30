@@ -6,6 +6,13 @@ Setting up the catkin workspace for the UAV workspaces requires using the `catki
 
 Assuming you have already setup all your docker containers, follow the instructions below to setup the catkin workspace.
 
+## Prerequisites
+
+If you have Intel Integrated Graphics, please follow the below instructions with the `cpu` tag.
+If you have NVIDIA Graphics, please follow the below instructions, **but substitute the `cpu` tag with the `gpu` tag**.
+
+If you have neither, please notify the maintainer. You will need one of those two options to run.
+
 ## Catkin Build
 
         # PLEASE NOTICE
@@ -16,29 +23,29 @@ Assuming you have already setup all your docker containers, follow the instructi
         # cpu shell
 
         # start the container
-        subt deployer local.uav.cpu.docker.shell
+        subt deployer local.uav.uav1.cpu.docker.shell.core
 
         # clean the previous built workspaces
-        subt deployer local.uav.cpu.catkin.clean
+        subt deployer local.uav.uav1.cpu.catkin.clean
 
         # build the PX4 firmware
-        subt deployer local.uav.cpu.catkin.px4
+        subt deployer local.uav.uav1.cpu.catkin.px4
 
         # catkin build the 'core' UGV workspaces
-        subt deployer local.uav.cpu.catkin.core.build
+        subt deployer local.uav.uav1.cpu.catkin.core.build
 
         # (optional) catkin build 'perception' the UGV workspaces
-        subt deployer local.uav.cpu.catkin.perception.build
+        subt deployer local.uav.uav1.cpu.catkin.perception.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
         # stop the docker container
-        subt deployer local.uav.cpu.docker.stop
+        subt deployer local.uav.uav1.cpu.docker.stop
 
         # remove the docker container
-        subt deployer local.uav.cpu.docker.rm
+        subt deployer local.uav.uav1.cpu.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
