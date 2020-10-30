@@ -5,9 +5,6 @@
         # enter the docker shell container (if not already joined)
         docker-join.bash --name basestation-cpu-shell
 
-        # Load the tmux session. Example launch `ugv1`
-        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/basestation.yaml
-
 ## 2. Launch Basestation
 
         # load the tmux session

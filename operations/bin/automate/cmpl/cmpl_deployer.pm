@@ -71,57 +71,208 @@ our (
   # ////////////////////////////////////////////////////////////////////////////
   # Local
 
-  # ugv
-  "local.ugv.catkin.build",
-  "local.ugv.catkin.clean",
-  "local.ugv.docker.image",
-  "local.ugv.docker.shell",
-  "local.ugv.docker.shell.sim",
-  "local.ugv.docker.shell.ppc",
-  "local.ugv.docker.shell.nuc",
-  "local.ugv.docker.rm",
-  "local.ugv.docker.stop",
-  "local.ugv.docker.registry.pull",
-  "local.ugv.docker.registry.push",
+  # ugv1
+  "local.ugv.ugv1.catkin.build",
+  "local.ugv.ugv1.catkin.clean",
+  "local.ugv.ugv1.docker.image",
+  "local.ugv.ugv1.docker.shell",
+  "local.ugv.ugv1.docker.shell.sim",
+  "local.ugv.ugv1.docker.shell.ppc",
+  "local.ugv.ugv1.docker.shell.nuc",
+  "local.ugv.ugv1.docker.rm",
+  "local.ugv.ugv1.docker.stop",
+  "local.ugv.ugv1.docker.registry.pull",
+  "local.ugv.ugv1.docker.registry.push",
 
-  # uav
-  "local.uav.cpu.catkin.px4",
-  "local.uav.cpu.catkin.core.build",
-  "local.uav.cpu.catkin.core.clean",
-  "local.uav.cpu.catkin.perception.build",
-  "local.uav.cpu.catkin.clean",
-  "local.uav.cpu.docker.image.core",
-  "local.uav.cpu.docker.image.perception",
-  "local.uav.cpu.docker.image.super",
-  "local.uav.cpu.docker.shell.core",
-  "local.uav.cpu.docker.shell.perception",
-  "local.uav.cpu.docker.shell.super",
-  "local.uav.cpu.docker.rm",
-  "local.uav.cpu.docker.stop",
-  "local.uav.cpu.docker.registry.pull.core",
-  "local.uav.cpu.docker.registry.pull.perception",
-  "local.uav.cpu.docker.registry.pull.super",
-  "local.uav.cpu.docker.registry.push.core",
-  "local.uav.cpu.docker.registry.push.perception",
-  "local.uav.cpu.docker.registry.push.super",
+  # ugv2
+  "local.ugv.ugv2.catkin.build",
+  "local.ugv.ugv2.catkin.clean",
+  "local.ugv.ugv2.docker.image",
+  "local.ugv.ugv2.docker.shell",
+  "local.ugv.ugv2.docker.shell.sim",
+  "local.ugv.ugv2.docker.shell.ppc",
+  "local.ugv.ugv2.docker.shell.nuc",
+  "local.ugv.ugv2.docker.rm",
+  "local.ugv.ugv2.docker.stop",
+  "local.ugv.ugv2.docker.registry.pull",
+  "local.ugv.ugv2.docker.registry.push",
 
-  "local.uav.gpu.catkin.px4",
-  "local.uav.gpu.catkin.core.build",
-  "local.uav.gpu.catkin.core.clean",
-  "local.uav.gpu.catkin.perception.build",
-  "local.uav.gpu.catkin.clean",
-  "local.uav.gpu.docker.image.core",
-  "local.uav.gpu.docker.image.perception",
-  "local.uav.gpu.docker.image.super",
-  "local.uav.gpu.docker.shell",
-  "local.uav.gpu.docker.rm",
-  "local.uav.gpu.docker.stop",
-  "local.uav.gpu.docker.registry.pull.core",
-  "local.uav.gpu.docker.registry.pull.perception",
-  "local.uav.gpu.docker.registry.pull.super",
-  "local.uav.gpu.docker.registry.push.core",
-  "local.uav.gpu.docker.registry.push.perception",
-  "local.uav.gpu.docker.registry.push.super",
+  # ugv3
+  "local.ugv.ugv3.catkin.build",
+  "local.ugv.ugv3.catkin.clean",
+  "local.ugv.ugv3.docker.image",
+  "local.ugv.ugv3.docker.shell",
+  "local.ugv.ugv3.docker.shell.sim",
+  "local.ugv.ugv3.docker.shell.ppc",
+  "local.ugv.ugv3.docker.shell.nuc",
+  "local.ugv.ugv3.docker.rm",
+  "local.ugv.ugv3.docker.stop",
+  "local.ugv.ugv3.docker.registry.pull",
+  "local.ugv.ugv3.docker.registry.push",
+
+  # uav1 - cpu
+  "local.uav.uav1.cpu.catkin.px4",
+  "local.uav.uav1.cpu.catkin.core.build",
+  "local.uav.uav1.cpu.catkin.core.clean",
+  "local.uav.uav1.cpu.catkin.perception.build",
+  "local.uav.uav1.cpu.catkin.clean",
+  "local.uav.uav1.cpu.docker.image.core",
+  "local.uav.uav1.cpu.docker.image.perception",
+  "local.uav.uav1.cpu.docker.image.super",
+  "local.uav.uav1.cpu.docker.shell.core",
+  "local.uav.uav1.cpu.docker.shell.perception",
+  "local.uav.uav1.cpu.docker.shell.super",
+  "local.uav.uav1.cpu.docker.rm",
+  "local.uav.uav1.cpu.docker.stop",
+  "local.uav.uav1.cpu.docker.registry.pull.core",
+  "local.uav.uav1.cpu.docker.registry.pull.perception",
+  "local.uav.uav1.cpu.docker.registry.pull.super",
+  "local.uav.uav1.cpu.docker.registry.push.core",
+  "local.uav.uav1.cpu.docker.registry.push.perception",
+  "local.uav.uav1.cpu.docker.registry.push.super",
+
+  "local.uav.uav1.gpu.catkin.px4",
+  "local.uav.uav1.gpu.catkin.core.build",
+  "local.uav.uav1.gpu.catkin.core.clean",
+  "local.uav.uav1.gpu.catkin.perception.build",
+  "local.uav.uav1.gpu.catkin.clean",
+  "local.uav.uav1.gpu.docker.image.core",
+  "local.uav.uav1.gpu.docker.image.perception",
+  "local.uav.uav1.gpu.docker.image.super",
+  "local.uav.uav1.gpu.docker.shell.core",
+  "local.uav.uav1.gpu.docker.shell.perception",
+  "local.uav.uav1.gpu.docker.shell.super",
+  "local.uav.uav1.gpu.docker.rm",
+  "local.uav.uav1.gpu.docker.stop",
+  "local.uav.uav1.gpu.docker.registry.pull.core",
+  "local.uav.uav1.gpu.docker.registry.pull.perception",
+  "local.uav.uav1.gpu.docker.registry.pull.super",
+  "local.uav.uav1.gpu.docker.registry.push.core",
+  "local.uav.uav1.gpu.docker.registry.push.perception",
+  "local.uav.uav1.gpu.docker.registry.push.super",
+
+  # uav2 - cpu
+  "local.uav.uav2.cpu.catkin.px4",
+  "local.uav.uav2.cpu.catkin.core.build",
+  "local.uav.uav2.cpu.catkin.core.clean",
+  "local.uav.uav2.cpu.catkin.perception.build",
+  "local.uav.uav2.cpu.catkin.clean",
+  "local.uav.uav2.cpu.docker.image.core",
+  "local.uav.uav2.cpu.docker.image.perception",
+  "local.uav.uav2.cpu.docker.image.super",
+  "local.uav.uav2.cpu.docker.shell.core",
+  "local.uav.uav2.cpu.docker.shell.perception",
+  "local.uav.uav2.cpu.docker.shell.super",
+  "local.uav.uav2.cpu.docker.rm",
+  "local.uav.uav2.cpu.docker.stop",
+  "local.uav.uav2.cpu.docker.registry.pull.core",
+  "local.uav.uav2.cpu.docker.registry.pull.perception",
+  "local.uav.uav2.cpu.docker.registry.pull.super",
+  "local.uav.uav2.cpu.docker.registry.push.core",
+  "local.uav.uav2.cpu.docker.registry.push.perception",
+  "local.uav.uav2.cpu.docker.registry.push.super",
+
+  "local.uav.uav2.gpu.catkin.px4",
+  "local.uav.uav2.gpu.catkin.core.build",
+  "local.uav.uav2.gpu.catkin.core.clean",
+  "local.uav.uav2.gpu.catkin.perception.build",
+  "local.uav.uav2.gpu.catkin.clean",
+  "local.uav.uav2.gpu.docker.image.core",
+  "local.uav.uav2.gpu.docker.image.perception",
+  "local.uav.uav2.gpu.docker.image.super",
+  "local.uav.uav2.gpu.docker.shell.core",
+  "local.uav.uav2.gpu.docker.shell.perception",
+  "local.uav.uav2.gpu.docker.shell.super",
+  "local.uav.uav2.gpu.docker.rm",
+  "local.uav.uav2.gpu.docker.stop",
+  "local.uav.uav2.gpu.docker.registry.pull.core",
+  "local.uav.uav2.gpu.docker.registry.pull.perception",
+  "local.uav.uav2.gpu.docker.registry.pull.super",
+  "local.uav.uav2.gpu.docker.registry.push.core",
+  "local.uav.uav2.gpu.docker.registry.push.perception",
+  "local.uav.uav2.gpu.docker.registry.push.super",
+
+  # uav3 - cpu
+  "local.uav.uav3.cpu.catkin.px4",
+  "local.uav.uav3.cpu.catkin.core.build",
+  "local.uav.uav3.cpu.catkin.core.clean",
+  "local.uav.uav3.cpu.catkin.perception.build",
+  "local.uav.uav3.cpu.catkin.clean",
+  "local.uav.uav3.cpu.docker.image.core",
+  "local.uav.uav3.cpu.docker.image.perception",
+  "local.uav.uav3.cpu.docker.image.super",
+  "local.uav.uav3.cpu.docker.shell.core",
+  "local.uav.uav3.cpu.docker.shell.perception",
+  "local.uav.uav3.cpu.docker.shell.super",
+  "local.uav.uav3.cpu.docker.rm",
+  "local.uav.uav3.cpu.docker.stop",
+  "local.uav.uav3.cpu.docker.registry.pull.core",
+  "local.uav.uav3.cpu.docker.registry.pull.perception",
+  "local.uav.uav3.cpu.docker.registry.pull.super",
+  "local.uav.uav3.cpu.docker.registry.push.core",
+  "local.uav.uav3.cpu.docker.registry.push.perception",
+  "local.uav.uav3.cpu.docker.registry.push.super",
+
+  "local.uav.uav3.gpu.catkin.px4",
+  "local.uav.uav3.gpu.catkin.core.build",
+  "local.uav.uav3.gpu.catkin.core.clean",
+  "local.uav.uav3.gpu.catkin.perception.build",
+  "local.uav.uav3.gpu.catkin.clean",
+  "local.uav.uav3.gpu.docker.image.core",
+  "local.uav.uav3.gpu.docker.image.perception",
+  "local.uav.uav3.gpu.docker.image.super",
+  "local.uav.uav3.gpu.docker.shell.core",
+  "local.uav.uav3.gpu.docker.shell.perception",
+  "local.uav.uav3.gpu.docker.shell.super",
+  "local.uav.uav3.gpu.docker.rm",
+  "local.uav.uav3.gpu.docker.stop",
+  "local.uav.uav3.gpu.docker.registry.pull.core",
+  "local.uav.uav3.gpu.docker.registry.pull.perception",
+  "local.uav.uav3.gpu.docker.registry.pull.super",
+  "local.uav.uav3.gpu.docker.registry.push.core",
+  "local.uav.uav3.gpu.docker.registry.push.perception",
+  "local.uav.uav3.gpu.docker.registry.push.super",
+
+  # uav4 - cpu
+  "local.uav.uav4.cpu.catkin.px4",
+  "local.uav.uav4.cpu.catkin.core.build",
+  "local.uav.uav4.cpu.catkin.core.clean",
+  "local.uav.uav4.cpu.catkin.perception.build",
+  "local.uav.uav4.cpu.catkin.clean",
+  "local.uav.uav4.cpu.docker.image.core",
+  "local.uav.uav4.cpu.docker.image.perception",
+  "local.uav.uav4.cpu.docker.image.super",
+  "local.uav.uav4.cpu.docker.shell.core",
+  "local.uav.uav4.cpu.docker.shell.perception",
+  "local.uav.uav4.cpu.docker.shell.super",
+  "local.uav.uav4.cpu.docker.rm",
+  "local.uav.uav4.cpu.docker.stop",
+  "local.uav.uav4.cpu.docker.registry.pull.core",
+  "local.uav.uav4.cpu.docker.registry.pull.perception",
+  "local.uav.uav4.cpu.docker.registry.pull.super",
+  "local.uav.uav4.cpu.docker.registry.push.core",
+  "local.uav.uav4.cpu.docker.registry.push.perception",
+  "local.uav.uav4.cpu.docker.registry.push.super",
+
+  "local.uav.uav4.gpu.catkin.px4",
+  "local.uav.uav4.gpu.catkin.core.build",
+  "local.uav.uav4.gpu.catkin.core.clean",
+  "local.uav.uav4.gpu.catkin.perception.build",
+  "local.uav.uav4.gpu.catkin.clean",
+  "local.uav.uav4.gpu.docker.image.core",
+  "local.uav.uav4.gpu.docker.image.perception",
+  "local.uav.uav4.gpu.docker.image.super",
+  "local.uav.uav4.gpu.docker.shell.core",
+  "local.uav.uav4.gpu.docker.shell.perception",
+  "local.uav.uav4.gpu.docker.shell.super",
+  "local.uav.uav4.gpu.docker.rm",
+  "local.uav.uav4.gpu.docker.stop",
+  "local.uav.uav4.gpu.docker.registry.pull.core",
+  "local.uav.uav4.gpu.docker.registry.pull.perception",
+  "local.uav.uav4.gpu.docker.registry.pull.super",
+  "local.uav.uav4.gpu.docker.registry.push.core",
+  "local.uav.uav4.gpu.docker.registry.push.perception",
+  "local.uav.uav4.gpu.docker.registry.push.super",
 
   # perception
   "local.perception.catkin.build",
@@ -584,6 +735,26 @@ uav          : deployment subt uav on azure VMs.
 basestation  : deployment subt basestation on azure VMs.
 perception   : deployment subt perception on azure VMs"
 );
+$_local_robots_ugv_help = ("
+About: 1... deploys subt to any one of the local 'robot' docker containers.
+About: 2... the same deploy is installed on all ground robots.
+About: 3... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
+About: 4... == Your Options Are ==
+Options:
+ugv1       : deployment subt on ugv1 local docker container.
+ugv2       : deployment subt on ugv2 local docker container.
+ugv3       : deployment subt on ugv3 local docker container."
+);
+$_local_robots_uav_help = ("
+About: 1... deploys subt to any one of the local 'robot' docker containers.
+About: 2... the same deploy is installed on all drone robots.
+About: 3... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
+About: 4... == Your Options Are ==
+uav1       : deployment subt on uav1 Azure VM.
+uav2       : deployment subt on uav2 Azure VM.
+uav3       : deployment subt on uav3 Azure VM.
+uav4       : deployment subt on uav4 Azure VM."
+);
 # azure
 $_deployer_azure_help = ("
 About: 1... deploys subt to Azure Virtual Machines (VMs).
@@ -677,7 +848,7 @@ About: 2... you can add -p (preview) to show which deployment commands that will
 About: 3... you can add -v (verbose) to show the exact shell commands that will be run.
 About: 4... * MAKE SURE THERE IS NO WHITESPACE WHEN YOU ADD THE NEXT OPTION (press backspace)
 About: 5... == Your Options Are ==
-shell                     : builds the docker image directly on the system.
+image                     : builds the docker image directly on the system.
 shell                     : starts the docker container on the remote or local system.
 rm                        : removes the docker container on the remote or local system.
 stop                      : stops the docker container on the remote or local system.
@@ -724,9 +895,30 @@ px4           : builds the px4 dependencies.
   help    => $_deployer_local_help,
 },{
   id      => "local.ugv",
+  help    => $_local_robots_ugv_help,
+},{
+  id      => "local.ugv.ugv1",
+  help    => $_deployer_localhost_commands_help,
+},{
+  id      => "local.ugv.ugv2",
+  help    => $_deployer_localhost_commands_help,
+},{
+  id      => "local.ugv.ugv3",
   help    => $_deployer_localhost_commands_help,
 },{
   id      => "local.uav",
+  help    => $_local_robots_uav_help,
+},{
+  id      => "local.uav.uav1",
+  help    => $_deployer_type_commands_help,
+},{
+  id      => "local.uav.uav2",
+  help    => $_deployer_type_commands_help,
+},{
+  id      => "local.uav.uav3",
+  help    => $_deployer_type_commands_help,
+},{
+  id      => "local.uav.uav4",
   help    => $_deployer_type_commands_help,
 },{
   id      => "local.basestation",

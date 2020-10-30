@@ -20,15 +20,24 @@
   - container:
   # ////////////////////////////////////////////////////////////////////////////
     - shell:
+      # always create the default network if does not exist
+      - echo "Docker network subnet is $LOCAL_NETWORK_SUBNET"
+      - echo "Docker network ip range is $LOCAL_NETWORK_IP_RANGE"
+      - docker network create -d bridge robots --subnet=$LOCAL_NETWORK_SUBNET --ip-range=$LOCAL_NETWORK_IP_RANGE || true
       - ppc:
         - docker-compose-wrapper $scenario -p ppc-shell up --force-recreate -d ppc-shell
       - nuc:
         - docker-compose-wrapper $scenario -p nuc-shell up --force-recreate -d nuc-shell
       - sim:
-        - docker-compose-wrapper $scenario -p ugv-sim-shell up --force-recreate -d ugv-sim-shell
+        - docker-compose-wrapper $scenario -p ugv-sim-shell up --force-recreate -d ${COMPUTER}-sim-shell
+
     # stopping containers
     - stop:
-      - docker stop $(docker ps -a -q)
+      # - docker stop $(docker ps -a -q)
+      - echo "stopping... $(docker ps --format '{{.Names}}' | grep "^${COMPUTER}")"
+      - docker ps --format '{{.Names}}' | grep "^${COMPUTER}" | awk '{print $1}' | xargs -I {} docker stop {}
     # removing containers
     - rm:
-      - docker rm -f $(docker ps -a -q)
+      # - docker rm -f $(docker ps -a -q)
+      - echo "removing... $(docker ps -a --format '{{.Names}}' | grep "^${COMPUTER}")"
+      - docker ps -a --format '{{.Names}}' | grep "^${COMPUTER}" | awk '{print $1}' | xargs -I {} docker rm -f {}

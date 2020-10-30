@@ -60,6 +60,20 @@ __subt_git_execute() {
       _run_deployer "pull.$cmd" "$_opts"
     done
 
+  elif chk_flag ignore $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "ignore.$cmd" "$_opts"
+    done
+
+  elif chk_flag unignore $@; then
+    shift 2
+    for cmd in "$@"; do
+      chk_flag -p $cmd || chk_flag -v $cmd && continue
+      _run_deployer "unignore.$cmd" "$_opts"
+    done
+
   elif chk_flag status $@ || chk_flag sync $@  || chk_flag add $@; then
     shift 1
     ($GL_BIN_AUTOMATE_DIR/cmpl/git.bash $@)
@@ -140,6 +154,9 @@ __subt_tools_execute() {
 # @brief 'git subt' wrapper entrypoint
 # //////////////////////////////////////////////////////////////////////////////
 subt() {
+  # get the current directory
+  local __pwd=$(pwd)
+
   # execute actual git command (filter any 'git subt' subcommands)
   if chk_nth_flag 1 "git" "$@"; then
     # execute git subt main entrypoint
@@ -149,7 +166,7 @@ subt() {
   # execute 'git subt' subcommand
   elif chk_nth_flag 1 "deployer" "$@"; then
     shift 1 # shift 'deployer'
-     _run_deployer "$@"
+    _run_deployer "$@"
 
   elif chk_nth_flag 1 "cloud" "$@"; then
     __subt_cloud_execute $@
@@ -167,6 +184,9 @@ subt() {
     __subt_help
     return 0
   fi
+
+  # return to path of call
+  cd $__pwd
 }
 
 # enable tab autocompletion

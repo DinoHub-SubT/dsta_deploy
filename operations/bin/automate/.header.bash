@@ -132,9 +132,10 @@ chk_eq() {
 _run_deployer() {
   local _dir=$(pwd)
   local _cmd=$1
-  local _opts=$2
+  shift
+  local _opts="$@"
   cd "$SUBT_PATH/"
   local deployer_cmd="./deployer "$_opts" -s $_cmd"
   eval $deployer_cmd
-  cd $__dir
+  cd $_dir
 }

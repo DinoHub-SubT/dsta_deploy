@@ -8,45 +8,178 @@
 
 
   # ////////////////////////////////////////////////////////////////////////////
-  - uav.cpu:
+  - uav:
   # ////////////////////////////////////////////////////////////////////////////
 
-    # source the computer-level scenario file
-    - export filename=systems/local/uav-cpu
-    - source operations/deploy/scenarios/$filename.env
-    - export scenario=" --scenario $filename"
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav1.cpu:
+    # ////////////////////////////////////////////////////////////////////////////
 
-    - registry:
-      - +extend: systems/local/uav/vm/registry
-    - compose:
-      - +extend: systems/local/uav/vm/compose
-    - catkin:
-      - core:
-        - +docker:uav-superodometry-cpu-shell
-        - +extend: systems/local/uav/vm/catkin-core
-      - perception:
-        - +docker:uav-perception-cpu-shell
-        - +extend: systems/local/uav/vm/catkin-perception
+      # source the computer-level scenario file
+      - export filename=systems/local/uav1-cpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav1-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav2.cpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav2-cpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav2-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav3.cpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav3-cpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav3-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav4.cpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav4-cpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav4-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-cpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
 
 
   # ////////////////////////////////////////////////////////////////////////////
-  - uav.gpu:
+  - uav:
   # ////////////////////////////////////////////////////////////////////////////
 
-    # source the computer-level scenario file
-    - export filename=systems/local/uav-gpu
-    - source operations/deploy/scenarios/$filename.env
-    - export scenario=" --scenario $filename"
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav1.gpu:
+    # ////////////////////////////////////////////////////////////////////////////
 
-    - registry:
-      - +extend: systems/local/uav/vm/registry
-    - compose:
-      - +extend: systems/local/uav/vm/compose
-    - catkin:
-      - core:
-        - +docker:uav-gpu-shell
-        - +extend: systems/local/uav/vm/catkin-core
-      - perception:
-        - +docker:uav-perception-gpu-shell
-        - +extend: systems/local/uav/vm/catkin-perception
+      # source the computer-level scenario file
+      - export filename=systems/local/uav1-gpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
 
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav1-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav2.gpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav2-gpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav2-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav3.gpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav3-gpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav3-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - uav4.gpu:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/local/uav4-gpu
+      - source operations/deploy/scenarios/$filename.env
+      - export scenario=" --scenario $filename"
+
+      - registry:
+        - +extend: systems/local/uav/vm/registry
+      - compose:
+        - +extend: systems/local/uav/vm/compose
+      - catkin:
+        - core:
+          - +docker:uav4-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-core
+        - perception:
+          - +docker:uav-perception-gpu-shell
+          - +extend: systems/local/uav/vm/catkin-perception
