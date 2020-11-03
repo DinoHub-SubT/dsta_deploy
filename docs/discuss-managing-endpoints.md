@@ -36,20 +36,17 @@ Transfer the local deploy repository to the remote host, using the `deployer -s 
 
 **Example, `transfer.to` to a specific remote Azure VMs:**
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # example: transfer to remote basestation azure vm
-        ./deployer -s azure.basestation.transfer.to
+        subt deployer azure.basestation.transfer.to
 
         # example: transfer to the remote ugv1 azure vm
-        ./deployer -s azure.ugv1.transfer.to
+        subt deployer azure.ugv.ugv1.transfer.to
 
         # example: transfer to remote uav1 azure vm
-        ./deployer -s azure.uav1.transfer.to
+        subt deployer azure.ugv.uav1.transfer.to
 
         # example: transfer to remote perception1 azure vm
-        ./deployer -s azure.perception1.transfer.to
+        subt deployer azure.perception.perception1.transfer.to
 
 #### `Transfer.To` Options
 

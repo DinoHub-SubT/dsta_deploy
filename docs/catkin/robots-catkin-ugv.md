@@ -8,37 +8,37 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## 1. Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        ./deployer -s azure.ugv1.docker.shell
+        subt deployer robots.ugv.ugv1.ppc.docker.shell
+        subt deployer robots.ugv.ugv1.nuc.docker.shell
+        subt deployer robots.ugv.ugv1.xavier.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.ugv1.catkin.clean
+        # - similarly for nuc, xavier
+        subt deployer robots.ugv.ugv1.ppc.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -s azure.ugv1.catkin.build
+        # - similarly for nuc, xavier
+        subt deployer robots.ugv.ugv1.ppc.catkin.build
 
-        # (optional), building on specific computers
-        #   - similar commands exist for *.clean
-        ./deployer -s azure.ugv1.ppc.catkin.build
-        ./deployer -s azure.ugv1.nuc.catkin.build
-        ./deployer -s azure.ugv1.xavier.catkin.build
+You can build on all three computers with the following short-hand command:
+
+        # omit the computer tag, to build on all three computers
+        subt deployer robots.ugv.ugv1.catkin.clean
+
+- You can remove in-between tags, to shorten commands. Experiment with your options by adding a `-p` to preview your commands.
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s azure.ugv1.docker.stop
+        # - similarly for nuc, xavier
+        subt deployer robots.ugv.ugv1.ppc.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.ugv1.docker.rm
+        # - similarly for nuc, xavier
+        subt deployer robots.ugv.ugv1.ppc.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 

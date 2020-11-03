@@ -14,17 +14,14 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
 
 ### 1. Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the docker shell on the remote host
-        ./deployer -s azure.perception1.cpu.docker.shell
+        subt deployer azure.perception.perception1.cpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.perception1.cpu.catkin.clean
+        subt deployer azure.perception.perception1.cpu.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -s azure.perception1.cpu.catkin.build
+        subt deployer azure.perception.perception1.cpu.catkin.build
 
 - Please change the robot name `perception1` to whichever Azure robot VM you are building on.
 
@@ -36,17 +33,14 @@ Follow these steps, **on the localhost**, not on the Azure remote VM.
 
 ### 1. Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the docker shell on the remote host
-        ./deployer -s azure.perception1.gpu.docker.shell
+        subt deployer azure.perception.perception1.gpu.docker.shell
 
         # clean the previous built workspaces
-        ./deployer -s azure.perception1.gpu.catkin.clean
+        subt deployer azure.perception.perception1.gpu.catkin.clean
 
         # catkin build the UGV workspaces
-        ./deployer -s azure.perception1.gpu.catkin.build
+        subt deployer azure.perception.perception1.gpu.catkin.build
 
 - Please change the robot name `perception1` to whichever Azure robot VM you are building on.
 
@@ -56,14 +50,11 @@ You should remove containers when done with its development.
 
 Automated remove the docker containers:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s azure.perception.docker.stop
+        subt deployer azure.perception.perception1.docker.stop
 
         # remove the docker container
-        ./deployer -s azure.perception.docker.remove
+        subt deployer azure.perception.perception1.docker.rm
 
 Or manually remove the docker containers:
 
@@ -92,7 +83,7 @@ You should now have a built `perception` workspace.
 You can transfer changes from your localhost to the remote:
 
         # perception transfer.to command
-        ./deployer -s azure.perception1.transfer.to
+        subt deployer azure.perception.perception1.transfer.to
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 

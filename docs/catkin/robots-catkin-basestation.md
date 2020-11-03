@@ -8,31 +8,24 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
-        # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        ./deployer -s robots.basestation.docker.shell
+        # create the docker shell container
+        subt deployer local.basestation.docker.shell
 
         # clean the previously built workspaces
-        ./deployer -s robots.basestation.catkin.clean
+        subt deployer local.basestation.catkin.clean
 
         # catkin build the basestation GUI workspaces
-        ./deployer -s robots.basestation.cpu.catkin.gui.build
+        subt deployer local.basestation.catkin.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s robots.basestation.docker.stop
+        subt deployer local.basestation.docker.stop
 
         # remove the docker container
-        ./deployer -s robots.basestation.docker.rm
+        subt deployer local.basestation.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 

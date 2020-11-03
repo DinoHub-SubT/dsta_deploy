@@ -55,9 +55,6 @@ Return To Localhost
 
 Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the UAV docker container
         subt deployer azure.uav1.docker.shell
 

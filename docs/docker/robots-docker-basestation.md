@@ -14,20 +14,17 @@ All deployer commands should be done on the **basestation**.
 
 **Create Docker Images**
 
-Follow these steps, **on the basestation**.
+Pull the ugv docker images from the Azure docker registry:
 
         # azure registry login
         az acr login --name subtexplore
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # pull all the docker images from the azure docker registry
-        ./deployer -s azure.basestation.docker.pull
+        subt deployer local.basestation.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        ./deployer -s local.basestation.docker.stop
-        ./deployer -s local.basestation.docker.rm
+        subt deployer local.basestation.docker.stop
+        subt deployer local.basestation.docker.rm
 
 **Verify Docker Images**
 
@@ -43,13 +40,13 @@ Verify you see the following docker images (in any order):
 
 **Create Docker Containers**
 
-Follow these steps, **on the basestation**.
+Create the basestation docker container:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+        # remove any previous containers
+        subt deployer local.basestation.docker.rm
 
-        # create all the basestation docker containers
-        ./deployer -s local.basestation.docker.shell
+        # create the basestation shell container
+        subt deployer local.basestation.docker.shell
 
 **Verify Docker Containers**
 

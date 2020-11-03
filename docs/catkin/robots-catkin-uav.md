@@ -8,34 +8,35 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # create the docker shell on the remote host
         #   - you need to make sure the container is started before building
-        ./deployer -s robots.ds1.docker.shell
+        subt deployer robots.ds.ds1.docker.shell
 
-        # clean the previous built workspaces
-        ./deployer -s robots.ds1.catkin.clean
+        # (OTIONAL) clean all the workspaces
+        subt deployer robots.ds.ds1.catkin.clean
 
-        # build the PX4 firmware
-        ./deployer -s robots.ds1.px4_firmware
+        # build the PX4 firmware (please remember to do this)
+        subt deployer robots.ds.ds1.catkin.px4
 
-        # catkin build the UGV workspaces
-        ./deployer -s robots.ds1.catkin.build
+        # build all the workspaces
+        subt deployer robots.ds.ds1.catkin.build
+
+        # (OPTIONAL) build specific workspaces
+        subt deployer robots.ds.ds1.catkin.px4
+        subt deployer robots.ds.ds1.catkin.core.build
+        subt deployer robots.ds.ds1.catkin.perception.build
+        subt deployer robots.ds.ds1.catkin.wifi.build
+
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
-
         # stop the docker container
-        ./deployer -s robots.ds1.docker.stop
+        subt deployer robots.ds.ds1.docker.stop
 
         # remove the docker container
-        ./deployer -s robots.ds1.docker.rm
+        subt deployer robots.ds.ds1.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
