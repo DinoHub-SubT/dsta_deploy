@@ -10,11 +10,45 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 All deployer commands should be done on the **localhost**.
 
-## 1. Docker Images
+## 1. Docker Local Network
+
+To enable multi robot docker simulations, you will need to setup a `docker network`
+
+You only need to **setup the docker network ONCE**. So, if you already created the docker network in another readme, please skip this step.
+
+        # create the docker network
+        subt deployer local.docker.network.create
+
+        # verify you have created the network
+        # - you should see a network called 'robots'
+        docker network ls
+
+        # restart the docker daemon
+        sudo systemctl restart docker.service
+
+**Keep in mind:**
+
+If you want to use Azure or connect directly to the SubT robots, you must remove the docker network.
+
+- The docker network is on the same subnet, so it will conflict with the Azure or SubT Rajent network.
+
+To remove the docker network:
+
+        # remove the docker network
+        subt deployer local.docker.network.rm
+
+        # verify you have remove the network
+        # - you should not see a network called 'robots'
+        docker network ls
+
+        # restart the docker daemon
+        sudo systemctl restart docker.service
+
+## 2. Docker Images
 
 **Create Docker Images**
 
-Follow these steps, **on the localhost**.
+Pull the ugv docker images from the Azure docker registry:
 
         # azure registry login
         az acr login --name subtexplore
@@ -36,11 +70,11 @@ Verify you see the following docker images (in any order):
         subt/basestation-cpu:0.1
         subt/basestation-cpu:ros
 
-## 2. Creating Docker Containers
+## 3. Creating Docker Containers
 
 **Create Docker Containers**
 
-Follow these steps, **on the localhost**:
+Create the basestation docker container:
 
         subt deployer local.basestation.docker.shell
 
@@ -53,7 +87,7 @@ Verify you see the following docker containers (in any order):
 
         basestation-cpu-shell
 
-## 3. Comments
+## 4. Comments
 
 When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
 
