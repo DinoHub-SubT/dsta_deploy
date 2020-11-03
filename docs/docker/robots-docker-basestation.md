@@ -20,11 +20,11 @@ Pull the ugv docker images from the Azure docker registry:
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer local.basestation.docker.registry.pull
+        subt deployer robots.basestation.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer local.basestation.docker.stop
-        subt deployer local.basestation.docker.rm
+        subt deployer robots.basestation.docker.stop
+        subt deployer robots.basestation.docker.rm
 
 **Verify Docker Images**
 
@@ -43,10 +43,10 @@ Verify you see the following docker images (in any order):
 Create the basestation docker container:
 
         # remove any previous containers
-        subt deployer local.basestation.docker.rm
+        subt deployer robots.basestation.docker.rm
 
         # create the basestation shell container
-        subt deployer local.basestation.docker.shell
+        subt deployer robots.basestation.docker.shell
 
 **Verify Docker Containers**
 

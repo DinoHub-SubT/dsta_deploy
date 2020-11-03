@@ -9,23 +9,23 @@ Assuming you have already setup all your docker containers, follow the instructi
 ## Catkin Build
 
         # create the docker shell container
-        subt deployer local.basestation.docker.shell
+        subt deployer robots.basestation.docker.shell
 
         # clean the previously built workspaces
-        subt deployer local.basestation.catkin.clean
+        subt deployer robots.basestation.catkin.clean
 
         # catkin build the basestation GUI workspaces
-        subt deployer local.basestation.catkin.build
+        subt deployer robots.basestation.catkin.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
         # stop the docker container
-        subt deployer local.basestation.docker.stop
+        subt deployer robots.basestation.docker.stop
 
         # remove the docker container
-        subt deployer local.basestation.docker.rm
+        subt deployer robots.basestation.docker.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
