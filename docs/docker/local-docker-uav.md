@@ -61,7 +61,8 @@ Pull the ugv docker images from the Azure docker registry:
         az acr login --name subtexplore
 
         # pull the docker images
-        subt deployer local.uav.uav1.cpu.docker.registry.pull
+        subt deployer local.uav.uav1.cpu.docker.registry.pull.core
+        subt deployer local.uav.uav1.cpu.docker.registry.pull.super
 
         # (optional) stop & remove any previously created docker containers
         subt deployer local.uav.uav1.cpu.docker.stop

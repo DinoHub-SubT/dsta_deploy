@@ -20,7 +20,7 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.uav.uav1.docker.registry.pull.cpu
+        subt deployer azure.uav.uav1.docker.registry.pull
 
         # (optional) stop & remove any previously created docker containers
         subt deployer azure.uav.uav1.docker.stop
