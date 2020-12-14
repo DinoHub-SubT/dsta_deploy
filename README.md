@@ -1,5 +1,5 @@
 
-# Overview
+# SubT Deployment Overview
 
 > Deployer, a deployment automation tool.
 
@@ -79,7 +79,7 @@ Please have a basic understanding of the following the operational tools:
 
 * * *
 
-# Deploy Repository Setup
+# SubT Getting Started
 
 ### 1. Bitbucket SSH Keys
 
@@ -243,7 +243,7 @@ Verify you have all the operations tools installed correctly:
 
 * * *
 
-# SubT Getting Started
+# SubT Infrastructure
 
 The below instructions should get you started on a basic `SubT` setup locally, on Azure or on Robots.
 
@@ -251,11 +251,20 @@ You will need to go through a few tutorials to have a working system.
 
 ### 1. Clone Workspaces (Required)
 
-**Tutorial at:** [`deploy-clone.md`](docs/deploy-clone.md)
+**COMMENT: If you are DARPA members, then you can skip this step ONLY IF you have the code already.**
 
-- Installs the `SubT` submodule repositories.
+Clone the latest updates:
 
-- **If you are DARPA members, then you can skip this step if you already have the code.**
+        # resets all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
+        subt git reset localhost
+
+When you want to pull the latest updates, at the submodule's checked out branch (i.e. `DETACHED HEAD`):
+
+        # pull the submodule's updates, when the submodules are checked-out at a specific branch.
+        subt git pull localhost
+
+**More options and information found in:** [`deploy-clone.md`](docs/deploy-clone.md)
+
 
 ### 2. Docker Registry (Required)
 
@@ -309,26 +318,27 @@ This tutorial will setup the following:
 
 ## More References
 
-### Managing Endpoints
 
-**Discussion at:** [`discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
-
-- Methods of managing multiple remote docker endpoints.
-- Remote development workflow.
-
-### Updating Deploy Repos
+### Updating Submodule Levels
 
 **Discussion at:** [`discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
 
-### Operational Tools
+### More Operational Tools
 
 **Discussion at:** [`discuss-operation-tools.md`](docs/discuss-operation-tools.md)
 
 - Operational tools used in deploy, their function and their general syntax.
 - Helpful thidparty tools
+
+### Managing Endpoints
+
+**Discussion at:** [`discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
+
+- Methods of managing multiple remote docker endpoints.
+- Remote development workflow.
 
 ### More Tutorials
 
