@@ -31,9 +31,9 @@ subt_launch/.catkin_tools/
 # // other
 # // /////////////////////////////////////////////////////////////////////////////
 
+todo.TODO
 todo-tmp.TODO
 reorganization-first-draft.txt
 scripts.TODO
 .vscode/
-
-operations/deploy/deploybooks/tmp/
+notes.txt
