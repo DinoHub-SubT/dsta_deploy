@@ -9,8 +9,11 @@
   # ////////////////////////////////////////////////////////////////////////////
   - px4:
   # ////////////////////////////////////////////////////////////////////////////
-    - cd ~/deploy_ws/src/uav/core/firmwaresubt
-    - ./build.sh
+    - build:
+      - cd ~/deploy_ws/src/uav/core/firmwaresubt
+      - ./build.sh
+    - clean:
+      - rm -rf ~/deploy_ws/src/uav/core/firmwaresubt/build
 
   # //////////////////////////////////////////////////////////////////////////
   - uav.core:
@@ -50,7 +53,7 @@
         - cd ~/deploy_ws/src/simulation/darpa/catkin
         - rm -f .catkin_tools/profiles/profiles.yaml
         - catkin profile list
-        - catkin profile set uav-inside
+        - catkin profile set uav
         - catkin config
         - catkin build --force-cmake
 
@@ -59,13 +62,13 @@
 
         # TEMPORARY! REALLY BAD.
         - touch velodyne_simulator/velodyne_gazebo_plugins/CATKIN_IGNORE
-        - touch payload_sim_uav/CATKIN_IGNORE
-        - rm payload_sim_uav/CATKIN_IGNORE
-        - touch payload_sim_ugv/CATKIN_IGNORE
+        # - touch payload_sim_uav/CATKIN_IGNORE
+        # - rm payload_sim_uav/CATKIN_IGNORE
+        # - touch payload_sim_ugv/CATKIN_IGNORE
 
         - rm -f .catkin_tools/profiles/profiles.yaml
         - catkin profile list
-        - catkin profile set uav-inside
+        - catkin profile set uav
         - catkin config
         - catkin build --force-cmake
 

@@ -22,10 +22,12 @@
       - registry:
         - +extend: systems/local/ugv/vm/registry
       - compose:
-        - +extend: systems/local/ugv/vm/compose
+        - core:
+          - +extend: systems/local/ugv/vm/compose
       - catkin:
-        - +docker:ugv1-sim-shell
-        - +extend: systems/local/ugv/vm/catkin
+        - core:
+          - +docker:ugv1-sim-shell
+          - +extend: systems/local/ugv/vm/catkin.core
 
     # ////////////////////////////////////////////////////////////////////////////
     - ugv2:
@@ -42,7 +44,7 @@
         - +extend: systems/local/ugv/vm/compose
       - catkin:
         - +docker:ugv2-sim-shell
-        - +extend: systems/local/ugv/vm/catkin
+        - +extend: systems/local/ugv/vm/catkin.core
 
     # ////////////////////////////////////////////////////////////////////////////
     - ugv3:
@@ -59,4 +61,4 @@
         - +extend: systems/local/ugv/vm/compose
       - catkin:
         - +docker:ugv3-sim-shell
-        - +extend: systems/local/ugv/vm/catkin
+        - +extend: systems/local/ugv/vm/catkin.core
