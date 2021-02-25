@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# include headers
+. "$SUBT_PATH/operations/deploy/azurebooks/scripts/header.sh"
+. "$(dirname $0)/.header.bash"
+
+# help message
+if chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@ || chk_flag -help $@; then
+  title "$__file_name ADD HELP MESSAGE HERE."
+  exit_success
+fi
+
+# azure cli user
+azuser="kat.test.user@smash0190hotmail.onmicrosoft.com"
+
+# ask for password
+read -sp "Enter azure password, for az user $azuser: " azpassword
+
+az login -u $azuser -p $azpassword
+
+for FILENAME in $1; do
+	DIRECTORY=$(echo $FILENAME | grep -Eo '[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}')
+	azcopy make https://subtdatasets.blob.core.windows.net/$DIRECTORY
+	NORMAL_HOSTNAME=$(hostname)
+	CAPITAL_HOSTNAME=${NORMAL_HOSTNAME^^}
+	echo $CAPITAL_HOSTNAME
+	azcopy copy $FILENAME http://subtdatasets.blob.core.windows.net/$DIRECTORY/$CAPITAL_HOSTNAME/
+done
