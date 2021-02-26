@@ -6,17 +6,12 @@
 
 # help message
 if chk_flag --help $@ || chk_flag help $@ || chk_flag -h $@ || chk_flag -help $@; then
-  title "$__file_name ADD HELP MESSAGE HERE."
+  title "$__file_name [bags]"
   exit_success
 fi
 
-# azure cli user
-azuser="kat.test.user@smash0190hotmail.onmicrosoft.com"
-
-# ask for password
-read -sp "Enter azure password, for az user $azuser: " azpassword
-
-az login -u $azuser -p $azpassword
+export AZCOPY_SPA_CLIENT_SECRET=~GvAI1eI_H13P21E.I5-0FL_UMiFpRuz4N
+azcopy login --service-principal  --application-id 466f5541-f74b-4b1c-88eb-1d33aa2a5869 --tenant-id=353ab185-e593-4dd3-9981-5ffe7f5d47eb
 
 for FILENAME in $1; do
 	DIRECTORY=$(echo $FILENAME | grep -Eo '[[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2}')
@@ -24,5 +19,5 @@ for FILENAME in $1; do
 	NORMAL_HOSTNAME=$(hostname)
 	CAPITAL_HOSTNAME=${NORMAL_HOSTNAME^^}
 	echo $CAPITAL_HOSTNAME
-	azcopy copy $FILENAME http://subtdatasets.blob.core.windows.net/$DIRECTORY/$CAPITAL_HOSTNAME/
+	azcopy copy $FILENAME https://subtdatasets.blob.core.windows.net/$DIRECTORY/$CAPITAL_HOSTNAME/
 done
