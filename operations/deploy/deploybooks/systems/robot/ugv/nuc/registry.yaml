@@ -29,6 +29,25 @@
         # change the docker context back to the default docker daemon
         - docker context use default
 
+      # pull images from the docker registry
+      - push:
+        # change the docker context to the ugv azure docker daemon
+        - docker context use $DOCKER_CONTEXT
+        # tag the docker images
+        - docker tag subt/ugv:ros $AZURE_REGISTRY/subt-ugv-ros
+        - docker tag subt/ugv:nuc $AZURE_REGISTRY/subt-ugv-nuc
+        - docker tag subt/ugv:super $AZURE_REGISTRY/subt-ugv-super
+        # pull the docker images from the laptop local registry
+        - docker push $AZURE_REGISTRY/subt-ugv-ros
+        - docker push $AZURE_REGISTRY/subt-ugv-nuc
+        - docker push $AZURE_REGISTRY/subt-ugv-super
+        # remove the azure docker images
+        - docker rmi $(docker images | grep $AZURE_REGISTRY | tr -s ' ' | cut -d ' ' -f 1)
+        # show the docker images
+        - docker images
+        # change the docker context back to the default docker daemon
+        - docker context use default
+
     # //////////////////////////////////////////////////////////////////////////
     - basestation:
     # //////////////////////////////////////////////////////////////////////////
