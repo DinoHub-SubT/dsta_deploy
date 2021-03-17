@@ -7,7 +7,7 @@
   - source operations/deploy/scenarios/systems/robot/.robot.env
 
   # ////////////////////////////////////////////////////////////////////////////
-  - ds:
+  - uav:
   # ////////////////////////////////////////////////////////////////////////////
 
     # ////////////////////////////////////////////////////////////////////////////
@@ -102,4 +102,27 @@
           - +extend: systems/robot/uav/ds/catkin
         - registry:
           - export DCTX=robot-uav-ds4
+          - +extend: systems/robot/uav/ds/registry
+
+    # ////////////////////////////////////////////////////////////////////////////
+    - canary1:
+    # ////////////////////////////////////////////////////////////////////////////
+
+      # source the computer-level scenario file
+      - export filename=systems/robot/canary1
+      - source operations/deploy/scenarios/$filename.env
+      - 'export scenario=" --scenario $filename"'
+
+      # extend
+      - +extend: common/transfer
+      - +extend: common/skel_t
+      - uav:
+        - compose:
+          - +ssh:{ uav.canary1 }
+          - +extend: systems/robot/uav/ds/compose
+        - catkin:
+          - +ssh:{ uav.canary1 }
+          - +extend: systems/robot/uav/ds/catkin
+        - registry:
+          - export DCTX=robot-uav-canary1
           - +extend: systems/robot/uav/ds/registry
