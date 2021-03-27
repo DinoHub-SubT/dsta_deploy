@@ -13,24 +13,6 @@
 [submodule "operations/robot_snapshot/ugv_setup"]
 	path = operations/robot_snapshot/ugv_setup
 	url = git@bitbucket.org:cmusubt/ugv_setup.git
-[submodule "basestation"]
-	path = basestation
-	url = git@bitbucket.org:cmusubt/deploy_basestation
-[submodule "ugv"]
-	path = ugv
-	url = git@bitbucket.org:cmusubt/deploy_ugv.git
-[submodule "uav"]
-	path = uav
-	url = git@bitbucket.org:cmusubt/deploy_uav.git
-[submodule "common"]
-	path = common
-	url = git@bitbucket.org:cmusubt/deploy_common.git
 [submodule "subt_launch"]
 	path = subt_launch
 	url = git@bitbucket.org:cmusubt/deploy_central_launch.git
-[submodule "perception"]
-	path = perception
-	url = git@bitbucket.org:cmusubt/deploy_perception.git
-[submodule "simulation"]
-	path = simulation
-	url = git@bitbucket.org:cmusubt/deploy_simulation.git
