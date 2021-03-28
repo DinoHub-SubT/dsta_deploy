@@ -166,3 +166,108 @@
 [submodule "ugv/simulation/payload_sim"]
 	path = ugv/simulation/payload_sim
 	url = git@bitbucket.org:cmusubt/payload_sim.git
+[submodule "common/autocalib"]
+	path = common/autocalib
+	url = git@bitbucket.org:cmusubt/autocalib.git
+[submodule "common/bag_recorder"]
+	path = common/bag_recorder
+	url = git@bitbucket.org:cmusubt/bag_recorder.git
+[submodule "common/base_main_class"]
+	path = common/base_main_class
+	url = git@bitbucket.org:cmusubt/base_main_class.git
+[submodule "common/base_main_class_py"]
+	path = common/base_main_class_py
+	url = git@bitbucket.org:cmusubt/base_main_class_py.git
+[submodule "common/basestation_msgs"]
+	path = common/basestation_msgs
+	url = git@bitbucket.org:cmusubt/basestation_msgs.git
+[submodule "common/behavior_tree_msgs"]
+	path = common/behavior_tree_msgs
+	url = git@bitbucket.org:cmusubt/behavior_tree_msgs.git
+[submodule "common/ca_common"]
+	path = common/ca_common
+	url = git@bitbucket.org:cmusubt/ca_common.git
+[submodule "common/ca_nav_msgs"]
+	path = common/ca_nav_msgs
+	url = git@bitbucket.org:cmusubt/ca_nav_msgs.git
+[submodule "common/catkin_simple"]
+	path = common/catkin_simple
+	url = git@bitbucket.org:cmusubt/catkin_simple.git
+[submodule "common/central_health_monitor"]
+	path = common/central_health_monitor
+	url = git@bitbucket.org:cmusubt/central_health_monitor.git
+[submodule "common/common_cmake"]
+	path = common/common_cmake
+	url = git@bitbucket.org:cmusubt/common_cmake.git
+[submodule "common/comms_planner"]
+	path = common/comms_planner
+	url = git@bitbucket.org:cmusubt/comms_planner.git
+[submodule "common/communication_manager"]
+	path = common/communication_manager
+	url = git@bitbucket.org:cmusubt/communication_manager.git
+[submodule "common/coordination_msgs"]
+	path = common/coordination_msgs
+	url = git@bitbucket.org:cmusubt/coordination_msgs.git
+[submodule "common/darpa_transform"]
+	path = common/darpa_transform
+	url = git@bitbucket.org:cmusubt/darpa_transform.git
+[submodule "common/geom_cast"]
+	path = common/geom_cast
+	url = git@bitbucket.org:cmusubt/geom_cast.git
+[submodule "common/healthmonitoringsystem"]
+	path = common/healthmonitoringsystem
+	url = git@bitbucket.org:cmusubt/healthmonitoringsystem.git
+[submodule "common/image_streamer"]
+	path = common/image_streamer
+	url = git@bitbucket.org:cmusubt/image_streamer.git
+[submodule "common/map_compress"]
+	path = common/map_compress
+	url = git@bitbucket.org:cmusubt/map_compress.git
+[submodule "common/map_database"]
+	path = common/map_database
+	url = git@bitbucket.org:cmusubt/map_database.git
+[submodule "common/map_database_msgs"]
+	path = common/map_database_msgs
+	url = git@bitbucket.org:cmusubt/map_database_msgs.git
+[submodule "common/math_utils"]
+	path = common/math_utils
+	url = git@bitbucket.org:cmusubt/math_utils.git
+[submodule "common/mcmn_status_monitor"]
+	path = common/mcmn_status_monitor
+	url = git@bitbucket.org:cmusubt/mcmn_status_monitor.git
+[submodule "common/misc_utils"]
+	path = common/misc_utils
+	url = git@bitbucket.org:cmusubt/misc_utils.git
+[submodule "common/objdet_msgs"]
+	path = common/objdet_msgs
+	url = git@bitbucket.org:cmusubt/objdet_msgs.git
+[submodule "common/object_ledger"]
+	path = common/object_ledger
+	url = git@bitbucket.org:cmusubt/object_ledger.git
+[submodule "common/rosmon"]
+	path = common/rosmon
+	url = git@bitbucket.org:cmusubt/rosmon.git
+[submodule "common/rostime_sync"]
+	path = common/rostime_sync
+	url = git@bitbucket.org:cmusubt/rostime_sync.git
+[submodule "common/system_stats"]
+	path = common/system_stats
+	url = git@bitbucket.org:cmusubt/system_stats.git
+[submodule "common/takeoff_manager"]
+	path = common/takeoff_manager
+	url = git@bitbucket.org:cmusubt/takeoff_manager.git
+[submodule "common/tflib"]
+	path = common/tflib
+	url = git@bitbucket.org:cmusubt/tflib.git
+[submodule "common/tic_toc"]
+	path = common/tic_toc
+	url = git@bitbucket.org:castacks/tic_toc.git
+[submodule "common/tictoc_profiler"]
+	path = common/tictoc_profiler
+	url = git@bitbucket.org:castacks/tictoc_profiler.git
+[submodule "common/transform_utils"]
+	path = common/transform_utils
+	url = git@bitbucket.org:cmusubt/transform_utils.git
+[submodule "common/world_abstraction"]
+	path = common/world_abstraction
+	url = git@bitbucket.org:cmusubt/world_abstraction.git
