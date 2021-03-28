@@ -1,0 +1,26 @@
+blacklist: []
+build_space: ../../build/ugv/vdb/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/vdb/
+extend_path: ../../devel/ugv/vdb/common
+install: false
+install_space: ../../install/ugv/vdb/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/vdb/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist:
+- common_utils
+- core_central
+- map_processor
+- misc_utils
+- openvdb_catkin
+- vdb_submaps
+- vdb_utils
+- vdbmap

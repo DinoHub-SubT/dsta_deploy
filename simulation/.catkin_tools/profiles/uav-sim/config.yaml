@@ -1,0 +1,21 @@
+blacklist:
+- gazebo_interface
+- core_gazebo_interface
+- behavior_executive
+build_space: ../../build/uav/simulation/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/uav/simulation/
+extend_path: ../../devel/uav/simulation/darpa
+install: false
+install_space: ../../install/uav/simulation/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/uav/simulation/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

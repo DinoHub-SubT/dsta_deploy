@@ -1,0 +1,18 @@
+blacklist: []
+build_space: ../../build/ugv/vdb/common/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/vdb/common/
+extend_path: /opt/ros/melodic
+install: false
+install_space: ../../install/ugv/vdb/common
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/vdb/common
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

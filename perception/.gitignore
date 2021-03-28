@@ -1,0 +1,6 @@
+# Ignore all auto-generated catkin profile configs
+# -- force add any new configs
+# ignore top level catkin profiles
+.catkin_tools/
+# ignore deps catkin profiles
+deps/catkin/.catkin_tools

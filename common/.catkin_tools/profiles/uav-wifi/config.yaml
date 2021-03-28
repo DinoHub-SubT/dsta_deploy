@@ -1,0 +1,25 @@
+blacklist: []
+build_space: ../../build/wifi/common/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/wifi/common
+extend_path: /opt/ros/melodic
+install: false
+install_space: ../../install/wifi/common/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/wifi/common/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist:
+- base
+- base_main_class_py
+- objdet_msgs
+- rosmon
+- rosmon_core
+- rosmon_msgs
+- rqt_rosmon
