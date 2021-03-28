@@ -272,10 +272,10 @@
 	path = common/world_abstraction
 	url = git@bitbucket.org:cmusubt/world_abstraction.git
 [submodule "perception/deps/ueye_driver"]
-	path = perception/deps/ueye_driver
+	path = perception/deps/catkin/ueye_driver
 	url = git@bitbucket.org:cmusubt/ueye_driver.git
 [submodule "perception/deps/vision_opencv"]
-	path = perception/deps/vision_opencv
+	path = perception/deps/catkin/vision_opencv
 	url = https://github.com/ros-perception/vision_opencv.git
 [submodule "uav/core/basestation_gui_python"]
 	path = uav/core/basestation_gui_python
@@ -479,7 +479,7 @@
 	path = uav/slam/velodyne_driver_16_32_uav
 	url = git@bitbucket.org:cmusubt/velodyne_driver_16_32_uav.git
 [submodule "simulation/deps/subt"]
-	path = simulation/darpa/catkin/subt
+	path = simulation/darpa/catkin/darpa_subt
 	url = https://github.com/osrf/subt.git
 [submodule "simulation/behavior_executive"]
 	path = simulation/behavior_executive
