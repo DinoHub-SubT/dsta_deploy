@@ -64,3 +64,105 @@
 [submodule "basestation/waypoint_rviz_plugin"]
 	path = basestation/waypoint_rviz_plugin
 	url = git@bitbucket.org:cmusubt/waypoint_rviz_plugin.git
+[submodule "ugv/planning-pc/behavior_executive"]
+	path = ugv/planning-pc/behavior_executive
+	url = git@bitbucket.org:cmusubt/behavior_executive.git
+[submodule "ugv/planning-pc/behavior_tree"]
+	path = ugv/planning-pc/behavior_tree
+	url = git@bitbucket.org:cmusubt/behavior_tree.git
+[submodule "ugv/planning-pc/blink1_node"]
+	path = ugv/planning-pc/blink1_node
+	url = git@bitbucket.org:castacks/blink1_node.git
+[submodule "ugv/planning-pc/blink_monitor"]
+	path = ugv/planning-pc/blink_monitor
+	url = git@bitbucket.org:cmusubt/blink_monitor.git
+[submodule "ugv/planning-pc/comms_monitor"]
+	path = ugv/planning-pc/comms_monitor
+	url = git@bitbucket.org:cmusubt/comms_monitor.git
+[submodule "ugv/planning-pc/copley_ros_driver"]
+	path = ugv/planning-pc/copley_ros_driver
+	url = git@bitbucket.org:cmusubt/copley_ros_driver.git
+[submodule "ugv/planning-pc/graph_planner"]
+	path = ugv/planning-pc/graph_planner
+	url = git@bitbucket.org:cmusubt/graph_planner.git
+[submodule "ugv/planning-pc/negative_obj_detection"]
+	path = ugv/planning-pc/negative_obj_detection
+	url = git@bitbucket.org:cmusubt/negative_obj_detection.git
+[submodule "ugv/planning-pc/ray_caster"]
+	path = ugv/planning-pc/ray_caster
+	url = git@bitbucket.org:cmusubt/ray_caster.git
+[submodule "ugv/planning-pc/recovery_behavior_stuck_tipover"]
+	path = ugv/planning-pc/recovery_behavior_stuck_tipover
+	url = git@bitbucket.org:cmusubt/recovery_behavior_stuck_tipover.git
+[submodule "ugv/planning-pc/sensor_coverage_planner"]
+	path = ugv/planning-pc/sensor_coverage_planner
+	url = git@bitbucket.org:cmusubt/sensor_coverage_planner.git
+[submodule "ugv/planning-pc/stuck_detect"]
+	path = ugv/planning-pc/stuck_detect
+	url = git@bitbucket.org:cmusubt/stuck_detect.git
+[submodule "ugv/planning-pc/stuck_monitor"]
+	path = ugv/planning-pc/stuck_monitor
+	url = git@bitbucket.org:cmusubt/stuck_monitor.git
+[submodule "ugv/planning-pc/tip_over_monitor"]
+	path = ugv/planning-pc/tip_over_monitor
+	url = git@bitbucket.org:cmusubt/tip_over_monitor.git
+[submodule "ugv/planning-pc/tip_over_recovery"]
+	path = ugv/planning-pc/tip_over_recovery
+	url = git@bitbucket.org:cmusubt/tip_over_recovery.git
+[submodule "ugv/nuc/common"]
+	path = ugv/nuc/common
+	url = git@bitbucket.org:cmusubt/common.git
+[submodule "ugv/nuc/local_planner"]
+	path = ugv/nuc/local_planner
+	url = git@bitbucket.org:cmusubt/local_planner.git
+[submodule "ugv/nuc/opening_detector"]
+	path = ugv/nuc/opening_detector
+	url = git@bitbucket.org:cmusubt/opening_detector.git
+[submodule "ugv/nuc/robot_speed_monitor"]
+	path = ugv/nuc/robot_speed_monitor
+	url = git@bitbucket.org:cmusubt/robot_speed_monitor.git
+[submodule "ugv/nuc/speed_selector"]
+	path = ugv/nuc/speed_selector
+	url = git@bitbucket.org:cmusubt/speed_selector.git
+[submodule "ugv/nuc/terrain_analysis_large"]
+	path = ugv/nuc/terrain_analysis_large
+	url = git@bitbucket.org:cmusubt/terrain_analysis_large.git
+[submodule "ugv/nuc/terrain_analysis"]
+	path = ugv/nuc/terrain_analysis
+	url = git@bitbucket.org:cmusubt/terrain_analysis.git
+[submodule "ugv/nuc/terrain_cloud_reset"]
+	path = ugv/nuc/terrain_cloud_reset
+	url = git@bitbucket.org:cmusubt/terrain_cloud_reset.git
+[submodule "ugv/hardware/node_dropper_labjack"]
+	path = ugv/hardware/node_dropper_labjack
+	url = git@bitbucket.org:cmusubt/node_dropper_labjack.git
+[submodule "ugv/hardware/ugv_hardware"]
+	path = ugv/hardware/ugv_hardware
+	url = git@bitbucket.org:cmusubt/ugv_hardware.git
+[submodule "ugv/hardware/uwb-radio-driver"]
+	path = ugv/hardware/uwb-radio-driver
+	url = git@bitbucket.org:cmusubt/uwb-radio-driver.git
+[submodule "ugv/hardware/xbee_bridge"]
+	path = ugv/hardware/xbee_bridge
+	url = git@bitbucket.org:cmusubt/xbee_bridge.git
+[submodule "ugv/hardware/xsens_cpp_driver"]
+	path = ugv/hardware/xsens_cpp_driver
+	url = git@bitbucket.org:cmusubt/xsens_cpp_driver.git
+[submodule "ugv/hardware/xsense_driver"]
+	path = ugv/hardware/xsense_driver
+	url = git@bitbucket.org:cmusubt/xsense_driver.git
+[submodule "ugv/slam/laser_odometry"]
+	path = ugv/slam/laser_odometry
+	url = git@bitbucket.org:cmusubt/laser_odometry.git
+[submodule "ugv/slam/ds3_state_estimation"]
+	path = ugv/slam/ds3_state_estimation
+	url = git@bitbucket.org:cmusubt/ds3_state_estimation.git
+[submodule "ugv/slam/rosmon"]
+	path = ugv/slam/rosmon
+	url = git@bitbucket.org:cmusubt/rosmon.git
+[submodule "ugv/slam/online_pose_graph"]
+	path = ugv/slam/online_pose_graph
+	url = git@bitbucket.org:cmusubt/online_pose_graph.git
+[submodule "ugv/simulation/payload_sim"]
+	path = ugv/simulation/payload_sim
+	url = git@bitbucket.org:cmusubt/payload_sim.git
