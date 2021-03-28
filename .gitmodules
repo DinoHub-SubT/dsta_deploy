@@ -277,3 +277,204 @@
 [submodule "perception/deps/vision_opencv"]
 	path = perception/deps/vision_opencv
 	url = https://github.com/ros-perception/vision_opencv.git
+[submodule "uav/core/basestation_gui_python"]
+	path = uav/core/basestation_gui_python
+	url = git@bitbucket.org:cmusubt/basestation_gui_python.git
+[submodule "uav/core/behavior_tree"]
+	path = uav/core/behavior_tree
+	url = git@bitbucket.org:cmusubt/behavior_tree.git
+[submodule "uav/core/common_utils"]
+	path = uav/core/common_utils
+	url = git@bitbucket.org:cmusubt/common_utils.git
+[submodule "uav/core/coordination"]
+	path = uav/core/coordination
+	url = git@bitbucket.org:cmusubt/coordination.git
+[submodule "uav/core/core_behavior_executive"]
+	path = uav/core/core_behavior_executive
+	url = git@bitbucket.org:castacks/core_behavior_executive.git
+[submodule "uav/core/core_central"]
+	path = uav/core/core_central
+	url = git@bitbucket.org:castacks/core_central.git
+[submodule "uav/core/core_drone_interface"]
+	path = uav/core/core_drone_interface
+	url = git@bitbucket.org:castacks/core_drone_interface.git
+[submodule "uav/core/core_gazebo_interface"]
+	path = uav/core/core_gazebo_interface
+	url = git@bitbucket.org:castacks/core_gazebo_interface.git
+[submodule "uav/core/core_odometry_transform"]
+	path = uav/core/core_odometry_transform
+	url = git@bitbucket.org:castacks/core_odometry_transform.git
+[submodule "uav/core/core_pid_controller"]
+	path = uav/core/core_pid_controller
+	url = git@bitbucket.org:castacks/core_pid_controller.git
+[submodule "uav/core/core_pose_controller"]
+	path = uav/core/core_pose_controller
+	url = git@bitbucket.org:castacks/core_pose_controller.git
+[submodule "uav/core/core_px4_interface"]
+	path = uav/core/core_px4_interface
+	url = git@bitbucket.org:castacks/core_px4_interface.git
+[submodule "uav/core/core_takeoff_landing_planner"]
+	path = uav/core/core_takeoff_landing_planner
+	url = git@bitbucket.org:castacks/core_takeoff_landing_planner.git
+[submodule "uav/core/core_trajectory_controller"]
+	path = uav/core/core_trajectory_controller
+	url = git@bitbucket.org:castacks/core_trajectory_controller.git
+[submodule "uav/core/core_trajectory_library"]
+	path = uav/core/core_trajectory_library
+	url = git@bitbucket.org:castacks/core_trajectory_library.git
+[submodule "uav/core/core_trajectory_msgs"]
+	path = uav/core/core_trajectory_msgs
+	url = git@bitbucket.org:castacks/core_trajectory_msgs.git
+[submodule "uav/core/cpulib"]
+	path = uav/core/cpulib
+	url = git@bitbucket.org:castacks/cpulib.git
+[submodule "uav/core/dfs_behavior_planner"]
+	path = uav/core/dfs_behavior_planner
+	url = git@bitbucket.org:cmusubt/dfs_behavior_planner.git
+[submodule "uav/core/distance_map_local_planner"]
+	path = uav/core/distance_map_local_planner
+	url = git@bitbucket.org:cmusubt/distance_map_local_planner.git
+[submodule "uav/core/drone_controller"]
+	path = uav/core/drone_controller
+	url = git@bitbucket.org:cmusubt/drone_controller.git
+[submodule "uav/core/drone_exploration_monitor"]
+	path = uav/core/drone_exploration_monitor
+	url = git@bitbucket.org:cmusubt/drone_exploration_monitor.git
+[submodule "uav/core/drone_flight_control"]
+	path = uav/core/drone_flight_control
+	url = git@bitbucket.org:cmusubt/drone_flight_control.git
+[submodule "uav/core/drone_safety_monitor"]
+	path = uav/core/drone_safety_monitor
+	url = git@bitbucket.org:cmusubt/drone_safety_monitor.git
+[submodule "uav/core/drone_traj_planner"]
+	path = uav/core/drone_traj_planner
+	url = git@bitbucket.org:cmusubt/drone_traj_planner.git
+[submodule "uav/core/dust_filter"]
+	path = uav/core/dust_filter
+	url = git@bitbucket.org:cmusubt/dust_filter.git
+[submodule "uav/core/firmwaresubt"]
+	path = uav/core/firmwaresubt
+	url = git@bitbucket.org:cmusubt/firmwaresubt.git
+[submodule "uav/core/graph_planner"]
+	path = uav/core/graph_planner
+	url = git@bitbucket.org:cmusubt/graph_planner.git
+[submodule "uav/core/hz"]
+	path = uav/core/hz
+	url = git@bitbucket.org:castacks/hz.git
+[submodule "uav/core/map_processor"]
+	path = uav/core/map_processor
+	url = git@bitbucket.org:cmusubt/map_processor.git
+[submodule "uav/core/mavlink"]
+	path = uav/core/mavlink
+	url = https://github.com/mavlink/mavlink-gbp-release.git
+[submodule "uav/core/mavros"]
+	path = uav/core/mavros
+	url = https://github.com/mavlink/mavros.git
+[submodule "uav/core/misc_utils"]
+	path = uav/core/misc_utils
+	url = git@bitbucket.org:cmusubt/misc_utils.git
+[submodule "uav/core/model_publisher"]
+	path = uav/core/model_publisher
+	url = git@bitbucket.org:castacks/model_publisher.git
+[submodule "uav/core/obstacle_imaginer"]
+	path = uav/core/obstacle_imaginer
+	url = git@bitbucket.org:cmusubt/obstacle_imaginer.git
+[submodule "uav/core/opening_detector"]
+	path = uav/core/opening_detector
+	url = git@bitbucket.org:cmusubt/opening_detector.git
+[submodule "uav/core/openvdb_catkin"]
+	path = uav/core/openvdb_catkin
+	url = git@bitbucket.org:cmusubt/openvdb_catkin.git
+[submodule "uav/core/payload_sim"]
+	path = uav/core/payload_sim
+	url = git@bitbucket.org:cmusubt/payload_sim.git
+[submodule "uav/core/random_walk_planner"]
+	path = uav/core/random_walk_planner
+	url = git@bitbucket.org:cmusubt/random_walk_planner.git
+[submodule "uav/core/rosbag"]
+	path = uav/core/rosbag
+	url = git@bitbucket.org:castacks/rosbag.git
+[submodule "uav/core/rosmon"]
+	path = uav/core/rosmon
+	url = https://github.com/xqms/rosmon.git
+[submodule "uav/core/rqt_behavior_tree_command"]
+	path = uav/core/rqt_behavior_tree_command
+	url = git@bitbucket.org:castacks/rqt_behavior_tree_command.git
+[submodule "uav/core/safe_landing_detector"]
+	path = uav/core/safe_landing_detector
+	url = git@bitbucket.org:cmusubt/safe_landing_detector.git
+[submodule "uav/core/subt_control_ekf"]
+	path = uav/core/subt_control_ekf
+	url = git@bitbucket.org:cmusubt/subt_control_ekf.git
+[submodule "uav/core/template_node"]
+	path = uav/core/template_node
+	url = git@bitbucket.org:cmusubt/template_node.git
+[submodule "uav/core/templib"]
+	path = uav/core/templib
+	url = git@bitbucket.org:castacks/templib.git
+[submodule "uav/core/tflib"]
+	path = uav/core/tflib
+	url = git@bitbucket.org:castacks/tflib.git
+[submodule "uav/core/vdb_submaps"]
+	path = uav/core/vdb_submaps
+	url = git@bitbucket.org:cmusubt/vdb_submaps.git
+[submodule "uav/core/vdb_utils"]
+	path = uav/core/vdb_utils
+	url = git@bitbucket.org:cmusubt/vdb_utils.git
+[submodule "uav/core/vdbmap"]
+	path = uav/core/vdbmap
+	url = git@bitbucket.org:cmusubt/vdbmap.git
+[submodule "uav/core/vislib"]
+	path = uav/core/vislib
+	url = git@bitbucket.org:castacks/vislib.git
+[submodule "uav/core/world_abstraction"]
+	path = uav/core/world_abstraction
+	url = git@bitbucket.org:cmusubt/world_abstraction.git
+[submodule "uav/hardware/battery_monitor_drone"]
+	path = uav/hardware/battery_monitor_drone
+	url = git@bitbucket.org:cmusubt/battery_monitor_drone.git
+[submodule "uav/hardware/behavior_tree_blink_monitor"]
+	path = uav/hardware/behavior_tree_blink_monitor
+	url = git@bitbucket.org:castacks/behavior_tree_blink_monitor.git
+[submodule "uav/hardware/blink1_node"]
+	path = uav/hardware/blink1_node
+	url = git@bitbucket.org:castacks/blink1_node.git
+[submodule "uav/hardware/bluetooth_detection"]
+	path = uav/hardware/bluetooth_detection
+	url = git@bitbucket.org:cmusubt/bluetooth_detection.git
+[submodule "uav/hardware/ds_teensy_server"]
+	path = uav/hardware/ds_teensy_server
+	url = git@bitbucket.org:cmusubt/ds_teensy_server.git
+[submodule "uav/hardware/latch"]
+	path = uav/hardware/latch
+	url = git@bitbucket.org:cmusubt/latch.git
+[submodule "uav/hardware/realsense_filter"]
+	path = uav/hardware/realsense_filter
+	url = git@bitbucket.org:cmusubt/realsense_filter.git
+[submodule "uav/hardware/scd30_ros"]
+	path = uav/hardware/scd30_ros
+	url = git@bitbucket.org:cmusubt/scd30_ros.git
+[submodule "uav/hardware/shutdown"]
+	path = uav/hardware/shutdown
+	url = git@bitbucket.org:cmusubt/shutdown.git
+[submodule "uav/hardware/teraranger"]
+	path = uav/hardware/teraranger
+	url = https://github.com/Terabee/teraranger.git
+[submodule "uav/hardware/uwb-radio-driver"]
+	path = uav/hardware/uwb-radio-driver
+	url = git@bitbucket.org:cmusubt/uwb-radio-driver.git
+[submodule "uav/hardware/xsens_cpp_driver"]
+	path = uav/hardware/xsens_cpp_driver
+	url = git@bitbucket.org:cmusubt/xsens_cpp_driver.git
+[submodule "uav/slam/ds3_state_estimation"]
+	path = uav/slam/ds3_state_estimation
+	url = git@bitbucket.org:cmusubt/ds3_state_estimation.git
+[submodule "uav/slam/loam_velodyne_16_uav"]
+	path = uav/slam/loam_velodyne_16_uav
+	url = git@bitbucket.org:cmusubt/loam_velodyne_16_uav.git
+[submodule "uav/slam/online_pose_graph"]
+	path = uav/slam/online_pose_graph
+	url = git@bitbucket.org:cmusubt/online_pose_graph.git
+[submodule "uav/slam/velodyne_driver_16_32_uav"]
+	path = uav/slam/velodyne_driver_16_32_uav
+	url = git@bitbucket.org:cmusubt/velodyne_driver_16_32_uav.git
