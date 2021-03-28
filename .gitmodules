@@ -271,3 +271,9 @@
 [submodule "common/world_abstraction"]
 	path = common/world_abstraction
 	url = git@bitbucket.org:cmusubt/world_abstraction.git
+[submodule "perception/deps/ueye_driver"]
+	path = perception/deps/ueye_driver
+	url = git@bitbucket.org:cmusubt/ueye_driver.git
+[submodule "perception/deps/vision_opencv"]
+	path = perception/deps/vision_opencv
+	url = https://github.com/ros-perception/vision_opencv.git
