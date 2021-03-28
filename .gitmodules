@@ -478,3 +478,36 @@
 [submodule "uav/slam/velodyne_driver_16_32_uav"]
 	path = uav/slam/velodyne_driver_16_32_uav
 	url = git@bitbucket.org:cmusubt/velodyne_driver_16_32_uav.git
+[submodule "simulation/deps/subt"]
+	path = simulation/darpa/catkin/subt
+	url = https://github.com/osrf/subt.git
+[submodule "simulation/behavior_executive"]
+	path = simulation/behavior_executive
+	url = git@bitbucket.org:cmusubt/behavior_executive.git
+[submodule "simulation/core_gazebo_interface"]
+	path = simulation/core_gazebo_interface
+	url = git@bitbucket.org:castacks/core_gazebo_interface.git
+[submodule "simulation/core_gazebo_sim"]
+	path = simulation/core_gazebo_sim
+	url = git@bitbucket.org:castacks/core_gazebo_sim.git
+[submodule "simulation/darpa_subt_example"]
+	path = simulation/darpa_subt_example
+	url = git@bitbucket.org:cmusubt/darpa_subt_example.git
+[submodule "simulation/ground_robot_sim"]
+	path = simulation/ground_robot_sim
+	url = git@bitbucket.org:cmusubt/ground_robot_sim.git
+[submodule "simulation/pointgrey_camera_driver"]
+	path = simulation/pointgrey_camera_driver
+	url = git@bitbucket.org:cmusubt/pointgrey_camera_driver.git
+[submodule "simulation/rotors_gazebo_plugins"]
+	path = simulation/rotors_gazebo_plugins
+	url = git@bitbucket.org:cmusubt/rotors_gazebo_plugins.git
+[submodule "simulation/subt_gazebo"]
+	path = simulation/subt_gazebo
+	url = git@bitbucket.org:cmusubt/subt_gazebo.git
+[submodule "simulation/velodyne_gazebo_plugins"]
+	path = simulation/velodyne_gazebo_plugins
+	url = git@bitbucket.org:cmusubt/velodyne_gazebo_plugins.git
+[submodule "simulation/velodyne_simulator"]
+	path = simulation/velodyne_simulator
+	url = git@bitbucket.org:castacks/velodyne_simulator.git
