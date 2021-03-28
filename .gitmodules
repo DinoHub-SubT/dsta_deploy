@@ -16,3 +16,51 @@
 [submodule "subt_launch"]
 	path = subt_launch
 	url = git@bitbucket.org:cmusubt/deploy_central_launch.git
+[submodule "basestation/basestation_gui_python"]
+	path = basestation/basestation_gui_python
+	url = git@bitbucket.org:cmusubt/basestation_gui_python.git
+[submodule "basestation/basestation_launch"]
+	path = basestation/basestation_launch
+	url = git@bitbucket.org:cmusubt/basestation_launch.git
+[submodule "basestation/behavior_tree"]
+	path = basestation/behavior_tree
+	url = git@bitbucket.org:cmusubt/behavior_tree.git
+[submodule "basestation/comms_monitor"]
+	path = basestation/comms_monitor
+	url = git@bitbucket.org:cmusubt/comms_monitor.git
+[submodule "basestation/darpa_command_post"]
+	path = basestation/darpa_command_post
+	url = git@bitbucket.org:cmusubt/darpa_command_post.git
+[submodule "basestation/entrance_calib"]
+	path = basestation/entrance_calib
+	url = git@bitbucket.org:cmusubt/entrance_calib.git
+[submodule "basestation/image_brighten_ros"]
+	path = basestation/image_brighten_ros
+	url = https://github.com/ntnu-arl/image_brighten_ros.git
+[submodule "basestation/manual-calib"]
+	path = basestation/manual-calib
+	url = git@bitbucket.org:cmusubt/manual-calib.git
+[submodule "basestation/plant_artifact"]
+	path = basestation/plant_artifact
+	url = git@bitbucket.org:cmusubt/plant_artifact.git
+[submodule "basestation/robot_monitor"]
+	path = basestation/robot_monitor
+	url = git@bitbucket.org:cmusubt/robot_monitor.git
+[submodule "basestation/rqt_tsgui"]
+	path = basestation/rqt_tsgui
+	url = git@bitbucket.org:cmusubt/rqt_tsgui.git
+[submodule "basestation/rviz_multi_waypoint_plugin"]
+	path = basestation/rviz_multi_waypoint_plugin
+	url = git@bitbucket.org:cmusubt/rviz_multi_waypoint_plugin.git
+[submodule "basestation/subt_control_panel"]
+	path = basestation/subt_control_panel
+	url = git@bitbucket.org:cmusubt/subt_control_panel.git
+[submodule "basestation/subt_control_panel_web"]
+	path = basestation/subt_control_panel_web
+	url = git@bitbucket.org:cmusubt/subt_control_panel_web.git
+[submodule "basestation/total_station_gate_node"]
+	path = basestation/total_station_gate_node
+	url = git@bitbucket.org:cmusubt/total_station_gate_node.git
+[submodule "basestation/waypoint_rviz_plugin"]
+	path = basestation/waypoint_rviz_plugin
+	url = git@bitbucket.org:cmusubt/waypoint_rviz_plugin.git
