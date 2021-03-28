@@ -1,0 +1,17 @@
+blacklist: []
+build_space: ../../build/uav/inside/
+catkin_make_args: []
+cmake_args: []
+devel_layout: linked
+devel_space: ../../devel/uav/inside/
+extend_path: ../../devel/uav/inside/common
+install: false
+install_space: ../../install/inside/uav/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/uav/inside/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

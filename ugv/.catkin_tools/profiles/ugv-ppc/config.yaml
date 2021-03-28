@@ -1,0 +1,21 @@
+blacklist:
+  - xsens_cpp_driver
+  - xsense_driver
+  - receive_xsens
+build_space: ../../build/ugv/ppc
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/ppc
+extend_path: ../../devel/ugv/ppc/common
+install: false
+install_space: ../../install/ugv/ppc
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/ppc
+make_args: []
+source_space: planning-pc
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

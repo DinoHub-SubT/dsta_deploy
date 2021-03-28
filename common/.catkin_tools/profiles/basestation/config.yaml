@@ -1,0 +1,22 @@
+blacklist:
+- rosmon
+- rosmon_core
+- rosmon_msgs
+- rqt_rosmon
+build_space: ../../build/basestation/common/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/basestation/common/
+extend_path: /opt/ros/melodic
+install: false
+install_space: ../../install/basestation/common/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/basestation/common/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

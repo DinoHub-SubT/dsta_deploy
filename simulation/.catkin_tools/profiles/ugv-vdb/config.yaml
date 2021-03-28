@@ -1,0 +1,21 @@
+blacklist:
+- gazebo_interface
+- core_gazebo_interface
+- behavior_executive
+build_space: ../../build/ugv/vdb/simulation/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/vdb/simulation/
+extend_path: /home/developer/deploy_ws/devel/ugv/vdb/simulation/darpa
+install: false
+install_space: ../../install/ugv/vdb/simulation/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/vdb/simulation/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

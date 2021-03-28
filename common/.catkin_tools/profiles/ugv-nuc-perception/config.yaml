@@ -1,0 +1,24 @@
+blacklist:
+- object_ledger
+build_space: ../../build/perception/common/
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/perception/common/
+extend_path: /opt/ros/melodic
+install: false
+install_space: ../../install/perception/common/
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/perception/common/
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist:
+- objdet_msgs
+- rosmon
+- rosmon_core
+- rosmon_msgs
+- rqt_rosmon
