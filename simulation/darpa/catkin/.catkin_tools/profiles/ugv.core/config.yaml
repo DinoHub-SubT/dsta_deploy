@@ -1,0 +1,20 @@
+blacklist:
+  - subt_gazebo
+  - subt_example
+build_space: ../../../../build/ugv/simulation/darpa
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../../../devel/ugv/simulation/darpa
+extend_path: ../../../../devel/ugv/core
+install: false
+install_space: ../../../../install/ugv/simulation/darpa
+isolate_install: false
+jobs_args: []
+log_space: ../../../../logs/ugv/simulation/darpa
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []
