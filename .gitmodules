@@ -499,3 +499,6 @@
 [submodule "simulation/velodyne_simulator"]
 	path = simulation/velodyne_simulator
 	url = git@bitbucket.org:castacks/velodyne_simulator.git
+[submodule "operations"]
+	path = operations
+	url = git@bitbucket.org:cmusubt/deploy_operations.git
