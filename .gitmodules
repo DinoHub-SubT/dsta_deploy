@@ -1,18 +1,3 @@
-[submodule "operations/ci/scripts/ci_jenkins"]
-	path = operations/ci/scripts/ci_jenkins
-	url = git@bitbucket.org:cmusubt/ci_jenkins.git
-[submodule "operations/ci/scripts/ci_phase"]
-	path = operations/ci/scripts/ci_phase
-	url = git@bitbucket.org:cmusubt/ci_phase.git
-[submodule "operations/docker"]
-	path = operations/deploy/docker
-	url = git@bitbucket.org:cmusubt/deploy_docker.git
-[submodule "operations/deploy/deployer"]
-	path = operations/deploy/deployer
-	url = git@bitbucket.org:cmusubt/ci_phase.git
-[submodule "operations/robot_snapshot/ugv_setup"]
-	path = operations/robot_snapshot/ugv_setup
-	url = git@bitbucket.org:cmusubt/ugv_setup.git
 [submodule "subt_launch"]
 	path = subt_launch
 	url = git@bitbucket.org:cmusubt/deploy_central_launch.git
@@ -514,3 +499,6 @@
 [submodule "simulation/velodyne_simulator"]
 	path = simulation/velodyne_simulator
 	url = git@bitbucket.org:castacks/velodyne_simulator.git
+[submodule "operations"]
+	path = operations
+	url = git@bitbucket.org:cmusubt/deploy_operations.git
