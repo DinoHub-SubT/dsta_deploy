@@ -15,7 +15,7 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 ## 1. Create the Cloud Infrastructure
 
-Follow the [Terraform Setup](https://bitbucket.org/cmusubt/deploy_operations/src/develop/azurebooks/README.md) instructions, to create the Azure resources.
+Follow the [Terraform Setup](terraform-setup.md) instructions, to create the Azure resources.
 
 - Creates an example azure infrastructure with VMs, virtual networking, VPN in the `SubT` resource group.
 - Gives an introduction tutorial on using the `terraform` tools for maintaining the Azure resources.

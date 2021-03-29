@@ -125,7 +125,9 @@ Clone the all the submodules, to their latest updates:
 
 ## 2.b.More Reading
 
+
 Please read [About Workspace Layout](docs/deploy-layout.md) for getting familiar with the workspace layout.
+
 
 Please read [Git Helpers](docs/deploy-git.md) for getting familiar with the deployer's git helper tools.
 
