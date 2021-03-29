@@ -23,35 +23,29 @@ If you have neither, please notify the maintainer. You will need one of those tw
         # cpu shell
 
         # start the container
-        subt deployer local.uav.uav1.cpu.docker.shell.core
+        subt deployer local.uav.uav1.core.docker.shell.start
 
         # clean the previous built workspaces
-        subt deployer local.uav.uav1.cpu.catkin.clean
+        subt deployer local.uav.uav1.core.catkin.clean
 
-        # build the PX4 firmware
-        subt deployer local.uav.uav1.cpu.catkin.px4
-
-        # catkin build the 'core' UGV workspaces
-        subt deployer local.uav.uav1.cpu.catkin.core.build
-
-        # (optional) catkin build 'perception' the UGV workspaces
-        subt deployer local.uav.uav1.cpu.catkin.perception.build
+        # build the uav's core workspace
+        subt deployer local.uav.uav1.core.catkin.build
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
         # stop the docker container
-        subt deployer local.uav.uav1.cpu.docker.stop
+        subt deployer local.uav.uav1.core.docker.shell.stop
 
         # remove the docker container
-        subt deployer local.uav.uav1.cpu.docker.rm
+        subt deployer local.uav.uav1.core.docker.shell.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

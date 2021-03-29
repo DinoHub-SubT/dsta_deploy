@@ -9,7 +9,7 @@ Assuming you have already setup all your docker containers, follow the instructi
 ## Catkin Build
 
         # create the docker shell container
-        subt deployer robots.basestation.docker.shell
+        subt deployer robots.basestation.docker.shell.start
 
         # clean the previously built workspaces
         subt deployer robots.basestation.catkin.clean
@@ -22,16 +22,16 @@ Assuming you have already setup all your docker containers, follow the instructi
 You should remove containers when done with its development (for those that are available).
 
         # stop the docker container
-        subt deployer robots.basestation.docker.stop
+        subt deployer robots.basestation.docker.shell.stop
 
         # remove the docker container
-        subt deployer robots.basestation.docker.rm
+        subt deployer robots.basestation.docker.shell.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

@@ -9,17 +9,19 @@ Assuming you have already setup all your docker containers, follow the instructi
 ## 1. Catkin Build
 
         # create the docker shell on the remote host
-        subt deployer robots.ugv.ugv1.ppc.docker.shell
-        subt deployer robots.ugv.ugv1.nuc.docker.shell
-        subt deployer robots.ugv.ugv1.xavier.docker.shell
+        subt deployer robots.ugv.ugv1.ppc.docker.shell.start
+        subt deployer robots.ugv.ugv1.nuc.docker.shell.start
+        subt deployer robots.ugv.ugv1.xavier.docker.shell.start
 
         # clean the previous built workspaces
-        # - similarly for nuc, xavier
         subt deployer robots.ugv.ugv1.ppc.catkin.clean
+        subt deployer robots.ugv.ugv1.nuc.catkin.clean
+        subt deployer robots.ugv.ugv1.xavier.catkin.clean
 
         # catkin build the UGV workspaces
-        # - similarly for nuc, xavier
         subt deployer robots.ugv.ugv1.ppc.catkin.build
+        subt deployer robots.ugv.ugv1.nuc.catkin.build
+        subt deployer robots.ugv.ugv1.xavier.catkin.build
 
 You can build on all three computers with the following short-hand command:
 
@@ -33,18 +35,20 @@ You can build on all three computers with the following short-hand command:
 You should remove containers when done with its development.
 
         # stop the docker container
-        # - similarly for nuc, xavier
-        subt deployer robots.ugv.ugv1.ppc.docker.stop
+        subt deployer robots.ugv.ugv1.ppc.docker.shell.stop
+        subt deployer robots.ugv.ugv1.nuc.docker.shell.stop
+        subt deployer robots.ugv.ugv1.xavier.docker.shell.stop
 
         # remove the docker container
-        # - similarly for nuc, xavier
-        subt deployer robots.ugv.ugv1.ppc.docker.rm
+        subt deployer robots.ugv.ugv1.ppc.docker.shell.rm
+        subt deployer robots.ugv.ugv1.nuc.docker.shell.rm
+        subt deployer robots.ugv.ugv1.xavier.docker.shell.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

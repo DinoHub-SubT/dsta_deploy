@@ -20,11 +20,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.uav.uav1.docker.registry.pull
+        subt deployer azure.uav.uav1.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer azure.uav.uav1.docker.stop
-        subt deployer azure.uav.uav1.docker.rm
+        subt deployer azure.uav.uav1.docker.shell.stop
+        subt deployer azure.uav.uav1.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -36,13 +36,10 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker images (in any order):
 
-        # core
-        subt/uav-cpu:uav
-        subt/uav-cpu:ros
-
-        # perception
-        subt/perception-cpu:0.1
-        subt/perception-cpu:ros
+        subt/x86.uav.cpu.core                                 249324c
+        subt/x86.uav.cpu.perception                           249324c
+        subt/x86.uav.cpu.superodometry                        249324c
+        subt/x86.uav.cpu.ros.melodic                          249324c
 
 Return To Localhost
 
@@ -53,10 +50,9 @@ Return To Localhost
 
 **Create Docker Containers**
 
-Follow this step, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
+Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        # create the UAV docker container
-        subt deployer azure.uav1.docker.shell
+        subt deployer azure.uav.uav1.core.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -68,7 +64,7 @@ Follow this step, **on the localhost**, not on the Azure remote VM. These steps 
 
 Verify you see the following docker containers (in any order):
 
-        uav-cpu-shell
+        uav1-shell
 
 Return To Localhost
 

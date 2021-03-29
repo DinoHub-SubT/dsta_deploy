@@ -28,7 +28,7 @@ Follow these steps, **on the basestation**.
         # (ROBTS DO NOT HAVE INTERNET) pull the docker images from the basestation docker registry
 
         # step 1. pull docker images from azure to the basestation
-        subt deployer local.ugv.ugv1.docker.registry.pull
+        subt deployer local.ugv.ugv1.docker.registry.azure.pull
 
         # step 2. pull the docker images from the basestation to the robots
         subt deployer robots.ugv.ugv1.ppc.docker.registry.basestation.pull
@@ -42,16 +42,16 @@ Follow these steps, **on the basestation**.
 Follow these steps, **on the basestation**.
 
         # stop any previous robot containers
-        subt deployer robots.ugv.ugv1.ppc.docker.stop
-        subt deployer robots.ugv.ugv1.nuc.docker.stop
-        subt deployer robots.ugv.ugv1.xavier.docker.stop
+        subt deployer robots.ugv.ugv1.ppc.core.docker.shell.stop
+        subt deployer robots.ugv.ugv1.nuc.core.docker.shell.stop
+        subt deployer robots.ugv.ugv1.xavier.core.docker.shell.stop
 
         # stop any previous robot containers
-        subt deployer robots.ugv.ugv1.ppc.docker.rm
-        subt deployer robots.ugv.ugv1.nuc.docker.rm
-        subt deployer robots.ugv.ugv1.xavier.docker.rm
+        subt deployer robots.ugv.ugv1.ppc.core.docker.shell.rm
+        subt deployer robots.ugv.ugv1.nuc.core.docker.shell.rm
+        subt deployer robots.ugv.ugv1.xavier.core.docker.shell.rm
 
         # create all the ugv docker containers on all computers
-        subt deployer robots.ugv.ugv1.ppc.docker.shell
-        subt deployer robots.ugv.ugv1.nuc.docker.shell
-        subt deployer robots.ugv.ugv1.xavier.docker.shell
+        subt deployer robots.ugv.ugv1.ppc.core.docker.shell.start
+        subt deployer robots.ugv.ugv1.nuc.core.docker.shell.start
+        subt deployer robots.ugv.ugv1.xavier.core.docker.shell.start

@@ -20,11 +20,11 @@ Pull the ugv docker images from the Azure docker registry:
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer robots.basestation.docker.registry.pull
+        subt deployer robots.basestation.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer robots.basestation.docker.stop
-        subt deployer robots.basestation.docker.rm
+        subt deployer robots.basestation.docker.shell.stop
+        subt deployer robots.basestation.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -33,8 +33,8 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        subt/basestation-cpu:0.1
-        subt/basestation-cpu:ros
+        subt/x86.basestation.cpu.core                         249324c
+        subt/x86.basestation.cpu.ros.melodic                  249324c
 
 ## 2. Docker Containers
 
@@ -42,11 +42,7 @@ Verify you see the following docker images (in any order):
 
 Create the basestation docker container:
 
-        # remove any previous containers
-        subt deployer robots.basestation.docker.rm
-
-        # create the basestation shell container
-        subt deployer robots.basestation.docker.shell
+        subt deployer robots.basestation.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -55,4 +51,4 @@ Create the basestation docker container:
 
 Verify you see the following docker containers (in any order):
 
-        basestation-cpu-shell
+        basestation-shell

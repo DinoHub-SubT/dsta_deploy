@@ -1,7 +1,6 @@
 # Azure Virtual Machine Prerequisites
 
-The Azure instructions assumes that the user has already completed the *Azure Cloud Infrastructure Setup* at [`operations/deploy/azurebooks/README.md`](../operations/deploy/azurebooks/README.md).
-
+The Azure instructions assumes that the user has already completed the *Azure Cloud Infrastructure Setup* at [Terraform Setup](../operations/azurebooks/README.md).
 
 Please follow the below instructions **on your localhost** (not on the VMs).
 

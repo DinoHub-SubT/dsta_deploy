@@ -70,7 +70,7 @@ Or manually remove the docker containers:
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 
@@ -87,7 +87,7 @@ You can transfer changes from your localhost to the remote:
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in the file:
 
-        operations/deploy/scenarios/.perception.env
+        operations/scenarios/transfer/perception.env
 
 You can edit the option: `deploy_rsync_opts`
 

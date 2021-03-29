@@ -6,15 +6,15 @@ There are a few operational tools available to use:
 
 `docker`
 
-  - command interface to interact with `dockerfiles` found in `operations/deploy/docker/dockerfiles`
+  - command interface to interact with `dockerfiles` found in `operations/docker/dockerfiles`
 
 `docker-compose`
 
-  - command interface to interact with `docker-compose.yml` files found in `operations/deploy/docker/dockerfiles/`
+  - command interface to interact with `docker-compose.yml` files found in `operations/docker/dockerfiles/`
 
 `docker-compose-wrapper`
 
-  - command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/deploy/scenarios`
+  - command interface to wrap `docker compose` and with `scenario` configuration files found in `operations/scenarios`
 
 `docker context`
 
@@ -22,12 +22,12 @@ There are a few operational tools available to use:
 
 `deployer`
 
-  - command interface to interact with `deployerfiles` found in `operations/deploy/deploybooks/`
+  - command interface to interact with `deployerfiles` found in `operations/deploybooks/`
   - automates running the tutorial steps, with realtime command output.
 
 `ansible`
 
-  - command interface to interact with `ansible playbooks` found in `operations/deploy/robotbooks/`
+  - command interface to interact with `ansible playbooks` found in `operations/robotbooks/`
   - automates installing dependencies and setting up systems.
 
 `subt tools ssh`

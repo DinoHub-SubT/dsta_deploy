@@ -4,7 +4,7 @@
 
 ### Teamviewer
 
-        # ssh into the remote VM. Example:
+        # ssh into the remote VM.
         ssh azure.ugv1
 
         # view teamviewer info
@@ -33,12 +33,12 @@ If you do not prefer to use Teamveiwer, you can use RDP instead.
         ssh azure.ugv1
 
         # enter the docker shell container
-        docker-join.bash --name ugv-sim-shell
+        docker-join.bash -n ugv-shell
 
 ## 3. Launch UGV Simulation
 
         # load the tmux session. Example launch `ugv1`
-        ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/ugv.yaml
+        ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/ugv.yaml
 
         # (OPTIONAL) open a new tab/window and publish a waypoint
         rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'

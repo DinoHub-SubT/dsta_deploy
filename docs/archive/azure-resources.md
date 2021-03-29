@@ -76,7 +76,7 @@ Change the personalized cert key variable in the `~/.terraform_flags.bashrc` ter
 **Apply Changes to Azure**
 
       # apply the VPN gateway, this can take up to 30 minutes, just for the VPN. It can be longer if setting up more resources
-      cd ~/deploy_ws/src/operations/deploy/azurebooks/subt/
+      cd ~/deploy_ws/src/operations/azurebooks/subt/
 
       # Dry-run: shows the user the azure deployment
       terraform plan
@@ -160,7 +160,7 @@ The subt terraform example has remote desktop port enabled.
         sudo apt-get install rdesktop
 
         # edit the params here:
-        vim operations/deploy/scripts/example-remote-desktop.bash
+        vim operations/scripts/example-remote-desktop.bash
 
         # close the script & make it executable
         chmod +x my-rdp-client.bash

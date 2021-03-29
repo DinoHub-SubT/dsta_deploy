@@ -6,7 +6,7 @@ You will need to prepare the Azure VMs by installing all the dependencies you ha
 
 - There are `ansible` scripts available that automates this process.
 
-The `ansible` scripts can be found at: `operations/deploy/robotbooks`
+The `ansible` scripts can be found at: `operations/ansiblebooks`
 
 - Users can add to the scripts if there are missing dependencies.
 
@@ -36,13 +36,7 @@ The `ansible` scripts do not give realtime output.
         subt cloud ansible help
 
         # view available azure connections
-        subt cloud ansible -az
-
-        # view available robot connections
-        subt cloud ansible -r
-
-        # view available localhost connections
-        subt cloud ansible -l
+        subt cloud ansible -s
 
         # view available ansible playbooks
         subt cloud ansible -b
@@ -153,7 +147,7 @@ The SubT Azure VMs has remote desktop port enabled.
 **Run the RDP client script (localhost)**
 
         # template
-        azure-rdp --title [window title] --host [ VM HOST ] --user subt --pass Password1234! --res 1920x1080
+        subt tools rdp --title [window title] --host [ VM HOST ] --user subt --pass Password1234! --res 1920x1080
 
         # example
-        azure-rdp --title basestation --host azure-basestation --user subt --pass Password1234! --res 1920x1080
+        subt tools rdp --title basestation --host azure-basestation --user subt --pass Password1234! --res 1920x1080

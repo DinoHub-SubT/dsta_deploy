@@ -20,15 +20,15 @@ Follow these steps, **on the basestation**.
         az acr login --name subtexplore
 
         # (ROBTS HAVE INTERNET) pull the docker images from the azure docker registry
-        subt deployer robots.ds.ds1.docker.registry.azure.pull
+        subt deployer robots.uav.ds1.docker.registry.azure.pull
 
         # (ROBTS DO NOT HAVE INTERNET) pull the docker images from the basestation docker registry
 
         # step 1. pull docker images from azure to the basestation
-        subt deployer local.uav.uav1.cpu.docker.registry.pull
+        subt deployer local.uav.uav1.docker.registry.azure.pull
 
         # step 2. pull the docker images from the basestation to the robots
-        subt deployer robots.ds.ds1.docker.registry.basestation.pull
+        subt deployer robots.uav.ds1.docker.registry.basestation.pull
 
 **Verify Docker Images**
 
@@ -40,11 +40,10 @@ Follow these steps, **on the basestation**.
 
 Verify you see the following docker images (in any order):
 
-        subt/uav-cpu:superodometry
-        subt/uav-cpu:uav
-        subt/uav-cpu:ros
-        subt/uav-gpu:uav
-        subt/uav-gpu:ros
+        subt/x86.uav.cpu.core                                 249324c
+        subt/x86.uav.cpu.perception                           249324c
+        subt/x86.uav.cpu.superodometry                        249324c
+        subt/x86.uav.cpu.ros.melodic                          249324c
 
 Return To Localhost
 
@@ -58,7 +57,7 @@ Return To Localhost
 Follow these steps, **on the basestation**.
 
         # create all the ugv docker containers on all computers
-        subt deployer robots.ds.ds1.docker.shell
+        subt deployer robots.uav.ds1.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -70,8 +69,7 @@ Follow these steps, **on the basestation**.
 
 Verify you see the following docker containers (in any order):
 
-        uav-cpu-shell
-        uav-super-shell
+        uav-shell
         uav-perception-shell
 
 Return To Localhost

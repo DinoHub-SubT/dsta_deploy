@@ -22,7 +22,7 @@ If you find the `transfer.to` is too slow. then try this command:
 - `skel_t.to` will not copy your `.git` so your VM's git status will not be synchronized.
 - A suggested practice would be to just use `git` on your localhost and just transfer code to VMs.
 
-You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.ugv.env`
+You can edit the transfer options: `deploy_rsync_opts` in `operations/scenarios/transfer/ugv.env`
 
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
 - **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
@@ -30,13 +30,13 @@ You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/sce
 ## Catkin Build
 
         # create the docker shell on the remote host
-        subt deployer azure.ugv.ugv1.docker.shell.sim
+        subt deployer azure.ugv.ugv1.core.docker.shell.start
 
         # clean the previous built workspaces
-        subt deployer azure.ugv.ugv1.catkin.clean
+        subt deployer azure.ugv.ugv1.core.catkin.clean
 
         # catkin build the UGV simulation workspaces
-        subt deployer azure.ugv.ugv1.catkin.build
+        subt deployer azure.ugv.ugv1.core.catkin.build
 
 - Please change the robot name `ugv1` to whichever Azure robot VM you are building on.
 
@@ -47,32 +47,10 @@ You should remove containers when done with its development.
 Automated remove the docker containers:
 
         # stop the docker container
-        subt deployer azure.ugv.ugv1.docker.stop
+        subt deployer azure.ugv.ugv1.core.docker.shell.stop
 
         # remove the docker container
-        subt deployer azure.ugv.ugv1.docker.rm
-
-Or manually remove the docker containers (for those that are available):
-
-        ssh azure.ugv1
-
-        # stop the running container
-        docker stop ppc-shell
-
-        # remove the container
-        docker rm ppc-shell
-
-        # stop the running container
-        docker stop nuc-shell
-
-        # remove the container
-        docker rm nuc-shell
-
-        # stop the running container
-        docker stop ugv-sim-shell
-
-        # remove the container
-        docker rm ugv-sim-shell
+        subt deployer azure.ugv.ugv1.core.docker.shell.rm
 
 - The above steps will remove the containers.
 
@@ -80,7 +58,7 @@ Or manually remove the docker containers (for those that are available):
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

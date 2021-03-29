@@ -20,11 +20,11 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.ugv.ugv1.docker.registry.pull
+        subt deployer azure.ugv.ugv1.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer azure.ugv.ugv1.docker.stop
-        subt deployer azure.ugv.ugv1.docker.rm
+        subt deployer azure.ugv.ugv1.docker.shell.stop
+        subt deployer azure.ugv.ugv1.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -36,10 +36,10 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker images (in any order):
 
-        subt/ugv:ppc
-        subt/ugv:nuc
-        subt/ugv:sim
-        subt/ugv:ros
+        subt/x86.ugv.cpu.core                                 249324c
+        subt/x86.ugv.cpu.perception                           249324c
+        subt/x86.ugv.cpu.superodometry                        249324c
+        subt/x86.ugv.cpu.ros.melodic                          249324c
 
 Return To Localhost
 
@@ -52,7 +52,7 @@ Return To Localhost
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        subt deployer azure.ugv1.docker.shell.sim
+        subt deployer azure.ugv.ugv1.core.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -64,7 +64,7 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker containers (in any order):
 
-        ugv-sim-shell
+        ugv1-shell
 
 Return To Localhost
 

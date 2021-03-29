@@ -52,10 +52,10 @@ Transfer the local deploy repository to the remote host, using the `deployer -s 
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in any of the setup files:
 
-        operations/deploy/scenarios/.basestation.env
-        operations/deploy/scenarios/.ugv.env
-        operations/deploy/scenarios/.uav.env
-        operations/deploy/scenarios/.perception.env
+        operations/scenarios/transfer/basestation.env
+        operations/scenarios/transfer/ugv.env
+        operations/scenarios/transfer/uav.env
+        operations/scenarios/transfer/perception.env
 
 You can edit the option: `deploy_rsync_opts`
 

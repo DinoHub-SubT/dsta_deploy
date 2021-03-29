@@ -79,194 +79,44 @@ Please have a basic understanding of the following the operational tools:
 
 * * *
 
-# SubT Getting Started
-
-### 1. Bitbucket SSH Keys
-
-- Generate ssh keys for subt bitbucket:
-
-        mkdir -p ~/.ssh/
-        cd ~/.ssh/
-        ssh-keygen
-
-    - Answer the prompts from `ssh-keygen` as shown below:
-
-            Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
-            Enter passphrase (empty for no passphrase):
-
-    - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
-    - **Docker will not build successfully if you have a passphrase.**
-    - Replace `<USER-NAME>` with your actual username
-
-- Add the generated public key to your bitbucket user: see [**STEP 4**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings)
-
-- Add the ssh bitbucket key to your localhost ssh config file:
-
-        # create (if not created) ssh config file
-        touch ~/.ssh/config
-
-        # open the ssh config file
-        gedit ~/.ssh/config
-
-        # Add the following to the top of the config file:
-        IdentityFile ~/.ssh/bitbucket
-
-        # exit the ssh config file
-
-
-### 2. Clone the deploy repo
-
-        mkdir ~/deploy_ws/
-        cd ~/deploy_ws/
-        git clone git@bitbucket.org:cmusubt/deploy.git src
-        cd src
-        git checkout develop
-
-### 3. Install ansible (automated installer script)
-
-        # deployer dependencies
-        sudo apt-get update
-        sudo apt install -y --no-install-recommends python2.7 python-setuptools python-pip
-        pip2 install wheel --user
-        pip2 install setuptools PyYAML pexpect --user
-
-        # install ansible
-        sudo apt update
-        sudo apt install software-properties-common
-        sudo apt-add-repository --yes --update ppa:ansible/ansible
-        sudo apt install ansible
-
-### 4. Personalize dependency install
-
-Open `operations/deploy/robotbooks/vars/user-inputs.yaml`
-
-- If you have an nvidia card, change from `install_nvidia_docker: false` to `install_nvidia_docker: true`.
-- If you want to install ROS melodic, change from `install_ros: false` to `install_ros: true`.
-
-Feel free to change any of the other options.
-
-### 5. Install system dependencies
-
-        # run the deployer operations install
-        # - you only need to run this command when there are changes to operations
-        # - the maintainer will notify everyone when to re-run this command
-        cd ~/deploy_ws/src
-        ./install-deployer.bash --install
-
-        # source your bashrc (or zsh or whichever shell you are using)
-        # - or open up a new terminal
-        source ~/.bashrc
-
-        # run the system dependencies install
-        # - please enter your LOCALHOST PASSWORD when prompted
-        subtani_install.sh localhost install-localhost.yaml -p
-
-- The ansible installer *might fail* for some users, since everyone has a slightly different system.
-- If there are any errors, **please notify the maintainer** and see *Common Ansible Install Errors* below to solve them.
-
-### 6. Verify Installations
-
-Verify you have all the operations tools installed correctly:
-
-        # verify docker
-        docker --version
-
-        # verify docker-compose
-        docker-compose -v
-
-        # verify nvidia-docker
-        nvidia-docker -v
-
-        # verify ansible configuration management tools
-        ansible --version
-
-        # verify terraform cloud provisioning tool
-        terraform --version
-
-        # verify azure cli
-        az --help
-
-        # verify azcopy
-        azcopy -v
-
-        # (optional) teamviewer client for remote VM desktop access
-        teamviewer --help
-
-        # verify docker-compose shows the help usage message
-        docker-compose-wrapper --help
-
-        # verify deployer script shows the help usage message
-        ./deployer --help
-
-        # verify SubT autocompleter
-        subt help
-
-- Notify the maintainer if any of the `help` usage messages do not show up.
-
-### 7. Common Ansible Install Errors (optional):
-
-**Error: apt-get failed**
-
-- Check `apt-get update` shows NO ERRORS. If so, fix your `apt` sources, before re-running the ansible script.
-
-**Error: permission denied**
-
-- *Solution:*
-
-    - Double check the password you entered. Make sure its the same password you use to login to your user.
-
-- *Solution:*
-
-        sudo visudo
-
-        # Allow user to perform sudo on certain commands, where 'katarina' is my username
-        YOUR-USER-NAME ALL=NOPASSWD: ALL
-
-    - This is a security risk, **please remember** to remove once done with the ansible script.
-
-**Error: ansible fails on `docker hello world`**
-
-- Docker still needs to use `sudo` (it should work without `sudo`) because the docker group did not correctly reset in the ansible script.
-
-- *Solution:*
-
-        # reset your user group
-        Log out and back in (or restart your computer)
-
-        # retry & confirm docker runs without `sudo`
-        docker ps
-
-        # re-run the ansible script
-        subtani_install.sh ...
-
-**Notify the maintainer if any of the above deploy setup steps failed.**
-
-* * *
-
 # SubT Infrastructure
 
 The below instructions should get you started on a basic `SubT` setup locally, on Azure or on Robots.
 
 You will need to go through a few tutorials to have a working system.
 
-### 1. Clone Workspaces (Required)
+## 1. Getting Started
 
-**COMMENT: If you are DARPA members, then you can skip this step ONLY IF you have the code already.**
+Please see the [Getting Started With The Setup](./docs/getting-started.md) instructions.
 
-Clone the latest updates:
+## 2. Initialize Workspace
+
+**NOTE: If you are DARPA members, you can skip this step (we provide code directly).**
+
+All deployment operations are accessible by using the tool:
+
+        subt [TAB]
+
+  - Press `TAB` to auto-complete the selections available.
+  - Press `TAB SPACE` to show the help information for the auto-complete the selections available.
+
+Clone the all the submodules, to their latest updates:
 
         # resets all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
-        subt git reset localhost
+        subt git all.reset
 
-When you want to pull the latest updates, at the submodule's checked out branch (i.e. `DETACHED HEAD`):
+**(Optional)** When you want to pull the latest updates when checked out a branch in submodule:
 
         # pull the submodule's updates, when the submodules are checked-out at a specific branch.
-        subt git pull localhost
+        subt git all.pull
 
-**More options and information found in:** [`deploy-clone.md`](docs/deploy-clone.md)
+### More Reading
 
+Please read [About Workspace Layout](docs/deploy-layout.md) for getting familiar with the workspace layout.
 
-### 2. Docker Registry (Required)
+Please read [Git Helpers](docs/deploy-git.md) for getting familiar with the deployer's git helper tools.
+
+## 3. Docker Registry
 
 You will need to have an Azure account to access the azure docker registry of where we store docker images.
 
@@ -276,11 +126,9 @@ You will need to have an Azure account to access the azure docker registry of wh
         # login to the subt docker registry
         az acr login --name subtexplore
 
-### 3. Azure Cloud Infrastructure Setup (Optional)
+### 4. (Optional) Azure Cloud Infrastructure Setup
 
-**Tutorial at:** [`azure-setup.md`](docs/azure-setup.md)
-
-- Follow this tutorial only if you are planning on using the Azure Cloud resource.
+Follow the [Azure Setup](docs/azure-setup.md) instructions to setup Azure Cloud resources.
 
 This tutorial will setup the following:
 
@@ -288,70 +136,70 @@ This tutorial will setup the following:
 - Sets up remote desktop access.
 - Create the docker images, containers on the remote VMs.
 
-### 4. Docker Engine Setup (Required)
+### 5. Docker Engine Setup
 
--- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
+-- | Localhost | Azure | Robot |
 --- | ---  |--- | --- |
-**Basestation**  | [`local-docker-basestation.md`](docs/docker/local-docker-basestation.md) | [`azure-docker-basestation.md`](docs/docker/azure-docker-basestation.md) | [`robots-docker-basestation.md`](docs/docker/robots-docker-basestation.md) |
-**UGV** | [`local-docker-ugv.md`](docs/docker/local-docker-ugv.md) | [`azure-docker-ugv.md`](docs/docker/azure-docker-ugv.md)| [`robots-docker-ugv.md`](docs/docker/robots-docker-ugv.md) |
-**UAV** | [`local-docker-uav.md`](docs/docker/local-docker-uav.md) | [`azure-docker-uav.md`](docs/docker/azure-docker-uav.md)| [`robots-docker-uav-setup.md`](docs/docker/robots-docker-uav.md) |
-**Perception** | [`local-docker-perception.md`](docs/docker/local-docker-perception.md) | [`azure-docker-perception-setup.md`](docs/docker/azure-docker-perception.md)| |
+**Basestation**  | [local-docker-basestation.md](docs/docker/local-docker-basestation.md) | [azure-docker-basestation.md](docs/docker/azure-docker-basestation.md) | [robots-docker-basestation.md](docs/docker/robots-docker-basestation.md) |
+**UGV** | [local-docker-ugv.md](docs/docker/local-docker-ugv.md) | [azure-docker-ugv.md](docs/docker/azure-docker-ugv.md)| [robots-docker-ugv.md](docs/docker/robots-docker-ugv.md) |
+**UAV** | [local-docker-uav.md](docs/docker/local-docker-uav.md) | [azure-docker-uav.md](docs/docker/azure-docker-uav.md)| [robots-docker-uav-setup.md](docs/docker/robots-docker-uav.md) |
 
-### 5. Catkin Workspaces Setup (Required)
+### 6. Catkin Workspaces Setup
 
--- | Localhost Automated Setup | Azure Automated Setup | Robot Automated Setup |
+-- | Localhost | Azure | Robot |
 --- | --- |--- |--- |
-**Basestation** |  [`local-catkin-basestation.md`](docs/catkin/local-catkin-basestation.md) | [`azure-catkin-basestation.md`](docs/catkin/azure-catkin-basestation.md) | [`robots-catkin-basestation.md`](docs/catkin/robots-catkin-basestation.md)| |
-**UGV** | [`local-catkin-ugv.md`](docs/catkin/local-catkin-ugv.md) | [`azure-catkin-ugv.md`](docs/catkin/azure-catkin-ugv.md) | [`robots-catkin-ugv.md`](docs/catkin/robots-catkin-ugv.md)| |
-**UAV** | [`local-catkin-uav.md`](docs/catkin/local-catkin-uav.md) | [`azure-catkin-uav.md`](docs/catkin/azure-catkin-uav.md) | [`robots-catkin-uav.md`](docs/catkin/robots-catkin-uav.md)| |
-**Perception** | [`local-catkin-perception.md`](docs/catkin/local-catkin-perception.md) | [`azure-catkin-perception.md`](docs/catkin/azure-catkin-perception.md) | [`robots-catkin-perception.md`](docs/catkin/robots-catkin-perception.md) | |
+**Basestation** |  [local-catkin-basestation.md](docs/catkin/local-catkin-basestation.md) | [azure-catkin-basestation.md](docs/catkin/azure-catkin-basestation.md) | [robots-catkin-basestation.md](docs/catkin/robots-catkin-basestation.md)| |
+**UGV** | [local-catkin-ugv.md](docs/catkin/local-catkin-ugv.md) | [azure-catkin-ugv.md](docs/catkin/azure-catkin-ugv.md) | [robots-catkin-ugv.md](docs/catkin/robots-catkin-ugv.md)| |
+**UAV** | [local-catkin-uav.md](docs/catkin/local-catkin-uav.md) | [azure-catkin-uav.md](docs/catkin/azure-catkin-uav.md) | [robots-catkin-uav.md](docs/catkin/robots-catkin-uav.md)| |
 
-### 6. Simulation Launch Setup (Required)
+### 7. Simulation Launch Setup
 
--- | Localhost Tmux Launch | Azure Tmux Launch  |
+-- | Localhost Launch | Azure Launch |
 --- | --- | --- | --- | --- |
-**Basestation** | [`local-launch-basestation.md`](docs/launch/local-launch-basestation.md)| [`azure-launch-basestation.md`](docs/launch/azure-launch-basestation.md)|
-**UGV** | [`local-launch-ugv.md`](docs/launch/local-launch-ugv.md) | [`azure-launch-ugv.md`](docs/launch/azure-launch-ugv.md) |
-**UAV** | [`local-launch-uav.md`](docs/launch/local-launch-uav.md) | [`azure-launch-uav.md`](docs/launch/azure-launch-uav.md) |
+**Basestation** | [local-launch-basestation.md](docs/launch/local-launch-basestation.md)| [azure-launch-basestation.md](docs/launch/azure-launch-basestation.md)|
+**UGV** | [local-launch-ugv.md](docs/launch/local-launch-ugv.md) | [azure-launch-ugv.md](docs/launch/azure-launch-ugv.md) |
+**UAV** | [local-launch-uav.md](docs/launch/local-launch-uav.md) | [azure-launch-uav.md](docs/launch/azure-launch-uav.md) |
 
 * * *
 
 ## More References
 
+### Tutorials
+
+Please explore:
+
+    subt tutorial [TAB]
+
+You will find an summarized list of deployer commands, that was outlined in the readme.
+
+Use the `subt tutorial [TAB]` as a quick reference to find commonly used deployer completion commands.
 
 ### Updating Submodule Levels
 
-**Discussion at:** [`discuss-updating-deploy.md`](docs/discuss-updating-deploy.md)
+For examples on how to commit on all 3-levels, see [discussion of updating submodules](docs/discuss-updating-deploy.md) instructions.
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
 
+- For gif examples, please see [Getting Started Basics](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules) instructions.
+
 ### More Operational Tools
 
-**Discussion at:** [`discuss-operation-tools.md`](docs/discuss-operation-tools.md)
+For various subt handy operational tools available, see [discussion operation tools](docs/discuss-operation-tools.md) instructions.
 
 - Operational tools used in deploy, their function and their general syntax.
 - Helpful thidparty tools
 
 ### Managing Endpoints
 
-**Discussion at:** [`discuss-managing-endpoints.md`](docs/discuss-managing-endpoints.md)
+For the various options available for managing endpoints over remote hosts, please see [discussion for managing endpoints](docs/discuss-managing-endpoints.md) instructions.
 
 - Methods of managing multiple remote docker endpoints.
 - Remote development workflow.
 
-### More Tutorials
-
-Some tutorials can be found on the deploy "wiki" page:
-
-- [Submodules: Getting Started Basics](https://bitbucket.org/cmusubt/deploy/wiki/tutorials/submodules)
-
 ### Common Questions and Issues
 
-**Discussion at:** [`discuss-questions-issues.md`](docs/discuss-questions-issues.md)
-
-- Common questions
-- Known issues
+For common questions and issues please see [discussion of questions readme](docs/discuss-questions-issues.md) instructions.
 
 * * *
 

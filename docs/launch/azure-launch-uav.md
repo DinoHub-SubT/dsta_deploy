@@ -4,7 +4,7 @@
 
 ### Teamviewer
 
-        # ssh into the remote VM. Example:
+        # ssh into the remote VM.
         ssh azure.uav1
 
         # view teamviewer info
@@ -33,12 +33,12 @@ If you do not prefer to use Teamveiwer, you can use RDP instead.
         ssh azure.uav1
 
         # enter the docker shell container
-        docker-join.bash --name uav-cpu-shell
+        docker-join.bash -n uav-shell
 
 ## 3. Launch UAV Simulation
 
         # load the tmux session. Example launch `uav1`
-        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
+        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/uav.yaml
 
 ## 4. Verify Launch
 

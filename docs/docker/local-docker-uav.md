@@ -10,14 +10,7 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 All deployer commands should be done on the **localhost**.
 
-## 1. Prerequisites
-
-If you have Intel Integrated Graphics, please follow the below instructions with the `cpu` tag.
-If you have NVIDIA Graphics, please follow the below instructions, **but substitute the `cpu` tag with the `gpu` tag**.
-
-If you have neither, please notify the maintainer. You will need one of those two options to run.
-
-## 2. Docker Local Network
+## 1. Docker Local Network
 
 To enable multi robot docker simulations, you will need to setup a `docker network`
 
@@ -60,13 +53,15 @@ Pull the ugv docker images from the Azure docker registry:
         # azure registry login
         az acr login --name subtexplore
 
-        # pull the docker images
-        subt deployer local.uav.uav1.cpu.docker.registry.pull.core
-        subt deployer local.uav.uav1.cpu.docker.registry.pull.super
+        # pull all docker images
+        subt deployer local.uav.uav1.docker.registry.azure.pull
+
+        # (optional) pull a single docker images
+        subt deployer local.uav.uav1.core.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer local.uav.uav1.cpu.docker.stop
-        subt deployer local.uav.uav1.cpu.docker.rm
+        subt deployer local.uav.uav1.docker.shell.stop
+        subt deployer local.uav.uav1.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -75,13 +70,10 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        # core
-        subt/uav-cpu:uav
-        subt/uav-cpu:ros
-
-        # perception
-        subt/perception-cpu:0.1
-        subt/perception-cpu:ros
+        subt/x86.uav.cpu.core                                 249324c
+        subt/x86.uav.cpu.perception                           249324c
+        subt/x86.uav.cpu.superodometry                        249324c
+        subt/x86.uav.cpu.ros.melodic                          249324c
 
 ## 4. Docker Containers
 
@@ -89,12 +81,11 @@ Verify you see the following docker images (in any order):
 
 Create the uav simulation docker container:
 
-        # create the uav docker container
-        # - please user either the cpu or gpu shell. NOT BOTH.
-        # - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
+        # create the core uav docker container
+        subt deployer local.uav.uav1.core.docker.shell.start
 
-        # cpu shell
-        subt deployer local.uav.uav1.cpu.docker.shell.core
+        # (optional) create the perception uav docker container
+        subt deployer local.uav.uav1.perception.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -104,7 +95,7 @@ Create the uav simulation docker container:
 Verify you see the following docker containers (in any order):
 
         # cpu
-        uav1-cpu-shell
+        uav1-shell
 
 ## 5. Multi-Robot Simulation
 
@@ -113,20 +104,16 @@ If you wish to run multiple robot simulation on your localhost, you will need to
 Your multi robot options are:
 
         # create the uav1 container
-        subt deployer local.uav.uav1.cpu.docker.shell.core
+        subt deployer local.uav.uav1.core.docker.shell.start
 
         # create the uav2 container
-        subt deployer local.uav.uav2.cpu.docker.shell.core
+        subt deployer local.uav.uav2.core.docker.shell.start
 
-        # create the uav3 container
-        subt deployer local.uav.uav3.cpu.docker.shell.core
-
-        # create the uav4 container
-        subt deployer local.uav.uav4.cpu.docker.shell.core
+        ... there are uav1-uav4 options. remember to always TAB complete when trying to find the deployer commands.
 
 Each container will have a different IP. You should be able to ping each container (from inside the containers).
 
-When building the catkin workspaces, please just use one of the containers. You do not need to `catkin` build in all containers (the deploy workspace is mounted, so all containers will use the same `code`, `devel`, `build` paths).
+When building the catkin workspaces, please just use uav1 command. You do not need to `catkin` build in all containers (the deploy workspace is mounted, so all containers will use the same `code`, `devel`, `build` paths).
 
 ## 6. Comments
 

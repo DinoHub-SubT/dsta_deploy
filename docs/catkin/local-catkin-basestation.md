@@ -10,7 +10,7 @@ Assuming you have already setup all your docker containers, follow the instructi
 
         # create the docker shell on the remote host
         #   - you need to make sure the container is started before building
-        subt deployer local.basestation.docker.shell
+        subt deployer local.basestation.docker.shell.start
 
         # clean the previously built workspaces
         subt deployer local.basestation.catkin.clean
@@ -26,16 +26,16 @@ You should remove containers when done with its development (for those that are 
 Automated remove the docker containers:
 
         # stop the docker container
-        subt deployer local.basestation.docker.stop
+        subt deployer local.basestation.docker.shell.stop
 
         # remove the docker container
-        subt deployer local.basestation.docker.rm
+        subt deployer local.basestation.docker.shell.rm
 
 - When you continue with development, you will need to re-create the docker containers again.
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

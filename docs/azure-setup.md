@@ -15,7 +15,7 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 ## 1. Create the Cloud Infrastructure
 
-**Tutorial at:** [`operations/deploy/azurebooks/README.md`](../operations/deploy/azurebooks/README.md)
+Follow the [Terraform Setup](https://bitbucket.org/cmusubt/deploy_operations/src/develop/azurebooks/README.md) instructions, to create the Azure resources.
 
 - Creates an example azure infrastructure with VMs, virtual networking, VPN in the `SubT` resource group.
 - Gives an introduction tutorial on using the `terraform` tools for maintaining the Azure resources.
@@ -26,12 +26,12 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 **Verify** the cloud infrastructure was created. Go to the [portal.azure.com](https://portal.azure.com/#home) and search for your infrastructure setup.
 
-- In the `SubT` resource group, search for the `resource_name_prefix` you put in `operations/deploy/azurebooks/subt/main.tf`
+- In the `SubT` resource group, search for the `resource_name_prefix` you put in `operations/azurebooks/subt/main.tf`
 - Verify you see your resources created (like Virtual Machines, networking, etc) with your prefix.
 
 ## 3. Prepare The Virtual Machines
 
-**Tutorial at:** [`docs/azure-prepare.md`](azure-prepare.md)
+Follow the [Ansible Setup](azure-prepare.md) instructions, to initialize the Azure Virtual Machines.
 
 - This tutorial will install all the linux system dependencies on the Azure VMs.
 - This tutorial will install the deploy repo on the VM. So, to say it again, the user should not need to clone the deploy repo or any repo dependencies on the VM manually, the `ansible` install scripts should install everything.
@@ -44,4 +44,4 @@ You should now have the Azure infrastructure setup and be able to access (ssh, r
 
 - Notify the maintainer if any of the tutorial steps did not succeed.
 
-Go back to the top level [`Readme.md`](../README.md) to continue to build the catkin workspace on the Azure VMs.
+Go back to the top level [Readme.md](../README.md) to continue to build the catkin workspace on the Azure VMs.

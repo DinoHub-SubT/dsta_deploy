@@ -54,11 +54,11 @@ Pull the ugv docker images from the Azure docker registry:
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer local.ugv.ugv1.docker.registry.pull
+        subt deployer local.ugv.ugv1.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer local.ugv.ugv1.docker.stop
-        subt deployer local.ugv.ugv1.docker.rm
+        subt deployer local.ugv.ugv1.docker.shell.stop
+        subt deployer local.ugv.ugv1.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -67,10 +67,10 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        subt/ugv:ppc
-        subt/ugv:nuc
-        subt/ugv:sim
-        subt/ugv:ros
+        subt/x86.ugv.cpu.perception                           249324c
+        subt/x86.ugv.cpu.core                                 249324c
+        subt/x86.ugv.cpu.superodometry                        249324c
+        subt/x86.ugv.cpu.ros.melodic                          249324c
 
 ## 3. Creating Docker Containers
 
@@ -78,7 +78,7 @@ Verify you see the following docker images (in any order):
 
 Create the ugv simulation docker container:
 
-        subt deployer local.ugv.ugv1.docker.shell.sim
+        subt deployer local.ugv.ugv1.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -96,17 +96,16 @@ If you wish to run multiple robot simulation on your localhost, you will need to
 Your multi robot options are:
 
         # create the ugv1 container
-        subt deployer local.ugv.ugv1.docker.shell.sim
+        subt deployer local.ugv.ugv1.core.docker.shell.start
 
         # create the ugv2 container
-        subt deployer local.ugv.ugv2.docker.shell.sim
+        subt deployer local.ugv.ugv2.core.docker.shell.start
 
-        # create the ugv3 container
-        subt deployer local.ugv.ugv3.docker.shell.sim
+        ... there are ugv1-ugv3 options. remember to always TAB complete when trying to find the deployer commands.
 
 Each container will have a different IP. You should be able to ping each container (from inside the containers).
 
-When building the catkin workspaces, please just use one of the containers. You do not need to `catkin` build in all containers (the deploy workspace is mounted, so all containers will use the same `code`, `devel`, `build` paths).
+When building the catkin workspaces, please just use ugv1 command. You do not need to `catkin` build in all containers (the deploy workspace is mounted, so all containers will use the same `code`, `devel`, `build` paths).
 
 ## 5. Comments
 

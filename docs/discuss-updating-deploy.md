@@ -359,8 +359,8 @@ You can create branches in the intermediate-level submodule, so that you can eas
 
 Project dependencies are added to their respective `dockerfiles`.
 
-- Add any new dependencies to any files found in `operations/deploy/docker/dockerfiles` with the extension `.dockerfile`
-    - *For example:* `operations/deploy/docker/dockerfiles/ugv/services/sim.dockerfile` is the dockerfile for the running the ugv in simulation.
+- Add any new dependencies to any files found in `operations/docker/dockerfiles` with the extension `.dockerfile`
+    - *For example:* `operations/docker/dockerfiles/ugv/services/sim.dockerfile` is the dockerfile for the running the ugv in simulation.
 
 **Example steps:**
 

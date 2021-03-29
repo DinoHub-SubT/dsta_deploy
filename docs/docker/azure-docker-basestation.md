@@ -20,16 +20,15 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.basestation.docker.registry.pull
+        subt deployer azure.basestation.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer azure.basestation.docker.stop
-        subt deployer azure.basestation.docker.rm
+        subt deployer azure.basestation.docker.shell.stop
+        subt deployer azure.basestation.docker.shell.rm
 
 **Verify Docker Images**
 
         # ssh into your VM, change the below command to match your VM ssh access
-        # -- you can switch your docker context instead of ssh
         ssh azure.basestation
 
         # View the docker images built (on the remote VM)
@@ -37,8 +36,8 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker images (in any order):
 
-        subt/basestation-cpu:0.1
-        subt/basestation-cpu:ros
+        subt/x86.basestation.cpu.core                         249324c
+        subt/x86.basestation.cpu.ros.melodic                  249324c
 
 Return To Localhost
 
@@ -51,11 +50,7 @@ Return To Localhost
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        # (optional) remove any previously created docker containers
-        subt deployer azure.basestation.docker.rm
-
-        # create the basestation docker container
-        subt deployer azure.basestation.docker.shell
+        subt deployer azure.basestation.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -68,7 +63,7 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker containers (in any order):
 
-        basestation-cpu-shell
+        basestation-shell
 
 Return To Localhost
 

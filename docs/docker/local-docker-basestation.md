@@ -54,11 +54,11 @@ Pull the ugv docker images from the Azure docker registry:
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer local.basestation.docker.registry.pull
+        subt deployer local.basestation.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer local.basestation.docker.stop
-        subt deployer local.basestation.docker.rm
+        subt deployer local.basestation.docker.shell.stop
+        subt deployer local.basestation.docker.shell.rm
 
 **Verify Docker Images**
 
@@ -67,8 +67,8 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        subt/basestation-cpu:0.1
-        subt/basestation-cpu:ros
+        subt/x86.basestation.cpu.core                         249324c
+        subt/x86.basestation.cpu.ros.melodic                  249324c
 
 ## 3. Creating Docker Containers
 
@@ -76,7 +76,7 @@ Verify you see the following docker images (in any order):
 
 Create the basestation docker container:
 
-        subt deployer local.basestation.docker.shell
+        subt deployer local.basestation.core.docker.shell.start
 
 **Verify Docker Containers**
 
@@ -85,10 +85,10 @@ Create the basestation docker container:
 
 Verify you see the following docker containers (in any order):
 
-        basestation-cpu-shell
+        basestation-shell
 
 ## 4. Comments
 
 When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
 
-If you cannot connect to the docker shell, please notify the maintainer.
+If you cannot create the docker shell, please notify the maintainer.

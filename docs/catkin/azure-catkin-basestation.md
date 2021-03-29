@@ -16,7 +16,7 @@ If you find the `transfer.to` is too slow. then try this command:
 
         subt deployer azure.basestation.skel_t.to
 
-You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/scenarios/.basestation.env`
+You can edit the transfer options: `deploy_rsync_opts` in ``operations/scenarios/transfer/basestation.env`
 
 - This option tells the deployer to **exclude** files during the transfer. You may change the files that get excluded.
 - **Example change:** adding `--exclude=src/.git`, will reduce the time for the transfer, but you wont see any git changes reflected on the remote.
@@ -25,7 +25,7 @@ You can edit the transfer options: `deploy_rsync_opts` in `operations/deploy/sce
 
         # create the docker shell on the remote host
         #   - you need to make sure the container is started before building
-        subt deployer azure.basestation.docker.shell
+        subt deployer azure.basestation.docker.shell.start
 
         # clean the previously built workspaces
         subt deployer azure.basestation.catkin.clean
@@ -40,21 +40,10 @@ You should remove containers when done with its development (for those that are 
 Automated remove the docker containers:
 
         # stop the docker container
-        subt deployer local.basestation.docker.stop
+        subt deployer azure.basestation.docker.shell.stop
 
         # remove the docker container
-        subt deployer local.basestation.docker.rm
-
-Or manually remove the docker containers:
-
-        # connect to the remove azure basestation host
-        ssh azure.basestation
-
-        # stop the running container
-        docker stop basestation-cpu-shell basestation-cpu-shell
-
-        # remove the container
-        docker rm basestation-cpu-shell basestation-cpu-shell
+        subt deployer azure.basestation.docker.shell.rm
 
 - The above steps will remove the containers.
 
@@ -62,7 +51,7 @@ Or manually remove the docker containers:
 
 - You can just stop the docker containers rather than completely removing them, to avoid re-creating them all the time.
 
-- The `docker-join.bash [container-name]` command will enter a stopped container.
+- The `docker-join.bash -n [container-name]` command will enter a stopped container.
 
 ## Summary
 

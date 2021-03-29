@@ -4,7 +4,7 @@
 
 ### Teamviewer
 
-        # ssh into the remote VM. Example:
+        # ssh into the remote VM.
         ssh azure.basestation
 
         # view teamviewer info
@@ -33,12 +33,12 @@ If you do not prefer to use Teamveiwer, you can use RDP instead.
         ssh azure.basestation
 
         # enter the docker shell container
-        docker-join.bash --name basestation-cpu-shell
+        docker-join.bash -n basestation-shell
 
 ## 3. Launch Basestation
 
         # load the tmux session
-        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/basestation.yaml
+        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/basestation.yaml
 
 ## Summary
 
