@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# check if operations (submodule) is empty. if so, clone it.
+if [ -z "$(ls -A operations/deploy/azurebooks/scripts/header.sh)" ]; then
+  git submodule deinit -f operations
+  git submodule update --init --recursive operations
+fi
+
 # globals
 GL_DEPLOYER_PATH="/operations/deploy/deployer/"
 GL_SRC_DIR=$(pwd)
