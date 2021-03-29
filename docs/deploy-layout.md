@@ -120,17 +120,15 @@ Please notify the maintainer if you need to be making changes to the robot's `sl
 
 ## Terminology
 
-The deploy repo maintains a **3-commit level** group of submodules (example):
+The deploy repo maintains a **2-commit level** group of submodules (example):
 
     deploy_ws (1-level) [meta-repo, submodule]
-        common (2-level) [meta-repo, submodule]
-            communication_manager (3-level) [submodule]
+        communication_manager (2-level) [submodule]
 
-You will very often find yourself making 3 commits, for updating a single 3-level repo.
-The procedure is lossly base on this: only update 2-level, 1-level when you want to deploy the feature to the robots.
-  - during unit testing we can easily switch between 2-levels
-  - commit to 1-level only when the feature is fully tested on robots.
-
+You will very often find yourself making 2 commits.
+  - During unit testing we can easily switch between 2-levels
+  - Commit to 1-level only when the feature is fully tested on robots.
+  
 Pull Requests are preferred, however pushing directly to `develop` is OK even if it breaks. As developers, only push to `develop` as the main branch, the core maintainers will handle pushing to `stable` and `master`.
 
 ### 1-level
@@ -141,19 +139,6 @@ Pull Requests are preferred, however pushing directly to `develop` is OK even if
 
 ## 2-level
 
-  - the 2-level is an intermediate repo, inside the 1-level
-  - it is a submodule, used as a *meta-repo*
-  - testing team can easily switch between 2-level during unit test.
-  - examples are `common`, `ugv`, etc.
-  - when updating 2-level, you will need another commit in 1-level. commit to 1-level when the 2-level is fully tested on robot hardware.
-
-## 3-level
-
-  - the 3-level is a the main algorithm repo, inside the 2-level
-  - the *3-level* are the actual algorithms being developed
-  - when updating 3-level, you will need another commit in 2-level and 1-level. commit to 1-level when the 3-level is fully tested on robot hardware.
-
-## Summary
-
-- The *deploy repository* is a 3-level layout
-- You will always need to do at least 3 commits, when making changes in the 3-level submodule.
+  - the 2-level is a the main algorithm repo, inside the 2-level
+  - the *2-level* are the actual algorithms being developed
+  - when updating 2-level, you will need another commit in 2-level and 1-level. commit to 1-level when the 2-level is fully tested on robot hardware.

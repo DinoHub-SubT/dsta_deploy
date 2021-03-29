@@ -89,7 +89,7 @@ You will need to go through a few tutorials to have a working system.
 
 Please see the [Getting Started With The Setup](./docs/getting-started.md) instructions.
 
-## 2. Initialize Workspace
+## 2.a. Initialize Workspace
 
 **NOTE: If you are DARPA members, you can skip this step (we provide code directly).**
 
@@ -99,6 +99,19 @@ All deployment operations are accessible by using the tool:
 
   - Press `TAB` to auto-complete the selections available.
   - Press `TAB SPACE` to show the help information for the auto-complete the selections available.
+
+**Option 1:**
+
+You can use the default git submodule commands such as:
+
+        # clone all the submodules to their  `DETACHED HEAD` commit HASH as pushed on origin.
+        git submodule update --init --recursive .
+
+        # (optional) remove all the submodules
+        # -- if you ever remove operations submodule, you can re-install it with `./install-deployer.bash --install`
+        git submodule deinit -f common basestation simulation ugv uav subt_launch perception
+
+**Option 2:**
 
 Clone the all the submodules, to their latest updates:
 
@@ -110,7 +123,7 @@ Clone the all the submodules, to their latest updates:
         # pull the submodule's updates, when the submodules are checked-out at a specific branch.
         subt git all.pull
 
-### More Reading
+## 2.b.More Reading
 
 Please read [About Workspace Layout](docs/deploy-layout.md) for getting familiar with the workspace layout.
 
