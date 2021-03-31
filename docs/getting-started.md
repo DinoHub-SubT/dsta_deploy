@@ -71,7 +71,7 @@
         cd src
 
         # temporary for now. please make sure you are on this branch
-        git checkout kat/operations-cleanup-final
+        git checkout dsta/develop
 
 ## 3. Install Operations
 
