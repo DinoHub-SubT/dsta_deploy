@@ -1,5 +1,5 @@
 
-# SubT Deployment Overview
+# DSTA Deployment Overview
 
 > Deployer, a deployment automation tool.
 
@@ -100,19 +100,6 @@ All deployment operations are accessible by using the tool:
   - Press `TAB` to auto-complete the selections available.
   - Press `TAB SPACE` to show the help information for the auto-complete the selections available.
 
-**Option 1:**
-
-You can use the default git submodule commands such as:
-
-        # clone all the submodules to their  `DETACHED HEAD` commit HASH as pushed on origin.
-        git submodule update --init --recursive .
-
-        # (optional) remove all the submodules
-        # -- if you ever remove operations submodule, you can re-install it with `./install-deployer.bash --install`
-        git submodule deinit -f common basestation simulation ugv uav subt_launch perception
-
-**Option 2:**
-
 Clone the all the submodules, to their latest updates:
 
         # resets all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
@@ -126,10 +113,8 @@ Clone the all the submodules, to their latest updates:
 ## 2.b.More Reading
 
 
-Please read [About Workspace Layout](docs/deploy-layout.md) for getting familiar with the workspace layout.
-
-
-Please read [Git Helpers](docs/deploy-git.md) for getting familiar with the deployer's git helper tools.
+- Please read [About Workspace Layout](docs/deploy-layout.md) for getting familiar with the workspace layout.
+- Please read [Git Helpers](docs/deploy-git.md) for getting familiar with the deployer's git helper tools.
 
 ## 3. Docker Registry
 

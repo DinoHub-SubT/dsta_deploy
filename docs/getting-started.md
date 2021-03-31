@@ -67,8 +67,11 @@
 
         mkdir ~/deploy_ws/
         cd ~/deploy_ws/
-        git clone git@bitbucket.org:cmusubt/deploy.git src
+        git clone git@bitbucket.org:castacks/dsta_deploy.git src
         cd src
+
+        # temporary for now. please make sure you are on this branch
+        git checkout kat/operations-cleanup-final
 
 ## 3. Install Operations
 
