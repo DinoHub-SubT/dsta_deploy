@@ -37,7 +37,7 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
   - Please notify the maintainer for creating user accounts.
   - Perceptron maintains all the `SubT` rosbag datasets (not all the datasets are found on Azure)
 
-**6. Azure Account (required)**
+**6. Azure Account**
 
   - If you plan on running on Azure, you will access to the `SubT` Azure resource.
       - Please notify the maintainer for creating user accounts.
@@ -58,6 +58,10 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
   - The SubT deployer autocomplete tab commands do not autocomplete on [`terminator`](https://github.com/gnome-terminator/terminator)
   - If you wish to use the tab autocomplete function, then you can use standard `bash` or `zsh` terminal for best experience.
   - You can still use the deployer commands in `terminator`, you just wont be able to autocomplete.
+
+**10. Host Network Setup**
+
+  Please make sure your host network is not configured with the same network configuration as `10.3.0.0/16`
 
 ## Operations Resources
 
