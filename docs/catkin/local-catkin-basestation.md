@@ -10,7 +10,7 @@ Assuming you have already setup all your docker containers, follow the instructi
 
         # create the docker shell on the remote host
         #   - you need to make sure the container is started before building
-        subt deployer local.basestation.docker.shell.start
+        subt deployer local.basestation.core.docker.shell.start
 
         # clean the previously built workspaces
         subt deployer local.basestation.catkin.clean

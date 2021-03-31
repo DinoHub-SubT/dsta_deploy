@@ -141,7 +141,6 @@ This tutorial will setup the following:
 -- | Localhost | Azure | Robot |
 --- | ---  |--- | --- |
 **Basestation**  | [local-docker-basestation.md](docs/docker/local-docker-basestation.md) | [azure-docker-basestation.md](docs/docker/azure-docker-basestation.md) | [robots-docker-basestation.md](docs/docker/robots-docker-basestation.md) |
-**UGV** | [local-docker-ugv.md](docs/docker/local-docker-ugv.md) | [azure-docker-ugv.md](docs/docker/azure-docker-ugv.md)| [robots-docker-ugv.md](docs/docker/robots-docker-ugv.md) |
 **UAV** | [local-docker-uav.md](docs/docker/local-docker-uav.md) | [azure-docker-uav.md](docs/docker/azure-docker-uav.md)| [robots-docker-uav-setup.md](docs/docker/robots-docker-uav.md) |
 
 ### 6. Catkin Workspaces Setup
@@ -149,7 +148,6 @@ This tutorial will setup the following:
 -- | Localhost | Azure | Robot |
 --- | --- |--- |--- |
 **Basestation** |  [local-catkin-basestation.md](docs/catkin/local-catkin-basestation.md) | [azure-catkin-basestation.md](docs/catkin/azure-catkin-basestation.md) | [robots-catkin-basestation.md](docs/catkin/robots-catkin-basestation.md)| |
-**UGV** | [local-catkin-ugv.md](docs/catkin/local-catkin-ugv.md) | [azure-catkin-ugv.md](docs/catkin/azure-catkin-ugv.md) | [robots-catkin-ugv.md](docs/catkin/robots-catkin-ugv.md)| |
 **UAV** | [local-catkin-uav.md](docs/catkin/local-catkin-uav.md) | [azure-catkin-uav.md](docs/catkin/azure-catkin-uav.md) | [robots-catkin-uav.md](docs/catkin/robots-catkin-uav.md)| |
 
 ### 7. Simulation Launch Setup
@@ -157,7 +155,6 @@ This tutorial will setup the following:
 -- | Localhost Launch | Azure Launch |
 --- | --- | --- | --- | --- |
 **Basestation** | [local-launch-basestation.md](docs/launch/local-launch-basestation.md)| [azure-launch-basestation.md](docs/launch/azure-launch-basestation.md)|
-**UGV** | [local-launch-ugv.md](docs/launch/local-launch-ugv.md) | [azure-launch-ugv.md](docs/launch/azure-launch-ugv.md) |
 **UAV** | [local-launch-uav.md](docs/launch/local-launch-uav.md) | [azure-launch-uav.md](docs/launch/azure-launch-uav.md) |
 
 * * *

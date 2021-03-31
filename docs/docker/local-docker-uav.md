@@ -120,3 +120,28 @@ When building the catkin workspaces, please just use uav1 command. You do not ne
 When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
 
 If you cannot connect to the docker shell, please notify the maintainer.
+
+## Common Errors
+
+Failed to create docker shell. Example:
+
+        Creating uav1-shell ... error
+
+        ERROR: for uav1-shell  Cannot start service uav1-core: failed to create endpoint uav1-shell on network robots: network 11b007d91fb83aa34d9aaec8ba252074bef47c696815c5f76ad701038c8191f1 does not exist
+
+        ERROR: for uav1-core  Cannot start service uav1-core: failed to create endpoint uav1-shell on network robots: network 11b007d91fb83aa34d9aaec8ba252074bef47c696815c5f76ad701038c8191f1 does not exist
+        ERROR: Encountered errors while bringing up the project.
+
+Please re-create the container
+
+        # remove all previous containers
+        subt deployer local.docker.ops.rm
+
+        # remove docker network
+        subt deployer local.docker.network.rm
+
+        # re-create docker network
+        subt deployer local.docker.network.create
+
+        # create the uav1 container
+        subt deployer local.uav.uav1.core.docker.shell.start

@@ -92,3 +92,28 @@ Verify you see the following docker containers (in any order):
 When starting the docker container with the deployer and you see the message: `Error response from daemon: network with name robots already exists` **that is OK to ignore**.
 
 If you cannot create the docker shell, please notify the maintainer.
+
+## Common Errors
+
+Failed to create docker shell. Example:
+
+        Creating basestation-shell ... error
+
+        ERROR: for basestation-shell  Cannot start service basestation-core: failed to create endpoint basestation-shell on network robots: network 11b007d91fb83aa34d9aaec8ba252074bef47c696815c5f76ad701038c8191f1 does not exist
+
+        ERROR: for basestation-core  Cannot start service basestation-core: failed to create endpoint basestation-shell on network robots: network 11b007d91fb83aa34d9aaec8ba252074bef47c696815c5f76ad701038c8191f1 does not exist
+        ERROR: Encountered errors while bringing up the project.
+
+Please re-create the container
+
+        # remove all previous containers
+        subt deployer local.docker.ops.rm
+
+        # remove docker network
+        subt deployer local.docker.network.rm
+
+        # re-create docker network
+        subt deployer local.docker.network.create
+
+        # re-create the basestation docker container:
+        subt deployer local.basestation.core.docker.shell.start
