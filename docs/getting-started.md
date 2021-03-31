@@ -95,14 +95,14 @@ Operations installs customizable configuration files in: `~/.subt/`
 Open: `~/.subt/user_config.bash`
 
 - **Step 1**
-  - If you have an nvidia card, change from `USE_NVIDIA_DRIVER=false` to `USE_NVIDIA_DRIVER=true`.
+  - If you have an nvidia card, change from `USE_NVIDIA_DRIVER=true` to `USE_NVIDIA_DRIVER=false`.
 
 - **Step 2**
   - If you have permissions to install the SLAM modules, change `ENABLE_SLAM=false` to `ENABLE_SLAM=true`
 
 **Ansible customize configurations**
 
-Open: `~/.subt/ansible_config.bash`
+Open: `~/.subt/ansible_config.yaml`
 
 - **Step 1**
   - If you want to install ros on localhost, change from `install_ros=false` to `install_ros=true`.
@@ -116,8 +116,20 @@ Open: `~/.subt/ansible_config.bash`
         # - the install will ask for your laptop's password
         subt cloud ansible localhost install-localhost.yaml -p
 
-- The ansible installer *might fail* for some users, since everyone has a slightly different system.
-- If there are any errors, **please notify the maintainer** or see **Common Ansible Install Errors** below to solve them.
+The script will fail the first time you run. It will show:
+
+        TASK [test docker with 'hello world' example] ********************************************************************************************************************************************************************************************************************************************************************
+        fatal: [localhost]: FAILED! => {"changed": true, "cmd": "docker run --rm hello-world", "delta": "0:00:00.030621", "end": "2021-03-30 21:22:05.019196", "msg": "non-zero return code", "rc": 126, "start": "2021-03-30 21:22:04.988575", "stderr": "docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.\nSee 'docker run --help'.", "stderr_lines": ["docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.", "See 'docker run --help'."], "stdout": "", "stdout_lines": []}
+
+To solve: please reboot your computer and re-run the ansible command again:
+
+        # Run the ansible install on localhost, installs all thirdparty libraries for running subt on localhost and azure
+        # - the install will ask for your laptop's password
+        subt cloud ansible localhost install-localhost.yaml -p
+
+- You can run the ansible command from anywhere.
+- Sometimes the ansible will show "errors" but will continue to run. Its OK to ignore these.
+- If there are any other errors and the script crashes, then **please notify the maintainer**. See **Common Ansible Install Errors** below to solve some common errors.
 
 ## 6. Verify Installations
 
@@ -129,7 +141,7 @@ Verify you have all the operations tools installed correctly:
         # verify docker-compose
         docker-compose -v
 
-        # verify nvidia-docker
+        # (optional) verify nvidia-docker
         nvidia-docker -v
 
         # verify ansible configuration management tools
@@ -151,10 +163,10 @@ Verify you have all the operations tools installed correctly:
         docker-compose-wrapper --help
 
         # verify deployer script shows the help usage message
-        ./deployer --help
+        deployer --help
 
         # verify SubT autocompleter
-        subt help
+        subt [TAB]
 
 - Notify the maintainer if any of the `help` usage messages do not show up.
 
@@ -194,6 +206,6 @@ Verify you have all the operations tools installed correctly:
         docker ps
 
         # re-run the ansible script
-        subtani_install.sh ...
+        subt cloud ansible localhost install-localhost.yaml -p
 
 **Notify the maintainer if any of the above deploy setup steps failed.**

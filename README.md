@@ -176,7 +176,9 @@ Use the `subt tutorial [TAB]` as a quick reference to find commonly used deploye
 
 ### Updating Submodule Levels
 
-For examples on how to commit on all 3-levels, see [discussion of updating submodules](docs/discuss-updating-deploy.md) instructions.
+THIS README IS OUTDATED. PLEASE IGNORE FOR NOW (until its updated).
+
+For examples on how to commit on all 2-levels, see [discussion of updating submodules](docs/discuss-updating-deploy.md) instructions.
 
 - Discuss how to update a dockerfile
 - Discuss how to update submodules in deploy repo.
