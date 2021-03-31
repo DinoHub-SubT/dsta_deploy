@@ -436,7 +436,7 @@ install_thirdparty() {
   pip2 install wheel --user
   pip2 install setuptools PyYAML pexpect --user
 
-  sudo apt install -y python3-dev python3-pip libffi-dev libssl-dev
+  sudo apt install -y python3-dev python3-pip libffi-dev libssl-dev git-lfs
   sudo -H pip3 install wheel setuptools
 
   # install ansible

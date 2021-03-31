@@ -26,7 +26,7 @@ You only need to **setup the docker network ONCE**. So, if you already created t
         # restart the docker daemon
         sudo systemctl restart docker.service
 
-**Keep in mind:**
+**(THIS IS JUST FOR REFERENCE) Keep in mind:**
 
 If you want to use Azure or connect directly to the SubT robots, you must remove the docker network.
 
