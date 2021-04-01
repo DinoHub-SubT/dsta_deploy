@@ -108,7 +108,7 @@ Open: `~/.subt/ansible_config.yaml`
   - If you want to install ros on localhost, change from `install_ros=false` to `install_ros=true`.
 
 - **Step 2**
-  - If you want to install ros on localhost, change from `install_teamviewer=false` to `install_teamviewer=true`.
+  - If you want to install teamviewer, change from `install_teamviewer=false` to `install_teamviewer=true`.
 
 ## 5. Install System Libraries (ansible)
 
