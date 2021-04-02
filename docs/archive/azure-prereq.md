@@ -57,32 +57,32 @@ Please setup the ssh config for all available Azure VMs.
         # The below is configured to match the Azure setup tutorial in azurebooks/subt, so please use these template configurations.
         # About the configuration template:
         #       - The HostName must match what was configured in /etc/hosts
-        #       - The 'IdentityFile' is the path to the ssh key used to access the Azure VM (the azure tutorial sets key as the path ~/.ssh/azure_vpn)
+        #       - The 'IdentityFile' is the path to the ssh key used to access the Azure VM (the azure tutorial sets key as the path ~/.ssh/subt.d/azure_vm_rsa)
         #       - The default user for all the Azure VM is `subt`       (the azure tutorial sets the username as `subt`)
 
         Host azure.ugv1
           HostName azure-ugv1
           User subt
           IdentitiesOnly yes
-          IdentityFile ~/.ssh/azure_vpn
+          IdentityFile ~/.ssh/subt.d/azure_vm_rsa
 
         Host azure.uav1
           HostName azure-uav1
           User subt
           IdentitiesOnly yes
-          IdentityFile ~/.ssh/azure_vpn
+          IdentityFile ~/.ssh/subt.d/azure_vm_rsa
 
         Host azure.basestation
           HostName azure-basestation
           User subt
           IdentitiesOnly yes
-          IdentityFile ~/.ssh/azure_vpn
+          IdentityFile ~/.ssh/subt.d/azure_vm_rsa
 
         Host azure.perception1
           HostName azure-perception1
           User subt
           IdentitiesOnly yes
-          IdentityFile ~/.ssh/azure_vpn
+          IdentityFile ~/.ssh/subt.d/azure_vm_rsa
 
 
 **Verify Azure VM SSH Access**

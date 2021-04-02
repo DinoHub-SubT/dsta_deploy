@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # check if operations (submodule) is empty. if so, clone it.
-if [ -z "$(ls -A $(pwd)operations/scripts/header.sh)" ]; then
-  git submodule deinit -f operations
-  git submodule update --init --recursive operations
-fi
+# if [ -z "$(ls -A $(pwd)operations/scripts/header.sh)" ]; then
+#   git submodule deinit -f operations
+#   git submodule update --init --recursive operations
+# fi
 
 # //////////////////////////////////////////////////////////////////////////////
 # @brief globals, includes & help
@@ -13,11 +13,12 @@ GL_SRC_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 GL_OP_DIR="$GL_SRC_DIR/operations/"
 GL_SUBT_ENV_DIR=$HOME/.subt/
 GL_RC=$GL_SUBT_ENV_DIR/subtrc.bash
+GL_CMPL_SRC_DIR=$GL_SUBT_ENV_DIR/.completion/
+GL_DEPLOYER_PATH="/operations/deployer/"
 GL_RC_SUBT_CFG=$GL_SUBT_ENV_DIR/subt_config.bash
 GL_RC_USER_CFG=$GL_SUBT_ENV_DIR/user_config.bash
 GL_RC_ANI_CFG=$GL_SUBT_ENV_DIR/ansible_config.yaml
-GL_CMPL_SRC_DIR=$GL_SUBT_ENV_DIR/.completion/
-GL_DEPLOYER_PATH="/operations/deployer/"
+GL_RC_TERRA_CFG=$GL_SUBT_ENV_DIR/terraform_config.yaml
 
 # load header helper functions
 . "$GL_SRC_DIR/operations/scripts/header.sh"
@@ -156,12 +157,36 @@ create_user_cfg() {
   write $GL_RC_USER_CFG "alias cdd=\"cd $GL_SRC_DIR/\""
   write $GL_RC_USER_CFG
 
-  write $GL_RC_USER_CFG "# -- Terraform Alias -- "
-  write $GL_RC_USER_CFG
-  write $GL_RC_USER_CFG "alias subtu-azure-limits-eastus='az vm list-usage --location \"East US\" -o table | grep \"Total Regional vCPUs\"'"
-  write $GL_RC_USER_CFG "alias subtu-azure-limits-eastus2='az vm list-usage --location \"East US 2\" -o table | grep \"Total Regional vCPUs\"'"
-  write $GL_RC_USER_CFG "alias subtu-vpn-ca-cert='openssl x509 -in caCert.pem -outform der | base64 -w0 ; echo'"
-  write $GL_RC_USER_CFG
+
+}
+
+create_terra_cfg() {
+  # remove the previously created file
+  rm_file $GL_RC_TERRA_CFG
+
+  # install the terraform configurations
+  ($GL_SRC_DIR/operations/azurebooks/scripts/install-terraform-current.sh)
+  if last_command_failed; then
+    error "There was an error with the installer script. Please notify maintainer."
+    exit_failure
+  fi
+
+  # add deployer title
+  write $GL_RC_TERRA_CFG "#!/usr/bin/env bash"
+  write $GL_RC_TERRA_CFG
+  write $GL_RC_TERRA_CFG "# == SubT Terraform Configurations == "
+  write $GL_RC_TERRA_CFG "# - if not sure about the configuration setup, leave the default values."
+  write $GL_RC_TERRA_CFG
+  write $GL_RC_TERRA_CFG "source $GL_SUBT_ENV_DIR/terraform_id.bashrc"
+  write $GL_RC_TERRA_CFG "source $GL_SUBT_ENV_DIR/terraform_flags.bashrc"
+  write $GL_RC_TERRA_CFG
+
+  write $GL_RC_TERRA_CFG "# -- Terraform Alias -- "
+  write $GL_RC_TERRA_CFG
+  write $GL_RC_TERRA_CFG "alias subtu-azure-limits-eastus='az vm list-usage --location \"East US\" -o table | grep \"Total Regional vCPUs\"'"
+  write $GL_RC_TERRA_CFG "alias subtu-azure-limits-eastus2='az vm list-usage --location \"East US 2\" -o table | grep \"Total Regional vCPUs\"'"
+  write $GL_RC_TERRA_CFG "alias subtu-vpn-ca-cert='openssl x509 -in caCert.pem -outform der | base64 -w0 ; echo'"
+  write $GL_RC_TERRA_CFG
 }
 
 # //////////////////////////////////////////////////////////////////////////////
@@ -182,6 +207,7 @@ create_subtrc() {
   write $GL_RC "# SubT Configuration "
   write $GL_RC "source $GL_RC_SUBT_CFG"
   write $GL_RC "source $GL_RC_USER_CFG"
+  write $GL_RC "source $GL_RC_TERRA_CFG"
   write $GL_RC
 
   # add auto-completion
@@ -229,7 +255,7 @@ add_hooks() {
     write $dest_filepath "source $filepath"
   done
 
-  # exit, if zshrc or bashrc does not exist
+  # exit, if rc does not exist
   if ! file_exists $GL_RC; then
     warning "cannot add git hooks, $GL_RC does not exist"
     return;
@@ -285,7 +311,7 @@ export_versions() {
 # //////////////////////////////////////////////////////////////////////////////
 add_to_rc() {
   local rc=/$HOME/.$1
-  # exit, if zshrc or bashrc does not exist
+  # exit, if rc does not exist
   if ! file_exists $rc; then
     return;
   fi
@@ -298,7 +324,7 @@ add_to_rc() {
 # //////////////////////////////////////////////////////////////////////////////
 rm_from_rc() {
   local rc=/$HOME/.$1
-  # exit, if zshrc or bashrc does not exist
+  # exit, if rc does not exist
   if ! file_exists $rc; then
     return;
   fi
@@ -390,7 +416,7 @@ install_deployer_cmpl_matches() {
 # //////////////////////////////////////////////////////////////////////////////
 install_deployer_py_scripts() {
   # clone all operation submodules
-  git submodule update --init --recursive $GL_OP_DIR
+  # git submodule update --init --recursive $GL_OP_DIR
 
   # install python scripts
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
@@ -464,22 +490,27 @@ install() {
   create_subt_cfg
   create_user_cfg
   create_ani_cfg
+  create_terra_cfg
+
   # TODO: complete the git hooks (i.e. validate versions)
   # add_hooks
 
   # remove any previous deployer env setup
-  rm_from_rc "zshrc"
   rm_from_rc "bashrc"
+  if file_exists "~/.zshrc"; then
+    rm_from_rc "zshrc"
+  fi
 
   # add deployer env setup
-  add_to_rc "zshrc"
   add_to_rc "bashrc"
+  if file_exists "~/.zshrc"; then
+    add_to_rc "zshrc"
+  fi
 
-  # install_deployer_cmpl_matches
   install_deployer_cmpl_matches
 
   text
-  warning "To activate deployer, source your bashrc or zshrc: 'source ~/.bashrc' or 'source ~/.zshrc'"
+  warning "To activate deployer, source your rc: 'source ~/.bashrc' or 'source ~/.zshrc'"
   text
   text "SubT scripts installed."
 }
@@ -496,7 +527,7 @@ uninstall() {
   text ...removing configuration files
 
   # remove the deploy autocompletion files
-  if dir_exists $GL_CMPL_SRC_DIR $1; then
+  if dir_exists $GL_CMPL_SRC_DIR; then
     rm -rf $GL_CMPL_SRC_DIR/*
     rm_dir $GL_CMPL_SRC_DIR
   else
@@ -504,7 +535,7 @@ uninstall() {
   fi
 
   # remove the rc and the configuration files
-  if dir_exists $GL_SUBT_ENV_DIR $1; then
+  if dir_exists $GL_SUBT_ENV_DIR; then
     rm -rf $GL_SUBT_ENV_DIR/*
     rm_dir $GL_SUBT_ENV_DIR
   else
@@ -512,8 +543,10 @@ uninstall() {
   fi
 
   # remove any previous deployer env setup
-  rm_from_rc "zshrc"
   rm_from_rc "bashrc"
+  if file_exists "~/.zshrc"; then
+    rm_from_rc "zshrc"
+  fi
 
   text
   text "SubT scripts uninstalled."

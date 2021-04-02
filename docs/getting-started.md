@@ -135,40 +135,11 @@ To solve: please reboot your computer and re-run the ansible command again:
 
 Verify you have all the operations tools installed correctly:
 
-        # verify docker
-        docker --version
+        # verify all operations tools are functional
+        subt tools verify.ops
 
-        # verify docker-compose
-        docker-compose -v
-
-        # (optional) verify nvidia-docker
-        nvidia-docker -v
-
-        # verify ansible configuration management tools
-        ansible --version
-
-        # verify terraform cloud provisioning tool
-        terraform --version
-
-        # verify azure cli
-        az --help
-
-        # verify azcopy
-        azcopy -v
-
-        # (optional) teamviewer client for remote VM desktop access
-        teamviewer --help
-
-        # verify docker-compose shows the help usage message
-        docker-compose-wrapper --help
-
-        # verify deployer script shows the help usage message
-        deployer --help
-
-        # verify SubT autocompleter
-        subt [TAB]
-
-- Notify the maintainer if any of the `help` usage messages do not show up.
+- Notify the maintainer if the `subt tools` command is not found.
+- Notify the maintainer if the `subt tools` fails.
 
 * * *
 

@@ -35,7 +35,7 @@ The `ansible` scripts do not give realtime output.
         # view the help usage message
         subt cloud ansible help
 
-        # view available azure connections
+        # view available local or remote system names
         subt cloud ansible -s
 
         # view available ansible playbooks
@@ -112,33 +112,7 @@ Verify everything was installed correctly on all the VMs.
 Example steps below show how to verify on the basestation VM:
 
         # access the remote VM
-        ssh azure.basestation
-
-        # verify the deploy workspaces exists
-        cd ~/deploy_ws/src
-
-        # verify git status shows: "nothing to commit, working tree clean" and are on the correct branch
-        git status
-
-        # verify the repos exist:
-        ls -all basestation/
-
-        # verify all the tools
-
-        # verify docker
-        docker --version
-
-        # verify docker-compose
-        docker-compose -v
-
-        # verify docker-compose shows the help usage message
-        docker-compose-wrapper --help
-
-        # verify deployer script shows the help usage message
-        ./deployer --help
-
-        # exit the Basestation VM
-        exit
+        ssh azure.basestation "source ~/.subt/subtrc.bash; subt tools verify.ops"
 
 ## 8. Remote Desktop
 
@@ -146,8 +120,8 @@ The SubT Azure VMs has remote desktop port enabled.
 
 **Run the RDP client script (localhost)**
 
-        # template
-        subt tools rdp --title [window title] --host [ VM HOST ] --user subt --pass Password1234! --res 1920x1080
+        # rdp command format:
+        subt tools rdp -t [window title] -h [ VM HOST ] -u subt -p Password1234! -r [ Window Resolution ]
 
         # example
-        subt tools rdp --title basestation --host azure-basestation --user subt --pass Password1234! --res 1920x1080
+        subt tools rdp -t basestation -h azure-basestation -u subt -p Password1234! -r 1920x1080
