@@ -92,7 +92,7 @@ Your Tenant id is:
 **Add your Azure user info to terraform ids**
 
         # Open the terraform user account configuration file
-        gedit ~/.subt/terraform_id.bashrc
+        gedit ~/.dsta/terraform_id.bashrc
 
         # Modify the variables in to match your azure account setup:
 
@@ -106,7 +106,7 @@ Your Tenant id is:
 **Personalize your Azure setup**
 
         # Open the terraform user general configuration file
-        gedit ~/.subt/terraform_flags.bashrc
+        gedit ~/.dsta/terraform_flags.bashrc
 
         # Modify the common terraform flags:
 
@@ -177,6 +177,39 @@ Your Tenant id is:
         subt tools ssh.probe
 
 You should now have resources deployed on Azure and be able to connect to them.
+
+## Azure Maintenance
+
+To reduce Azure costs, users should make sure to maintain their resources.
+
+**Shutdown Virtual Machines**
+
+When finished with virtual machines for the day, always remember to shutdown your machines:
+
+        # show the list of virtual machines names
+        subt cloud terraform list
+
+        # shutdown your virtual machine
+        subt cloud terraform stop [ virtual machine name ]
+
+        # (optional) to re-start your virtual machine
+        subt cloud terraform start [ virtual machine name ]
+
+- It is OK to remove and re-start your virtual machines, nothing will be removed from your VM disk when stopping/starting.
+
+**Remove your VPN**
+
+When finished with your virtual machines for the day, remember to remove your VPN resource:
+
+        # remove VPN resource
+        subt cloud terraform rmvpn
+
+        # (optiona) re-start your vpn
+        subt cloud terraform mkvpn
+
+- It is OK to remove and recreate your VPN. Your re-created VPN will automatically be connected to your virtual machines.
+- The VPN stop will usually take 15 minutes.
+- The VPN re-create will usually take 20-30 minutes.
 
 * * *
 

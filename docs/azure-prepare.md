@@ -112,7 +112,7 @@ Verify everything was installed correctly on all the VMs.
 Example steps below show how to verify on the basestation VM:
 
         # access the remote VM
-        ssh azure.basestation "source ~/.subt/subtrc.bash; subt tools verify.ops"
+        ssh azure.basestation "source ~/.dsta/subtrc.bash; subt tools verify.ops"
 
 ## 8. Remote Desktop
 

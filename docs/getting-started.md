@@ -88,11 +88,11 @@
 
 ## 4. Customize Configurations
 
-Operations installs customizable configuration files in: `~/.subt/`
+Operations installs customizable configuration files in: `~/.dsta/`
 
 **General customize configurations**
 
-Open: `~/.subt/user_config.bash`
+Open: `~/.dsta/user_config.bash`
 
 - **Step 1**
   - If you have an nvidia card, change from `USE_NVIDIA_DRIVER=true` to `USE_NVIDIA_DRIVER=false`.
@@ -102,7 +102,7 @@ Open: `~/.subt/user_config.bash`
 
 **Ansible customize configurations**
 
-Open: `~/.subt/ansible_config.yaml`
+Open: `~/.dsta/ansible_config.yaml`
 
 - **Step 1**
   - If you want to install ros on localhost, change from `install_ros=false` to `install_ros=true`.

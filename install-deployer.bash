@@ -11,7 +11,7 @@
 # //////////////////////////////////////////////////////////////////////////////
 GL_SRC_DIR="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 GL_OP_DIR="$GL_SRC_DIR/operations/"
-GL_SUBT_ENV_DIR=$HOME/.subt/
+GL_SUBT_ENV_DIR=$HOME/.dsta/
 GL_RC=$GL_SUBT_ENV_DIR/subtrc.bash
 GL_CMPL_SRC_DIR=$GL_SUBT_ENV_DIR/.completion/
 GL_DEPLOYER_PATH="/operations/deployer/"
@@ -78,7 +78,7 @@ create_subt_cfg() {
   write $GL_RC_SUBT_CFG
   write $GL_RC_SUBT_CFG "export DEPLOYER_PATH=$GL_OP_DIR/deployer/"
   write $GL_RC_SUBT_CFG "export DEPLOYER_EXPORT_FILEPATH=$GL_CMPL_SRC_DIR/"
-  write $GL_RC_SUBT_CFG "export DEPLOYER_BASHRC_FILEPATH=.subt/subtrc.bash"
+  write $GL_RC_SUBT_CFG "export DEPLOYER_BASHRC_FILEPATH=.dsta/subtrc.bash"
   write $GL_RC_SUBT_CFG
 
   # script paths
@@ -397,6 +397,10 @@ install_deployer_cmpl_matches() {
   # hack-ugly, add the 'all', to aggregate all git commands
   echo "all.reset" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
   echo "all.pull" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
+  echo "all.ignore" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
+  echo "all.unignore" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
+  echo "all.rm" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
+  echo "all.clean" >> $DEPLOYER_EXPORT_FILEPATH/git.cmpl
 
   # verify the auto-completion files are created
   if ! file_exists $GL_CMPL_SRC_DIR/deployer.cmpl; then

@@ -5,7 +5,7 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../devel/wifi/core
-extend_path: /home/katarina/deploy_ws/devel/wifi/common
+extend_path: ../../devel/wifi/common
 install: false
 install_space: ../../install/wifi/core
 isolate_install: false
