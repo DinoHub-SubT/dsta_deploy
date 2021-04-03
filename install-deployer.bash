@@ -156,8 +156,6 @@ create_user_cfg() {
   write $GL_RC_USER_CFG
   write $GL_RC_USER_CFG "alias cdd=\"cd $GL_SRC_DIR/\""
   write $GL_RC_USER_CFG
-
-
 }
 
 create_terra_cfg() {
@@ -165,7 +163,8 @@ create_terra_cfg() {
   rm_file $GL_RC_TERRA_CFG
 
   # install the terraform configurations
-  ($GL_SRC_DIR/operations/azurebooks/scripts/install-terraform-current.sh)
+  source $GL_RC_SUBT_CFG
+  ($GL_SRC_DIR/operations/azurebooks/scripts/install-terraform-current.sh -c $GL_SUBT_ENV_DIR)
   if last_command_failed; then
     error "There was an error with the installer script. Please notify maintainer."
     exit_failure
