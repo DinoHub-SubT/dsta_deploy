@@ -123,7 +123,7 @@ create_user_cfg() {
   write $GL_RC_USER_CFG
 
   write $GL_RC_USER_CFG "# Set to the cloned workspace name"
-  write $GL_RC_USER_CFG "export DEPLOYER_WS_NAME=deploy_ws"
+  write $GL_RC_USER_CFG "export DEPLOYER_WS_NAME=$(basename $(dirname $GL_SRC_DIR))"
   write $GL_RC_USER_CFG
 
   write $GL_RC_USER_CFG "# Set to 'true' only if your system has an nvidia graphics driver. Otherwise set to 'false'."
