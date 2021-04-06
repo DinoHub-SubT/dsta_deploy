@@ -500,13 +500,13 @@ install() {
 
   # remove any previous deployer env setup
   rm_from_rc "bashrc"
-  if file_exists "~/.zshrc"; then
+  if file_exists "$(realpath ~/.zshrc)"; then
     rm_from_rc "zshrc"
   fi
 
   # add deployer env setup
   add_to_rc "bashrc"
-  if file_exists "~/.zshrc"; then
+  if file_exists "$(realpath ~/.zshrc)"; then
     add_to_rc "zshrc"
   fi
 
@@ -547,7 +547,7 @@ uninstall() {
 
   # remove any previous deployer env setup
   rm_from_rc "bashrc"
-  if file_exists "~/.zshrc"; then
+  if file_exists "$(realpath ~/.zshrc)"; then
     rm_from_rc "zshrc"
   fi
 
