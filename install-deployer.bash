@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 # check if operations (submodule) is empty. if so, clone it.
-# if [ -z "$(ls -A $(pwd)operations/scripts/header.sh)" ]; then
-#   git submodule deinit -f operations
-#   git submodule update --init --recursive operations
-# fi
+if [ -z "$(ls -A $(pwd)operations/scripts/header.sh)" ]; then
+  git submodule deinit -f operations
+  git submodule update --init --recursive operations
+fi
 
 # //////////////////////////////////////////////////////////////////////////////
 # @brief globals, includes & help
@@ -419,7 +419,7 @@ install_deployer_cmpl_matches() {
 # //////////////////////////////////////////////////////////////////////////////
 install_deployer_py_scripts() {
   # clone all operation submodules
-  # git submodule update --init --recursive $GL_OP_DIR
+  git submodule update --init --recursive $GL_OP_DIR
 
   # install python scripts
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
@@ -480,7 +480,7 @@ install_thirdparty() {
 # //////////////////////////////////////////////////////////////////////////////
 install() {
   # update the submodules & install deployer python scripts
-  # install_deployer_py_scripts
+  install_deployer_py_scripts
 
   # create the subt environment config file
   mkdir -p $GL_SUBT_ENV_DIR
@@ -523,7 +523,7 @@ install() {
 # //////////////////////////////////////////////////////////////////////////////
 uninstall() {
   # remove deployer python scripts
-  # uninstall_deployer_py_scripts
+  uninstall_deployer_py_scripts
 
   # -- attempt to have "safe uninstall"...obviously not the best way to do things.
   text

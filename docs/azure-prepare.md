@@ -47,6 +47,7 @@ The `ansible` scripts do not give realtime output.
         ping -c 3 azure-basestation
 
         # Add azure-basestation to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+        # - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
         ssh azure.basestation
         exit
 
@@ -56,26 +57,10 @@ The `ansible` scripts do not give realtime output.
         # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
         subt cloud ansible azure-basestation install-azure.yaml
 
-## 4. Install UGV VM Dependencies
+## 4. Install UAV VM Dependencies
 
         # Verify VM Access
-        ping -c 3 azure-ugv1
-
-        # Add azure-ugv1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
-        ssh azure.ugv1
-        exit
-
-        # == UGV1 VM Install ==
-        # Install basic dependencies on the remote VM (system, docker, docker tools)
-        # - clones the deploy repo on the remote VM (can take 30 minutes)
-        # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subt cloud ansible azure-ugv1 install-azure.yaml
-
-Apply the above steps again for all your `UGV` VMs. Change the host from `azure-ugv1` to your available Azure VM hosts.
-
-## 5. Install UAV VM Dependencies
-
-        # Verify VM Access
+        # - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
         ping -c 3 azure-uav1
 
         # Add azure-uav1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
@@ -90,7 +75,7 @@ Apply the above steps again for all your `UGV` VMs. Change the host from `azure-
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
-## 6. Install Perception VM Dependencies
+## 5. Install Perception VM Dependencies
 
         # Verify VM Access
         ping -c 3 azure-perception1
@@ -105,7 +90,7 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
         # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
         subt cloud ansible azure-perception1 install-azure.yaml
 
-## 7. Verify Install
+## 6. Verify Install
 
 Verify everything was installed correctly on all the VMs.
 
@@ -114,7 +99,7 @@ Example steps below show how to verify on the basestation VM:
         # access the remote VM
         ssh azure.basestation "source ~/.dsta/subtrc.bash; subt tools verify.ops"
 
-## 8. Remote Desktop
+## 7. Remote Desktop
 
 The SubT Azure VMs has remote desktop port enabled.
 
