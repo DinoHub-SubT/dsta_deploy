@@ -10,6 +10,15 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 All deployer commands should be done on the **localhost**.
 
+## 0. Enable GPU Images on Remote Hosts
+
+        gedit ~/.dsta/user_config.bash
+
+        # change the type of docker images to use
+        export USE_ENHANCED_GPU_DOCKER_IMAGES=true
+
+- This is a bug in the deployment operations. Please remember to return it back to your configuration when the docker image pull on azure remote vm is completed.
+
 ## 1. Docker Images
 
 **Create Docker Images**
@@ -36,10 +45,10 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.uav.cpu.core                                 249324c
-        subt/x86.uav.cpu.perception                           249324c
-        subt/x86.uav.cpu.superodometry                        249324c
-        subt/x86.uav.cpu.ros.melodic                          249324c
+        subt/x86.uav.cpu.core                                 0.1.1144870
+        subt/x86.uav.cpu.perception                           0.1.1144870
+        subt/x86.uav.cpu.superodometry                        0.1.1144870
+        subt/x86.uav.cpu.ros.melodic                          0.1.1144870
 
 Return To Localhost
 
@@ -70,3 +79,4 @@ Return To Localhost
 
         # exit the remote VM
         exit
+

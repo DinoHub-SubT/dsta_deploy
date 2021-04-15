@@ -33,12 +33,12 @@ If you do not prefer to use Teamveiwer, you can use RDP instead.
         ssh azure.uav1
 
         # enter the docker shell container
-        docker-join.bash -n uav-shell
+        docker-join.bash -n uav1-shell
 
 ## 3. Launch UAV Simulation
 
         # load the tmux session. Example launch `uav1`
-        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/uav.yaml
+        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
 
 ## 4. Verify Launch
 

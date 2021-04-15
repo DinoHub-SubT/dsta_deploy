@@ -15,7 +15,7 @@ You have the option of building the workspaces directly on the VM or in the dock
 
 ## 1. Create the Cloud Infrastructure
 
-Follow the [Terraform Setup](terraform-setup.md) instructions, to create the Azure resources.
+Follow the [Terraform Setup](azure-terraform-setup.md) instructions, to create the Azure resources.
 
 - Creates an example azure infrastructure with VMs, virtual networking, VPN in the `SubT` resource group.
 - Gives an introduction tutorial on using the `terraform` tools for maintaining the Azure resources.
@@ -26,7 +26,11 @@ Follow the [Terraform Setup](terraform-setup.md) instructions, to create the Azu
 
 **Verify** the cloud infrastructure was created. Go to the [portal.azure.com](https://portal.azure.com/#home) and search for your infrastructure setup.
 
-- In the `SubT` resource group, search for the `resource_name_prefix` you put in `operations/azurebooks/subt/main.tf`
+- In the `SubT` resource group, search for:
+
+      # display the azure resource name prefix used for azure resources
+      echo $TF_VAR_azure_resource_name_prefix
+
 - Verify you see your resources created (like Virtual Machines, networking, etc) with your prefix.
 
 ## 3. Prepare The Virtual Machines

@@ -64,7 +64,7 @@ Your Tenant id is:
 
         "homeTenantId": "121cb257-a394-2cd3-2425-3ase4g5f56da"
 
-**Azcopy Initial Login**
+**Azcopy Initial Login (Optional)**
 
         # azcopy login
         azcopy login --tenant-id [YOUR TENANT ID]
@@ -84,11 +84,6 @@ Your Tenant id is:
         # login to the subt docker registry
         az acr login --name subtexplore
 
-**Setup the VPN certificates**
-
-        # Create the Root & User Certificates
-        subt cloud terraform cert
-
 **Add your Azure user info to terraform ids**
 
         # Open the terraform user account configuration file
@@ -100,8 +95,6 @@ Your Tenant id is:
         - Set 'TF_VAR_tenant_id'                  to what the results of az account list
         - Set 'TF_VAR_azure_username'             to your azure username to login into azure portal (i.e. name before the @...hotmail.onmicrosoft.com)
         - Set 'TF_VAR_azure_resource_name_prefix' to your prefered prefix (usually your andrew ID, must be unique to you. Or use the same as azure username)
-        - Set 'TF_VAR_subt.d/azure_vm_rsa_cert'   to the output of the openssl command from above
-
 
 **Personalize your Azure setup**
 
@@ -129,6 +122,11 @@ Your Tenant id is:
 
         subt cloud terraform init
 
+**Setup the VPN certificates**
+
+        # Create the Root & User Certificates
+        subt cloud terraform cert
+
 **Dry-run the terraform deployment**
 
         # Shows the user the azure deployment
@@ -153,9 +151,21 @@ Your Tenant id is:
 **Verify your Virtual Machines are created**
 
         # show your started virtual machines
-        subt ansible terraform list -st
+        subt cloud terraform list -st
 
 - Alternatively, you can check on the [Azure Portal Website](https://portal.azure.com/#home).
+
+**Remove Any Localhost Docker Networks**
+
+        # remove any local docker networks -- this configuration will conflict with the Azure VPN
+        docker network rm robots
+
+        # restart the docker service
+        sudo service docker restart
+
+**Connect to the VPN**
+
+- Select the Azure VPN in your network manager called `AZURE_VPN_CONNECTION`.
 
 **Connect to Virtual Machine over the VPN**
 
@@ -163,10 +173,10 @@ Your Tenant id is:
         ping [ private IP ]
 
         # ssh into your VM (default username for all the VMs is: subt)
-        ssh subt@[private IP]
+        ssh -i ~/.ssh/subt.d/azure_vm_rsa subt@[private IP]
 
-- if you have issues pinging the VMs, please check your VPN connection.
-- if you have issues ssh into the VMs, please see the `Issues` title below.
+- If you have issues pinging the VMs, please check your VPN connection.
+- If you have issues ssh into the VMs, please see the `Issues` title below.
 
 **Check SSH Connection To All Virtual Machines**
 
@@ -174,13 +184,17 @@ Your Tenant id is:
         ssh-add ~/.ssh/subt.d/azure_vm_rsa
 
         # probes all ssh connections configured in ~/.ssh/config
-        subt tools ssh.probe
+        subt tools probe.ssh
+
+        # feel free to connect using the probe alias
+        # example, if started:
+        ssh azure.uav1
 
 You should now have resources deployed on Azure and be able to connect to them.
 
 ## Azure Maintenance
 
-To reduce Azure costs, users should make sure to maintain their resources.
+To **reduce Azure costs**, users should make sure to **maintain their resources**.
 
 **Shutdown Virtual Machines**
 
@@ -195,7 +209,7 @@ When finished with virtual machines for the day, always remember to shutdown you
         # (optional) to re-start your virtual machine
         subt cloud terraform start [ virtual machine name ]
 
-- It is OK to remove and re-start your virtual machines, nothing will be removed from your VM disk when stopping/starting.
+- Its OK to remove and re-start your virtual machines, nothing will be removed from your VM disk when stopping/starting.
 
 **Remove your VPN**
 
@@ -207,7 +221,7 @@ When finished with your virtual machines for the day, remember to remove your VP
         # (optiona) re-start your vpn
         subt cloud terraform mkvpn
 
-- It is OK to remove and recreate your VPN. Your re-created VPN will automatically be connected to your virtual machines.
+- Its OK to remove and recreate your VPN. Your re-created VPN will automatically be connected to your virtual machines.
 - The VPN stop will usually take 15 minutes.
 - The VPN re-create will usually take 20-30 minutes.
 

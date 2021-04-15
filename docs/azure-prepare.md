@@ -8,19 +8,18 @@ You will need to prepare the Azure VMs by installing all the dependencies you ha
 
 The `ansible` scripts can be found at: `operations/ansiblebooks`
 
-- Users can add to the scripts if there are missing dependencies.
-
 The `ansible` scripts do not give realtime output.
 
 - You will only see the success of the commands after it has completed.
-- Some commands might take a long time to complete (as long as 20 minutes for cloning all the submodules), so wait until `ansible` returns a fail or pass status.
+- Some commands might take a long time to complete (as long as 40 minutes for cloning all the submodules), so wait until `ansible` returns a fail or pass status.
+
+Please run only the ansible scripts for the virtual machines you have available.
 
 **Things to be keep in mind:**
 
-- If a command takes longer than 30 minutes, check your VM or VPN connection.
+- If a command takes longer than 30 minutes, check your VM or VPN connection (i.e. ping the vm).
 - If you see an error status for any task (and it stops the install), **please notify the maintainer**.
-- The `ansible` scripts will connect to the remote VMs and run the installs. Verify you have `ssh` access to the VMs.
-- You can run the `basestation`, `ugv`, `uav` install steps in parallel of each other (meaning steps 3, 4, 5 can be run in parallel of each other).
+- You can run the `basestation`, `uav`, `perception` install steps in parallel.
 
 **Please, run the following instructions from your localhost.**
 
@@ -35,10 +34,10 @@ The `ansible` scripts do not give realtime output.
         # view the help usage message
         subt cloud ansible help
 
-        # view available local or remote system names
+        # view available local or remote system names -- these are the ansible alias names for the remote hosts
         subt cloud ansible -s
 
-        # view available ansible playbooks
+        # view available ansible playbooks -- these are script that will run on the remote hosts
         subt cloud ansible -b
 
 ## 3. Install Basestation VM Dependencies
@@ -56,6 +55,12 @@ The `ansible` scripts do not give realtime output.
         # - clones the deploy repo on the remote VM (can take 30 minutes)
         # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
         subt cloud ansible azure-basestation install-azure.yaml
+
+If you see the ansible script taking too long, check the connecting by pinging the vm:
+
+        ping azure-basestation
+
+Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
 
 ## 4. Install UAV VM Dependencies
 
@@ -75,6 +80,12 @@ The `ansible` scripts do not give realtime output.
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
+If you see the ansible script taking too long, check the connecting by pinging the vm:
+
+        ping azure-uav1
+
+Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
+
 ## 5. Install Perception VM Dependencies
 
         # Verify VM Access
@@ -89,6 +100,12 @@ Apply the above steps again for all your `UAV` VMs. Change the host from `azure-
         # - clones the deploy repo on the remote VM (can take 30 minutes)
         # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
         subt cloud ansible azure-perception1 install-azure.yaml
+
+If you see the ansible script taking too long, check the connecting by pinging the vm:
+
+        ping azure-perception1
+
+Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
 
 ## 6. Verify Install
 

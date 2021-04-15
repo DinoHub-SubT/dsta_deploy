@@ -70,10 +70,10 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.uav.cpu.core                                 249324c
-        subt/x86.uav.cpu.perception                           249324c
-        subt/x86.uav.cpu.superodometry                        249324c
-        subt/x86.uav.cpu.ros.melodic                          249324c
+        subt/x86.uav.cpu.core                                 0.1.1144870
+        subt/x86.uav.cpu.perception                           0.1.1144870
+        subt/x86.uav.cpu.superodometry                        0.1.1144870
+        subt/x86.uav.cpu.ros.melodic                          0.1.1144870
 
 ## 4. Docker Containers
 

@@ -67,8 +67,8 @@ Pull the ugv docker images from the Azure docker registry:
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.basestation.cpu.core                         249324c
-        subt/x86.basestation.cpu.ros.melodic                  249324c
+        subt/x86.basestation.cpu.core                         0.1.1144870
+        subt/x86.basestation.cpu.ros.melodic                  0.1.1144870
 
 ## 3. Creating Docker Containers
 
