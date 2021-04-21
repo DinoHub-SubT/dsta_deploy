@@ -48,18 +48,12 @@ The deploy repo maintains a working version of all the `SubT` workspaces in orde
 
 **8. Localhost User ID**
 
-  - Please make sure your localhost user is id `1000`.
+  - **Please make sure your localhost user is id `1000`**.
     - i.e. Use the first user you created on your localhost.
     - To check, please run `id`
     - There is a current bug in the docker images that requires this restriction. This will be fixed on next iteration.
 
-**9. Use Standard Bash Terminal (optional)**
-
-  - The SubT deployer autocomplete tab commands do not autocomplete on [`terminator`](https://github.com/gnome-terminator/terminator)
-  - If you wish to use the tab autocomplete function, then you can use standard `bash` or `zsh` terminal for best experience.
-  - You can still use the deployer commands in `terminator`, you just wont be able to autocomplete.
-
-**10. Host Network Setup**
+**9. Host Network Setup**
 
   Please make sure your host network is not configured with the same network configuration as `10.3.0.0/16`
 
@@ -109,11 +103,6 @@ Clone the all the submodules, to their latest updates:
         # resets all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
         subt git all.reset
 
-**(Optional)** When you want to pull the latest updates when checked out a branch in submodule:
-
-        # pull the submodule's updates, when the submodules are checked-out at a specific branch.
-        subt git all.pull
-
 ## 2.b.More Reading
 
 
@@ -146,6 +135,7 @@ This tutorial will setup the following:
 --- | ---  |--- | --- |
 **Basestation**  | [local-docker-basestation.md](docs/docker/local-docker-basestation.md) | [azure-docker-basestation.md](docs/docker/azure-docker-basestation.md) | [robots-docker-basestation.md](docs/docker/robots-docker-basestation.md) |
 **UAV** | [local-docker-uav.md](docs/docker/local-docker-uav.md) | [azure-docker-uav.md](docs/docker/azure-docker-uav.md)| [robots-docker-uav-setup.md](docs/docker/robots-docker-uav.md) |
+**UGV** | [local-docker-ugv.md](docs/docker/local-docker-ugv.md) | [azure-docker-ugv.md](docs/docker/azure-docker-ugv.md)| [robots-docker-ugv-setup.md](docs/docker/robots-docker-ugv.md) |
 
 ### 6. Catkin Workspaces Setup
 
@@ -153,6 +143,7 @@ This tutorial will setup the following:
 --- | --- |--- |--- |
 **Basestation** |  [local-catkin-basestation.md](docs/catkin/local-catkin-basestation.md) | [azure-catkin-basestation.md](docs/catkin/azure-catkin-basestation.md) | [robots-catkin-basestation.md](docs/catkin/robots-catkin-basestation.md)| |
 **UAV** | [local-catkin-uav.md](docs/catkin/local-catkin-uav.md) | [azure-catkin-uav.md](docs/catkin/azure-catkin-uav.md) | [robots-catkin-uav.md](docs/catkin/robots-catkin-uav.md)| |
+**UGV** | [local-catkin-ugv.md](docs/catkin/local-catkin-ugv.md) | [azure-catkin-ugv.md](docs/catkin/azure-catkin-ugv.md) | [robots-catkin-ugv.md](docs/catkin/robots-catkin-ugv.md)| |
 
 ### 7. Simulation Launch Setup
 
@@ -160,6 +151,7 @@ This tutorial will setup the following:
 --- | --- | --- | --- | --- |
 **Basestation** | [local-launch-basestation.md](docs/launch/local-launch-basestation.md)| [azure-launch-basestation.md](docs/launch/azure-launch-basestation.md)|
 **UAV** | [local-launch-uav.md](docs/launch/local-launch-uav.md) | [azure-launch-uav.md](docs/launch/azure-launch-uav.md) |
+**UGV** | [local-launch-ugv.md](docs/launch/local-launch-ugv.md) | [azure-launch-ugv.md](docs/launch/azure-launch-ugv.md) |
 
 * * *
 

@@ -36,8 +36,8 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.basestation.cpu.core                         0.1.1144870
-        subt/x86.basestation.cpu.ros.melodic                  0.1.1144870
+        subt/x86.basestation.cpu.core                         0.2.c40347f
+        subt/x86.basestation.cpu.ros.melodic                  0.2.c40347f
 
 Return To Localhost
 

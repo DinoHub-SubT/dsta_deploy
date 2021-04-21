@@ -15,13 +15,6 @@ If you have neither, please notify the maintainer. You will need one of those tw
 
 ## Catkin Build
 
-        # PLEASE NOTICE
-        #   - user either the cpu or gpu deployer commands. NOT BOTH!
-        #   - if you're computer has an NVIDIA GPU, then use the gpu shell. Otherwise use the cpu shell.
-        #   - each of the below commands has a cpu or gpu commands, please choose the one for your setup.
-
-        # cpu shell
-
         # start the container
         subt deployer local.uav.uav1.core.docker.shell.start
 

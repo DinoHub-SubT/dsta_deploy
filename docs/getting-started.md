@@ -1,10 +1,10 @@
-# SubT Getting Started
+# DSTA Getting Started
 
 ## 1. Bitbucket SSH Keys
 
 **Create SSH keys on localhost**
 
-- **Step 1:** Generate ssh keys for subt bitbucket:
+- **Step 1:** Generate ssh keys for dsta bitbucket:
 
         mkdir -p ~/.ssh/
         cd ~/.ssh/
@@ -71,7 +71,7 @@
         cd src
 
         # temporary for now. please make sure you are on this branch
-        git checkout dsta/develop
+        git checkout develop
 
 ## 3. Install Operations
 

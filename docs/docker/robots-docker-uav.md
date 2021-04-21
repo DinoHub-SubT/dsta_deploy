@@ -19,31 +19,29 @@ Follow these steps, **on the basestation**.
         # azure registry login
         az acr login --name subtexplore
 
-        # (ROBTS HAVE INTERNET) pull the docker images from the azure docker registry
+        # -- (ROBTS HAVE INTERNET) -- pull the docker images from the azure docker registry
         subt deployer robots.uav.ds1.docker.registry.azure.pull
 
-        # (ROBTS DO NOT HAVE INTERNET) pull the docker images from the basestation docker registry
+        # -- (ROBTS DO NOT HAVE INTERNET) -- pull the docker images from the basestation docker registry
 
-        # step 1. pull docker images from azure to the basestation
-        subt deployer local.uav.uav1.docker.registry.azure.pull
+        # pull docker images from azure to the basestation
+        subt deployer local.uav.ds1.docker.registry.azure.pull
 
-        # step 2. pull the docker images from the basestation to the robots
-        subt deployer robots.uav.ds1.docker.registry.basestation.pull
 
 **Verify Docker Images**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh uav.ds1
+        ssh uav1.ds
 
         # View the docker images built on the remote VM
         docker images
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.uav.cpu.core                                 0.1.1144870
-        subt/x86.uav.cpu.perception                           0.1.1144870
-        subt/x86.uav.cpu.superodometry                        0.1.1144870
-        subt/x86.uav.cpu.ros.melodic                          0.1.1144870
+        subt/x86.uav.cpu.core                                 0.2.c40347f
+        subt/x86.uav.cpu.perception                           0.2.c40347f
+        subt/x86.uav.cpu.superodometry                        0.2.c40347f
+        subt/x86.uav.cpu.ros.melodic                          0.2.c40347f
 
 Return To Localhost
 
@@ -69,8 +67,8 @@ Follow these steps, **on the basestation**.
 
 Verify you see the following docker containers (in any order):
 
-        uav-shell
-        uav-perception-shell
+        ds1-core-shell
+        ds1-perception-shell
 
 Return To Localhost
 

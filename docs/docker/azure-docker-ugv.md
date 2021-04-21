@@ -1,4 +1,4 @@
-# Azure UAV Docker Setup
+# Azure ugv Docker Setup
 
 Docker install all the repository dependencies as *docker images*.
 
@@ -10,15 +10,6 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 All deployer commands should be done on the **localhost**.
 
-## 0. Enable GPU Images on Remote Hosts
-
-        gedit ~/.dsta/user_config.bash
-
-        # change the type of docker images to use
-        export USE_ENHANCED_GPU_DOCKER_IMAGES=true
-
-- This is a bug in the deployment operations. Please remember to return it back to your configuration when the docker image pull on azure remote vm is completed.
-
 ## 1. Docker Images
 
 **Create Docker Images**
@@ -29,26 +20,26 @@ Follow these steps, **on the localhost**, not on the Azure remote VM. These step
         az acr login --name subtexplore
 
         # pull all the docker images from the azure docker registry
-        subt deployer azure.uav.uav1.docker.registry.azure.pull
+        subt deployer azure.ugv.ugv1.docker.registry.azure.pull
 
         # (optional) stop & remove any previously created docker containers
-        subt deployer azure.uav.uav1.docker.shell.stop
-        subt deployer azure.uav.uav1.docker.shell.rm
+        subt deployer azure.ugv.ugv1.docker.shell.stop
+        subt deployer azure.ugv.ugv1.docker.shell.rm
 
 **Verify Docker Images**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh azure.uav1
+        ssh azure.ugv1
 
         # View the docker images built on the localhost
         docker images
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.uav.cpu.core                                 0.2.c40347f
-        subt/x86.uav.cpu.perception                           0.2.c40347f
-        subt/x86.uav.cpu.superodometry                        0.2.c40347f
-        subt/x86.uav.cpu.ros.melodic                          0.2.c40347f
+        subt/x86.ugv.cpu.core                                 0.2.c40347f
+        subt/x86.ugv.cpu.perception                           0.2.c40347f
+        subt/x86.ugv.cpu.superodometry                        0.2.c40347f
+        subt/x86.ugv.cpu.ros.melodic                          0.2.c40347f
 
 Return To Localhost
 
@@ -61,19 +52,19 @@ Return To Localhost
 
 Follow these steps, **on the localhost**, not on the Azure remote VM. These steps will create the docker container on the Azure remote VM.
 
-        subt deployer azure.uav.uav1.core.docker.shell.start
+        subt deployer azure.ugv.ugv1.core.docker.shell.start
 
 **Verify Docker Containers**
 
         # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh azure.uav1
+        ssh azure.ugv1
 
         # view running docker containers
         docker ps
 
 Verify you see the following docker containers (in any order):
 
-        uav1-shell
+        ugv1-shell
 
 Return To Localhost
 
