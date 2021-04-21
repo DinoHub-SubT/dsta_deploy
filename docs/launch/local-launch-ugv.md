@@ -7,7 +7,7 @@
         docker-join.bash --name ugv1-shell
 
         # Load the tmux session. Example launch `ugv1`
-        ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/ugv.yaml
+        ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/ugv.yaml
 
         # (OPTIONAL) open a new tab/window and publish a waypoint
         rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'

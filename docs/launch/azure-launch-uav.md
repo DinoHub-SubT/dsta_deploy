@@ -38,7 +38,7 @@ If you do not prefer to use Teamveiwer, you can use RDP instead.
 ## 3. Launch UAV Simulation
 
         # load the tmux session. Example launch `uav1`
-        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
+        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/uav.yaml
 
 ## 4. Verify Launch
 

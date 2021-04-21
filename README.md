@@ -100,8 +100,9 @@ All deployment operations are accessible by using the tool:
 
 Clone the all the submodules, to their latest updates:
 
-        # resets all the submodules, to their `DETACHED HEAD` commit HASH as pushed on origin.
         subt git all.reset
+
+  - Resets all the submodules, to their DETACHED HEAD commit HASH as pushed on origin.
 
 ## 2.b.More Reading
 
@@ -148,7 +149,7 @@ This tutorial will setup the following:
 ### 7. Simulation Launch Setup
 
 -- | Localhost Launch | Azure Launch |
---- | --- | --- | --- | --- |
+--- | --- | --- |
 **Basestation** | [local-launch-basestation.md](docs/launch/local-launch-basestation.md)| [azure-launch-basestation.md](docs/launch/azure-launch-basestation.md)|
 **UAV** | [local-launch-uav.md](docs/launch/local-launch-uav.md) | [azure-launch-uav.md](docs/launch/azure-launch-uav.md) |
 **UGV** | [local-launch-ugv.md](docs/launch/local-launch-ugv.md) | [azure-launch-ugv.md](docs/launch/azure-launch-ugv.md) |
