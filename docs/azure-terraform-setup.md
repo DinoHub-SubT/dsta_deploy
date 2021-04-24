@@ -197,6 +197,8 @@ docker network rm robots
 sudo service docker restart
 ```
 
+- if you see `Error: No such network: robots`, it is OK to ignore this error message and continue.
+
 **Connect to the VPN**
 
 - Select the Azure VPN in your network manager called `AZURE_VPN_CONNECTION`.
@@ -213,6 +215,7 @@ ssh -i ~/.ssh/subt.d/azure_vm_rsa subt@[private IP]
 
 - If you have issues pinging the VMs, please check your VPN connection.
 - If you have issues ssh into the VMs, please see the `Issues` title below.
+- You might be asked `Enter passphrase for key '~/.ssh/subt.d/azure_vm_rsa'`, this is a passphrase you entered during the `subt cloud ansible localhost install-localhost.yaml -p` install.
 
 **Check SSH Connection To All Virtual Machines**
 
@@ -221,6 +224,7 @@ ssh -i ~/.ssh/subt.d/azure_vm_rsa subt@[private IP]
 ssh-add ~/.ssh/subt.d/azure_vm_rsa
 
 # probes all ssh connections configured in ~/.ssh/config
+# - If you do not see your connection enabled, check you can ssh without password, then open a new terminal and re-try the probe.
 subt tools probe.ssh
 
 # feel free to connect using the probe alias
