@@ -64,6 +64,12 @@ create_subt_cfg() {
   write $GL_RC_SUBT_CFG
 
   # general paths
+  write $GL_RC_SUBT_CFG "# -- General Config -- "
+  write $GL_RC_SUBT_CFG
+  write $GL_RC_SUBT_CFG "export DEPLOYER_PROJECT_NAME=dsta"
+  write $GL_RC_SUBT_CFG
+
+  # general paths
   write $GL_RC_SUBT_CFG "# -- General Paths -- "
   write $GL_RC_SUBT_CFG
   write $GL_RC_SUBT_CFG "export SUBT_PATH=$GL_SRC_DIR/"
