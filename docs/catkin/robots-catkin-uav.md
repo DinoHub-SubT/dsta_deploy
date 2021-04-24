@@ -8,25 +8,29 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        subt deployer robots.uav.ds1.docker.shell.start
+```text
+# create the docker shell on the remote host
+#   - you need to make sure the container is started before building
+subt deployer robots.uav.ds1.docker.shell.start
 
-        # (OTIONAL) clean all the workspaces
-        subt deployer robots.uav.ds1.catkin.clean
+# (OTIONAL) clean all the workspaces
+subt deployer robots.uav.ds1.catkin.clean
 
-        # build all the workspaces
-        subt deployer robots.uav.ds1.catkin.build
+# build all the workspaces
+subt deployer robots.uav.ds1.catkin.build
+```
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development.
 
-        # stop the docker container
-        subt deployer robots.uav.ds1.docker.shell.stop
+```text
+# stop the docker container
+subt deployer robots.uav.ds1.docker.shell.stop
 
-        # remove the docker container
-        subt deployer robots.uav.ds1.docker.shell.rm
+# remove the docker container
+subt deployer robots.uav.ds1.docker.shell.rm
+```
 
 - When you continue with development, you will need to re-create the docker containers again.
 

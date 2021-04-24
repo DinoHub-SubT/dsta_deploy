@@ -15,24 +15,28 @@ If you have neither, please notify the maintainer. You will need one of those tw
 
 ## Catkin Build
 
-        # start the container
-        subt deployer local.uav.uav1.core.docker.shell.start
+```text
+# start the container
+subt deployer local.uav.uav1.core.docker.shell.start
 
-        # clean the previous built workspaces
-        subt deployer local.uav.uav1.core.catkin.clean
+# clean the previous built workspaces
+subt deployer local.uav.uav1.core.catkin.clean
 
-        # build the uav's core workspace
-        subt deployer local.uav.uav1.core.catkin.build
+# build the uav's core workspace
+subt deployer local.uav.uav1.core.catkin.build
+```
 
 ## Cleanup (optional)
 
 You should remove containers when done with its development (for those that are available).
 
-        # stop the docker container
-        subt deployer local.uav.uav1.core.docker.shell.stop
+```text
+# stop the docker container
+subt deployer local.uav.uav1.core.docker.shell.stop
 
-        # remove the docker container
-        subt deployer local.uav.uav1.core.docker.shell.rm
+# remove the docker container
+subt deployer local.uav.uav1.core.docker.shell.rm
+```
 
 - When you continue with development, you will need to re-create the docker containers again.
 

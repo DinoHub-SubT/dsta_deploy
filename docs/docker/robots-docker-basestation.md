@@ -16,25 +16,31 @@ All deployer commands should be done on the **basestation**.
 
 Pull the ugv docker images from the Azure docker registry:
 
-        # azure registry login
-        az acr login --name subtexplore
+```text
+# azure registry login
+az acr login --name subtexplore
 
-        # pull all the docker images from the azure docker registry
-        subt deployer robots.basestation.docker.registry.azure.pull
+# pull all the docker images from the azure docker registry
+subt deployer robots.basestation.docker.registry.azure.pull
 
-        # (optional) stop & remove any previously created docker containers
-        subt deployer robots.basestation.docker.shell.stop
-        subt deployer robots.basestation.docker.shell.rm
+# (optional) stop & remove any previously created docker containers
+subt deployer robots.basestation.docker.shell.stop
+subt deployer robots.basestation.docker.shell.rm
+```
 
 **Verify Docker Images**
 
-        # View the docker images built on the remote VM
-        docker images
+```text
+# View the docker images built on the remote VM
+docker images
+```
 
 Verify you see the following docker images (in any order):
 
-        subt/x86.basestation.cpu.core                         0.2.c40347f
-        subt/x86.basestation.cpu.ros.melodic                  0.2.c40347f
+```text
+subt/x86.basestation.cpu.core                         0.2.c40347f
+subt/x86.basestation.cpu.ros.melodic                  0.2.c40347f
+```
 
 ## 2. Docker Containers
 
@@ -42,13 +48,19 @@ Verify you see the following docker images (in any order):
 
 Create the basestation docker container:
 
-        subt deployer robots.basestation.docker.shell.start
+```text
+subt deployer robots.basestation.docker.shell.start
+```
 
 **Verify Docker Containers**
 
-        # view running docker containers
-        docker ps
+```text
+# view running docker containers
+docker ps
+```
 
 Verify you see the following docker containers (in any order):
 
-        basestation-shell
+```text
+basestation-shell
+```

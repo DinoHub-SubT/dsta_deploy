@@ -4,14 +4,16 @@
 
 ### Teamviewer
 
-        # ssh into the remote VM. Example:
-        ssh azure.ugv1
+```text
+# ssh into the remote VM. Example:
+ssh azure.ugv1
 
-        # view teamviewer info
-        sudo teamviewer info
+# view teamviewer info
+sudo teamviewer info
 
-        # get the teamviewer ID
-        sudo teamviewer info | grep "TeamViewer ID"
+# get the teamviewer ID
+sudo teamviewer info | grep "TeamViewer ID"
+```
 
 Copy the remote `TeamViewer ID` into your localhost teamviewer "Control Remote Computer" Partner ID.
 
@@ -25,28 +27,34 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
-        subt tools rdp -t azure-ugv1-window -h azure-ugv1 -u subt -p Password1234!
+```text
+subt tools rdp -t azure-ugv1-window -h azure-ugv1 -u subt -p Password1234!
+```
 
 ## 2. Access Docker Container
 
-        # ssh into the remote Azure VM
-        ssh azure.ugv1
+```text
+# ssh into the remote Azure VM
+ssh azure.ugv1
 
-        # enter the docker shell container
-        docker-join.bash --name ugv1-shell
+# enter the docker shell container
+docker-join.bash --name ugv1-shell
+```
 
 ## 3. Launch UGV Simulation
 
-        # load the tmux session. Example launch `ugv1`
-        ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/ugv.yaml
+```text
+# load the tmux session. Example launch `ugv1`
+ROBOT=ugv1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/ugv.yaml
 
-        # (OPTIONAL) open a new tab/window and publish a waypoint
-        rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'
+# (OPTIONAL) open a new tab/window and publish a waypoint
+rostopic pub --once /way_point geometry_msgs/PointStamped '{header: {frame_id: map}, point: {x: 16, y: 0, z: 0}}'
 
-        # (OPTIONAL) Move the UGV using the Basestation Azure VM GUI.
-        # -- On the Basestation Azure VM (example, moving ugv1):
-        #       Select UGV1 on both control GUIs
-        #       Select waypoints on rviz
+# (OPTIONAL) Move the UGV using the Basestation Azure VM GUI.
+# -- On the Basestation Azure VM (example, moving ugv1):
+#       Select UGV1 on both control GUIs
+#       Select waypoints on rviz
+```
 
 ## 4. Verify Launch
 

@@ -20,7 +20,7 @@
 
     - Add another directory volume path right under: `${SUBT_PATH}/../:/home/developer/deploy_ws/:rw`
 
-    - The format is: `localhost/path/to/directory:/home/developer/path/in/conttainer:rw`
+    - The format is: `localhost/path/to/directory:/home/developer/path/in/container:rw`
 
     - remove the current container `docker rm [container name]`
 

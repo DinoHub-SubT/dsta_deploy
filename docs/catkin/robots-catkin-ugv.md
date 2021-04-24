@@ -8,30 +8,32 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        subt deployer robots.ugv.ugv1.docker.shell.start
+```text
+# create the docker shell on the remote host
+#   - you need to make sure the container is started before building
+subt deployer robots.ugv.ugv1.docker.shell.start
 
-        # (optional) run on a specific ugv robot computer
-        subt deployer robots.ugv.ugv1.ppc.docker.shell.start
-        subt deployer robots.ugv.ugv1.nuc.docker.shell.start
-        subt deployer robots.ugv.ugv1.xavier.docker.shell.start
+# (optional) run on a specific ugv robot computer
+subt deployer robots.ugv.ugv1.ppc.docker.shell.start
+subt deployer robots.ugv.ugv1.nuc.docker.shell.start
+subt deployer robots.ugv.ugv1.xavier.docker.shell.start
 
-        # (OTIONAL) clean all the workspaces
-        subt deployer robots.ugv.ugv1.catkin.clean
+# (OTIONAL) clean all the workspaces
+subt deployer robots.ugv.ugv1.catkin.clean
 
-        # (optional) run on a specific ugv robot computer
-        subt deployer robots.ugv.ugv1.ppc.catkin.clean
-        subt deployer robots.ugv.ugv1.nuc.catkin.clean
-        subt deployer robots.ugv.ugv1.xavier.catkin.clean
+# (optional) run on a specific ugv robot computer
+subt deployer robots.ugv.ugv1.ppc.catkin.clean
+subt deployer robots.ugv.ugv1.nuc.catkin.clean
+subt deployer robots.ugv.ugv1.xavier.catkin.clean
 
-        # build all the workspaces
-        subt deployer robots.ugv.ugv1.catkin.build
+# build all the workspaces
+subt deployer robots.ugv.ugv1.catkin.build
 
-        # (optional) run on a specific ugv robot computer
-        subt deployer robots.ugv.ugv1.ppc.catkin.build
-        subt deployer robots.ugv.ugv1.nuc.catkin.build
-        subt deployer robots.ugv.ugv1.xavier.catkin.build
+# (optional) run on a specific ugv robot computer
+subt deployer robots.ugv.ugv1.ppc.catkin.build
+subt deployer robots.ugv.ugv1.nuc.catkin.build
+subt deployer robots.ugv.ugv1.xavier.catkin.build
+```
 
 ## Cleanup (optional)
 

@@ -10,11 +10,15 @@ Assuming you have already setup all your basestation docker containers, follow t
 
 You can transfer changes from your localhost to the remote:
 
-        subt deployer azure.basestation.transfer.to
+```text
+subt deployer azure.basestation.transfer.to
+```
 
 If you find the `transfer.to` is too slow. then try this command:
 
-        subt deployer azure.basestation.skel_t.to
+```text
+subt deployer azure.basestation.skel_t.to
+```
 
 You can edit the transfer options: `deploy_rsync_opts` in ``operations/scenarios/transfer/basestation.env`
 
@@ -23,15 +27,17 @@ You can edit the transfer options: `deploy_rsync_opts` in ``operations/scenarios
 
 ## Catkin Build
 
-        # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        subt deployer azure.basestation.docker.shell.start
+```text
+# create the docker shell on the remote host
+#   - you need to make sure the container is started before building
+subt deployer azure.basestation.docker.shell.start
 
-        # clean the previously built workspaces
-        subt deployer azure.basestation.catkin.clean
+# clean the previously built workspaces
+subt deployer azure.basestation.catkin.clean
 
-        # catkin build the basestation GUI workspaces
-        subt deployer azure.basestation.catkin.build
+# catkin build the basestation GUI workspaces
+subt deployer azure.basestation.catkin.build
+```
 
 ## Cleanup (optional)
 
@@ -39,11 +45,13 @@ You should remove containers when done with its development (for those that are 
 
 Automated remove the docker containers:
 
-        # stop the docker container
-        subt deployer azure.basestation.docker.shell.stop
+```text
+# stop the docker container
+subt deployer azure.basestation.docker.shell.stop
 
-        # remove the docker container
-        subt deployer azure.basestation.docker.shell.rm
+# remove the docker container
+subt deployer azure.basestation.docker.shell.rm
+```
 
 - The above steps will remove the containers.
 

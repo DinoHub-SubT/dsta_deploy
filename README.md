@@ -74,7 +74,6 @@ Please have a basic understanding of the following the operational tools:
 - [Ansible (optional)](https://www.ansible.com/)
 - [Tmux](https://www.hamvocke.com/blog/a-quick-and-easy-guide-to-tmux/)
 
-
 * * *
 
 # SubT Infrastructure
@@ -93,14 +92,18 @@ Please see the [Getting Started With The Setup](./docs/getting-started.md) instr
 
 All deployment operations are accessible by using the tool:
 
-        subt [TAB]
+```text
+subt [TAB]
+```
 
   - Press `TAB` to auto-complete the selections available.
   - Press `TAB SPACE` to show the help information for the auto-complete the selections available.
 
 Clone the all the submodules, to their latest updates:
 
-        subt git all.reset
+```text
+subt git all.reset
+```
 
   - Resets all the submodules, to their DETACHED HEAD commit HASH as pushed on origin.
 
@@ -114,11 +117,13 @@ Clone the all the submodules, to their latest updates:
 
 You will need to have an Azure account to access the azure docker registry of where we store docker images.
 
-        # az login will prompt a browser window. Enter your user credentials to login.
-        az login
+```text
+# az login will prompt a browser window. Enter your user credentials to login.
+az login
 
-        # login to the subt docker registry
-        az acr login --name subtexplore
+# login to the subt docker registry
+az acr login --name subtexplore
+```
 
 ### 4. (Optional) Azure Cloud Infrastructure Setup
 

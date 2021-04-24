@@ -2,89 +2,103 @@
 
 ## 1. Bitbucket SSH Keys
 
-**Create SSH keys on localhost**
+### Create SSH keys on localhost
 
-- **Step 1:** Generate ssh keys for dsta bitbucket:
+**Step 1:** Generate ssh keys for dsta bitbucket:
 
-        mkdir -p ~/.ssh/
-        cd ~/.ssh/
-        ssh-keygen
+```text
+mkdir -p ~/.ssh/
+cd ~/.ssh/
+ssh-keygen
+```
 
-    - Answer the prompts from `ssh-keygen` as shown below:
+  - Answer the prompts from `ssh-keygen` as shown below:
 
-            Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
-            Enter passphrase (empty for no passphrase):
+```text
+        Enter file in which to save the key (/home/<USER-NAME>/.ssh/id_rsa): /home/<USER-NAME>/.ssh/bitbucket
+        Enter passphrase (empty for no passphrase):
+```
 
-    - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
-    - **Docker will not build successfully if you have a passphrase.**
-    - Replace `<USER-NAME>` with your actual username
+  - **DO NOT ENTER A PASSPHRASE on `ssh-keygen`! LEAVE IT BLANK.**
+  - **Docker will not build successfully if you have a passphrase.**
+  - Replace `<USER-NAME>` with your actual username
 
-- **Step 2:** Add the ssh bitbucket key to your localhost ssh config file:
+**Step 2:** Add the ssh bitbucket key to your localhost ssh config file:
 
-        # create (if not created) ssh config file
-        touch ~/.ssh/config
+```text
+# create (if not created) ssh config file
+touch ~/.ssh/config
 
-        # open the ssh config file
-        gedit ~/.ssh/config
+# open the ssh config file
+gedit ~/.ssh/config
 
-        # Add the following to the top of the config file:
-        IdentityFile ~/.ssh/bitbucket
+# Add the following to the top of the config file:
+IdentityFile ~/.ssh/bitbucket
 
-        # exit the ssh config file
+# exit the ssh config file
+```
 
-**Update On Bitbucket Server**
+### Update On Bitbucket Server
 
-- **Step 1:** Open a Terminal:
+**Step 1:** Open a Terminal:
 
-        # copy this entire string
-        cat /home/<USER-NAME>/.ssh/bitbucket.pub
+```text
+# copy this entire string
+cat /home/<USER-NAME>/.ssh/bitbucket.pub
+```
 
-- **Step 2:** Open a Browser:
+**Step 2:** Open a Browser:
 
-        On Bitbucket, choose Personal gear settings icon from in the lower left corner.
+```text
+On Bitbucket, choose Personal gear settings icon from in the lower left corner.
 
-        Click SSH keys.
+Click SSH keys.
 
-        From Bitbucket, click Add key.
+From Bitbucket, click Add key.
 
-        Enter a Label for your new key.
+Enter a Label for your new key.
 
-        Paste the copied public key into the SSH Key field (*from Step 1*).
+Paste the copied public key into the SSH Key field (*from Step 1*).
 
-        Click Save.
+Click Save.
 
-        Bitbucket sends you an email to confirm the addition of the key.
+Bitbucket sends you an email to confirm the addition of the key.
 
-        Return to the command line and verify your configuration and username by entering the following command:
+Return to the command line and verify your configuration and username by entering the following command:
+```
 
 - **Step 3:** Refresh your ssh key connnections (now that you have added it to bitbucket)
 
-        ssh -T git@bitbucket.org
+```text
+ssh -T git@bitbucket.org
+```
 
 - For more references, see [**Bitbucket instructions**](https://confluence.atlassian.com/bitbucket/set-up-an-ssh-key-728138079.html#SetupanSSHkey-Step4.AddthepublickeytoyourBitbucketsettings).
 
 ## 2. Clone the deploy repo
 
-        mkdir ~/deploy_ws/
-        cd ~/deploy_ws/
-        git clone git@bitbucket.org:castacks/dsta_deploy.git src
-        cd src
-
-        # temporary for now. please make sure you are on this branch
-        git checkout develop
+```text
+mkdir ~/deploy_ws/
+cd ~/deploy_ws/
+git clone git@bitbucket.org:castacks/dsta_deploy.git src
+cd src
+git checkout develop
+```
 
 ## 3. Install Operations
 
-        cd ~/deploy_ws/src
+```text
+cd ~/deploy_ws/src
 
-        # run the deployer operations install
-        # - you only need to run this command when there are changes to operations
-        # - the maintainer will notify everyone when to re-run this command
-        ./install-deployer.bash --install --thirdparty
+# run the deployer operations install
+# - you only need to run this command when there are changes to operations
+# - the maintainer will notify everyone when to re-run this command
+./install-deployer.bash --install --thirdparty
 
-        # source your bashrc (or zsh or whichever shell you are using)
-        # - or open up a new terminal
-        source ~/.bashrc
+# source your bashrc (or zsh or whichever shell you are using)
+# - or open up a new terminal
+source ~/.bashrc
+```
 
 ## 4. Customize Configurations
 
@@ -112,20 +126,26 @@ Open: `~/.dsta/ansible_config.yaml`
 
 ## 5. Install System Libraries (ansible)
 
-        # Run the ansible install on localhost, installs all thirdparty libraries for running subt on localhost and azure
-        # - the install will ask for your laptop's password
-        subt cloud ansible localhost install-localhost.yaml -p
+```text
+# Run the ansible install on localhost, installs all thirdparty libraries for running subt on localhost and azure
+# - the install will ask for your laptop's password
+subt cloud ansible localhost install-localhost.yaml -p
+```
 
 The script will fail the first time you run. It will show:
 
-        TASK [test docker with 'hello world' example] ********************************************************************************************************************************************************************************************************************************************************************
-        fatal: [localhost]: FAILED! => {"changed": true, "cmd": "docker run --rm hello-world", "delta": "0:00:00.030621", "end": "2021-03-30 21:22:05.019196", "msg": "non-zero return code", "rc": 126, "start": "2021-03-30 21:22:04.988575", "stderr": "docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.\nSee 'docker run --help'.", "stderr_lines": ["docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.", "See 'docker run --help'."], "stdout": "", "stdout_lines": []}
+```text
+TASK [test docker with 'hello world' example] ********************************************************************************************************************************************************************************************************************************************************************
+fatal: [localhost]: FAILED! => {"changed": true, "cmd": "docker run --rm hello-world", "delta": "0:00:00.030621", "end": "2021-03-30 21:22:05.019196", "msg": "non-zero return code", "rc": 126, "start": "2021-03-30 21:22:04.988575", "stderr": "docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.\nSee 'docker run --help'.", "stderr_lines": ["docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.24/containers/create: dial unix /var/run/docker.sock: connect: permission denied.", "See 'docker run --help'."], "stdout": "", "stdout_lines": []}
+```
 
 To solve: please reboot your computer and re-run the ansible command again:
 
-        # Run the ansible install on localhost, installs all thirdparty libraries for running subt on localhost and azure
-        # - the install will ask for your laptop's password
-        subt cloud ansible localhost install-localhost.yaml -p
+```text
+# Run the ansible install on localhost, installs all thirdparty libraries for running subt on localhost and azure
+# - the install will ask for your laptop's password
+subt cloud ansible localhost install-localhost.yaml -p
+```
 
 - You can run the ansible command from anywhere.
 - Sometimes the ansible will show "errors" but will continue to run. Its OK to ignore these.
@@ -135,8 +155,10 @@ To solve: please reboot your computer and re-run the ansible command again:
 
 Verify you have all the operations tools installed correctly:
 
-        # verify all operations tools are functional
-        subt tools verify.ops
+```text
+# verify all operations tools are functional
+subt tools verify.ops
+```
 
 - Notify the maintainer if the `subt tools` command is not found.
 - Notify the maintainer if the `subt tools` fails.
@@ -157,11 +179,12 @@ Verify you have all the operations tools installed correctly:
 
 - *Solution:*
 
-        sudo visudo
+```text
+sudo visudo
 
-        # Allow user to perform sudo on certain commands, where 'katarina' is my username
-        YOUR-USER-NAME ALL=NOPASSWD: ALL
-
+# Allow user to perform sudo on certain commands, where 'katarina' is my username
+YOUR-USER-NAME ALL=NOPASSWD: ALL
+```
     - This is a security risk, **please remember** to remove once done with the ansible script.
 
 **Error: ansible fails on `docker hello world`**
@@ -170,13 +193,15 @@ Verify you have all the operations tools installed correctly:
 
 - *Solution:*
 
-        # reset your user group
-        Log out and back in (or restart your computer)
+```text
+# reset your user group
+Log out and back in (or restart your computer)
 
-        # retry & confirm docker runs without `sudo`
-        docker ps
+# retry & confirm docker runs without `sudo`
+docker ps
 
-        # re-run the ansible script
-        subt cloud ansible localhost install-localhost.yaml -p
+# re-run the ansible script
+subt cloud ansible localhost install-localhost.yaml -p
+```
 
 **Notify the maintainer if any of the above deploy setup steps failed.**

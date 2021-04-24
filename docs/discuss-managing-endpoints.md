@@ -36,26 +36,30 @@ Transfer the local deploy repository to the remote host, using the `deployer -s 
 
 **Example, `transfer.to` to a specific remote Azure VMs:**
 
-        # example: transfer to remote basestation azure vm
-        subt deployer azure.basestation.transfer.to
+```text
+# example: transfer to remote basestation azure vm
+subt deployer azure.basestation.transfer.to
 
-        # example: transfer to the remote ugv1 azure vm
-        subt deployer azure.ugv.ugv1.transfer.to
+# example: transfer to the remote ugv1 azure vm
+subt deployer azure.ugv.ugv1.transfer.to
 
-        # example: transfer to remote uav1 azure vm
-        subt deployer azure.ugv.uav1.transfer.to
+# example: transfer to remote uav1 azure vm
+subt deployer azure.ugv.uav1.transfer.to
 
-        # example: transfer to remote perception1 azure vm
-        subt deployer azure.perception.perception1.transfer.to
+# example: transfer to remote perception1 azure vm
+subt deployer azure.perception.perception1.transfer.to
+```
 
 #### `Transfer.To` Options
 
 If you find the `transfer.to` is too slow or missing files during a transfer, you can find the the `transfer.to` options in any of the setup files:
 
-        operations/scenarios/transfer/basestation.env
-        operations/scenarios/transfer/ugv.env
-        operations/scenarios/transfer/uav.env
-        operations/scenarios/transfer/perception.env
+```text
+operations/scenarios/transfer/basestation.env
+operations/scenarios/transfer/ugv.env
+operations/scenarios/transfer/uav.env
+operations/scenarios/transfer/perception.env
+```
 
 You can edit the option: `deploy_rsync_opts`
 
@@ -80,24 +84,25 @@ Find your desktop's IP on the Azure VPN:
 - Go to Point-to-site configuration
 - See the Allocated IP addresses
 
-        # == ssh into your VM ==
-        ssh [VM username]@[private VM IP]
+```text
+# == ssh into your VM ==
+ssh [VM username]@[private VM IP]
 
-        # Install sshfs
-        sudo apt-get install sshfs
+# Install sshfs
+sudo apt-get install sshfs
 
-        # Create remote mount point on localhost
-        mkdir /vm1/mountpoint/path/
+# Create remote mount point on localhost
+mkdir /vm1/mountpoint/path/
 
-        # Mount remote directory (desktop IP is found on Azure Portal VPN connections )
-        sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
+# Mount remote directory (desktop IP is found on Azure Portal VPN connections )
+sshfs [desktop username][desktop IP]:/path/to/deploy/workspace/on/locahost /vm1/mountpoint/path/
 
-        # Setup a IDE on localhost with remote editing plugin
-        # Example: https://code.visualstudio.com/docs/remote/ssh
+# Setup a IDE on localhost with remote editing plugin
+# Example: https://code.visualstudio.com/docs/remote/ssh
 
-        # Remove the remote mount on remote VM host
-        sudo umount /vm1/mountpoint/path/
-
+# Remove the remote mount on remote VM host
+sudo umount /vm1/mountpoint/path/
+```
 
 ## Recommendation
 
@@ -152,21 +157,27 @@ You can try this option out for experimentation.
 
 **1. View available docker context commands**
 
-        docker context --help
+```text
+docker context --help
+```
 
 **2. Verify connection to an example Azure VM**
 
-        # Verify you have access to the Basestation Azure VM
-        ping -c 3 azure-basestation
+```text
+# Verify you have access to the Basestation Azure VM
+ping -c 3 azure-basestation
+```
 
 **3. View current setup context**
 
-        # view all the context available
-        docker context ls
+```text
+# view all the context available
+docker context ls
 
-        # You should see something like this (i.e. output from `docker context ls`):
-        # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
-        # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+# You should see something like this (i.e. output from `docker context ls`):
+# NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+# default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+```
 
 **Things to know:**
 
@@ -175,46 +186,50 @@ You can try this option out for experimentation.
 
 **4. Add a new docker context**
 
-        # Add basestation Azure VM docker context
-        docker context create az-basestation --description "Azure basestation VM" --docker "host=ssh://azure.basestation"
+```text
+# Add basestation Azure VM docker context
+docker context create az-basestation --description "Azure basestation VM" --docker "host=ssh://azure.basestation"
 
-        # view all the context available
-        docker context ls
+# view all the context available
+docker context ls
 
-        # You should see something like this (i.e. output from `docker context ls`):
-        # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
-        # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation         Azure basestation VM                      ssh://azure.basestation
+# You should see something like this (i.e. output from `docker context ls`):
+# NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+# default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+# basestation         Azure basestation VM                      ssh://azure.basestation
 
-        # view all docker containers in your current context
-        docker ps -a
+# view all docker containers in your current context
+docker ps -a
 
-        # view all docker images in your current context
-        docker images
+# view all docker images in your current context
+docker images
+```
 
 **5. Select the new docker context**
 
-        # view all the context available
-        docker context ls
+```text
+# view all the context available
+docker context ls
 
-        # select the new context (based on step 3.)
-        docker context use az-basestation
+# select the new context (based on step 3.)
+docker context use az-basestation
 
-        # view the newly selected context
-        docker context ls
+# view the newly selected context
+docker context ls
 
-        # You should see something like this (i.e. output from `docker context ls`):
-        # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
-        # default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation *       Azure basestation VM                      ssh://azure.basestation
+# You should see something like this (i.e. output from `docker context ls`):
+# NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+# default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+# basestation *       Azure basestation VM                      ssh://azure.basestation
 
-        # view all docker containers in the new context
-        # -- you should see different containers from the previous context
-        docker ps -a
+# view all docker containers in the new context
+# -- you should see different containers from the previous context
+docker ps -a
 
-        # view all docker images in the new context
-        # -- you should see different imagezs from the previous context
-        docker images
+# view all docker images in the new context
+# -- you should see different imagezs from the previous context
+docker images
+```
 
 **Things to know:**
 
@@ -223,26 +238,28 @@ You can try this option out for experimentation.
 
 **6. Remove the Example Context**
 
-        # view all the context available
-        docker context ls
+```text
+# view all the context available
+docker context ls
 
-        # You should see something like this (i.e. output from `docker context ls`):
-        # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
-        # default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
-        # basestation *       Azure basestation VM                      ssh://azure.basestation
+# You should see something like this (i.e. output from `docker context ls`):
+# NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+# default             Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+# basestation *       Azure basestation VM                      ssh://azure.basestation
 
-        # switch back to the default context
-        docker context use default
+# switch back to the default context
+docker context use default
 
-        # remove the example basestation context
-        docker context rm basestation
+# remove the example basestation context
+docker context rm basestation
 
-        # view all the context available
-        docker context ls
+# view all the context available
+docker context ls
 
-        # You should see something like this (i.e. output from `docker context ls`):
-        # NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
-        # default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+# You should see something like this (i.e. output from `docker context ls`):
+# NAME                DESCRIPTION                               DOCKER ENDPOINT               KUBERNETES ENDPOINT   ORCHESTRATOR
+# default *           Current DOCKER_HOST based configuration   unix:///var/run/docker.sock                         swarm
+```
 
 ### Issues
 
@@ -256,23 +273,25 @@ The docker daemon will be waiting indefinitely for the non-reachable connection.
 
 Manual changes to docker config files are needed to get out of the error state:
 
-        # open docker context config file
-        gedit /home/$USER/.docker/config.json
+```text
+# open docker context config file
+gedit /home/$USER/.docker/config.json
 
-        # you will output similar to:
-        {
-                "auths": {},
-                "HttpHeaders": {
-                        "User-Agent": "Docker-Client/19.03.8 (linux)"
-                },
-                "currentContext": "ugv1"
-        }
-
-        # From: edit the `currentContext` line in the config file.
+# you will output similar to:
+{
+        "auths": {},
+        "HttpHeaders": {
+                "User-Agent": "Docker-Client/19.03.8 (linux)"
+        },
         "currentContext": "ugv1"
+}
 
-        # To: change to the default context
-        "currentContext": "default"
+# From: edit the `currentContext` line in the config file.
+"currentContext": "ugv1"
+
+# To: change to the default context
+"currentContext": "default"
+```
 
 You should now be able to run docker commands, for example `docker ps`.
 

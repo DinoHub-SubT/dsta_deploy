@@ -36,6 +36,7 @@ There are a few operational tools available to use:
 
   - **Example output**:
 
+```text
           # //////////////////////////////////////////////////////////////////////////////
           # == Testing SSH Connection ==
           # //////////////////////////////////////////////////////////////////////////////
@@ -52,6 +53,7 @@ There are a few operational tools available to use:
           azure.uav3            FAIL
           azure.uav4            FAIL
           azure.perception1     FAIL
+```
 
 `subt tools teamveiwer`
 
@@ -59,6 +61,7 @@ There are a few operational tools available to use:
 
   - **Example output**:
 
+```text
           # //////////////////////////////////////////////////////////////////////////////
           # == Testing SSH Connection ==
           # //////////////////////////////////////////////////////////////////////////////
@@ -75,6 +78,7 @@ There are a few operational tools available to use:
           azure.uav3            FAIL
           azure.uav4            FAIL
           azure.perception1     FAIL
+```
 
 `ccd`
 
@@ -85,8 +89,9 @@ There are a few operational tools available to use:
   - shows vCPUs limits for *East US* region
 
   - **Example output**:
-
+```text
           Total Regional vCPUs  995  1000
+```
 
 `deploy-azure-limits-eastus2`
 
@@ -94,7 +99,9 @@ There are a few operational tools available to use:
 
   - **Example output**:
 
+```text
           Total Regional vCPUs  31  350
+```
 
 `deploy-vpn-ca-cert`
 
@@ -122,60 +129,70 @@ You should become more familiar with the operational tools and their purpose of 
 
 **Template: Creating Docker Images**
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+```text
+# go to the deploy top level path
+cd ~/deploy_ws/src
 
-        # Create the docker image
-        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.image
+# Create the docker image
+./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.image
 
-        # example: create a docker image on ugv1 Azure VM  (assumes ssh connection available)
-        ./deployer -s azure.ugv1.docker.image
+# example: create a docker image on ugv1 Azure VM  (assumes ssh connection available)
+./deployer -s azure.ugv1.docker.image
+```
 
 **Template: Creating Docker Shell Access Containers**
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+```text
+# go to the deploy top level path
+cd ~/deploy_ws/src
 
-        # Create the docker shell container
-        ./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.shell
+# Create the docker shell container
+./deployer -s [deployment host].[(optional) robot].[(optional) computer].docker.shell
 
-        # example: create a docker container with shell access, on ugv1 Azure VM (assumes ssh connection available)
-        ./deployer -s azure.ugv1.docker.shell
+# example: create a docker container with shell access, on ugv1 Azure VM (assumes ssh connection available)
+./deployer -s azure.ugv1.docker.shell
+```
 
 **Template: Building the catkin workspace**
 
-        # (optional) Access the host
-        ssh azure.host-name
+```text
+# (optional) Access the host
+ssh azure.host-name
 
-        # enter the docker shell container
-        docker-join.bash --name [container name]
+# enter the docker shell container
+docker-join.bash --name [container name]
 
-        # go to the workspace path
-        cd ~/deploy_ws/src/path/to/workspace
+# go to the workspace path
+cd ~/deploy_ws/src/path/to/workspace
 
-        # view the catkin profiles
-        catkin profile list
+# view the catkin profiles
+catkin profile list
 
-        # select the catkin profile
-        catkin profile set [profile name]
+# select the catkin profile
+catkin profile set [profile name]
 
-        # build the workspace
-        catkin build
+# build the workspace
+catkin build
+```
 
 **How to interact with the deployer tool**
 
 To learn more about the available `deployer` tool commands, use the `--preview` or `-p` command as shown below:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+```text
+# go to the deploy top level path
+cd ~/deploy_ws/src
 
-        # preview ugv options when deploying on the remote Azure VM
-        ./deployer -s azure.ugv1 -p
+# preview ugv options when deploying on the remote Azure VM
+./deployer -s azure.ugv1 -p
+```
 
 To learn more what the command executes, use the `--verbose` or `-v` option with the `preview` option as shown below:
 
-        # go to the deploy top level path
-        cd ~/deploy_ws/src
+```text
+# go to the deploy top level path
+cd ~/deploy_ws/src
 
-        # preview and verbosely display all the commands that will be executed on the Azure VM
-        ./deployer -s azure.ugv1 -p -v
+# preview and verbosely display all the commands that will be executed on the Azure VM
+./deployer -s azure.ugv1 -p -v
+```

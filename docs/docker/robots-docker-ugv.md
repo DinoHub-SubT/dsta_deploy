@@ -16,52 +16,60 @@ All deployer commands should be done on the **basestation**.
 
 Follow these steps, **on the basestation**.
 
-        # azure registry login
-        az acr login --name subtexplore
+```text
+# azure registry login
+az acr login --name subtexplore
 
-        # -- (ROBTS HAVE INTERNET) -- pull the docker images from the azure docker registry
-        subt deployer robots.ugv.ugv1.docker.registry.azure.pull
+# -- (ROBTS HAVE INTERNET) -- pull the docker images from the azure docker registry
+subt deployer robots.ugv.ugv1.docker.registry.azure.pull
 
-        # (optional) run on a specific ugv robot computer
-        subt deployer robots.ugv.ugv1.ppc.docker.registry.azure.pull
-        subt deployer robots.ugv.ugv1.nuc.docker.registry.azure.pull
-        subt deployer robots.ugv.ugv1.xavier.docker.registry.azure.pull
+# (optional) run on a specific ugv robot computer
+subt deployer robots.ugv.ugv1.ppc.docker.registry.azure.pull
+subt deployer robots.ugv.ugv1.nuc.docker.registry.azure.pull
+subt deployer robots.ugv.ugv1.xavier.docker.registry.azure.pull
 
-        # -- (ROBTS DO NOT HAVE INTERNET) -- pull the docker images from the basestation docker registry
+# -- (ROBTS DO NOT HAVE INTERNET) -- pull the docker images from the basestation docker registry
 
-        # step 1. pull docker images from azure to the basestation
-        subt deployer local.ugv.ugv1.docker.registry.azure.pull
+# step 1. pull docker images from azure to the basestation
+subt deployer local.ugv.ugv1.docker.registry.azure.pull
 
-        # step 2 (optiona). pull the docker images from the basestation to the robots
-        subt deployer robots.ugv.ugv1.docker.registry.basestation.pull
+# step 2 (optiona). pull the docker images from the basestation to the robots
+subt deployer robots.ugv.ugv1.docker.registry.basestation.pull
+```
 
 **Verify Docker Images**
 
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh ugv.ppc
+```text
+# ssh into your VM (if not already done so), change the below command to match your VM ssh access
+ssh ugv.ppc
 
-        # View the docker images built on the remote VM
-        docker images
+# View the docker images built on the remote VM
+docker images
+```
 
 Verify you see the following docker images (in any order):
 
-        # planning-pc (ppc)
-        subt/x86.ugv.ppc.cpu.core                               0.2.c40347f
-        subt/x86.ugv.ppc.cpu.ros.melodic                        0.2.c40347f
+```text
+# planning-pc (ppc)
+subt/x86.ugv.ppc.cpu.core                               0.2.c40347f
+subt/x86.ugv.ppc.cpu.ros.melodic                        0.2.c40347f
 
-        # nuc
-        subt/x86.ugv.nuc.cpu.core                               0.2.c40347f
-        subt/x86.ugv.nuc.cpu.slam                               0.2.c40347f
-        subt/x86.ugv.nuc.cpu.superodometry                      0.2.c40347f
-        subt/x86.ugv.nuc.cpu.ros.melodic                        0.2.c40347f
+# nuc
+subt/x86.ugv.nuc.cpu.core                               0.2.c40347f
+subt/x86.ugv.nuc.cpu.slam                               0.2.c40347f
+subt/x86.ugv.nuc.cpu.superodometry                      0.2.c40347f
+subt/x86.ugv.nuc.cpu.ros.melodic                        0.2.c40347f
 
-        # xavier
-        subt/arm.ugv.xavier.cpu.ros.melodic                     0.2.c40347f
+# xavier
+subt/arm.ugv.xavier.cpu.ros.melodic                     0.2.c40347f
+```
 
 Return To Localhost
 
-        # exit the remote VM
-        exit
+```text
+# exit the remote VM
+exit
+```
 
 ## 2. Docker Containers
 
@@ -69,28 +77,36 @@ Return To Localhost
 
 Follow these steps, **on the basestation**.
 
-        # create all the ugv docker containers on all computers
-        subt deployer robots.ugv.ugv1.docker.shell.start
+```text
+# create all the ugv docker containers on all computers
+subt deployer robots.ugv.ugv1.docker.shell.start
 
-        # (optional) run on a specific ugv robot computer
-        subt deployer robots.ugv.ugv1.ppc.docker.shell.start
-        subt deployer robots.ugv.ugv1.nuc.docker.shell.start
-        subt deployer robots.ugv.ugv1.xavier.docker.shell.start
+# (optional) run on a specific ugv robot computer
+subt deployer robots.ugv.ugv1.ppc.docker.shell.start
+subt deployer robots.ugv.ugv1.nuc.docker.shell.start
+subt deployer robots.ugv.ugv1.xavier.docker.shell.start
+```
 
 **Verify Docker Containers**
 
-        # ssh into your VM (if not already done so), change the below command to match your VM ssh access
-        ssh ugv1.ppc
+```text
+# ssh into your VM (if not already done so), change the below command to match your VM ssh access
+ssh ugv1.ppc
 
-        # view running docker containers
-        docker ps
+# view running docker containers
+docker ps
+```
 
 Verify you see the following docker containers (in any order):
 
-        ugv1-shell
-        ugv1-perception-shell
+```text
+ugv1-shell
+ugv1-perception-shell
+```
 
 Return To Localhost
 
-        # exit the remote VM
-        exit
+```text
+# exit the remote VM
+exit
+```

@@ -4,14 +4,16 @@
 
 ### Teamviewer
 
-        # ssh into the remote VM.
-        ssh azure.uav1
+```text
+# ssh into the remote VM.
+ssh azure.uav1
 
-        # view teamviewer info
-        sudo teamviewer info
+# view teamviewer info
+sudo teamviewer info
 
-        # get the teamviewer ID
-        sudo teamviewer info | grep "TeamViewer ID"
+# get the teamviewer ID
+sudo teamviewer info | grep "TeamViewer ID"
+```
 
 Copy the remote `TeamViewer ID` into your localhost teamviewer "Control Remote Computer" Partner ID.
 
@@ -25,46 +27,34 @@ Once in the remote TeamViewer Window, access the `subt` user's desktop
 
 If you do not prefer to use Teamveiwer, you can use RDP instead.
 
-        subt tools rdp -t azure-uav1-window -h azure-uav1 -u subt -p Password1234!
+```text
+subt tools rdp -t azure-uav1-window -h azure-uav1 -u subt -p Password1234!
+```
 
 ## 2. Access Docker Container
 
-        # ssh into the remote Azure VM
-        ssh azure.uav1
+```text
+# ssh into the remote Azure VM
+ssh azure.uav1
 
-        # enter the docker shell container
-        docker-join.bash -n uav1-shell
+# enter the docker shell container
+docker-join.bash -n uav1-shell
+```
 
-## 3. Configure Simulation Parameters
+## 3. Launch UAV Simulation
 
-To enable map_processor coordination visualization rviz parameters, please up the following rosparams:
+```text
+# load the tmux session. Example launch `uav1`
+ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
+```
 
-        gedit ~/dsta_deploy/src/uav/core/map_processor/config/base.yaml
-
-        # ----------------------------
-        # change
-        manually_set_DARPA_tf: false
-        # to
-        manually_set_DARPA_tf: true
-
-        # ----------------------------
-        # change
-        use_local_origin_create_no_fly: false
-        # to
-        use_local_origin_create_no_fly: true
-
-## 4. Launch UAV Simulation
-
-        # load the tmux session. Example launch `uav1`
-        ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/uav.yaml
-
-## 5. Verify Launch
+## 4. Verify Launch
 
 Please verify all the launch scripts in the tmux sessions started.
 
 - Node error might be okay, but if a launch failed to come up that is not okay.
 
-## 6. UAV Simulation Commands
+## 3. UAV Simulation Commands
 
 **Load GUI Config**
 

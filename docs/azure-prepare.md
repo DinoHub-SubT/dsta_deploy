@@ -25,85 +25,101 @@ Please run only the ansible scripts for the virtual machines you have available.
 
 ## 1. Verify Localhost Setup: Bitbucket SSH Keys
 
-        # verify you have the bitbucket keys available (Verify on bitbucket website that you have setup this ssh key for SubT)
-        ls ~/.ssh/bitbucket
-        ls ~/.ssh/bitbucket.pub
+```text
+# verify you have the bitbucket keys available (Verify on bitbucket website that you have setup this ssh key for SubT)
+ls ~/.ssh/bitbucket
+ls ~/.ssh/bitbucket.pub
+```
 
 ## 2. View Ansible Script Options
 
-        # view the help usage message
-        subt cloud ansible help
+```text
+# view the help usage message
+subt cloud ansible help
 
-        # view available local or remote system names -- these are the ansible alias names for the remote hosts
-        subt cloud ansible -s
+# view available local or remote system names -- these are the ansible alias names for the remote hosts
+subt cloud ansible -s
 
-        # view available ansible playbooks -- these are script that will run on the remote hosts
-        subt cloud ansible -b
+# view available ansible playbooks -- these are script that will run on the remote hosts
+subt cloud ansible -b
+```
 
 ## 3. Install Basestation VM Dependencies
 
-        # Verify VM Access
-        ping -c 3 azure-basestation
+```text
+# Verify VM Access
+ping -c 3 azure-basestation
 
-        # Add azure-basestation to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
-        # - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
-        ssh azure.basestation
-        exit
+# Add azure-basestation to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+# - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
+ssh azure.basestation
+exit
 
-        # == Basestation VM Install ==
-        # Install basic dependencies on the remote VM (system, docker, docker tools)
-        # - clones the deploy repo on the remote VM (can take 30 minutes)
-        # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subt cloud ansible azure-basestation install-azure.yaml
+# == Basestation VM Install ==
+# Install basic dependencies on the remote VM (system, docker, docker tools)
+# - clones the deploy repo on the remote VM (can take 30 minutes)
+# - you do not need to clone the repo on the remote VM manually, this command will do that for you.
+subt cloud ansible azure-basestation install-azure.yaml
+```
 
 If you see the ansible script taking too long, check the connecting by pinging the vm:
 
-        ping azure-basestation
+```text
+ping azure-basestation
+```
 
 Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
 
 ## 4. Install UAV VM Dependencies
 
-        # Verify VM Access
-        # - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
-        ping -c 3 azure-uav1
+```text
+# Verify VM Access
+# - You mush ssh into the VM at least once, in order to add the ssh key to your local key-store.
+ping -c 3 azure-uav1
 
-        # Add azure-uav1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
-        ssh azure.uav1
-        exit
+# Add azure-uav1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+ssh azure.uav1
+exit
 
-        # == UAV VM Install ==
-        # Install basic dependencies on the remote VM (system, docker, docker tools)
-        # - clones the deploy repo on the remote VM (can take 30 minutes)
-        # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subt cloud ansible azure-uav1 install-azure.yaml
+# == UAV VM Install ==
+# Install basic dependencies on the remote VM (system, docker, docker tools)
+# - clones the deploy repo on the remote VM (can take 30 minutes)
+# - you do not need to clone the repo on the remote VM manually, this command will do that for you.
+subt cloud ansible azure-uav1 install-azure.yaml
+```
 
 Apply the above steps again for all your `UAV` VMs. Change the host from `azure-uav1` to your available Azure VM hosts.
 
 If you see the ansible script taking too long, check the connecting by pinging the vm:
 
-        ping azure-uav1
+```text
+ping azure-uav1
+```
 
 Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
 
 ## 5. Install Perception VM Dependencies
 
-        # Verify VM Access
-        ping -c 3 azure-perception1
+```text
+# Verify VM Access
+ping -c 3 azure-perception1
 
-        # Add azure-perception1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
-        ssh azure.perception1
-        exit
+# Add azure-perception1 to the list of known hosts, accept when asked 'are you sure you want to continue connecting'
+ssh azure.perception1
+exit
 
-        # == Perception VM Install ==
-        # Install basic dependencies on the remote VM (system, docker, docker tools)
-        # - clones the deploy repo on the remote VM (can take 30 minutes)
-        # - you do not need to clone the repo on the remote VM manually, this command will do that for you.
-        subt cloud ansible azure-perception1 install-azure.yaml
+# == Perception VM Install ==
+# Install basic dependencies on the remote VM (system, docker, docker tools)
+# - clones the deploy repo on the remote VM (can take 30 minutes)
+# - you do not need to clone the repo on the remote VM manually, this command will do that for you.
+subt cloud ansible azure-perception1 install-azure.yaml
+```
 
 If you see the ansible script taking too long, check the connecting by pinging the vm:
 
-        ping azure-perception1
+```text
+ping azure-perception1
+```
 
 Sometimes the azure VPN disconnects. To solve the issue, re-connect the VPN (it sometimes takes a few tried to get re-connected).
 
@@ -113,8 +129,10 @@ Verify everything was installed correctly on all the VMs.
 
 Example steps below show how to verify on the basestation VM:
 
-        # access the remote VM
-        ssh azure.basestation "source ~/.dsta/subtrc.bash; subt tools verify.ops"
+```text
+# access the remote VM
+ssh azure.basestation "source ~/.dsta/subtrc.bash; subt tools verify.ops"
+```
 
 ## 7. Remote Desktop
 
@@ -122,8 +140,10 @@ The SubT Azure VMs has remote desktop port enabled.
 
 **Run the RDP client script (localhost)**
 
-        # rdp command format:
-        subt tools rdp -t [window title] -h [ VM HOST ] -u subt -p Password1234! -r [ Window Resolution ]
+```text
+# rdp command format:
+subt tools rdp -t [window title] -h [ VM HOST ] -u subt -p Password1234! -r [ Window Resolution ]
 
-        # example
-        subt tools rdp -t basestation -h azure-basestation -u subt -p Password1234! -r 1920x1080
+# example
+subt tools rdp -t basestation -h azure-basestation -u subt -p Password1234! -r 1920x1080
+```

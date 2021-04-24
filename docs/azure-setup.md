@@ -28,8 +28,10 @@ Follow the [Terraform Setup](azure-terraform-setup.md) instructions, to create t
 
 - In the `SubT` resource group, search for:
 
-      # display the azure resource name prefix used for azure resources
-      echo $TF_VAR_azure_resource_name_prefix
+```text
+# display the azure resource name prefix used for azure resources
+echo $TF_VAR_azure_resource_name_prefix
+```
 
 - Verify you see your resources created (like Virtual Machines, networking, etc) with your prefix.
 

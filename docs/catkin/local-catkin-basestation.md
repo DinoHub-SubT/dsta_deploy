@@ -8,15 +8,17 @@ Assuming you have already setup all your docker containers, follow the instructi
 
 ## Catkin Build
 
-        # create the docker shell on the remote host
-        #   - you need to make sure the container is started before building
-        subt deployer local.basestation.core.docker.shell.start
+```text
+# create the docker shell on the remote host
+#   - you need to make sure the container is started before building
+subt deployer local.basestation.core.docker.shell.start
 
-        # clean the previously built workspaces
-        subt deployer local.basestation.catkin.clean
+# clean the previously built workspaces
+subt deployer local.basestation.catkin.clean
 
-        # catkin build the basestation GUI workspaces
-        subt deployer local.basestation.catkin.build
+# catkin build the basestation GUI workspaces
+subt deployer local.basestation.catkin.build
+```
 
 
 ## Cleanup (optional)
@@ -25,11 +27,13 @@ You should remove containers when done with its development (for those that are 
 
 Automated remove the docker containers:
 
-        # stop the docker container
-        subt deployer local.basestation.docker.shell.stop
+```text
+# stop the docker container
+subt deployer local.basestation.docker.shell.stop
 
-        # remove the docker container
-        subt deployer local.basestation.docker.shell.rm
+# remove the docker container
+subt deployer local.basestation.docker.shell.rm
+```
 
 - When you continue with development, you will need to re-create the docker containers again.
 

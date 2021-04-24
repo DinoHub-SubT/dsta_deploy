@@ -2,13 +2,17 @@
 
 ## 1. Access Docker Container
 
-        # enter the docker shell container (if not already joined)
-        docker-join.bash -n basestation-shell
+```text
+# enter the docker shell container (if not already joined)
+docker-join.bash -n basestation-shell
+```
 
 ## 2. Launch Basestation
 
-        # load the tmux session
-        ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/basestation.yaml
+```text
+# load the tmux session
+ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/localhost/basestation.yaml
+```
 
 ## Summary
 
