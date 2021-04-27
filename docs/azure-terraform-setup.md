@@ -253,7 +253,7 @@ subt cloud terraform stop [ virtual machine name ]
 subt cloud terraform start [ virtual machine name ]
 ```
 
-- Its OK to remove and re-start your virtual machines, nothing will be removed from your VM disk when stopping/starting.
+- Its OK to stop and re-start your virtual machines, nothing will be removed from your VM disk when stopping/starting.
 
 **Remove your VPN**
 
