@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # check if operations (submodule) is empty. if so, clone it.
-if [ -z "$(ls -A $(pwd)operations/scripts/header.sh)" ]; then
+if [ -z "$(ls -A $(pwd)/operations/scripts/header.sh)" ]; then
   git submodule deinit -f operations
   git submodule update --init --recursive operations
 fi
