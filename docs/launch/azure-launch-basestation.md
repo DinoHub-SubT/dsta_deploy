@@ -45,7 +45,7 @@ docker-join.bash -n basestation-shell
 
 ```text
 # load the tmux session
-ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/basestation.yaml
+ROBOT=basestation tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/basestation.yaml
 ```
 
 ## Summary
