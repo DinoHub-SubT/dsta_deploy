@@ -10,7 +10,9 @@ Docker shell containers will give the user access to the entire deploy workspace
 
 All deployer commands should be done on the **localhost**.
 
-## 0. Enable GPU Images on Remote Hosts
+## 0. Enable GPU Images
+
+On the laptop, please edit the following parameter:
 
 ```text
 gedit ~/.subt/user_config.bash

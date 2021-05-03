@@ -45,7 +45,7 @@ docker-join.bash -n uav1-shell
 
 ```text
 # load the tmux session. Example launch `uav1`
-ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/azure/uav.yaml
+ROBOT=uav1 tmuxp load ~/deploy_ws/src/subt_launch/tmux/simulation/uav.yaml
 ```
 
 ## 4. Verify Launch

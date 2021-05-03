@@ -19,6 +19,7 @@ GL_RC_SUBT_CFG=$GL_SUBT_ENV_DIR/subt_config.bash
 GL_RC_USER_CFG=$GL_SUBT_ENV_DIR/user_config.bash
 GL_RC_ANI_CFG=$GL_SUBT_ENV_DIR/ansible_config.yaml
 GL_RC_TERRA_CFG=$GL_SUBT_ENV_DIR/terraform_config.yaml
+GL_GIT_REPO=$(git config --get remote.origin.url)
 
 # load header helper functions
 . "$GL_SRC_DIR/operations/scripts/header.sh"
@@ -67,6 +68,7 @@ create_subt_cfg() {
   write $GL_RC_SUBT_CFG "# -- General Config -- "
   write $GL_RC_SUBT_CFG
   write $GL_RC_SUBT_CFG "export DEPLOYER_PROJECT_NAME=dsta"
+  write $GL_RC_SUBT_CFG "export DEPLOYER_GIT_REPOSITORY_URL=$GL_GIT_REPO"
   write $GL_RC_SUBT_CFG
 
   # general paths
