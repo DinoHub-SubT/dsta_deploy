@@ -511,3 +511,6 @@
 [submodule "ugv/nuc/velodyne_l515_calib"]
 	path = ugv/nuc/velodyne_l515_calib
 	url = git@bitbucket.org:cmusubt/velodyne_l515_calib.git
+[submodule "ugv/hardware/realsense-ros"]
+	path = ugv/hardware/realsense-ros
+	url = https://github.com/IntelRealSense/realsense-ros
