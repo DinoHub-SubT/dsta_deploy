@@ -502,3 +502,12 @@
 [submodule "ugv/planning-pc/random_walk_planner"]
 	path = ugv/planning-pc/random_walk_planner
 	url = git@bitbucket.org:cmusubt/random_walk_planner.git
+[submodule "ugv/nuc/middle_planner"]
+	path = ugv/nuc/middle_planner
+	url = git@bitbucket.org:cmusubt/middle_planner.git
+[submodule "ugv/nuc/scan_transform"]
+	path = ugv/nuc/scan_transform
+	url = git@bitbucket.org:cmusubt/scan_transform.git
+[submodule "ugv/nuc/velodyne_l515_calib"]
+	path = ugv/nuc/velodyne_l515_calib
+	url = git@bitbucket.org:cmusubt/velodyne_l515_calib.git
