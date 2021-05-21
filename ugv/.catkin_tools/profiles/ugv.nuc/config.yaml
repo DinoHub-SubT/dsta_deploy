@@ -1,0 +1,25 @@
+blacklist:
+- node_dropper_labjack
+- ugv_hardware
+- uwb-radio-driver
+- xbee_bridge
+- xsens_cpp_driver
+- xsense_driver
+- receive_xsens
+build_space: ../../build/ugv/nuc/core
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/nuc/core
+extend_path: ../../devel/ugv/nuc/common
+install: false
+install_space: ../../install/ugv/nuc/core
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/nuc/core
+make_args: []
+source_space: nuc
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []

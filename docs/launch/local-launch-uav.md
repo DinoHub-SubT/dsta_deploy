@@ -41,16 +41,22 @@ Select the "Autonomously Explore" GUI button for the drone to explore.
 
 On RViz, press "G" on the keyboard to give it a different waypoint for the drone to follow.
 
+**Multi Robot Explore**
+
+Please enable map sharing options: `src/uav/core/map_processor/config/base.yaml`
+
+By setting the following configurations:
+
+    use_local_origin_create_no_fly:     true
+    manually_set_DARPA_tf:              true
+
 ## 4. Reset Simulation
 
-In the terminal, 
-Press CTRL-B follow by ":"
-type "kill-server"
+In the terminal,
+Press `CTRL-B` follow by `:`
+Type `kill-server`
 
 Back in the docker shell container,
-type "pkill -f ros"
+Type `pkill -f ros`
 
-reload the tmux session
-
-
-
+Reload the tmux session

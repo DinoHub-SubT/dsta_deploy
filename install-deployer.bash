@@ -537,21 +537,21 @@ uninstall() {
   text
   text ...removing configuration files
 
-  # remove the deploy autocompletion files
-  if dir_exists $GL_CMPL_SRC_DIR; then
-    rm -rf $GL_CMPL_SRC_DIR/*
-    rm_dir $GL_CMPL_SRC_DIR
-  else
-    warning "Cannot remove $GL_CMPL_SRC_DIR directory does not exist"
-  fi
-
-  # remove the rc and the configuration files
-  if dir_exists $GL_SUBT_ENV_DIR; then
-    rm -rf $GL_SUBT_ENV_DIR/*
-    rm_dir $GL_SUBT_ENV_DIR
-  else
-    warning "Cannot remove $GL_SUBT_ENV_DIR directory does not exist"
-  fi
+#  # remove the deploy autocompletion files
+#  if dir_exists $GL_CMPL_SRC_DIR; then
+#    rm -rf $GL_CMPL_SRC_DIR/*
+#    rm_dir $GL_CMPL_SRC_DIR
+#  else
+#    warning "Cannot remove $GL_CMPL_SRC_DIR directory does not exist"
+#  fi
+#
+#  # remove the rc and the configuration files
+#  if dir_exists $GL_SUBT_ENV_DIR; then
+#    rm -rf $GL_SUBT_ENV_DIR/*
+#    rm_dir $GL_SUBT_ENV_DIR
+#  else
+#    warning "Cannot remove $GL_SUBT_ENV_DIR directory does not exist"
+#  fi
 
   # remove any previous deployer env setup
   rm_from_rc "bashrc"

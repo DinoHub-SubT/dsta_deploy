@@ -44,3 +44,12 @@ Select the ugv name on the control panel.
 Select the waypoint button on the RVIZ panel, then place a waypoint in RVIZ.
 
 - You should now be able to control the robot movement using the buttons in the basestation GUI.
+
+**Multi Robot Explore**
+
+Please enable map sharing options: `src/uav/core/map_processor/config/base.yaml`
+
+By setting the following configurations:
+
+    use_local_origin_create_no_fly:     true
+    manually_set_DARPA_tf:              true

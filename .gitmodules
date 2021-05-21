@@ -469,9 +469,6 @@
 [submodule "simulation/deps/subt"]
 	path = simulation/darpa/catkin/darpa_subt
 	url = https://github.com/osrf/subt.git
-[submodule "simulation/behavior_executive"]
-	path = simulation/behavior_executive
-	url = git@bitbucket.org:cmusubt/behavior_executive.git
 [submodule "simulation/core_gazebo_interface"]
 	path = simulation/core_gazebo_interface
 	url = git@bitbucket.org:castacks/core_gazebo_interface.git
