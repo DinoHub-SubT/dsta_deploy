@@ -1,0 +1,22 @@
+blacklist:
+- node_dropper_labjack
+- ugv_hardware
+- deca_ros_driver
+- xbee_bridge
+build_space: ../../build/ugv/core
+catkin_make_args: []
+cmake_args:
+- -DCMAKE_BUILD_TYPE=Release
+devel_layout: linked
+devel_space: ../../devel/ugv/core
+extend_path: ../../devel/ugv/common
+install: false
+install_space: ../../install/ugv/core
+isolate_install: false
+jobs_args: []
+log_space: ../../logs/ugv/core
+make_args: []
+source_space: .
+use_env_cache: false
+use_internal_make_jobserver: true
+whitelist: []
