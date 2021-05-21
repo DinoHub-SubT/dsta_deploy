@@ -7,7 +7,7 @@ cmake_args:
 - -DCMAKE_BUILD_TYPE=Release
 devel_layout: linked
 devel_space: ../../../../devel/ugv/simulation/darpa
-extend_path: ../../../../devel/ugv/core
+extend_path: ../../../../devel/ugv/vdb
 install: false
 install_space: ../../../../install/ugv/simulation/darpa
 isolate_install: false
