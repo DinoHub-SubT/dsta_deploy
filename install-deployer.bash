@@ -431,7 +431,7 @@ install_deployer_py_scripts() {
 
   # install python scripts
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  python setup.py install --user
+  python2 setup.py install --user
   # validate python installed deployer
   if last_command_failed; then
     "deploy builder install failed."
@@ -449,7 +449,7 @@ uninstall_deployer_py_scripts() {
 
   # remove any installed deployerbooks
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  python setup.py install --record egg-files.txt --user
+  python2 setup.py install --record egg-files.txt --user
   cat egg-files.txt
   cat egg-files.txt | xargs rm -rf
   git clean -f -d
