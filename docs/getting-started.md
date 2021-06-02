@@ -119,7 +119,7 @@ Open: `~/.dsta/user_config.bash`
 Open: `~/.dsta/ansible_config.yaml`
 
 - **Step 1**
-  - If you want to install ros on localhost, change from `install_ros=false` to `install_ros=true`.
+  - If you want to install ros on localhost, change from `ros_install=false` to `ros_install=true`.
 
 - **Step 2**
   - If you want to install teamviewer, change from `install_teamviewer=false` to `install_teamviewer=true`.

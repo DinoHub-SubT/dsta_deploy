@@ -134,8 +134,17 @@ create_user_cfg() {
   write $GL_RC_USER_CFG "export DEPLOYER_WS_NAME=$(basename $(dirname $GL_SRC_DIR))"
   write $GL_RC_USER_CFG
 
+  # check if nvidia driver is enabled
+  nvidia-smi  > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    local nvidia_enabled=true
+  else
+    warning "NVIDIA driver not found. Disabling nvidia docker containers."
+    local nvidia_enabled=false
+  fi
+
   write $GL_RC_USER_CFG "# Set to 'true' only if your system has an nvidia graphics driver. Otherwise set to 'false'."
-  write $GL_RC_USER_CFG "export USE_NVIDIA_DRIVER=true"
+  write $GL_RC_USER_CFG "export USE_NVIDIA_DRIVER=$nvidia_enabled"
   write $GL_RC_USER_CFG
 
   write $GL_RC_USER_CFG "# Set to 'true' only if you want to use the enhanced docker gpu images. Otherwise set to 'false'."
@@ -431,7 +440,7 @@ install_deployer_py_scripts() {
 
   # install python scripts
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  python setup.py install --user
+  python2 setup.py install --user
   # validate python installed deployer
   if last_command_failed; then
     "deploy builder install failed."
@@ -449,7 +458,7 @@ uninstall_deployer_py_scripts() {
 
   # remove any installed deployerbooks
   cd $GL_SRC_DIR/$GL_DEPLOYER_PATH
-  python setup.py install --record egg-files.txt --user
+  python2 setup.py install --record egg-files.txt --user
   cat egg-files.txt
   cat egg-files.txt | xargs rm -rf
   git clean -f -d
@@ -467,13 +476,27 @@ uninstall_deployer_py_scripts() {
 # install thirdparty libraries
 ##
 install_thirdparty() {
-  # deployer dependencies
+  # fetch library updates
   sudo apt-get update
-  sudo apt install -y --no-install-recommends git python2.7 python-setuptools python-pip
+  # install base packages (same specifics between OS versions)
+  sudo apt install -y --no-install-recommends \
+    curl git libffi-dev libssl-dev git-lfs python2.7 python3-dev python3-pip python-setuptools
+
+  # Install libraries -- install commands dependent on OS version specifics
+  sudo add-apt-repository universe
+
+  curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output /tmp/get-pip.py
+  sudo python2 /tmp/get-pip.py
+  rm /tmp/get-pip.py
+
+  # verify pip2 is installed
+  if ! pip2 --version; then
+    error "Thirdparty libraries install failed. Please notfiy maintainer."
+  fi
+
+  # Install python package dependencies
   pip2 install wheel --user
   pip2 install setuptools PyYAML pexpect --user
-
-  sudo apt install -y python3-dev python3-pip libffi-dev libssl-dev git-lfs
   sudo -H pip3 install wheel setuptools
 
   # install ansible
@@ -481,7 +504,7 @@ install_thirdparty() {
   sudo apt install -y software-properties-common
   sudo apt-add-repository --yes --update ppa:ansible/ansible
   sudo apt install -y ansible
-}
+}  
 
 # //////////////////////////////////////////////////////////////////////////////
 # @brief install all deploy operations tools and configuration files
