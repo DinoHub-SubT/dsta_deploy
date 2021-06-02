@@ -134,8 +134,17 @@ create_user_cfg() {
   write $GL_RC_USER_CFG "export DEPLOYER_WS_NAME=$(basename $(dirname $GL_SRC_DIR))"
   write $GL_RC_USER_CFG
 
+  # check if nvidia driver is enabled
+  nvidia-smi  > /dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    local nvidia_enabled=true
+  else
+    warning "NVIDIA driver not found. Disabling nvidia docker containers."
+    local nvidia_enabled=false
+  fi
+
   write $GL_RC_USER_CFG "# Set to 'true' only if your system has an nvidia graphics driver. Otherwise set to 'false'."
-  write $GL_RC_USER_CFG "export USE_NVIDIA_DRIVER=true"
+  write $GL_RC_USER_CFG "export USE_NVIDIA_DRIVER=$nvidia_enabled"
   write $GL_RC_USER_CFG
 
   write $GL_RC_USER_CFG "# Set to 'true' only if you want to use the enhanced docker gpu images. Otherwise set to 'false'."
